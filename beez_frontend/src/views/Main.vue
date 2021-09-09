@@ -134,3 +134,20 @@ export default {
   methods: {},
 };
 </script>
+
+<style>
+.header {
+  width: 100%;
+  padding: 73px 80px;
+  background-color: #fbca47;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.white_bg {
+  background: #fff;
+  border-radius: 50px;
+  opacity: 0.9;
+  padding: 40px 35px;
+}
+</style>

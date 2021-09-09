@@ -1,67 +1,127 @@
 <template>
   <footer>
     <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <a class="logo2" href="/"><img src="images/logo.png" alt="#"/></a>
-            <div class="follow">
-              <p>BEEZ 지역화폐는 OOO지역에서 사용할 수 있습니다.</p>
-              <span class="span-blank">빈공간</span>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <h4 id="align">Contact us</h4>
-            <ul class="location_icon">
+      <div class="footer_wrap">
+        <div class="tel_box">
+          <div class="ly_inner">
+            <ul>
               <li>
-                <a href="/"
-                  ><i class="fa fa-map-marker" aria-hidden="true"></i
-                ></a>
-                <h5>
-                  주소 : 서울특별시 금천구 가산디지털1로<br />
-                  168 우림라이온스밸리 A동 8층 804호
-                </h5>
+                <a>고객센터</a>
+                <br />
+                <a>1544-5000</a>
               </li>
               <li>
-                <a href="/"
-                  ><i class="fa fa-envelope" aria-hidden="true"></i
-                ></a>
-                <h5>E-Mail : BlockB@gmail.com</h5>
+                <a>카드문의</a>
+                <br />
+                <a> 1544-6000</a>
               </li>
               <li>
-                <a href="/"
-                  ><i class="fa fa-volume-control-phone" aria-hidden="true"></i
-                ></a>
-                <h5>
-                  고객센터 : 0000-0000<br />(주말, 공휴일 제외 09:00~16:00)
-                </h5>
+                <a>카드분실신고</a>
+                <br />
+                <a>1544-7000</a>
+              </li>
+              <li>
+                <a>카드신청</a>
+                <br />
+                <a>1544-8000</a>
               </li>
             </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <h4 id="align">Infomation</h4>
             <li>
-              <a href="#" class="white-color">사업자등록번호 : 000-00-00000</a
-              ><br />
-              <a href="#" class="white-color">개인정보처리방침</a><a>|</a>
-              <a href="#" class="white-color">전자금융거래약관</a>
+              <p>(주말, 공휴일 제외 09:00~16:00)</p>
             </li>
           </div>
         </div>
       </div>
-
-      <div class="copyright">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 offset-md-1">
-              <p>
+      <div class="customer_wrap">
+        <div class="ly_inner">
+          <div class="customer_link">
+            <ul class="customer_list">
+              <li>
+                <a href="#" role="button">
+                  이용약관
+                </a>
+              </li>
+              <li>
+                <a href="#" role="button">
+                  개인정보처리방침
+                </a>
+              </li>
+              <li>
+                <a href="#" role="button">
+                  소비자보호포털
+                </a>
+              </li>
+              <li>
+                <a href="#" role="button">
+                  Q&A
+                </a>
+              </li>
+            </ul>
+            <div class="sns_wrap">
+              <ul class="snsbox">
+                <li class="sns01">
+                  <a
+                    href="https://www.facebook.com"
+                    role="button"
+                    target="_blank"
+                    onClick="openAppUrl(this.href);return false;"
+                    >페이스북</a
+                  >
+                </li>
+                <li class="sns02">
+                  <a
+                    href="https://section.blog.naver.com/"
+                    role="button"
+                    onClick="openAppUrl(this.href);return false;"
+                    >블로그</a
+                  >
+                </li>
+                <li class="sns03">
+                  <a
+                    href="https://pf.kakao.com"
+                    role="button"
+                    onClick="openAppUrl(this.href);return false;"
+                    >카카오톡</a
+                  >
+                </li>
+                <li class="sns04">
+                  <a
+                    href="https://www.youtube.com"
+                    role="button"
+                    onClick="openAppUrl(this.href);return false;"
+                    >유튜브</a
+                  >
+                </li>
+                <li class="sns05">
+                  <a
+                    href="https://www.twitter.com"
+                    role="button"
+                    onClick="openAppUrl(this.href);return false;"
+                    >트위터</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_group">
+        <address class="address_wrap">
+          <div class="ly_inner">
+            <div class="address_section">
+              <p class="address">
+                서울특별시 금천구 가산디지털1로 168 (우림라이온스밸리 A동 8층
+                804호)
+              </p>
+              <p class="company_num">
+                사업자등록번호 205-47-13465
+              </p>
+              <p class="copyright">
                 Copyright 2021 All Right Reserved By BlockB | (주)BlockB
               </p>
             </div>
           </div>
-        </div>
+        </address>
       </div>
     </div>
   </footer>
@@ -69,3 +129,267 @@
 <script>
 export default {};
 </script>
+
+<style>
+/* ----------------------------폰트---------------------------------- */
+@font-face {
+  font-family: "BCcardL";
+  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.footer {
+  background-color: #f7f8f9;
+  color: #000;
+}
+.footer_group {
+  font-family: "BCcardL";
+}
+
+@media (max-width: 650px) {
+  .tel_box ul li a {
+    font-size: 12px;
+  }
+  .tel_box li p {
+    font-size: 12px;
+  }
+
+  .address_section p {
+    font-size: 11px;
+  }
+
+  .customer_link ul li a {
+    font-size: 12px;
+  }
+}
+
+/* ---------------------------footer_wrap-------------------------- */
+.footer_wrap {
+  width: 100%;
+  font-family: "BCcardL";
+  display: block;
+  position: relative;
+  margin: 0;
+  padding-bottom: 0 0 40px 0;
+}
+
+.tel_box {
+  display: block;
+  position: relative;
+  padding-top: 17px;
+  text-align: center;
+}
+
+.tel_box::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  left: 0;
+  top: -1px;
+  border-top: solid #ddd 1px;
+}
+
+/* .tel_box::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  left: 0;
+  bottom: -1px;
+  border-top: solid #ddd 1px;
+} */
+
+/* .tel_box ul li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 6px);
+  width: 1px;
+  height: 11px;
+  border-top: #ddd;
+} */
+
+.ly_inner {
+  width: 100%;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.tel_box ul {
+  display: -webkit-flex;
+  position: relative;
+  width: 100%;
+  /* margin: 0 -19px; */
+  padding: 0;
+}
+
+.tel_box li {
+  /* padding: 10px 0px 0px; */
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  flex: 1 1 auto;
+}
+.tel_box li a {
+  font-size: 16px;
+  display: inline;
+  position: relative;
+}
+
+.tel_box p {
+  font-size: 14px;
+}
+/* ---------------------------address_section-------------------------- */
+.address_wrap {
+  display: block;
+  position: relative;
+  padding: 0;
+  font-style: normal;
+  padding-top: 60px;
+}
+.address_section {
+  display: block;
+  position: relative;
+  margin: 0 0 0 0;
+  padding: 0;
+  text-align: center;
+}
+.address {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+.company_num {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+.copyright {
+  display: block;
+  position: relative;
+  margin: 2px 0 0 0;
+  padding-bottom: 20px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* ---------------------------customer_wrap-------------------------- */
+.customer_wrap {
+  font-family: "BCcardL";
+}
+
+.customer_link {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0 26px;
+  text-align: center;
+}
+
+.customer_link ul {
+  display: block;
+  position: relative;
+}
+
+.customer_list li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 6px);
+  width: 1px;
+  height: 11px;
+  background-color: #ddd;
+}
+
+.customer_link li {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  margin: 0;
+  text-align: center;
+}
+.customer_link li a {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+/*------------------------sns------------------------------ */
+.sns_wrap {
+  display: block;
+  position: absolute;
+  padding-top: 10px;
+  left: 47%;
+  margin-left: -50px;
+}
+
+.snsbox {
+  padding: 0;
+  top: 5px;
+}
+
+.snsbox li {
+  display: block;
+  position: relative;
+  float: left;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.snsbox li + li {
+  margin-left: 19px;
+}
+
+.snsbox li a {
+  background-size: 100% auto;
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  text-indent: -9999px;
+}
+
+.sns01 a {
+  background-image: url("../assets/footer/sns01.png");
+  width: 24px;
+  height: 100%;
+}
+.sns02 a {
+  background-image: url("../assets/footer/sns02.png");
+  width: 24px;
+  height: 100%;
+}
+.sns03 a {
+  background-image: url("../assets/footer/sns04.png");
+  width: 24px;
+  height: 88%;
+}
+.sns04 a {
+  background-image: url("../assets/footer/sns05.png");
+  width: 24px;
+  height: 100%;
+}
+.sns05 a {
+  background-image: url("../assets/footer/sns06.png");
+  width: 24px;
+  height: 100%;
+}
+</style>

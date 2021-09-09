@@ -1,19 +1,8 @@
 /*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
 
-@media (min-width: 1200px) and (max-width: 1342px) {
-  .navigation.navbar-dark .navbar-nav .nav-link {
-    margin: 0 16px;
-  }
-  #banner1 a.carousel-control-prev {
-    left: 25%;
-  }
-}
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  .navigation.navbar-dark .navbar-nav .nav-link {
-    margin: 0 9px;
-    font-size: 15px;
-  }
+
   .text-bg h1 {
     font-size: 56px;
   }
@@ -36,10 +25,7 @@
   .header {
     padding: 50px 50px;
   }
-  .navigation.navbar-dark .navbar-nav .nav-link {
-    margin: 0 10px;
-    font-size: 14px;
-  }
+
   .text-bg h1 {
     font-size: 70px;
     line-height: 63px;
@@ -113,39 +99,8 @@
   .enter_form {
     width: 68%;
   }
-  .navigation.navbar {
-    float: right;
-    display: inherit !important;
-    padding: 0;
-    width: 100%;
-    padding-top: 12px;
-  }
-  .navigation .navbar-collapse {
-    background: #767676;
-    padding: 20px;
-    margin-top: 44px;
-    position: absolute;
-    width: 100%;
-    margin-right: 20px;
-    z-index: 999;
-  }
-  .navigation.navbar-dark .navbar-nav .nav-link {
-    padding: 10px 0;
-    color: #fff;
-  }
-  .navigation.navbar-dark .navbar-toggler {
-    border: inherit;
-    float: right;
-    padding: 0;
-  }
-  .navigation.navbar-dark .navbar-toggler-icon {
-    background: url(../images/menu_icon.png);
-    background-repeat: no-repeat;
-  }
-  .margin_bottom1 {
-    margin-bottom: 30px !important;
-  }
 }
+  
 
 @media (max-width: 575px) {
   .header {
@@ -216,36 +171,6 @@
     width: 136px;
     margin: inherit;
   }
-  .navigation.navbar {
-    float: right;
-    display: inherit !important;
-    padding: 0;
-    width: 100%;
-    margin-top: -38px;
-  }
-  .navigation .navbar-collapse {
-    background: #17094c;
-    padding: 20px;
-    margin-top: 67px;
-    position: absolute;
-    width: 100%;
-    margin-right: 20px;
-    z-index: 999;
-  }
-  .navigation.navbar-dark .navbar-nav .nav-link {
-    padding: 10px 0;
-    color: #fff;
-  }
-  .navigation.navbar-dark .navbar-toggler {
-    float: right;
-    margin-right: 2px;
-    border: inherit;
-  }
-  .testimonial_box {
-    padding: 0px 19px 40px 20px;
-  }
-  .navigation.navbar-dark .navbar-toggler-icon {
-    background: url(../images/menu_icon.png);
-    background-repeat: no-repeat;
-  }
+ 
+
 }
