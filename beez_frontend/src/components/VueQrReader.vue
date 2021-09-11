@@ -41,11 +41,11 @@ export default {
     },
     videoWidth: {
       type: Number,
-      default: 320,
+      default: 290,
     },
     videoHeight: {
       type: Number,
-      default: 240,
+      default: 290,
     },
     responsive: {
       type: Boolean,

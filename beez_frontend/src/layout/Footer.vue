@@ -133,8 +133,8 @@ export default {};
 <style>
 /* ----------------------------폰트---------------------------------- */
 @font-face {
-  font-family: "BCcardL";
-  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-family: "BCcardB";
+  src: url("../fonts/BCcardB.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -143,7 +143,7 @@ export default {};
   color: #000;
 }
 .footer_group {
-  font-family: "BCcardL";
+  font-family: "BCcardB";
 }
 
 @media (max-width: 650px) {
@@ -166,7 +166,7 @@ export default {};
 /* ---------------------------footer_wrap-------------------------- */
 .footer_wrap {
   width: 100%;
-  font-family: "BCcardL";
+  font-family: "BCcardB";
   display: block;
   position: relative;
   margin: 0;
@@ -240,6 +240,7 @@ export default {};
 }
 .tel_box li a {
   font-size: 16px;
+  /* font-weight: 700; */
   display: inline;
   position: relative;
 }
@@ -287,7 +288,7 @@ export default {};
 
 /* ---------------------------customer_wrap-------------------------- */
 .customer_wrap {
-  font-family: "BCcardL";
+  font-family: "BCcardB";
 }
 
 .customer_link {
@@ -336,7 +337,7 @@ export default {};
   position: absolute;
   padding-top: 10px;
   left: 47%;
-  margin-left: -50px;
+  margin-left: -65px;
 }
 
 .snsbox {

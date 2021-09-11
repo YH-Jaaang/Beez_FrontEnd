@@ -1,12 +1,15 @@
 <template>
   <header>
-    <div class="header_body">
-      <b-navbar toggleable="lg" type="light" class="fixed-top">
+    <div class="header">
+      <b-navbar toggleable="lg" type="light">
+        <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
         <b-navbar-brand href="#">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse"
+          ><FontAwesomeIcon :icon="faBars" style="color:#fbca47"
+        /></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -38,8 +41,22 @@
     </div>
   </header>
 </template>
+
 <script>
-export default {};
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+
+export default {
+  components: {
+    FontAwesomeIcon,
+  },
+  data() {
+    return {
+      itemcount: 0,
+      faBars,
+    };
+  },
+};
 </script>
 
 <style>
@@ -50,51 +67,62 @@ export default {};
   font-style: normal;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 840px) {
   .navbar-brand {
     width: 75%;
   }
 }
 
-@media (max-width: 650px) {
+@media (min-width: 370) {
+  /* header {
+    padding-bottom: 50px;
+  } */
+}
+
+@media (max-width: 840px) {
   .nav-link {
     font-size: 17px;
   }
-  .navbar-brand img {
-    max-width: 45%;
+  .navbar a img {
+    max-width: 46%;
   }
 }
 
-/*---------------------- navigation--------------*/
+/*------------------------------ navigation---------------------------------*/
+
 .navbar {
   background-color: #ffffff;
 }
 
 .navbar-brand img {
-  padding: 10px 10px 10px 10px;
+  margin-left: 18px;
 }
 
-img {
+.navbar-brand img {
   max-width: 33%;
   height: auto;
 }
 
-.header_body {
+.header {
   font-family: BCcardL;
-  margin-bottom: 6%;
+  /* margin-bottom: 5.5rem; */
+  /* padding-bottom: 50px; */
 }
-.navbar-brand {
+/* 화면 조정 필요(full화면과 핸드폰 화면 차이 있음.)*/
+
+/* .navbar-brand {
   padding-left: 20px;
-}
+} */
+
 .nav-link {
   border-bottom: #fbca47 solid 3px;
   color: #fbca47;
 }
 
 .navbar-collapse {
-  padding-left: 33px;
+  /* padding-left: 9px; */
   padding-bottom: 0.5rem;
-  padding-right: 13px;
+  /* padding-right: 13px; */
 }
 
 .navbar-nav {
@@ -112,172 +140,5 @@ li {
   padding: 4px;
   list-style: none;
 }
-/*---------------------nav 끝--------------- */
-
-.le_co i {
-  color: #fbca47 !important;
-}
-
-.white_bg {
-  background: #fff;
-  border-radius: 50px;
-  opacity: 0.9;
-  padding: 40px 35px;
-}
-
-* {
-  box-sizing: border-box !important;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #fff;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  color: #fff;
-  font-size: 14px;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.80857;
-  font-weight: normal;
-}
-
-.container {
-  max-width: 1172px;
-}
-
-a {
-  color: #1f1f1f;
-  text-decoration: none !important;
-  outline: none !important;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  letter-spacing: 0;
-  font-weight: normal;
-  position: relative;
-  padding: 0 0 10px 0;
-  font-weight: normal;
-  line-height: normal;
-  color: #fff;
-  margin: 0;
-}
-
-h1 {
-  font-size: 24px;
-  font-family: "Raleway", sans-serif;
-}
-
-h2 {
-  font-size: 22px;
-}
-
-h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 16px;
-}
-
-h5 {
-  font-size: 14px;
-}
-
-h6 {
-  font-size: 13px;
-}
-
-*,
-*::after,
-*::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
-  color: #fff;
-  text-decoration: none !important;
-  opacity: 1;
-}
-
-button:focus {
-  outline: none;
-}
-
-ul,
-ol {
-  margin: 0px;
-  padding: 3px;
-  list-style: none;
-}
-
-a {
-  color: #222222;
-  text-decoration: none;
-  outline: none !important;
-}
-
-a,
-.btn {
-  text-decoration: none !important;
-  outline: none !important;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-:focus {
-  outline: 0;
-}
-
-.btn-custom {
-  margin-top: 20px;
-  background-color: transparent !important;
-  border: 2px solid #ddd;
-  padding: 12px 40px;
-  font-size: 16px;
-}
-
-.lead {
-  font-size: 18px;
-  line-height: 30px;
-  color: #767676;
-  margin: 0;
-  padding: 0;
-}
-
-.form-control:focus {
-  border-color: #ffffff !important;
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
-}
-
-.badge {
-  font-weight: 500;
-}
-
-blockquote {
-  margin: 20px 0 20px;
-  padding: 30px;
-}
+/*---------------------------------------nav 끝--------------------------------------- */
 </style>

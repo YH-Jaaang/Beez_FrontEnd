@@ -1,54 +1,48 @@
 <template>
-  <div id="app">
-    <div class="header">
-      <div class="white_bg">
-        <div id="banner1" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="container-fluid">
-                <div class="carousel-caption" id="center-align">
-                  <div class="col-md-12 col-lg-12">
-                    <div class="text-bg">
-                      <div class="div-align">
-                        <span>QR을 찍어주세요</span>
-                        <vue-qr-reader
-                          v-if="show"
-                          v-on:code-scanned="codeScanned"
-                          v-on:error-captured="errorCaptured"
-                          :stop-on-scanned="true"
-                          :draw-on-found="true"
-                          :responsive="false"
-                        />
-                        <div style="color:black; font-size:5px">
-                          {{ scanned }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div>
+    <b-card id="card_qr">
+      <div class="title text-center">
+        <span>
+          <FontAwesomeIcon :icon="faQrcode" style="color:#76512c" size="lg" />
+          QR을 찍어주세요
+        </span>
+      </div>
+      <div class="camera">
+        <vue-qr-reader
+          v-if="show"
+          v-on:code-scanned="codeScanned"
+          v-on:error-captured="errorCaptured"
+          :stop-on-scanned="true"
+          :draw-on-found="true"
+          :responsive="false"
+        />
+        <div style="color:#76512c; font-size:5px">
+          {{ scanned }}
         </div>
       </div>
-      <p></p>
-    </div>
+    </b-card>
   </div>
 </template>
 
 <script>
 import VueQrReader from "../components/VueQrReader.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "app",
   components: {
     VueQrReader,
+    FontAwesomeIcon,
   },
   data() {
     return {
       errorMessage: "",
       scanned: "",
       show: true,
+
+      //아이콘
+      faQrcode,
     };
   },
   methods: {
@@ -82,3 +76,29 @@ export default {
   },
 };
 </script>
+
+<style>
+/*-----------------폰트, @media---------------------------- */
+@font-face {
+  font-family: "BCcardB";
+  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#card_qr {
+  font-family: BCcardB;
+  background-color: #ffde02;
+  /* padding: 10px 7px; */
+  border-radius: 50px;
+  margin: 30px 30px 30px 30px;
+  border: 2.5px solid #76512ce3;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #76512c;
+  padding-bottom: 15px;
+}
+</style>

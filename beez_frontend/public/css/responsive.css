@@ -1,7 +1,14 @@
 /*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
+@media (min-width: 1198px) and (max-width: 1600px) {
+  .header {
+    padding: 3% 5%;
+  }
+}
 
-
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 990px) and (max-width: 1198px) {
+  .header {
+    padding: 3% 5%;
+  }
 
   .text-bg h1 {
     font-size: 56px;
@@ -21,9 +28,15 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 750px) and (max-width: 990px) {
   .header {
-    padding: 50px 50px;
+    padding: 3% 5%;
+  }
+}
+
+@media (min-width: 610px) and (max-width: 750px) {
+  .header {
+    padding: 4% 5%;
   }
 
   .text-bg h1 {
@@ -61,9 +74,9 @@
   }
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
+@media (min-width: 500px) and (max-width: 610px) {
   .header {
-    padding: 50px 50px;
+    padding: 3% 5%;
   }
   .logo {
     width: 166px;
@@ -100,20 +113,12 @@
     width: 68%;
   }
 }
-  
 
-@media (max-width: 575px) {
+@media (min-width: 360px) and (max-width: 500px) {
   .header {
-    padding: 30px 15px;
+    padding: 6% 5%;
   }
-  .white_bg {
-    padding: 40px 6px;
-  }
-  .logo {
-    text-align: center !important;
-    padding-bottom: 6px;
-    float: left;
-  }
+
   .text-bg span {
     font-size: 20px;
     line-height: 40px;
@@ -171,6 +176,4 @@
     width: 136px;
     margin: inherit;
   }
- 
-
 }

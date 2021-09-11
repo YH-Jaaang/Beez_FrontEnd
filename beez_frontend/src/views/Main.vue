@@ -1,134 +1,103 @@
 <template>
-  <header>
-    <!-- header inner -->
-    <div class="header">
-      <div class="white_bg">
-        <div id="banner1" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="container-fluid">
-                <div class="carousel-caption" id="center-align">
-                  <div class="col-md-12 col-lg-12">
-                    <div class="text-bg">
-                      <div class="div-align">
-                        <span>잔액</span>
-                        <span class="span-blank">빈공간</span>
-                        <span>{{ total }}원</span>
-                      </div>
-                      <div id="div-wallet">
-                        <table class="table-width">
-                          <tr>
-                            <th>이번달 인센티브</th>
-                            <td class="td-align">{{ incentiveOfMonth }}원</td>
-                          </tr>
-                          <tr>
-                            <th>이번달 충전금액</th>
-                            <td class="td-align">{{ chargeOfMonth }}원</td>
-                          </tr>
-                        </table>
-
-                        <table class="table-width">
-                          <tr>
-                            <td class="td-float">
-                              <a class="read_more span-btn" href="Charge">
-                                충전</a
-                              >
-                            </td>
-
-                            <td>
-                              <a class="read_more span-btn" href="Payment">
-                                결제</a
-                              >
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container-fluid">
-            <div class="carousel-wallet">
-              <div class="col-md-12 col-12">
-                <div class="text-bg">
-                  <span class="span-blank">빈</span>
-                  <span
-                    ><img
-                      class="img-size"
-                      src="images/services_icon3h.png"
-                      alt="#"
-                    />
-                    BZ</span
-                  >
-                  <div class="container-flex" id="span-wallet">
-                    <div class="items">
-                      <img
-                        class="img-size hidden"
-                        src="images/services_icon3h.png"
-                        alt="#"
-                      />MY BZ
-                    </div>
-
-                    <div class="items">
-                      {{ myBz
-                      }}<img
-                        class="img-size"
-                        src="images/services_icon3h.png"
-                        alt="#"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div>
+    <b-card id="card_main">
+      <div class="to_ac">
+        <span>사용 가능금액</span>
+        <span style="float:right">{{ total }}원</span>
       </div>
-      <p></p>
+      <div class="de_ac">
+        <ul class="detail_ac">
+          <li>
+            <a>이달의 충전금액</a>
+            <a style="float:right">{{ chargeOfMonth }}원</a>
+          </li>
+          <li>
+            <a>이달의 인센티브</a>
+            <a style="float:right">{{ incentiveOfMonth }}원</a>
+          </li>
+          <div class="text-center">
+            <b-button href="Charge">
+              <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" />
+              충전
+            </b-button>
+            <b-button href="Payment">
+              <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" />
+              결제
+            </b-button>
+          </div>
+        </ul>
+      </div>
+      <br />
+      <div class="bz_ac">
+        <ul class="detail_bz">
+          <div class="title_bz">
+            <a>
+              <FontAwesomeIcon
+                :icon="faBitcoin"
+                style="color:#76512c"
+                size="lg"
+              />
+              BEEZ
+            </a>
+          </div>
+          <li>
+            <a>MY BEEZ</a>
+            <a style="float:right">
+              {{ myBz }}
+              <FontAwesomeIcon
+                :icon="faBitcoin"
+                style="color:#76512c"
+                size="lg"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="text-center">
+        <FontAwesomeIcon
+          :icon="faCaretDown"
+          style="color:#76512c"
+          vertical-align="middle"
+          size="5x"
+        />
+      </div>
+    </b-card>
+    <div class="li_btn text-center">
+      <b-button href="Use">
+        <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
+        결제 내역
+      </b-button>
+      <b-button href="Review">
+        <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
+        리뷰
+      </b-button>
     </div>
-    <div>
-      <!-- <span
-        ><a class="read_more" href="#"
-          ><img src="images/btn_h.png" alt="#" /> 내역</a
-        ></span
-      >
-      <span
-        ><a class="read_more" href="#"
-          ><img src="images/btn_h.png" alt="#" /> 리뷰</a
-        ></span
-      > -->
-      <div class="span-blank">빈공간</div>
-
-      <table class="table-width">
-        <tr>
-          <td class="td-float">
-            <a class="read_more tb-btn" href="Use"
-              ><img src="images/btn_h.png" alt="#" /> 내역</a
-            >
-          </td>
-          <td class="span-blank"></td>
-          <td>
-            <a class="read_more tb-btn" href="Review"
-              ><img src="images/btn_h.png" alt="#" /> 리뷰</a
-            >
-          </td>
-        </tr>
-      </table>
-
-      <div class="span-blank">빈공간</div>
-    </div>
-  </header>
+  </div>
 </template>
+
 <script>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faWonSign } from "@fortawesome/free-solid-svg-icons";
+import { faQrcode } from "@fortawesome/free-solid-svg-icons";
+import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       total: "300,000",
       incentiveOfMonth: "10,000",
       chargeOfMonth: "100,000",
       myBz: 33,
+
+      //아이콘
+      faWonSign,
+      faQrcode,
+      faBitcoin,
+      faCaretDown,
     };
   },
   methods: {},
@@ -136,18 +105,95 @@ export default {
 </script>
 
 <style>
-.header {
-  width: 100%;
-  padding: 73px 80px;
-  background-color: #fbca47;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+/*-----------------폰트, @media---------------------------- */
+@font-face {
+  font-family: "BCcardB";
+  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.white_bg {
-  background: #fff;
+/*--------------------------card_ 원화-------------------------- */
+#card_main {
+  font-family: BCcardB;
+  background-color: #ffde02;
+  /* padding: 10px 7px; */
   border-radius: 50px;
-  opacity: 0.9;
-  padding: 40px 35px;
+  margin: 4% 6%;
+  /* border: 2.5px solid #8e8883e3; */
+}
+
+/* .card-body {
+  padding-top: 29px;
+  padding-left: 27px;
+  padding-right: 27px;
+} */
+
+.to_ac {
+  font-size: 22px;
+  font-weight: 900;
+  color: #76512c;
+  padding-bottom: 8px;
+}
+
+.detail_ac .btn {
+  color: #fff;
+  background-color: #76512cb8;
+  margin-left: 14px;
+  margin-right: 14px;
+  font-size: 17px;
+}
+
+.detail_ac {
+  color: #76512c;
+  font-weight: 600;
+  background-color: #fff2a3;
+  border-radius: 17px;
+  padding: 12px 14px;
+  /* border: 2px solid #76512c; */
+}
+
+.detail_ac li {
+  padding-bottom: 9px;
+  font-size: 14px;
+}
+
+/*-------------------------- 비즈-------------------------- */
+.detail_bz {
+  color: #76512c;
+  font-weight: 600;
+  background-color: #fff2a3;
+  border-radius: 17px;
+  padding: 8px 14px;
+  /* border: 2px solid #76512c; */
+}
+.detail_bz li {
+  padding-top: 9px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 15px;
+}
+
+.title_bz {
+  font-size: 21px;
+  font-weight: 900;
+  border-bottom: 2px solid #76512c;
+  padding-left: 5px;
+}
+
+/*-------------------------- 내역/리뷰 버튼-------------------------- */
+.li_btn {
+  font-family: BCcardB;
+  padding-bottom: 30px;
+}
+
+.li_btn .btn {
+  color: #76512c;
+  background-color: #ffde02;
+  margin-left: 25px;
+  margin-right: 25px;
+  font-size: 25px;
+  font-weight: 900;
+  /* border: 2.5px solid #76512c; */
 }
 </style>
