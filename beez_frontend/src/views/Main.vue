@@ -27,7 +27,8 @@
           </div>
         </ul>
       </div>
-      <br />
+    </b-card>
+    <b-card id="card_main">
       <div class="bz_ac">
         <ul class="detail_bz">
           <div class="title_bz">
@@ -37,11 +38,22 @@
                 style="color:#76512c"
                 size="lg"
               />
-              BEEZ
+              MY BEEZ
             </a>
           </div>
           <li>
-            <a>MY BEEZ</a>
+            <a>이달의 BEEZ</a>
+            <a style="float:right">
+              {{ myBz }}
+              <FontAwesomeIcon
+                :icon="faBitcoin"
+                style="color:#76512c"
+                size="lg"
+              />
+            </a>
+          </li>
+          <li>
+            <a>사용가능 BEEZ</a>
             <a style="float:right">
               {{ myBz }}
               <FontAwesomeIcon
@@ -53,21 +65,21 @@
           </li>
         </ul>
       </div>
-      <div class="text-center">
-        <FontAwesomeIcon
-          :icon="faCaretDown"
-          style="color:#76512c"
-          vertical-align="middle"
-          size="5x"
-        />
-      </div>
     </b-card>
+    <div class="text-center">
+      <FontAwesomeIcon
+        :icon="faCaretDown"
+        style="color:#76512c"
+        vertical-align="middle"
+        size="5x"
+      />
+    </div>
     <div class="li_btn text-center">
       <b-button href="Use">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제 내역
       </b-button>
-      <b-button href="Review">
+      <b-button href="Review" id="review_btn">
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         리뷰
       </b-button>
@@ -119,7 +131,9 @@ export default {
   background-color: #ffde02;
   /* padding: 10px 7px; */
   border-radius: 50px;
-  margin: 4% 6%;
+  margin-top: 4%;
+  margin-left: 4%;
+  margin-right: 4%;
   /* border: 2.5px solid #8e8883e3; */
 }
 
@@ -195,5 +209,6 @@ export default {
   font-size: 25px;
   font-weight: 900;
   /* border: 2.5px solid #76512c; */
+  width: 35%;
 }
 </style>

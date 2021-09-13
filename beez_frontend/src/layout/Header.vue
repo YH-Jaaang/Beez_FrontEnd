@@ -94,9 +94,9 @@ export default {
   background-color: #ffffff;
 }
 
-.navbar-brand img {
-  margin-left: 18px;
-}
+/* .navbar-brand img {
+  margin-left: 14px;
+} */
 
 .navbar-brand img {
   max-width: 33%;

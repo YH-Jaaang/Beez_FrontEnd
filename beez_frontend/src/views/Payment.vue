@@ -91,7 +91,7 @@ export default {
   background-color: #ffde02;
   /* padding: 10px 7px; */
   border-radius: 50px;
-  margin: 30px 30px 30px 30px;
+  margin: 4% 6%;
   border: 2.5px solid #76512ce3;
 }
 

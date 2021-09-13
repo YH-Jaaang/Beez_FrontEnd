@@ -2278,7 +2278,7 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 .btn-secondary {
-  color: #fff;
+  /* color: #fff; */
   /* background-color: #6c757d;
   border-color: #6c757d; */
 }
@@ -3682,7 +3682,7 @@ input[type="submit"].btn-block {
 }
 .navbar-brand {
   display: inline-block;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
@@ -3726,7 +3726,7 @@ input[type="submit"].btn-block {
   align-items: center;
 }
 .navbar-toggler {
-  padding: 0.25rem 1.5rem;
+  /* padding: 0.25rem 1.5rem; */
   font-size: 1.4rem;
   line-height: 1;
   background-color: transparent;
@@ -4938,7 +4938,7 @@ button.close {
   border-radius: 0.3rem;
   outline: 0;
 }
-.modal-backdrop {
+/* .modal-backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -4946,13 +4946,13 @@ button.close {
   left: 0;
   z-index: 1040;
   background-color: #000;
-}
-.modal-backdrop.fade {
+} */
+/* .modal-backdrop.fade {
   opacity: 0;
-}
-.modal-backdrop.show {
+} */
+/* .modal-backdrop.show {
   opacity: 0.5;
-}
+} */
 .modal-header {
   display: -ms-flexbox;
   display: flex;
@@ -4960,7 +4960,7 @@ button.close {
   align-items: flex-start;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem;
+  /* padding: 1rem; */
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;

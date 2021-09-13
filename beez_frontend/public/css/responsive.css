@@ -1,13 +1,13 @@
 /*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
 @media (min-width: 1198px) and (max-width: 1600px) {
   .header {
-    padding: 3% 5%;
+    padding: 3% 6%;
   }
 }
 
 @media (min-width: 990px) and (max-width: 1198px) {
   .header {
-    padding: 3% 5%;
+    padding: 3% 6%;
   }
 
   .text-bg h1 {
@@ -30,13 +30,13 @@
 
 @media (min-width: 750px) and (max-width: 990px) {
   .header {
-    padding: 3% 5%;
+    padding: 3% 6%;
   }
 }
 
 @media (min-width: 610px) and (max-width: 750px) {
   .header {
-    padding: 4% 5%;
+    padding: 4% 6%;
   }
 
   .text-bg h1 {
@@ -76,7 +76,7 @@
 
 @media (min-width: 500px) and (max-width: 610px) {
   .header {
-    padding: 3% 5%;
+    padding: 4% 6%;
   }
   .logo {
     width: 166px;
@@ -116,7 +116,7 @@
 
 @media (min-width: 360px) and (max-width: 500px) {
   .header {
-    padding: 6% 5%;
+    padding: 6% 6%;
   }
 
   .text-bg span {

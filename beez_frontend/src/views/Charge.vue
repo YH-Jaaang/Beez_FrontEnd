@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <b-card id="card_charge">
       <img src="../assets/charge/beez_card.png" alt="card" />
     </b-card>
@@ -22,19 +22,50 @@
         </li>
       </ul>
       <ul class="charge_am">
-        <form>
-          <b-form-input id="ch_amount" type="number"></b-form-input>
-          <b-button id="re_btn" type="reset" value="Reset">
+        <b-form @submit="onSubmit" @reset="onReset">
+          <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
+          <b-form-input
+            id="ch_amount"
+            v-model="form.number"
+            type="number"
+          ></b-form-input>
+          <b-button id="re_btn" type="reset">
             <FontAwesomeIcon :icon="faRedo" style="color:#fbca47" size="lg" />
           </b-button>
-        </form>
+
+          <b-button id="ch_btn" type="submit" @click="showModal">
+            충전
+          </b-button>
+        </b-form>
       </ul>
     </div>
 
-    <div class="ch_btn text-center">
-      <b-button href="/">
-        충전
-      </b-button>
+    <div class="charge_modal">
+      <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
+        <div class="d-block">
+          <a style="position:relative; left:23%; margin-right:138px"
+            >충전 금액</a
+          >
+          <a style="position:relative;">{{ form.number }}</a>
+        </div>
+        <div class="d-block">
+          <a style="position:relative; left:25%; margin-right:150px"
+            >인센티브</a
+          >
+          <a style="position:relative;">3000</a>
+          <!--인센티브 값도 form.number에서 받아와 *0.1 해주고 싶은데 잘 안되서 일단 이렇게 놓을게요! -->
+        </div>
+        <div class="d-block" id="total_charge">
+          <a style="position:relative; left:16%; margin-right:100px"
+            >총 충전금액</a
+          >
+          <a style="position:relative;">33000</a>
+        </div>
+        <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
+        <b-button class="mt-3" inline-block @click="hideModal" href="/"
+          >확인</b-button
+        >
+      </b-modal>
     </div>
   </div>
 </template>
@@ -44,6 +75,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 export default {
+  name: "App",
   components: {
     FontAwesomeIcon,
   },
@@ -56,7 +88,35 @@ export default {
 
       //아이콘
       faRedo,
+
+      form: {
+        number: "",
+      },
+      // show: true,
     };
+  },
+  methods: {
+    //충전 입력 폼
+    onSubmit(event) {
+      event.preventDefault();
+      // alert(JSON.stringify(this.form));
+    },
+    onReset(event) {
+      event.preventDefault();
+      this.form.number = "";
+      // this.show = false;
+      // this.$nextTick(() => {
+      //   this.show = true;
+      // });
+    },
+
+    //충전 버튼 후 모달창
+    showModal() {
+      this.$refs["charge_modal"].show();
+    },
+    hideModal() {
+      this.$refs["charge_modal"].hide();
+    },
   },
 };
 </script>
@@ -98,7 +158,7 @@ export default {
   font-size: 15px;
   background-color: #fdc20071;
   border-radius: 10px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 30px;
 }
 /* .bank_ac li {
@@ -121,8 +181,12 @@ export default {
   /* border: 2px solid #76512c; */
   border-radius: 10px;
   padding: 10px;
-  width: 90%;
+  width: 88%;
 }
+
+/* .charge_am {
+  background-color: rgba(164, 162, 158, 0.463);
+} */
 
 #re_btn {
   padding: 0;
@@ -130,19 +194,39 @@ export default {
   background-color: #fff;
 }
 
-/*-------------------------- 충전 버튼-------------------------- */
-.ch_btn {
-  font-family: BCcardB;
-  padding-bottom: 30px;
-}
-
-.ch_btn .btn {
+#ch_btn {
+  margin-top: 5%;
   color: #76512c;
   background-color: #ffde02;
-  margin-left: 25px;
-  margin-right: 25px;
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 900;
   border: 2.5px solid #76512c;
+  font-family: BCcardB;
+  margin-left: 40%;
+}
+
+/*-------------------------- 충전 모달창-------------------------- */
+#ch_modal {
+  font-family: BCcardB;
+  color: #76512c;
+}
+.modal-header {
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+#ch_modal .btn {
+  color: #76512c;
+  background-color: #ffde02;
+  width: 30%;
+  margin-left: 15%;
+  font-size: 14px;
+  font-weight: 700;
+}
+#total_charge {
+  border-top: 2px solid #76512c;
+  margin-top: 2%;
+  margin-left: 8%;
+  margin-right: 8%;
 }
 </style>
