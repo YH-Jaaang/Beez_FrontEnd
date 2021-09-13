@@ -1,6 +1,25 @@
 <template>
   <div>
     <b-card id="card_qr">
+      <div>
+        <b-button v-b-modal.modal-1>Launch demo modal</b-button>
+
+        <b-modal id="modal-1" title="BootstrapVue">
+          <p class="my-4">Hello from modal!</p>
+          <vue-qr-reader
+            v-if="show"
+            v-on:code-scanned="codeScanned"
+            v-on:error-captured="errorCaptured"
+            :stop-on-scanned="true"
+            :draw-on-found="true"
+            :responsive="false"
+          />
+          <div style="color:#76512c; font-size:5px">
+            {{ qrsuccess }}
+          </div>
+        </b-modal>
+      </div>
+
       <div class="title text-center">
         <span>
           <FontAwesomeIcon :icon="faQrcode" style="color:#76512c" size="lg" />
@@ -8,14 +27,14 @@
         </span>
       </div>
       <div class="camera">
-        <vue-qr-reader
+        <!-- <vue-qr-reader
           v-if="show"
           v-on:code-scanned="codeScanned"
           v-on:error-captured="errorCaptured"
           :stop-on-scanned="true"
           :draw-on-found="true"
           :responsive="false"
-        />
+        /> -->
         <div style="color:#76512c; font-size:5px">
           {{ scanned }}
         </div>
@@ -39,6 +58,7 @@ export default {
     return {
       errorMessage: "",
       scanned: "",
+      qrsuccess: "",
       show: true,
 
       //아이콘
@@ -48,6 +68,7 @@ export default {
   methods: {
     codeScanned(code) {
       this.scanned = code;
+      this.qrsuccess = "QR코드 인식 성공!";
     },
     errorCaptured(error) {
       switch (error.name) {

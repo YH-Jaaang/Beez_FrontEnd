@@ -26,7 +26,7 @@
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
           <b-form-input
             id="ch_amount"
-            v-model="form.number"
+            v-model="ch_number"
             type="number"
           ></b-form-input>
           <b-button id="re_btn" type="reset">
@@ -46,20 +46,19 @@
           <a style="position:relative; left:23%; margin-right:138px"
             >충전 금액</a
           >
-          <a style="position:relative;">{{ form.number }}</a>
+          <a style="position:relative;">{{ ch_number }}</a>
         </div>
         <div class="d-block">
           <a style="position:relative; left:25%; margin-right:150px"
             >인센티브</a
           >
-          <a style="position:relative;">3000</a>
-          <!--인센티브 값도 form.number에서 받아와 *0.1 해주고 싶은데 잘 안되서 일단 이렇게 놓을게요! -->
+          <a style="position:relative;">{{ incentive }}</a>
         </div>
         <div class="d-block" id="total_charge">
           <a style="position:relative; left:16%; margin-right:100px"
             >총 충전금액</a
           >
-          <a style="position:relative;">33000</a>
+          <a style="position:relative;">{{ total_chargeAmount }}</a>
         </div>
         <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
         <b-button class="mt-3" inline-block @click="hideModal" href="/"
@@ -89,9 +88,9 @@ export default {
       //아이콘
       faRedo,
 
-      form: {
-        number: "",
-      },
+      ch_number: "",
+      incentive: "",
+      total_chargeAmount: "",
       // show: true,
     };
   },
@@ -103,9 +102,9 @@ export default {
     },
     onReset(event) {
       event.preventDefault();
-      this.form.number = "";
+      this.ch_number = "";
       // this.show = false;
-      // this.$nextTick(() => {
+      // this.$nextTick(() => {     이거 써서 qr 후 자동 모달창 실행해보기
       //   this.show = true;
       // });
     },
@@ -113,6 +112,9 @@ export default {
     //충전 버튼 후 모달창
     showModal() {
       this.$refs["charge_modal"].show();
+      this.incentive = this.ch_number * 0.1;
+      this.total_chargeAmount =
+        parseInt(this.ch_number) + parseInt(this.incentive);
     },
     hideModal() {
       this.$refs["charge_modal"].hide();
