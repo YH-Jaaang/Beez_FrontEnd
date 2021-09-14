@@ -8,17 +8,20 @@
       <ul class="bank_ac">
         <li>
           <a>{{ bank_na }} 은행</a>
-          <a style="float:right">{{ account_no }}</a>
+          <a id="align_right">{{ account_no }}</a>
         </li>
       </ul>
       <ul class="poss_am">
         <li>
           <a>충전가능금액</a>
-          <a style="position:relative; left:20px">{{ poss_ch }} 원</a>
+          <a class="posit_rel left">{{ poss_ch }} 원</a>
         </li>
         <li>
           <a>혜택가능금액</a>
-          <a style="position:relative; left:20px">{{ poss_am }} 원</a>
+          <a class="posit_rel left">{{ poss_am }} 원</a>
+        </li>
+        <li>
+          <a id="font-red">{{ error }}</a>
         </li>
       </ul>
       <ul class="charge_am">
@@ -26,11 +29,11 @@
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
           <b-form-input
             id="ch_amount"
-            v-model="ch_number"
+            v-model="form.number"
             type="number"
           ></b-form-input>
           <b-button id="re_btn" type="reset">
-            <FontAwesomeIcon :icon="faRedo" style="color:#fbca47" size="lg" />
+            <FontAwesomeIcon :icon="faRedo" id="btn_color" size="lg" />
           </b-button>
 
           <b-button id="ch_btn" type="submit" @click="showModal">
@@ -40,30 +43,25 @@
       </ul>
     </div>
 
-    <div class="charge_modal">
+    <div class="charge_modal" id="dd">
       <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
         <div class="d-block">
-          <a style="position:relative; left:23%; margin-right:138px"
-            >충전 금액</a
-          >
-          <a style="position:relative;">{{ ch_number }}</a>
+          <a class="posit_rel margin138">충전 금액</a>
+          <a class="posit_rel">{{ form.number }}</a>
         </div>
+        <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
+        5만원 초과 했을시 5천원만 인센티브 더주기" -->
         <div class="d-block">
-          <a style="position:relative; left:25%; margin-right:150px"
-            >인센티브</a
-          >
-          <a style="position:relative;">{{ incentive }}</a>
+          <a class="posit_rel margin150">인센티브</a>
+          <a class="posit_rel">{{ form.number * 0.1 }}</a>
+          <!--인센티브 값도 form.number에서 받아와 *0.1 해주고 싶은데 잘 안되서 일단 이렇게 놓을게요! -->
         </div>
         <div class="d-block" id="total_charge">
-          <a style="position:relative; left:16%; margin-right:100px"
-            >총 충전금액</a
-          >
-          <a style="position:relative;">{{ total_chargeAmount }}</a>
+          <a class="posit_rel margin100">총 충전금액</a>
+          <a class="posit_rel">{{ charge_amount }}</a>
         </div>
         <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
-        <b-button class="mt-3" inline-block @click="hideModal" href="/"
-          >확인</b-button
-        >
+        <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
       </b-modal>
     </div>
   </div>
@@ -72,6 +70,8 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import VueCookies from "vue-cookies";
 
 export default {
   name: "App",
@@ -84,13 +84,14 @@ export default {
       account_no: "748 ****** 25437",
       poss_ch: "2,000,000",
       poss_am: "500,000",
-
+      error: "",
+      charge_amount: "",
       //아이콘
       faRedo,
 
-      ch_number: "",
-      incentive: "",
-      total_chargeAmount: "",
+      form: {
+        number: "",
+      },
       // show: true,
     };
   },
@@ -102,22 +103,44 @@ export default {
     },
     onReset(event) {
       event.preventDefault();
-      this.ch_number = "";
+      this.form.number = "";
       // this.show = false;
-      // this.$nextTick(() => {     이거 써서 qr 후 자동 모달창 실행해보기
+      // this.$nextTick(() => {
       //   this.show = true;
       // });
     },
 
     //충전 버튼 후 모달창
     showModal() {
-      this.$refs["charge_modal"].show();
-      this.incentive = this.ch_number * 0.1;
-      this.total_chargeAmount =
-        parseInt(this.ch_number) + parseInt(this.incentive);
+      if (this.form.number < 10000)
+        this.error = "10,000원 이상 충전 가능합니다.";
+      else if (this.form.number % 1000 !== 0)
+        this.error = "1,000원 단위로 충전 가능합니다";
+      else {
+        this.error = "";
+        this.charge_amount =
+          parseInt(this.form.number) + parseInt(this.form.number * 0.1);
+        this.$refs["charge_modal"].show();
+      }
     },
     hideModal() {
       this.$refs["charge_modal"].hide();
+    },
+    chargePost() {
+      axios
+        .get("http://localhost:9091/charge/amount", {
+          params: {
+            address: VueCookies.get("Address"),
+            charge: this.form.number,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.$router.push("/");
     },
   },
 };
@@ -171,6 +194,7 @@ export default {
 .poss_am {
   font-size: 12px;
   margin-left: 10px;
+  color: #000;
 }
 
 .charge_am {
@@ -206,8 +230,16 @@ export default {
   font-family: BCcardB;
   margin-left: 40%;
 }
-
+#btn_color {
+  color: #fbca47;
+}
+#font-red {
+  color: rgb(226, 38, 38);
+}
 /*-------------------------- 충전 모달창-------------------------- */
+#dd {
+  top: 550px;
+}
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
@@ -230,5 +262,27 @@ export default {
   margin-top: 2%;
   margin-left: 8%;
   margin-right: 8%;
+}
+
+#align_right {
+  float: right;
+}
+.posit_rel {
+  position: relative;
+}
+.posit_rel.left {
+  left: 20px;
+}
+.posit_rel.margin138 {
+  left: 23%;
+  margin-right: 138px;
+}
+.posit_rel.margin150 {
+  left: 25%;
+  margin-right: 150px;
+}
+.posit_rel.margin100 {
+  left: 16%;
+  margin-right: 100px;
 }
 </style>

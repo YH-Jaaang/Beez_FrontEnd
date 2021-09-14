@@ -133,8 +133,8 @@ export default {};
 <style>
 /* ----------------------------폰트---------------------------------- */
 @font-face {
-  font-family: "BCcardB";
-  src: url("../fonts/BCcardB.ttf") format("woff");
+  font-family: "BCcardL";
+  src: url("../fonts/BCcardL.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }

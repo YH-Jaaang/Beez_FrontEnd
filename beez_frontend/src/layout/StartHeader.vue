@@ -3,7 +3,7 @@
     <div class="header">
       <b-navbar toggleable="lg" type="light">
         <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
-        <b-navbar-brand href="/Main">
+        <b-navbar-brand href="#">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
 
@@ -13,10 +13,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="/Main" class="ml-auto">HOME</b-nav-item>
-            <b-nav-item href="/" class="ml-auto" @click="reset"
-              >로그아웃</b-nav-item
-            >
+            <b-nav-item href="/" class="ml-auto">HOME</b-nav-item>
+            <b-nav-item href="/" class="ml-auto">로그인</b-nav-item>
             <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
           </b-navbar-nav>
 
@@ -48,7 +46,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import VueCookies from "vue-cookies";
-
 export default {
   components: {
     FontAwesomeIcon,
@@ -66,8 +63,16 @@ export default {
     },
   },
   created() {
-    if (VueCookies.get("Id") != "user" || !VueCookies.get("Address")) {
-      this.$router.push("/");
+    if (VueCookies.get("Address")) {
+      const id = VueCookies.get("Id");
+      if (id == "user") {
+        this.$router.push("/Main");
+      } else if (id == "business") {
+        this.$router.push("/StoreMain");
+      } else {
+        VueCookies.remove("Id");
+        VueCookies.remove("Address");
+      }
     }
   },
 };

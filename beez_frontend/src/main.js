@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 // import "bootstrap-vue/dist/bootstrap-vue.css";
+import VueCookies from "vue-cookies";
 
 //fontAwesome (bootstrapIcon과 동시 사용 가능)
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -20,6 +21,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
+Vue.use(VueCookies);
 
 new Vue({
   router,
