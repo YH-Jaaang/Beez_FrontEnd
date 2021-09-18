@@ -1,0 +1,232 @@
+<template>
+  <div>
+    <b-card id="card_StoreWithdrawal">
+      <img
+        src="../assets/charge/beez_card.png"
+        alt="card"
+        style="float:center"
+      />
+    </b-card>
+
+    <!-- 출금가능원화보다 초과되면 에러메세지(:state),출금 모달창 수정하기  -->
+    <div class="withdrawal_section">
+      <ul class="Storebank_ac">
+        <li>
+          <a>{{ bank_na }} 은행</a>
+          <a style="float:right">{{ account_no }}</a>
+        </li>
+      </ul>
+
+      <ul class="withdrawal_amount">
+        <li>
+          <a>출금가능 원화</a>
+          <a style="position:relative; left:20px">{{ my_won }} 원</a>
+        </li>
+
+        <b-form>
+          <b-input-group class="form_charge">
+            <b-form-input
+              v-model="withdrawal_won"
+              type="number"
+              :state="wi_state"
+            ></b-form-input>
+
+            <b-input-group-append>
+              <b-button id="re_btn" type="reset">
+                <FontAwesomeIcon :icon="faRedo" id="btn_color2" />
+              </b-button>
+            </b-input-group-append>
+          </b-input-group>
+
+          <li>
+            <a id="font-red">{{ error }}</a>
+          </li>
+        </b-form>
+      </ul>
+
+      <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
+        출금
+      </b-button>
+    </div>
+
+    <div class="WithdrawalWon_modal">
+      <b-modal
+        id="wi_modal"
+        ref="WithdrawalWon_modal"
+        hide-footer
+        title="출금 정보"
+      >
+        <div class="d-block">
+          <a class="posit_rel margin138">출금가능 금액</a>
+          <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
+        </div>
+        <div class="d-block">
+          <a class="posit_rel margin164">출금 금액</a>
+          <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
+        </div>
+        <div class="d-block" id="total_excharge">
+          <a class="posit_rel margin100">잔여 금액</a>
+          <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
+        </div>
+
+        <b-button class="mt-3" inline-block @click="hideModal2">취소</b-button>
+        <b-button
+          class="mt-3"
+          inline-block
+          @click="hideModal2"
+          href="/Storemain"
+          >확인</b-button
+        >
+      </b-modal>
+    </div>
+  </div>
+</template>
+
+<script>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
+
+export default {
+  components: {
+    FontAwesomeIcon,
+  },
+  data() {
+    return {
+      bank_na: "KB 국민",
+      account_no: "748 ****** 25437",
+      error: "",
+
+      my_won: "2000000",
+      withdrawal_won: "",
+      withdrawal_error: "",
+      rest_won: "",
+
+      //아이콘
+      faRedo,
+    };
+  },
+  methods: {
+    showWiModal() {
+      this.$refs["WithdrawalWon_modal"].show();
+    },
+    hideModal2() {
+      this.$refs["WithdrawalWon_modal"].hide();
+    },
+  },
+  computed: {
+    wi_state() {
+      if (this.withdrawal_won.length == 0)
+        return (this.error = "출금할 금액을 입력해주세요.");
+      else if (this.withdrawal_won < 10000)
+        return (this.error = "10,000원 이상 출금 가능합니다.");
+      else if (this.withdrawal_won % 1000 != 0)
+        return (this.error = "1,000원 단위로 출금 가능합니다.");
+      else if (parseInt(this.withdrawal_won) > parseInt(this.my_won))
+        return (this.error = "출금가능 원화가 부족합니다.");
+      else parseInt(this.withdrawal_won) > parseInt(this.my_won);
+      return (
+        (this.error = "출금 가능합니다."),
+        (this.rest_won = parseInt(this.my_won) - parseInt(this.withdrawal_won))
+      );
+    },
+  },
+};
+</script>
+
+<style>
+/*-----------------폰트, @media---------------------------- */
+@font-face {
+  font-family: "BCcardB";
+  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*--------------------------card--------------------------- */
+#card_StoreWithdrawal {
+  font-family: BCcardB;
+  background-color: #fff;
+  /* padding: 10px 7px; */
+  border-radius: 50px;
+  border: 2.5px solid #100055;
+  width: 12rem;
+  height: 17rem;
+  margin: 30px auto;
+}
+
+#card_StoreWithdrawal img {
+  margin: -12px -31px;
+  height: 15rem;
+}
+
+/*-------------------------- withdrawal-section -------------------------- */
+.withdrawal_section {
+  font-family: BCcardB;
+  font-weight: 600;
+  margin: 30px 30px 30px 30px;
+}
+
+.Storebank_ac {
+  font-size: 15px;
+  background-color: #00adfd71;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+/*--------------------------withdrawal_amount------------------------------- */
+.withdrawal_amount li {
+  font-size: 15px;
+  /* margin-left: 10px; */
+  color: #100055;
+  padding: 0px;
+}
+
+.withdrawal_amount {
+  font-size: 20px;
+  background-color: #e0f5f7;
+  border-radius: 17px;
+  padding: 20px 14px;
+}
+
+.withdrawal_amount .form-control {
+  background-color: rgba(164, 162, 158, 0.612);
+  border-radius: 10px;
+}
+
+#btn_color2 {
+  color: #100055;
+}
+
+/*-------------------------- 출금 버튼-------------------------- */
+#wi_btn {
+  margin-top: 5%;
+  color: #100055;
+  background-color: #e0f5f7;
+  font-size: 23px;
+  font-weight: 900;
+  border: 2.5px solid #100055;
+  font-family: BCcardB;
+  margin-left: 40%;
+}
+
+/*-------------------------- 충전 모달창-------------------------- */
+.modal-header {
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+#wi_modal .btn {
+  color: #100055;
+  background-color: #e0f5f7;
+  width: 30%;
+  margin-left: 15%;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#wi_modal {
+  font-family: BCcardB;
+  color: #100055;
+}
+</style>

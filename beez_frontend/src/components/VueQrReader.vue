@@ -210,6 +210,7 @@ export default {
 <style scoped>
 .vue-qr-reader__container {
   width: 100%;
-  height: auto;
+  height: 100%;
+  padding-top: 12px;
 }
 </style>

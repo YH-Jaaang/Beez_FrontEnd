@@ -1726,7 +1726,7 @@ pre code {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -1883,9 +1883,9 @@ select.form-control-sm:not([size]):not([multiple]) {
 select.form-control-lg:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
 }
-.form-group {
+/* .form-group {
   margin-bottom: 1rem;
-}
+} */
 .form-text {
   display: block;
   margin-top: 0.25rem;
@@ -1954,12 +1954,12 @@ select.form-control-lg:not([size]):not([multiple]) {
   background-color: rgba(40, 167, 69, 0.8);
   border-radius: 0.2rem;
 }
-.custom-select.is-valid,
+/* .custom-select.is-valid,
 .form-control.is-valid,
 .was-validated .custom-select:valid,
 .was-validated .form-control:valid {
   border-color: #28a745;
-}
+} */
 .custom-select.is-valid:focus,
 .form-control.is-valid:focus,
 .was-validated .custom-select:valid:focus,
@@ -2279,9 +2279,9 @@ fieldset:disabled a.btn {
 }
 /* .btn-secondary {
   color: #fff; */
-  /* background-color: #6c757d;
+/* background-color: #6c757d;
   border-color: #6c757d; */
-/* } */ 
+/* } */
 .btn-secondary:hover {
   color: #fff;
   background-color: #5a6268;
@@ -3235,8 +3235,8 @@ input[type="submit"].btn-block {
   color: #495057;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
+  background-color: transparent;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
 }
 .input-group-text input[type="checkbox"],
@@ -4938,15 +4938,15 @@ button.close {
   border-radius: 0.3rem;
   outline: 0;
 }
-/* .modal-backdrop {
+.modal-backdrop {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000;
-} */
+  /* background-color: #000; */
+}
 /* .modal-backdrop.fade {
   opacity: 0;
 } */
@@ -5509,12 +5509,12 @@ button.close {
 }
 .carousel-caption {
   position: absolute;
-  right: 15%;
-  bottom: 20px;
-  left: 15%;
+  /* right: 15%; */
+  /* bottom: 20px; */
+  /* left: 15%; */
   z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /* padding-top: 20px; */
+  /* padding-bottom: 20px; */
   color: #fff;
   text-align: center;
 }

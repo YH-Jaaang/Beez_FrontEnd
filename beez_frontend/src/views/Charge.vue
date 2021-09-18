@@ -11,54 +11,56 @@
           <a id="align_right">{{ account_no }}</a>
         </li>
       </ul>
-      <ul class="poss_am">
-        <li>
+
+      <ul class="charge_am">
+        <li class="poss_am">
           <a>충전가능금액</a>
           <a class="posit_rel left">{{ poss_ch }} 원</a>
         </li>
-        <li>
+        <li class="poss_am">
           <a>혜택가능금액</a>
           <a class="posit_rel left">{{ poss_am }} 원</a>
         </li>
-        <li>
-          <a id="font-red">{{ error }}</a>
-        </li>
-      </ul>
-      <ul class="charge_am">
+
         <b-form @submit="onSubmit" @reset="onReset">
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
-          <b-form-input
-            id="ch_amount"
-            v-model="form.number"
-            type="number"
-          ></b-form-input>
-          <b-button id="re_btn" type="reset">
-            <FontAwesomeIcon :icon="faRedo" id="btn_color" size="lg" />
-          </b-button>
+          <b-input-group class="form_charge">
+            <b-form-input v-model="form.number" type="number"></b-form-input>
 
-          <b-button id="ch_btn" type="submit" @click="showModal">
-            충전
-          </b-button>
+            <b-input-group-append>
+              <b-button id="re_btn" type="reset">
+                <FontAwesomeIcon :icon="faRedo" id="btn_color" />
+              </b-button>
+            </b-input-group-append>
+          </b-input-group>
+          <li>
+            <a id="font-red">{{ error }}</a>
+          </li>
         </b-form>
       </ul>
+
+      <b-button id="ch_btn" @click="showModal">
+        충전
+      </b-button>
     </div>
 
     <div class="charge_modal" id="dd">
       <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
         <div class="d-block">
           <a class="posit_rel margin138">충전 금액</a>
-          <a class="posit_rel">{{ form.number }}</a>
+          <a class="posit_rel" style="float:right">{{ form.number }} 원</a>
         </div>
         <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
         <div class="d-block">
-          <a class="posit_rel margin150">인센티브</a>
-          <a class="posit_rel">{{ form.number * 0.1 }}</a>
-          <!--인센티브 값도 form.number에서 받아와 *0.1 해주고 싶은데 잘 안되서 일단 이렇게 놓을게요! -->
+          <a class="posit_rel margin138">인센티브</a>
+          <a class="posit_rel" style="float:right"
+            >{{ form.number * 0.1 }} 원</a
+          >
         </div>
         <div class="d-block" id="total_charge">
-          <a class="posit_rel margin100">총 충전금액</a>
-          <a class="posit_rel">{{ charge_amount }}</a>
+          <a class="posit_rel margin90">총 충전금액</a>
+          <a class="posit_rel2" style="float:right">{{ charge_amount }} 원</a>
         </div>
         <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
         <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
@@ -181,7 +183,7 @@ export default {
 
 .bank_ac {
   font-size: 15px;
-  background-color: #fdc20071;
+  background-color: #faebbb71;
   border-radius: 10px;
   padding: 8px;
   margin-bottom: 30px;
@@ -190,24 +192,28 @@ export default {
   padding: 10px;
 } */
 
+.form_charge {
+  margin-top: 10px;
+}
+
 /*--------------------------poss_am/charge_am------------------------------- */
-.poss_am {
-  font-size: 12px;
-  margin-left: 10px;
+.charge_am li {
+  font-size: 13px;
+  /* margin-left: 10px; */
   color: #000;
+  padding: 0px;
+}
+
+.charge_am .form-control {
+  background-color: rgba(164, 162, 158, 0.612);
+  border-radius: 10px;
 }
 
 .charge_am {
   font-size: 20px;
-}
-
-#ch_amount {
-  display: inline-block;
-  background-color: rgba(164, 162, 158, 0.463);
-  /* border: 2px solid #76512c; */
-  border-radius: 10px;
-  padding: 10px;
-  width: 88%;
+  background-color: #f8d97171;
+  border-radius: 17px;
+  padding: 20px 14px;
 }
 
 /* .charge_am {
@@ -215,9 +221,9 @@ export default {
 } */
 
 #re_btn {
-  padding: 0;
-  margin-left: 5px;
-  background-color: #fff;
+  background-color: rgba(164, 162, 158, 0.612);
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 #ch_btn {
@@ -233,9 +239,7 @@ export default {
 #btn_color {
   color: #fbca47;
 }
-#font-red {
-  color: rgb(226, 38, 38);
-}
+
 /*-------------------------- 충전 모달창-------------------------- */
 #dd {
   top: 550px;
@@ -260,8 +264,13 @@ export default {
 #total_charge {
   border-top: 2px solid #76512c;
   margin-top: 2%;
-  margin-left: 8%;
-  margin-right: 8%;
+  margin-left: 0%;
+  margin-right: 11%;
+}
+
+#total_charge {
+  position: relative;
+  right: -5%;
 }
 
 #align_right {
@@ -269,20 +278,32 @@ export default {
 }
 .posit_rel {
   position: relative;
+  right: 19%;
 }
+
+.posit_rel2 {
+  position: relative;
+  right: 15%;
+}
+
 .posit_rel.left {
   left: 20px;
 }
+
+.posit_rel.margin90 {
+  left: 14%;
+}
+
 .posit_rel.margin138 {
-  left: 23%;
-  margin-right: 138px;
+  left: 17%;
 }
 .posit_rel.margin150 {
   left: 25%;
-  margin-right: 150px;
 }
 .posit_rel.margin100 {
-  left: 16%;
-  margin-right: 100px;
+  left: 18%;
+}
+.posit_rel.margin164 {
+  left: 20%;
 }
 </style>

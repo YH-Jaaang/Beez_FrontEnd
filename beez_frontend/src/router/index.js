@@ -10,6 +10,8 @@ import Payment from "../views/Payment.vue";
 import Start from "../views/Start.vue";
 //소상공인 뷰
 import StoreMain from "../views/StoreMain.vue";
+import StoreExchangeToken from "../views/StoreExchangeToken";
+import StoreWithdrawal from "../views/StoreWithdrawal";
 
 import StartHeader from "../layout/StartHeader.vue";
 import Header from "../layout/Header.vue";
@@ -55,6 +57,18 @@ const routes = [
   {
     path: "/StoreMain",
     components: { default: StoreMain, header: StoreHeader, footer: Footer },
+  },
+  {
+    path: "/StoreExchangeToken",
+    components: { default: ExchangeToken, header: StoreHeader, footer: Footer },
+  },
+  {
+    path: "/StoreWithdrawal",
+    components: {
+      default: StoreWithdrawal,
+      header: StoreHeader,
+      footer: Footer,
+    },
   },
 ];
 

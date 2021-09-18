@@ -150,8 +150,8 @@ export default {
 }
 
 li {
-  margin: 1px;
-  padding: 4px;
+  /* margin: 1px; */
+  /* padding: 4px; */
   list-style: none;
 }
 /*---------------------------------------nav 끝--------------------------------------- */

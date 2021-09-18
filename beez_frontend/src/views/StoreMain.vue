@@ -24,7 +24,7 @@
               <FontAwesomeIcon :icon="faWonSign" style="color:#100055" />
               현금매출
             </a>
-            <b-button id="Exbtn" href="ExchangeToken" style="float:right">
+            <b-button id="Exbtn" href="StoreWithdrawal" style="float:right">
               출금
             </b-button>
           </div>

@@ -81,7 +81,7 @@
       </b-button>
       <b-button href="Review" id="review_btn">
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
-        리뷰
+        가게 목록
       </b-button>
     </div>
   </div>
@@ -170,6 +170,7 @@ export default {
 .detail_ac li {
   padding-bottom: 9px;
   font-size: 14px;
+  color: #76512c;
 }
 
 /*-------------------------- 비즈-------------------------- */
