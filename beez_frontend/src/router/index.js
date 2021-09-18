@@ -60,7 +60,11 @@ const routes = [
   },
   {
     path: "/StoreExchangeToken",
-    components: { default: ExchangeToken, header: StoreHeader, footer: Footer },
+    components: {
+      default: StoreExchangeToken,
+      header: StoreHeader,
+      footer: Footer,
+    },
   },
   {
     path: "/StoreWithdrawal",

@@ -44,9 +44,11 @@
         </b-form>
       </ul>
 
-      <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
-        출금
-      </b-button>
+      <div class="text-center">
+        <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
+          출금
+        </b-button>
+      </div>
     </div>
 
     <div class="WithdrawalWon_modal">
@@ -207,7 +209,6 @@ export default {
   font-weight: 900;
   border: 2.5px solid #100055;
   font-family: BCcardB;
-  margin-left: 40%;
 }
 
 /*-------------------------- 충전 모달창-------------------------- */

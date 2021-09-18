@@ -25,7 +25,11 @@
         <b-form @submit="onSubmit" @reset="onReset">
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
           <b-input-group class="form_charge">
-            <b-form-input v-model="form.number" type="number"></b-form-input>
+            <b-form-input
+              v-model="form.number"
+              type="number"
+              :state="ch_state"
+            ></b-form-input>
 
             <b-input-group-append>
               <b-button id="re_btn" type="reset">
@@ -38,10 +42,11 @@
           </li>
         </b-form>
       </ul>
-
-      <b-button id="ch_btn" @click="showModal">
-        충전
-      </b-button>
+      <div class="text-center">
+        <b-button id="ch_btn" @click="showModal" :disabled="error.length > 9">
+          충전
+        </b-button>
+      </div>
     </div>
 
     <div class="charge_modal" id="dd">
@@ -84,7 +89,7 @@ export default {
     return {
       bank_na: "KB 국민",
       account_no: "748 ****** 25437",
-      poss_ch: "2,000,000",
+      poss_ch: "2000000",
       poss_am: "500,000",
       error: "",
       charge_amount: "",
@@ -114,16 +119,7 @@ export default {
 
     //충전 버튼 후 모달창
     showModal() {
-      if (this.form.number < 10000)
-        this.error = "10,000원 이상 충전 가능합니다.";
-      else if (this.form.number % 1000 !== 0)
-        this.error = "1,000원 단위로 충전 가능합니다";
-      else {
-        this.error = "";
-        this.charge_amount =
-          parseInt(this.form.number) + parseInt(this.form.number * 0.1);
-        this.$refs["charge_modal"].show();
-      }
+      this.$refs["charge_modal"].show();
     },
     hideModal() {
       this.$refs["charge_modal"].hide();
@@ -143,6 +139,24 @@ export default {
           console.log(err);
         });
       this.$router.push("/");
+    },
+  },
+
+  computed: {
+    ch_state() {
+      if (this.form.number.length == 0)
+        return (this.error = "충전할 금액을 입력해주세요.");
+      else if (this.form.number < 10000)
+        this.error = "10,000원 이상 충전 가능합니다.";
+      else if (this.form.number % 1000 !== 0)
+        this.error = "1,000원 단위로 충전 가능합니다";
+      else if (this.form.number > 2000000)
+        this.error = "충전가능금액을 초과하였습니다.";
+      else {
+        this.error = "충전 가능합니다.";
+        this.charge_amount =
+          parseInt(this.form.number) + parseInt(this.form.number * 0.1);
+      }
     },
   },
 };
@@ -234,7 +248,6 @@ export default {
   font-weight: 900;
   border: 2.5px solid #76512c;
   font-family: BCcardB;
-  margin-left: 40%;
 }
 #btn_color {
   color: #fbca47;

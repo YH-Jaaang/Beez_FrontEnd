@@ -51,7 +51,7 @@
               />
               BEEZ
             </a>
-            <b-button id="Exbtn" href="ExchangeToken" style="float:right">
+            <b-button id="Exbtn" href="StoreExchangeToken" style="float:right">
               환전
             </b-button>
           </div>
