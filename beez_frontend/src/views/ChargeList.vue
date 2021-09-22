@@ -336,16 +336,14 @@ export default {
       Store_Infor: "새마을포차",
       //매출
       UserCost: "30,000",
-
       //아이콘
       faList,
-
       //모달 체크박스
       NoMultiCheck: false,
     };
   },
   created() {
-    this.init();
+    // this.init();
   },
   methods: {
     linkGen(pageNum) {
@@ -431,10 +429,9 @@ export default {
   }
 }
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
-/* #Review_modal {
-  margin: 5%;
-  margin-top: 3%;
-} */
+.modal-header {
+  margin: 3%;
+}
 .KeywordReview_modal {
   font-family: BCcardB;
   color: #ffde02;

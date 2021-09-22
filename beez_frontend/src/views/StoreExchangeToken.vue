@@ -129,24 +129,18 @@ export default {
   },
   computed: {
     state() {
+      const text = this;
       if (this.form.bzInput.length == 0) {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.form.bzToWon = this.form.bzInput * 100;
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "환전할 BZ를 입력해주세요.";
+        text.form.bzToWon = this.form.bzInput * 100;
+        text.error = "환전할 BZ를 입력해주세요.";
       } else if (parseInt(this.form.bzInput) > parseInt(this.form.bzAmount)) {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.form.bzToWon = this.form.bzInput * 100;
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "환전가능 BZ가 부족합니다.";
+        text.form.bzToWon = this.form.bzInput * 100;
+        text.error = "환전가능 BZ가 부족합니다.";
       } else {
         /*parseInt(this.form.bzInput) <= parseInt(this.form.bzAmount);*/
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.form.bzToWon = this.form.bzInput * 100;
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "환전 가능합니다.";
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.rest_bz =
+        text.form.bzToWon = this.form.bzInput * 100;
+        text.error = "환전 가능합니다.";
+        text.rest_bz =
           parseInt(this.form.bzAmount) - parseInt(this.form.bzInput);
       }
       return true;

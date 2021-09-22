@@ -119,18 +119,19 @@ export default {
     wi_state() {
       const text = this;
       if (text.withdrawal_won.length == 0)
-        return (text.error = "출금할 금액을 입력해주세요.");
+        text.error = "출금할 금액을 입력해주세요.";
       else if (text.withdrawal_won < 10000)
-        return (text.error = "10,000원 이상 출금 가능합니다.");
+        text.error = "10,000원 이상 출금 가능합니다.";
       else if (text.withdrawal_won % 1000 != 0)
-        return (text.error = "1,000원 단위로 출금 가능합니다.");
+        text.error = "1,000원 단위로 출금 가능합니다.";
       else if (parseInt(text.withdrawal_won) > parseInt(text.my_won))
-        return (text.error = "출금가능 원화가 부족합니다.");
-      else parseInt(text.withdrawal_won) > parseInt(text.my_won);
-      return (
-        (text.error = "출금 가능합니다."),
-        (text.rest_won = parseInt(text.my_won) - parseInt(text.withdrawal_won))
-      );
+        text.error = "출금가능 원화가 부족합니다.";
+      //(parseInt(text.withdrawal_won) > parseInt(text.my_won))
+      else {
+        text.error = "출금 가능합니다.";
+        text.rest_won = parseInt(text.my_won) - parseInt(text.withdrawal_won);
+      }
+      return true;
     },
   },
 };

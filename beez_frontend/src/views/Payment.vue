@@ -58,7 +58,7 @@
           </b-form-group>
 
           <div id="bz_amount">
-            <b-button v-b-toggle.bzForm>BZ 결제</b-button>
+            <b-button v-b-toggle.bzForm>BZ 사용</b-button>
             <b-collapse id="bzForm" class="mt-1">
               <b-card>
                 <b-form-group>
@@ -260,17 +260,14 @@ export default {
   },
   computed: {
     validation() {
-      if (this.form.bz.length == 0)
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "";
+      const text = this;
+      if (this.form.price.length == 0) text.error = "결제금액을 입력해주세요.";
+      else if (this.form.bz.length == 0) text.error = "";
       else if (this.form.price < this.form.bz * 100)
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "BZ 사용금액이 결제금액을 초과하였습니다.";
+        text.error = "BZ 사용금액이 결제금액을 초과하였습니다.";
       else if (this.form.bz > this.myBz)
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.error = "사용 가능한 BZ가 부족합니다.";
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      else this.error = "사용 가능합니다.";
+        text.error = "사용 가능한 BZ가 부족합니다.";
+      else text.error = "사용 가능합니다.";
       return true;
     },
   },

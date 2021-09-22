@@ -1,14 +1,14 @@
 <template>
   <div id="start">
     <div>
-      <div class="span-blank">빈공간</div>
       <div class="li_btn text-center">
-        <b-button id="review_btn" href="/Main" @click="setCookies">
+        <b-button href="/Main" @click="setCookies">
           지역주민<br />시작하기
         </b-button>
-        <b-button id="review_btn" href="/" @click="setBusinessCookies">
+        <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
+        <div class="span-blank">빈공간</div>
         <div>
           <b-tabs content-class="mt-3" justified>
             <!-- 지역주민 로그인 탭 -->
@@ -25,10 +25,11 @@
                   placeholder="PASSWORD"
                   type="password"
                   v-model="password"
+                  autocomplete="off"
                 />
                 <ul>
                   <li>
-                    <b-button id="review_btn" @click="loginBtn">
+                    <b-button id="login_btn" @click="loginBtn">
                       Login
                     </b-button>
                   </li>
@@ -41,20 +42,18 @@
             <!-- 소상공인 로그인 탭 -->
             <b-tab title="소상공인 시작하기"
               ><form class="login_form">
-                <input
-                  class="enter_form"
-                  placeholder="ID"
-                  type="text"
-                  name="Enter your email"
-                />
+                <input class="enter_form" placeholder="ID" type="text" />
+                <!-- v-model="store_id" -->
                 <input
                   class="enter_form"
                   placeholder="PASSWORD"
-                  type="text"
-                  name="Enter your email"
+                  type="password"
+                  autocomplete="off"
                 />
+                <!-- v-model="store_password" -->
+
                 <!-- @click="storeLoginBtn" -->
-                <b-button id="review_btn">
+                <b-button id="store_login_btn">
                   Login
                 </b-button>
                 <li>
@@ -94,7 +93,6 @@
         </b-carousel-slide>
       </b-carousel>
     </div>
-    <div class="span-blank">빈공간</div>
     <div class="span-blank">빈공간</div>
   </div>
 </template>
@@ -218,7 +216,22 @@ export default {
   font-size: 17px;
   width: 77%;
 }
-#review_btn {
+.review_btn {
+  width: 214px;
+  font-size: 17px;
+  padding: 2px 0;
+  border-radius: 48px;
+  color: #fff;
+}
+
+#login_btn {
+  width: 214px;
+  font-size: 17px;
+  padding: 2px 0;
+  border-radius: 48px;
+  color: #fff;
+}
+#store_login_btn {
   width: 214px;
   font-size: 17px;
   padding: 2px 0;
