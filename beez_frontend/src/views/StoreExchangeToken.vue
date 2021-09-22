@@ -55,19 +55,19 @@
           title="환전 정보"
         >
           <div class="d-block">
-            <a class="posit_rel margin164">출금가능 BZ</a>
+            <a class="posit_rel margin">출금가능 BZ</a>
             <a class="posit_rel" style="float:right"> {{ form.bzAmount }} BZ</a>
           </div>
           <div class="d-block">
-            <a class="posit_rel margin164">환전 BZ</a>
+            <a class="posit_rel margin">환전 BZ</a>
             <a class="posit_rel" style="float:right"> {{ form.bzInput }} BZ</a>
           </div>
           <div class="d-block">
-            <a class="posit_rel margin164">환전 금액</a>
+            <a class="posit_rel margin">환전 금액</a>
             <a class="posit_rel" style="float:right"> {{ form.bzToWon }} 원</a>
           </div>
           <div class="d-block" id="total_excharge">
-            <a class="posit_rel margin100">잔여 BZ</a>
+            <a class="posit_rel margin2">잔여 BZ</a>
             <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
           </div>
           <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
@@ -81,13 +81,10 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  components: {
-    FontAwesomeIcon,
-  },
+  components: {},
   data() {
     return {
       bank_na: "KB 국민",
@@ -132,23 +129,27 @@ export default {
   },
   computed: {
     state() {
-      if (this.form.bzInput.length == 0)
-        return (
-          (this.form.bzToWon = this.form.bzInput * 100),
-          (this.error = "환전할 BZ를 입력해주세요.")
-        );
-      else if (parseInt(this.form.bzInput) > parseInt(this.form.bzAmount)) {
-        return (
-          (this.form.bzToWon = this.form.bzInput * 100),
-          (this.error = "환전가능 BZ가 부족합니다.")
-        );
-      } else parseInt(this.form.bzInput) <= parseInt(this.form.bzAmount);
-      return (
-        (this.form.bzToWon = this.form.bzInput * 100),
-        (this.error = "환전 가능합니다."),
-        (this.rest_bz =
-          parseInt(this.form.bzAmount) - parseInt(this.form.bzInput))
-      );
+      if (this.form.bzInput.length == 0) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.form.bzToWon = this.form.bzInput * 100;
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "환전할 BZ를 입력해주세요.";
+      } else if (parseInt(this.form.bzInput) > parseInt(this.form.bzAmount)) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.form.bzToWon = this.form.bzInput * 100;
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "환전가능 BZ가 부족합니다.";
+      } else {
+        /*parseInt(this.form.bzInput) <= parseInt(this.form.bzAmount);*/
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.form.bzToWon = this.form.bzInput * 100;
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "환전 가능합니다.";
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.rest_bz =
+          parseInt(this.form.bzAmount) - parseInt(this.form.bzInput);
+      }
+      return true;
     },
   },
 };
@@ -226,6 +227,27 @@ export default {
   font-weight: 600;
 }
 
+#font-red {
+  color: rgb(226, 38, 38);
+  font-size: 13px;
+  margin-right: 7px;
+}
+/*-------------------------- 비즈-------------------------- */
+.detail_bz_ceo {
+  color: #100055;
+  font-weight: 600;
+  background-color: #e0f5f7;
+  border-radius: 17px;
+  padding: 8px 14px;
+  /* border: 2px solid #76512c; */
+}
+.detail_bz_ceo li {
+  padding-top: 9px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 15px;
+}
+
 /*-------------------------- 환전 버튼-------------------------- */
 .exchange_btn {
   font-family: BCcardB;
@@ -253,9 +275,14 @@ export default {
 }
 
 /*-------------------------- 환전 모달창-------------------------- */
+.modal-header {
+  margin: 3%;
+}
 #ex_modal {
   font-family: BCcardB;
   color: #100055;
+  padding: 10px;
+  top: 10%;
 }
 
 #ex_modal .btn {
@@ -277,5 +304,41 @@ export default {
 #total_excharge {
   position: relative;
   right: -5%;
+}
+#total_charge {
+  border-top: 2px solid #76512c;
+  margin-top: 2%;
+  margin-left: 0%;
+  margin-right: 11%;
+}
+
+#total_charge {
+  position: relative;
+  right: -5%;
+}
+
+#align_right {
+  float: right;
+}
+.posit_rel {
+  position: relative;
+  right: 19%;
+}
+
+.posit_rel2 {
+  position: relative;
+  right: 15%;
+}
+
+.posit_rel.left {
+  left: 20px;
+}
+
+.posit_rel.margin {
+  left: 20%;
+}
+
+.posit_rel.margin2 {
+  left: 17%;
 }
 </style>

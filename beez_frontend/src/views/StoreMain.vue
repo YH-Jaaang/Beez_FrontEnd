@@ -89,11 +89,11 @@
       </div>
     </b-card>
     <div class="li_btn_ceo text-center">
-      <b-button href="Use">
+      <b-button href="#">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제 내역
       </b-button>
-      <b-button href="Review">
+      <b-button href="/StoreReviewList">
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         리뷰
       </b-button>
@@ -251,6 +251,7 @@ export default {
 }
 #Exbtn {
   padding: 0% 1.5%;
+  color: white;
 }
 @media (max-width: 650px) {
   #Exbtn {

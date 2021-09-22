@@ -17,27 +17,7 @@
             <b-nav-item href="/" class="ml-auto" @click="reset"
               >로그아웃</b-nav-item
             >
-            <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
           </b-navbar-nav>
-
-          <!-- Right aligned nav items -->
-          <!-- <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right> -->
-          <!-- Using 'button-content' slot -->
-          <!-- <template #button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav> -->
         </b-collapse>
       </b-navbar>
     </div>
@@ -65,10 +45,12 @@ export default {
       VueCookies.remove("Address");
     },
   },
-  created() {
-    if (VueCookies.get("Id") != "user" || !VueCookies.get("Address")) {
+  beforeCreate() {
+    //아이디가 user가 아닐경우, address가 없을 경우, address가 20바이트가 아닐 경우
+    //ID가 business일 경우, business페이지로 이동
+    if (VueCookies.get("Id") == "business") this.$router.push("/StoreMain");
+    if (VueCookies.get("Id") != "user" || !VueCookies.get("Address"))
       this.$router.push("/");
-    }
   },
 };
 </script>

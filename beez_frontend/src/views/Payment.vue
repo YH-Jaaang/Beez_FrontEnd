@@ -260,12 +260,18 @@ export default {
   },
   computed: {
     validation() {
-      if (this.form.bz.length == 0) return (this.error = "");
+      if (this.form.bz.length == 0)
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "";
       else if (this.form.price < this.form.bz * 100)
-        return (this.error = "BZ 사용금액이 결제금액을 초과하였습니다.");
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "BZ 사용금액이 결제금액을 초과하였습니다.";
       else if (this.form.bz > this.myBz)
-        return (this.error = "사용 가능한 BZ가 부족합니다.");
-      else return (this.error = "사용 가능합니다.");
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.error = "사용 가능한 BZ가 부족합니다.";
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      else this.error = "사용 가능합니다.";
+      return true;
     },
   },
 };
@@ -359,6 +365,7 @@ export default {
 }
 
 .qrheader {
+  margin: 5%;
   border-bottom: 3px solid #f8b704;
 }
 

@@ -75,11 +75,11 @@
       />
     </div>
     <div class="li_btn text-center">
-      <b-button href="Use">
+      <b-button href="ChargeList">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제 내역
       </b-button>
-      <b-button href="Review" id="review_btn">
+      <b-button href="/">
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         가게 목록
       </b-button>
@@ -93,7 +93,6 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-
 export default {
   components: {
     FontAwesomeIcon,
@@ -104,7 +103,7 @@ export default {
       incentiveOfMonth: "10,000",
       chargeOfMonth: "100,000",
       myBz: 33,
-
+      msg: "This is demo net work",
       //아이콘
       faWonSign,
       faQrcode,
@@ -112,7 +111,11 @@ export default {
       faCaretDown,
     };
   },
-  methods: {},
+  methods: {
+    onComplete(data) {
+      console.log("data:", data);
+    },
+  },
 };
 </script>
 
