@@ -8,13 +8,8 @@
         <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
         <div class="span-blank">빈공간</div>
+
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
             <!-- 지역주민 로그인 탭 -->
@@ -57,27 +52,7 @@
                     autocomplete="off"
                   />
                 </li>
-=======
-        <div class="span-blank">빈공간</div>
-        <div>
-          <b-tabs content-class="mt-3" justified>
-            <!-- 지역주민 로그인 탭 -->
-            <b-tab title="지역주민 시작하기" active
-              ><form class="login_form">
-                <input
-                  class="enter_form"
-                  placeholder="ID"
-                  type="text"
-                  v-model="id"
-                />
-                <input
-                  class="enter_form"
-                  placeholder="PASSWORD"
-                  type="password"
-                  v-model="password"
-                  autocomplete="off"
-                />
->>>>>>> main
+
                 <ul>
                   <li>
                     <b-button id="login_btn" @click="loginBtn">
@@ -85,14 +60,11 @@
                     </b-button>
                   </li>
                   <li>
-<<<<<<< HEAD
                     <b-button id="store_join_btn">
                       Sign-up
                     </b-button>
                   </li>
                   <li>
-=======
->>>>>>> main
                     <a id="font-red">{{ errMsg }}</a>
                   </li>
                 </ul>
@@ -101,7 +73,6 @@
             <!-- 소상공인 로그인 탭 -->
             <b-tab title="소상공인 시작하기"
               ><form class="login_form">
-<<<<<<< HEAD
                 <li>
                   <FontAwesomeIcon :icon="faUserCheck" style="color:#fbca47" />
                   <input class="enter_form" placeholder="ID" type="text" />
@@ -131,27 +102,6 @@
                     Sign-up
                   </b-button>
                 </li>
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-=======
-                <input class="enter_form" placeholder="ID" type="text" />
-                <!-- v-model="store_id" -->
-                <input
-                  class="enter_form"
-                  placeholder="PASSWORD"
-                  type="password"
-                  autocomplete="off"
-                />
-                <!-- v-model="store_password" -->
-
-                <!-- @click="storeLoginBtn" -->
-                <b-button id="store_login_btn">
-                  Login
-                </b-button>
->>>>>>> main
-=======
->>>>>>> Stashed changes
                 <li>
                   <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
                 </li>
@@ -159,13 +109,6 @@
             >
           </b-tabs>
         </div>
-<<<<<<< Updated upstream
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
-=======
->>>>>>> Stashed changes
       </div>
     </div>
 
@@ -201,21 +144,6 @@
 </template>
 
 <script>
-import VueCookies from "vue-cookies";
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-import axios from "axios";
-import "url-search-params-polyfill";
-import { httpAddress } from "@/../public/js/axios/httpaddress.js";
->>>>>>> main
-export default {
-  name: "start",
-  components: {},
-=======
-=======
->>>>>>> Stashed changes
 import axios from "axios";
 import "url-search-params-polyfill";
 import { httpAddress } from "@/../public/js/axios/httpaddress.js";
@@ -232,31 +160,16 @@ export default {
     return {
       slide: 0,
       sliding: null,
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> main
-=======
->>>>>>> Stashed changes
       id: "",
       password: "",
       showAlert: false,
       errMsg: "",
       StoreShowAlert: false,
       StoreErrMsg: "",
-<<<<<<< HEAD
 
       //아이콘
       faUserCheck,
       faLock,
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> main
-=======
->>>>>>> Stashed changes
     };
   },
   methods: {
@@ -293,10 +206,6 @@ export default {
           });
       }
     },
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     setCookies: () => {
       if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
         VueCookies.set("Id", "user");
@@ -345,23 +254,13 @@ h5 {
 #start_carousel img {
   width: 100%;
 }
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
 
 /*-------------------------- 지역주민/소상공인 로그인 탭-------------------------- */
-=======
 
-/*-------------------------- 내역/리뷰 버튼-------------------------- */
->>>>>>> main
 .li_btn {
   font-family: BCcardB;
   padding-bottom: 30px;
 }
-<<<<<<< HEAD
 
 /* .nav {
   padding-left: 15px;
@@ -381,27 +280,17 @@ h5 {
 .nav-tabs .nav-link.active {
   color: #fbca47;
   font-weight: 600;
-=======
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-  color: #fbca47;
->>>>>>> main
 }
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link {
   color: #17094c;
 }
 .login_form {
-<<<<<<< HEAD
   /* padding: 20px; */
-=======
-  padding-top: 40px;
->>>>>>> main
   font-family: BCcardB;
 }
 .enter_form {
   margin-bottom: 2%;
-<<<<<<< HEAD
   border: #fbca47 solid 2px;
   height: 50px;
   padding: 0 20px;
@@ -410,15 +299,6 @@ h5 {
   font-size: 17px;
   width: 77%;
   margin-left: 13px;
-=======
-  border: #fbca47 solid 1px;
-  height: 55px;
-  padding: 0 25px;
-  border-radius: 30px;
-  background-color: #fff;
-  font-size: 17px;
-  width: 77%;
->>>>>>> main
 }
 .review_btn {
   width: 214px;
@@ -443,7 +323,6 @@ h5 {
   color: #fff;
 }
 
-<<<<<<< HEAD
 #store_join_btn {
   width: 214px;
   font-size: 17px;
@@ -454,8 +333,6 @@ h5 {
   border: 2px solid #ffde02;
 }
 
-=======
->>>>>>> main
 .li_btn .btn {
   color: #76512c;
   background-color: #ffde02;
@@ -472,11 +349,4 @@ h5 {
   font-size: 13px;
   margin-right: 7px;
 }
-<<<<<<< Updated upstream
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
-=======
->>>>>>> Stashed changes
 </style>
