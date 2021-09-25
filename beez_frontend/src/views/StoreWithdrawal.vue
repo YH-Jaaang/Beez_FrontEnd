@@ -2,7 +2,7 @@
   <div>
     <b-card id="card_StoreWithdrawal">
       <img
-        src="../assets/charge/beez_card.png"
+        src="../assets/charge/card_logo2.png"
         alt="card"
         style="float:center"
       />
@@ -147,17 +147,17 @@ export default {
 /*--------------------------card--------------------------- */
 #card_StoreWithdrawal {
   font-family: BCcardB;
-  background-color: #fff;
+  background-color: rgba(177, 175, 175, 0.394);
   /* padding: 10px 7px; */
   border-radius: 50px;
-  border: 2.5px solid #100055;
+  border: 2px solid #8b8898;
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
 }
 
 #card_StoreWithdrawal img {
-  margin: -12px -31px;
+  margin: -10px -16px;
   height: 15rem;
 }
 

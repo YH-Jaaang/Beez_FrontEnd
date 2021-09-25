@@ -21,7 +21,7 @@
         <ul class="detail_ac_ceo">
           <div class="title_bz_ceo">
             <a>
-              <FontAwesomeIcon :icon="faWonSign" style="color:#100055" />
+              <FontAwesomeIcon :icon="faWonSign" style="color:#0d4890" />
               현금매출
             </a>
             <b-button id="Exbtn" href="StoreWithdrawal" style="float:right">
@@ -89,13 +89,20 @@
       </div>
     </b-card>
     <div class="li_btn_ceo text-center">
+<<<<<<< Updated upstream
       <b-button href="Use">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제 내역
       </b-button>
       <b-button href="Review">
+=======
+      <!-- <b-button href="#">
+        결제 내역
+      </b-button> -->
+      <b-button href="/StoreReviewList">
+>>>>>>> Stashed changes
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
-        리뷰
+        결제 / 리뷰 내역
       </b-button>
     </div>
   </div>
@@ -162,7 +169,7 @@ export default {
 /*--------------------------card_ 원화-------------------------- */
 #card_main_ceo {
   font-family: BCcardB;
-  background-color: #100055;
+  background-color: #1158aece;
   /* padding: 10px 7px; */
   border-radius: 50px;
   margin: 4% 6%;
@@ -184,14 +191,14 @@ export default {
 
 .detail_ac_ceo .btn {
   color: rgb(255, 255, 255);
-  background-color: #100055;
+  background-color: #0d4890;
   margin-left: 14px;
   margin-right: 14px;
   font-size: 17px;
 }
 
 .detail_ac_ceo {
-  color: #100055;
+  color: #0d4890;
 
   font-weight: 600;
   background-color: #e0f5f7;
@@ -207,7 +214,7 @@ export default {
 
 /*-------------------------- 비즈-------------------------- */
 .detail_bz_ceo {
-  color: #100055;
+  color: #0d4890;
   font-weight: 600;
   background-color: #e0f5f7;
   border-radius: 17px;
@@ -224,12 +231,12 @@ export default {
 .title_bz_ceo {
   font-size: 21px;
   font-weight: 900;
-  border-bottom: 2px solid #100055;
+  border-bottom: 2px solid #0d4890;
   padding-left: 5px;
 }
 
 .detail_bz_ceo .btn {
-  background-color: #100055;
+  background-color: #0d4890;
   margin-left: 14px;
   margin-right: 14px;
   font-size: 17px;
@@ -242,7 +249,7 @@ export default {
 
 .li_btn_ceo .btn {
   color: #ffffff;
-  background-color: #100055;
+  background-color: #1158aece;
   margin-left: 25px;
   margin-right: 25px;
   font-size: 25px;
