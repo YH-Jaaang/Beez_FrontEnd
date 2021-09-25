@@ -137,11 +137,11 @@ export default {
   color: #fbca47;
 }
 
-.navbar-collapse {
-  /* padding-left: 9px; */
+/* .navbar-collapse {
+  padding-left: 9px;
   padding-bottom: 0.5rem;
-  /* padding-right: 13px; */
-}
+  padding-right: 13px;
+} */
 
 .navbar-nav {
   margin: 0 25px;
@@ -149,7 +149,7 @@ export default {
   line-height: 20px;
   font-weight: 600;
   text-transform: uppercase;
-  padding: 0 0 3px 0;
+  /* padding: 0 0 3px 0; */
   position: relative;
 }
 

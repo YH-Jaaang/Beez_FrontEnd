@@ -23,7 +23,7 @@ Vue.use(BootstrapVueIcons);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
-axios.defaults.baseURL = "https://172.30.1.44:9091";
+axios.defaults.baseURL = "https://172.30.1.8:9091";
 //토큰, 유저아이디, 지갑주소 확인하기
 // const storage = window.sessionStorage;
 // console.log(storage.getItem("jwt-auth-token"));

@@ -6,13 +6,12 @@
         <b-navbar-brand href="/StoreMain">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
-        <b-navbar-button href="/StoreQR">
-          <FontAwesomeIcon
-            :icon="faQrcode"
-            id="stroeQR"
-            style="color:#100055"
-          />
-        </b-navbar-button>
+
+        <b-navbar-toggle>
+          <a href="/StoreQR">
+            <FontAwesomeIcon :icon="faQrcode" id="storeQR" />
+          </a>
+        </b-navbar-toggle>
 
         <b-navbar-toggle target="nav-collapse"
           ><FontAwesomeIcon :icon="faBars" id="fabars"
@@ -24,6 +23,9 @@
             <b-nav-item href="/" class="ml-auto color" @click="reset"
               >로그아웃</b-nav-item
             >
+            <b-nav-item href="/StoreQR" class="ml-auto color"
+              >QR코드</b-nav-item
+            >
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -34,6 +36,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import VueCookies from "vue-cookies";
 //const storage = window.sessionStorage;
 
@@ -45,6 +48,7 @@ export default {
     return {
       itemcount: 0,
       faBars,
+      faQrcode,
     };
   },
   methods: {
@@ -111,6 +115,9 @@ export default {
 }
 
 /*------------------------------ navigation---------------------------------*/
+#storeQR {
+  color: #1158aece;
+}
 
 #fabars {
   color: #1158aece;
@@ -146,11 +153,11 @@ export default {
   color: #1158aece;
 }
 
-.navbar-collapse {
-  /* padding-left: 9px; */
+/* .navbar-collapse {
+  padding-left: 9px;
   padding-bottom: 0.5rem;
-  /* padding-right: 13px; */
-}
+  padding-right: 13px;
+} */
 
 .navbar-nav {
   margin: 0 25px;
@@ -158,7 +165,7 @@ export default {
   line-height: 20px;
   font-weight: 600;
   text-transform: uppercase;
-  padding: 0 0 3px 0;
+  /* padding: 0 0 3px 0; */
   position: relative;
 }
 
