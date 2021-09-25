@@ -70,6 +70,7 @@
                 </ul>
               </form>
             </b-tab>
+            
             <!-- 소상공인 로그인 탭 -->
             <b-tab title="소상공인 시작하기"
               ><form class="login_form">
