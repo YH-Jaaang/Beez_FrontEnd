@@ -147,6 +147,7 @@
 <script>
 import axios from "axios";
 import "url-search-params-polyfill";
+import VueCookies from "vue-cookies";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
