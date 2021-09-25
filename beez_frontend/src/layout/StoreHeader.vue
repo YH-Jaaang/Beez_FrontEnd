@@ -28,6 +28,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import VueCookies from "vue-cookies";
+//const storage = window.sessionStorage;
 
 export default {
   components: {
@@ -43,11 +44,30 @@ export default {
     reset: () => {
       VueCookies.remove("Id");
       VueCookies.remove("Address");
+      // storage.setItem("jwt-auth-token", "");
+      // storage.setItem("login_user", "");
+      // storage.setItem("wallet_address", "");
     },
   },
   beforeCreate() {
-    if (VueCookies.get("Id") == "user") this.$router.push("/Main");
-    if (VueCookies.get("Id") != "business" || !VueCookies.get("Address")) {
+    const id = VueCookies.get("Id");
+    //&& storage.getItem("jwt-auth-token") != ""
+    if (VueCookies.get("Address")) {
+      if (id == "user") this.$router.push("/Main");
+      else if (id != "business") {
+        VueCookies.remove("Id");
+        VueCookies.remove("Address");
+        // storage.setItem("jwt-auth-token", "");
+        // storage.setItem("login_user", "");
+        // storage.setItem("wallet_address", "");
+        this.$router.push("/");
+      }
+    } else {
+      VueCookies.remove("Id");
+      VueCookies.remove("Address");
+      // storage.setItem("jwt-auth-token", "");
+      // storage.setItem("login_user", "");
+      // storage.setItem("wallet_address", "");
       this.$router.push("/");
     }
   },

@@ -101,7 +101,8 @@
 import VueCookies from "vue-cookies";
 import axios from "axios";
 import "url-search-params-polyfill";
-import { httpAddress } from "@/../public/js/axios/httpaddress.js";
+const storage = window.sessionStorage;
+
 export default {
   name: "start",
   components: {},
@@ -128,26 +129,30 @@ export default {
         this.errMsg = "비밀번호를 입력해주세요";
         return;
       } else {
-        var params = new URLSearchParams();
-        params.append("id", this.id);
-        params.append("password", this.password);
+        var params = {
+          username: this.id,
+          password: this.password,
+        };
+        storage.setItem("jwt-auth-token", "");
+        storage.setItem("login_user", "");
+        storage.setItem("wallet_address", "");
         await axios
-          .post("https://" + httpAddress + ":9091/login/user", params)
+          .post("/login/login", params)
           .then((res) => {
             //여기서 로그인 했을때 존재하지 않으면 존재하지 않는 아이디 입니다.라는 노티 띄우고 존재하면 쿠키 삽입 후 페이지 이동.
-            if (res.data == "fail") {
-              this.showAlert = true;
-              this.errMsg = "ID 또는 PASSWORD를 다시 확인해주세요";
-              return;
-            } else {
-              VueCookies.set("Id", "user");
-              VueCookies.set("Address", res.data);
-              this.$router.push("/Main");
-              return;
-            }
+            // console.log(res.data.data[0]);
+            // console.log(res);
+            // console.log(res.headers);
+            storage.setItem("jwt-auth-token", res.data.data[0]);
+            storage.setItem("login_user", params.username);
+            storage.setItem("wallet_address", res.data.data[1]);
+            VueCookies.set("Id", "user");
+            VueCookies.set("Address", res.data.data[1]);
+            this.$router.push("/Main");
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            this.showAlert = true;
+            this.errMsg = "ID 또는 PASSWORD를 다시 확인해주세요";
           });
       }
     },
@@ -160,7 +165,7 @@ export default {
     setBusinessCookies: () => {
       if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
         VueCookies.set("Id", "business");
-        VueCookies.set("Address", "임의의 값 나중에 랜덤");
+        VueCookies.set("Address", "0x3237F3B077bf7C5367a74D4e877D8Fc8c2B9a7c6");
       }
     },
 

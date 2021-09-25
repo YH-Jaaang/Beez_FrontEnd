@@ -28,6 +28,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import VueCookies from "vue-cookies";
+//const storage = window.sessionStorage;
 
 export default {
   components: {
@@ -43,14 +44,35 @@ export default {
     reset: () => {
       VueCookies.remove("Id");
       VueCookies.remove("Address");
+      // storage.setItem("jwt-auth-token", "");
+      // storage.setItem("login_user", "");
+      // storage.setItem("wallet_address", "");
     },
   },
   beforeCreate() {
     //아이디가 user가 아닐경우, address가 없을 경우, address가 20바이트가 아닐 경우
     //ID가 business일 경우, business페이지로 이동
-    if (VueCookies.get("Id") == "business") this.$router.push("/StoreMain");
-    if (VueCookies.get("Id") != "user" || !VueCookies.get("Address"))
+    const id = VueCookies.get("Id");
+    //&& storage.getItem("jwt-auth-token") != ""
+    if (VueCookies.get("Address")) {
+      if (id == "user") return true;
+      else if (id == "business") this.$router.push("/StoreMain");
+      else {
+        VueCookies.remove("Id");
+        VueCookies.remove("Address");
+        // storage.setItem("jwt-auth-token", "");
+        // storage.setItem("login_user", "");
+        // storage.setItem("wallet_address", "");
+        this.$router.push("/");
+      }
+    } else {
+      VueCookies.remove("Id");
+      VueCookies.remove("Address");
+      // storage.setItem("jwt-auth-token", "");
+      // storage.setItem("login_user", "");
+      // storage.setItem("wallet_address", "");
       this.$router.push("/");
+    }
   },
 };
 </script>

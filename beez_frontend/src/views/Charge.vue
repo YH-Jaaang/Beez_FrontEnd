@@ -78,8 +78,10 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import VueCookies from "vue-cookies";
-import { httpAddress } from "../../public/js/axios/httpaddress.js";
+//import VueCookies from "vue-cookies";
+
+const storage = window.sessionStorage;
+
 export default {
   name: "App",
   components: {
@@ -124,14 +126,22 @@ export default {
     hideModal() {
       this.$refs["charge_modal"].hide();
     },
-    chargePost() {
-      axios
-        .get("https://" + httpAddress + ":9091/charge/amount", {
-          params: {
-            address: VueCookies.get("Address"),
-            charge: this.form.number,
-          },
-        })
+
+    //값 전달 axios
+    async chargePost() {
+      var params = {
+        address: storage.getItem("wallet_address"),
+        charge: this.form.number,
+      };
+
+      await axios({
+        method: "post",
+        url: "/charge/amount",
+        params,
+        headers: {
+          Authorization: "Bearer " + storage.getItem("jwt-auth-token"),
+        },
+      })
         .then((res) => {
           console.log(res.data);
         })
