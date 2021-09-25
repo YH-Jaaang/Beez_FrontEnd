@@ -13,6 +13,7 @@
             style="color:#100055"
           />
         </b-navbar-button>
+
         <b-navbar-toggle target="nav-collapse"
           ><FontAwesomeIcon :icon="faBars" id="fabars"
         /></b-navbar-toggle>
@@ -90,27 +91,12 @@ export default {
 }
 
 /*------------------------------ navigation---------------------------------*/
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 
-=======
-=======
->>>>>>> Stashed changes
 #fabars {
   color: #1158aece;
   /* 7fb6bb */
 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-#fabars {
-  color: #fbca47;
-  /* 7fb6bb */
-}
->>>>>>> main
-=======
->>>>>>> Stashed changes
+
 .navbar {
   background-color: #ffffff;
 }
