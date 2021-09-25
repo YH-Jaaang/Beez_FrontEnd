@@ -89,6 +89,7 @@
       </div>
     </b-card>
     <div class="li_btn_ceo text-center">
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
       <b-button href="Use">
@@ -97,10 +98,13 @@
       </b-button>
       <b-button href="Review">
 =======
+=======
+>>>>>>> Stashed changes
       <!-- <b-button href="#">
         결제 내역
       </b-button> -->
       <b-button href="/StoreReviewList">
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
       <b-button href="#">
@@ -109,6 +113,8 @@
       </b-button>
       <b-button href="/StoreReviewList">
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         결제 / 리뷰 내역
       </b-button>

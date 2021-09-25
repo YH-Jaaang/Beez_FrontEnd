@@ -224,8 +224,9 @@ export default {
 }
 .overflow-auto {
   width: 100%;
-  align: center;
+  text-align: center;
 }
+
 @media (max-width: 420px) {
   #Store_Review {
     font-size: 18pt;

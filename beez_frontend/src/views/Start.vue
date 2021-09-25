@@ -8,9 +8,12 @@
         <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
         <div class="span-blank">빈공간</div>
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
@@ -115,24 +118,20 @@
                   />
                   <!-- v-model="store_password" -->
 
-<<<<<<< Updated upstream
                   <!-- @click="storeLoginBtn" -->
                 </li>
 
-=======
-                <!-- @click="storeLoginBtn" -->
->>>>>>> Stashed changes
                 <li>
                   <b-button id="store_login_btn">
                     Login
                   </b-button>
                 </li>
-<<<<<<< Updated upstream
                 <li>
                   <b-button id="store_join_btn">
                     Sign-up
                   </b-button>
                 </li>
+<<<<<<< Updated upstream
 =======
 >>>>>>> Stashed changes
 =======
@@ -151,6 +150,8 @@
                   Login
                 </b-button>
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
                 <li>
                   <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
                 </li>
@@ -158,10 +159,13 @@
             >
           </b-tabs>
         </div>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 >>>>>>> Stashed changes
 =======
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
       </div>
     </div>
 
@@ -198,6 +202,7 @@
 
 <script>
 import VueCookies from "vue-cookies";
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
@@ -209,6 +214,8 @@ export default {
   name: "start",
   components: {},
 =======
+=======
+>>>>>>> Stashed changes
 import axios from "axios";
 import "url-search-params-polyfill";
 import { httpAddress } from "@/../public/js/axios/httpaddress.js";
@@ -221,16 +228,18 @@ export default {
   components: {
     FontAwesomeIcon,
   },
->>>>>>> Stashed changes
   data() {
     return {
       slide: 0,
       sliding: null,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 =======
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
       id: "",
       password: "",
       showAlert: false,
@@ -242,9 +251,12 @@ export default {
       //아이콘
       faUserCheck,
       faLock,
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
     };
   },
   methods: {
@@ -281,6 +293,10 @@ export default {
           });
       }
     },
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     setCookies: () => {
       if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
         VueCookies.set("Id", "user");
@@ -329,9 +345,12 @@ h5 {
 #start_carousel img {
   width: 100%;
 }
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 /*-------------------------- 지역주민/소상공인 로그인 탭-------------------------- */
 =======
@@ -453,8 +472,11 @@ h5 {
   font-size: 13px;
   margin-right: 7px;
 }
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 >>>>>>> Stashed changes
 =======
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
 </style>

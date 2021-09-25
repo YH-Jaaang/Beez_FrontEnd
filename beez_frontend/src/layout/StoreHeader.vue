@@ -90,18 +90,18 @@ export default {
 }
 
 /*------------------------------ navigation---------------------------------*/
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
-#fabars {
-<<<<<<< Updated upstream
-  color: #1158aece;
 =======
-  color: #100055;
 >>>>>>> Stashed changes
+#fabars {
+  color: #1158aece;
   /* 7fb6bb */
 }
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
 #fabars {
@@ -109,6 +109,8 @@ export default {
   /* 7fb6bb */
 }
 >>>>>>> main
+=======
+>>>>>>> Stashed changes
 .navbar {
   background-color: #ffffff;
 }
@@ -134,13 +136,8 @@ export default {
 } */
 
 .nav-link {
-<<<<<<< Updated upstream
   border-bottom: #1158aece solid 3px;
   color: #1158aece;
-=======
-  border-bottom: #100055 solid 3px;
-  color: #100055;
->>>>>>> Stashed changes
 }
 
 .navbar-collapse {
