@@ -6,7 +6,13 @@
         <b-navbar-brand href="#">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
-
+        <b-navbar-button href="/StoreQR">
+          <FontAwesomeIcon
+            :icon="faQrcode"
+            id="stroeQR"
+            style="color:#100055"
+          />
+        </b-navbar-button>
         <b-navbar-toggle target="nav-collapse"
           ><FontAwesomeIcon :icon="faBars" style="color:#fbca47"
         /></b-navbar-toggle>
@@ -87,7 +93,11 @@ export default {
 
 =======
 #fabars {
+<<<<<<< Updated upstream
   color: #1158aece;
+=======
+  color: #100055;
+>>>>>>> Stashed changes
   /* 7fb6bb */
 }
 >>>>>>> Stashed changes
@@ -116,8 +126,13 @@ export default {
 } */
 
 .nav-link {
+<<<<<<< Updated upstream
   border-bottom: #1158aece solid 3px;
   color: #1158aece;
+=======
+  border-bottom: #100055 solid 3px;
+  color: #100055;
+>>>>>>> Stashed changes
 }
 
 .navbar-collapse {

@@ -91,19 +91,26 @@
                   />
                   <!-- v-model="store_password" -->
 
+<<<<<<< Updated upstream
                   <!-- @click="storeLoginBtn" -->
                 </li>
 
+=======
+                <!-- @click="storeLoginBtn" -->
+>>>>>>> Stashed changes
                 <li>
                   <b-button id="store_login_btn">
                     Login
                   </b-button>
                 </li>
+<<<<<<< Updated upstream
                 <li>
                   <b-button id="store_join_btn">
                     Sign-up
                   </b-button>
                 </li>
+=======
+>>>>>>> Stashed changes
                 <li>
                   <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
                 </li>
