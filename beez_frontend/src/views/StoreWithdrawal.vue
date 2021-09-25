@@ -59,15 +59,15 @@
         title="출금 정보"
       >
         <div class="d-block">
-          <a class="posit_rel margin138">출금가능 금액</a>
+          <a class="posit_rel margin">출금가능 금액</a>
           <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
         </div>
         <div class="d-block">
-          <a class="posit_rel margin164">출금 금액</a>
+          <a class="posit_rel margin">출금 금액</a>
           <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
         </div>
         <div class="d-block" id="total_excharge">
-          <a class="posit_rel margin100">잔여 금액</a>
+          <a class="posit_rel margin2">잔여 금액</a>
           <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
         </div>
 
@@ -117,19 +117,21 @@ export default {
   },
   computed: {
     wi_state() {
-      if (this.withdrawal_won.length == 0)
-        return (this.error = "출금할 금액을 입력해주세요.");
-      else if (this.withdrawal_won < 10000)
-        return (this.error = "10,000원 이상 출금 가능합니다.");
-      else if (this.withdrawal_won % 1000 != 0)
-        return (this.error = "1,000원 단위로 출금 가능합니다.");
-      else if (parseInt(this.withdrawal_won) > parseInt(this.my_won))
-        return (this.error = "출금가능 원화가 부족합니다.");
-      else parseInt(this.withdrawal_won) > parseInt(this.my_won);
-      return (
-        (this.error = "출금 가능합니다."),
-        (this.rest_won = parseInt(this.my_won) - parseInt(this.withdrawal_won))
-      );
+      const text = this;
+      if (text.withdrawal_won.length == 0)
+        text.error = "출금할 금액을 입력해주세요.";
+      else if (text.withdrawal_won < 10000)
+        text.error = "10,000원 이상 출금 가능합니다.";
+      else if (text.withdrawal_won % 1000 != 0)
+        text.error = "1,000원 단위로 출금 가능합니다.";
+      else if (parseInt(text.withdrawal_won) > parseInt(text.my_won))
+        text.error = "출금가능 원화가 부족합니다.";
+      //(parseInt(text.withdrawal_won) > parseInt(text.my_won))
+      else {
+        text.error = "출금 가능합니다.";
+        text.rest_won = parseInt(text.my_won) - parseInt(text.withdrawal_won);
+      }
+      return true;
     },
   },
 };
@@ -199,6 +201,11 @@ export default {
 #btn_color2 {
   color: #100055;
 }
+#font-red {
+  color: rgb(226, 38, 38);
+  font-size: 13px;
+  margin-right: 7px;
+}
 
 /*-------------------------- 출금 버튼-------------------------- */
 #wi_btn {
@@ -213,21 +220,68 @@ export default {
 
 /*-------------------------- 충전 모달창-------------------------- */
 .modal-header {
-  margin-left: 5%;
-  margin-top: 3%;
+  margin: 3%;
+}
+#wi_modal {
+  font-family: BCcardB;
+  color: #100055;
+  padding: 10px;
+  top: 10%;
 }
 
 #wi_modal .btn {
   color: #100055;
-  background-color: #e0f5f7;
+  background-color: rgba(125, 174, 224, 0.463);
   width: 30%;
   margin-left: 15%;
   font-size: 14px;
   font-weight: 700;
 }
 
-#wi_modal {
-  font-family: BCcardB;
-  color: #100055;
+#total_excharge {
+  border-top: 2px solid #100055;
+  margin-top: 2%;
+  margin-left: 0%;
+  margin-right: 11%;
+}
+
+#total_excharge {
+  position: relative;
+  right: -5%;
+}
+#total_charge {
+  border-top: 2px solid #76512c;
+  margin-top: 2%;
+  margin-left: 0%;
+  margin-right: 11%;
+}
+
+#total_charge {
+  position: relative;
+  right: -5%;
+}
+
+#align_right {
+  float: right;
+}
+.posit_rel {
+  position: relative;
+  right: 19%;
+}
+
+.posit_rel2 {
+  position: relative;
+  right: 14.5%;
+}
+
+.posit_rel.left {
+  left: 20px;
+}
+
+.posit_rel.margin {
+  left: 20%;
+}
+.posit_rel.margin2 {
+  left: 17%;
 }
 </style>

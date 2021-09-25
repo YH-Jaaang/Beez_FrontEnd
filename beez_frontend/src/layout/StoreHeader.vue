@@ -3,7 +3,7 @@
     <div class="header">
       <b-navbar toggleable="lg" type="light">
         <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
-        <b-navbar-brand href="#">
+        <b-navbar-brand href="/StoreMain">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
         <b-navbar-button href="/StoreQR">
@@ -14,13 +14,13 @@
           />
         </b-navbar-button>
         <b-navbar-toggle target="nav-collapse"
-          ><FontAwesomeIcon :icon="faBars" style="color:#fbca47"
+          ><FontAwesomeIcon :icon="faBars" id="fabars"
         /></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="/StoreMain" class="ml-auto">HOME</b-nav-item>
-            <b-nav-item href="/" class="ml-auto" @click="reset"
+            <b-nav-item href="/" class="ml-auto color" @click="reset"
               >로그아웃</b-nav-item
             >
           </b-navbar-nav>
@@ -51,7 +51,8 @@ export default {
       VueCookies.remove("Address");
     },
   },
-  created() {
+  beforeCreate() {
+    if (VueCookies.get("Id") == "user") this.$router.push("/Main");
     if (VueCookies.get("Id") != "business" || !VueCookies.get("Address")) {
       this.$router.push("/");
     }
@@ -89,6 +90,7 @@ export default {
 }
 
 /*------------------------------ navigation---------------------------------*/
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
@@ -101,6 +103,12 @@ export default {
   /* 7fb6bb */
 }
 >>>>>>> Stashed changes
+=======
+#fabars {
+  color: #fbca47;
+  /* 7fb6bb */
+}
+>>>>>>> main
 .navbar {
   background-color: #ffffff;
 }

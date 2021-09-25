@@ -2,7 +2,11 @@
   <div class="StoreReview_section">
     <div class="StoreReview text-center">
       <a id="Store_Review">
+<<<<<<< HEAD
         <FontAwesomeIcon :icon="faStore" style="color:#100055" />
+=======
+        <FontAwesomeIcon :icon="faList" style="color:#100055" />
+>>>>>>> main
         우리가게 리뷰
       </a>
     </div>
@@ -134,7 +138,11 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+<<<<<<< HEAD
 import { faStore } from "@fortawesome/free-solid-svg-icons";
+=======
+import { faList } from "@fortawesome/free-solid-svg-icons";
+>>>>>>> main
 
 export default {
   components: {
@@ -152,7 +160,11 @@ export default {
       storeSales: "30,000",
 
       //아이콘
+<<<<<<< HEAD
       faStore,
+=======
+      faList,
+>>>>>>> main
     };
   },
   methods: {
@@ -203,7 +215,11 @@ export default {
   margin: 0 auto;
 }
 .bar {
+<<<<<<< HEAD
   border-bottom: 1.5px solid #100055;
+=======
+  border-bottom: 2px solid #100055;
+>>>>>>> main
   margin-bottom: 4%;
 }
 .overflow-auto {

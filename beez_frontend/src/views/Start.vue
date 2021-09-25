@@ -1,15 +1,14 @@
 <template>
-  <div id="App">
+  <div id="start">
     <div>
-      <div class="span-blank">빈공간</div>
-      <div class="span-blank">빈공간</div>
       <div class="li_btn text-center">
-        <b-button id="review_btn" href="/Main" @click="setCookies">
+        <b-button href="/Main" @click="setCookies">
           지역주민<br />시작하기
         </b-button>
-        <b-button id="review_btn" href="/" @click="setBusinessCookies">
+        <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
         <div class="span-blank">빈공간</div>
@@ -55,6 +54,27 @@
                     autocomplete="off"
                   />
                 </li>
+=======
+        <div class="span-blank">빈공간</div>
+        <div>
+          <b-tabs content-class="mt-3" justified>
+            <!-- 지역주민 로그인 탭 -->
+            <b-tab title="지역주민 시작하기" active
+              ><form class="login_form">
+                <input
+                  class="enter_form"
+                  placeholder="ID"
+                  type="text"
+                  v-model="id"
+                />
+                <input
+                  class="enter_form"
+                  placeholder="PASSWORD"
+                  type="password"
+                  v-model="password"
+                  autocomplete="off"
+                />
+>>>>>>> main
                 <ul>
                   <li>
                     <b-button id="login_btn" @click="loginBtn">
@@ -62,11 +82,14 @@
                     </b-button>
                   </li>
                   <li>
+<<<<<<< HEAD
                     <b-button id="store_join_btn">
                       Sign-up
                     </b-button>
                   </li>
                   <li>
+=======
+>>>>>>> main
                     <a id="font-red">{{ errMsg }}</a>
                   </li>
                 </ul>
@@ -75,6 +98,7 @@
             <!-- 소상공인 로그인 탭 -->
             <b-tab title="소상공인 시작하기"
               ><form class="login_form">
+<<<<<<< HEAD
                 <li>
                   <FontAwesomeIcon :icon="faUserCheck" style="color:#fbca47" />
                   <input class="enter_form" placeholder="ID" type="text" />
@@ -111,6 +135,22 @@
                 </li>
 =======
 >>>>>>> Stashed changes
+=======
+                <input class="enter_form" placeholder="ID" type="text" />
+                <!-- v-model="store_id" -->
+                <input
+                  class="enter_form"
+                  placeholder="PASSWORD"
+                  type="password"
+                  autocomplete="off"
+                />
+                <!-- v-model="store_password" -->
+
+                <!-- @click="storeLoginBtn" -->
+                <b-button id="store_login_btn">
+                  Login
+                </b-button>
+>>>>>>> main
                 <li>
                   <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
                 </li>
@@ -118,10 +158,11 @@
             >
           </b-tabs>
         </div>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
       </div>
-      <div class="span-blank">빈공간</div>
-      <div class="span-blank">빈공간</div>
     </div>
 
     <div>
@@ -151,13 +192,21 @@
         </b-carousel-slide>
       </b-carousel>
     </div>
+    <div class="span-blank">빈공간</div>
   </div>
 </template>
 
 <script>
 import VueCookies from "vue-cookies";
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+import axios from "axios";
+import "url-search-params-polyfill";
+import { httpAddress } from "@/../public/js/axios/httpaddress.js";
+>>>>>>> main
 export default {
+  name: "start",
   components: {},
 =======
 import axios from "axios";
@@ -177,22 +226,61 @@ export default {
     return {
       slide: 0,
       sliding: null,
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> main
       id: "",
       password: "",
       showAlert: false,
       errMsg: "",
       StoreShowAlert: false,
       StoreErrMsg: "",
+<<<<<<< HEAD
 
       //아이콘
       faUserCheck,
       faLock,
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
     };
   },
   methods: {
+    async loginBtn() {
+      if (this.id == "") {
+        this.showAlert = true;
+        this.errMsg = "아이디를 입력해주세요";
+        return;
+      } else if (this.password == "") {
+        this.showAlert = true;
+        this.errMsg = "비밀번호를 입력해주세요";
+        return;
+      } else {
+        var params = new URLSearchParams();
+        params.append("id", this.id);
+        params.append("password", this.password);
+        await axios
+          .post("https://" + httpAddress + ":9091/login/user", params)
+          .then((res) => {
+            //여기서 로그인 했을때 존재하지 않으면 존재하지 않는 아이디 입니다.라는 노티 띄우고 존재하면 쿠키 삽입 후 페이지 이동.
+            if (res.data == "fail") {
+              this.showAlert = true;
+              this.errMsg = "ID 또는 PASSWORD를 다시 확인해주세요";
+              return;
+            } else {
+              VueCookies.set("Id", "user");
+              VueCookies.set("Address", res.data);
+              this.$router.push("/Main");
+              return;
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
     setCookies: () => {
       if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
         VueCookies.set("Id", "user");
@@ -207,10 +295,10 @@ export default {
     },
 
     //슬라이드
-    onSlideStart(slide) {
+    onSlideStart() {
       this.sliding = true;
     },
-    onSlideEnd(slide) {
+    onSlideEnd() {
       this.sliding = false;
     },
   },
@@ -241,14 +329,20 @@ h5 {
 #start_carousel img {
   width: 100%;
 }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
 /*-------------------------- 지역주민/소상공인 로그인 탭-------------------------- */
+=======
+
+/*-------------------------- 내역/리뷰 버튼-------------------------- */
+>>>>>>> main
 .li_btn {
   font-family: BCcardB;
   padding-bottom: 30px;
 }
+<<<<<<< HEAD
 
 /* .nav {
   padding-left: 15px;
@@ -268,17 +362,27 @@ h5 {
 .nav-tabs .nav-link.active {
   color: #fbca47;
   font-weight: 600;
+=======
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #fbca47;
+>>>>>>> main
 }
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link {
   color: #17094c;
 }
 .login_form {
+<<<<<<< HEAD
   /* padding: 20px; */
+=======
+  padding-top: 40px;
+>>>>>>> main
   font-family: BCcardB;
 }
 .enter_form {
   margin-bottom: 2%;
+<<<<<<< HEAD
   border: #fbca47 solid 2px;
   height: 50px;
   padding: 0 20px;
@@ -287,6 +391,15 @@ h5 {
   font-size: 17px;
   width: 77%;
   margin-left: 13px;
+=======
+  border: #fbca47 solid 1px;
+  height: 55px;
+  padding: 0 25px;
+  border-radius: 30px;
+  background-color: #fff;
+  font-size: 17px;
+  width: 77%;
+>>>>>>> main
 }
 .review_btn {
   width: 214px;
@@ -311,6 +424,7 @@ h5 {
   color: #fff;
 }
 
+<<<<<<< HEAD
 #store_join_btn {
   width: 214px;
   font-size: 17px;
@@ -321,6 +435,8 @@ h5 {
   border: 2px solid #ffde02;
 }
 
+=======
+>>>>>>> main
 .li_btn .btn {
   color: #76512c;
   background-color: #ffde02;
@@ -337,5 +453,8 @@ h5 {
   font-size: 13px;
   margin-right: 7px;
 }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 </style>

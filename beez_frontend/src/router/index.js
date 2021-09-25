@@ -1,79 +1,98 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Main from "../views/Main.vue";
-import Test from "../views/components/Test.vue";
-import Review from "../views/Review.vue";
-import Use from "../views/Use.vue";
-import Charge from "../views/Charge.vue";
-import Payment from "../views/Payment.vue";
-import Start from "../views/Start.vue";
-//소상공인 뷰
-import StoreMain from "../views/StoreMain.vue";
-import StoreExchangeToken from "../views/StoreExchangeToken";
-import StoreWithdrawal from "../views/StoreWithdrawal";
-
-import StartHeader from "../layout/StartHeader.vue";
-import Header from "../layout/Header.vue";
-import StoreHeader from "../layout/StoreHeader.vue";
-import Footer from "../layout/Footer.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
   {
+    //시작 페이지
     path: "/",
-    components: { default: Start, header: StartHeader, footer: Footer },
+    name: "Start",
+    components: {
+      default: () => import("@/views/Start.vue"),
+      header: () => import("@/layout/StartHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
   },
+  //사용자 페이지
   {
     path: "/Main",
-    components: { default: Main, header: Header, footer: Footer },
+    components: {
+      default: () => import("@/views/Main.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: "/Test",
-    components: { default: Test, header: Header, footer: Footer },
+    path: "/ChargeList",
+    components: {
+      default: () => import("@/views/ChargeList.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
   },
-  {
-    path: "/Review",
-    components: { default: Review, header: Header, footer: Footer },
-  },
-  {
-    path: "/Use",
-    components: { default: Use, header: Header, footer: Footer },
-  },
+
   {
     path: "/Charge",
-    components: { default: Charge, header: Header, footer: Footer },
+    components: {
+      default: () => import("@/views/Charge.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
   },
   {
     path: "/Payment",
-    components: { default: Payment, header: Header, footer: Footer },
-  },
-  {
-    path: "/Review",
-    components: { default: Review, header: Header, footer: Footer },
+    components: {
+      default: () => import("@/views/Payment.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
   },
   // 소상공인 페이지
   {
     path: "/StoreMain",
-    components: { default: StoreMain, header: StoreHeader, footer: Footer },
+    components: {
+      default: () => import("@/views/StoreMain.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
+    path: "/StoreReviewList",
+    components: {
+      default: () => import("@/views/StoreReviewList.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
+    path: "/StoreQR",
+    components: {
+      default: () => import("@/views/StoreQR.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
   },
   {
     path: "/StoreExchangeToken",
     components: {
-      default: StoreExchangeToken,
-      header: StoreHeader,
-      footer: Footer,
+      default: () => import("@/views/StoreExchangeToken.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
     },
   },
   {
     path: "/StoreWithdrawal",
     components: {
-      default: StoreWithdrawal,
-      header: StoreHeader,
-      footer: Footer,
+      default: () => import("@/views/StoreWithdrawal.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
     },
   },
+  { path: "*", redirect: "/" },
 ];
 
 const router = new VueRouter({

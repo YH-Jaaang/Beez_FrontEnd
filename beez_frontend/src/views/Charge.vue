@@ -79,7 +79,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import VueCookies from "vue-cookies";
-
+import { httpAddress } from "../../public/js/axios/httpaddress.js";
 export default {
   name: "App",
   components: {
@@ -126,7 +126,7 @@ export default {
     },
     chargePost() {
       axios
-        .get("http://localhost:9091/charge/amount", {
+        .get("https://" + httpAddress + ":9091/charge/amount", {
           params: {
             address: VueCookies.get("Address"),
             charge: this.form.number,
@@ -141,22 +141,23 @@ export default {
       this.$router.push("/");
     },
   },
-
   computed: {
     ch_state() {
+      const text = this;
       if (this.form.number.length == 0)
-        return (this.error = "충전할 금액을 입력해주세요.");
+        text.error = "충전할 금액을 입력해주세요.";
       else if (this.form.number < 10000)
-        this.error = "10,000원 이상 충전 가능합니다.";
+        text.error = "10,000원 이상 충전 가능합니다.";
       else if (this.form.number % 1000 !== 0)
-        this.error = "1,000원 단위로 충전 가능합니다";
+        text.error = "1,000원 단위로 충전 가능합니다";
       else if (this.form.number > 2000000)
-        this.error = "충전가능금액을 초과하였습니다.";
+        text.error = "충전가능금액을 초과하였습니다.";
       else {
-        this.error = "충전 가능합니다.";
-        this.charge_amount =
+        text.error = "충전 가능합니다.";
+        text.charge_amount =
           parseInt(this.form.number) + parseInt(this.form.number * 0.1);
       }
+      return true;
     },
   },
 };
@@ -252,6 +253,11 @@ export default {
 #btn_color {
   color: #fbca47;
 }
+#font-red {
+  color: rgb(226, 38, 38);
+  font-size: 13px;
+  margin-right: 7px;
+}
 
 /*-------------------------- 충전 모달창-------------------------- */
 #dd {
@@ -260,10 +266,11 @@ export default {
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
+  padding: 10px;
+  top: 10%;
 }
 .modal-header {
-  margin-left: 5%;
-  margin-top: 3%;
+  margin: 3%;
 }
 
 #ch_modal .btn {
@@ -296,7 +303,7 @@ export default {
 
 .posit_rel2 {
   position: relative;
-  right: 15%;
+  right: 14.5%;
 }
 
 .posit_rel.left {
@@ -304,7 +311,7 @@ export default {
 }
 
 .posit_rel.margin90 {
-  left: 14%;
+  left: 13.5%;
 }
 
 .posit_rel.margin138 {

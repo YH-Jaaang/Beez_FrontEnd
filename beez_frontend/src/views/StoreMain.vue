@@ -89,6 +89,7 @@
       </div>
     </b-card>
     <div class="li_btn_ceo text-center">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       <b-button href="Use">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
@@ -101,6 +102,13 @@
       </b-button> -->
       <b-button href="/StoreReviewList">
 >>>>>>> Stashed changes
+=======
+      <b-button href="#">
+        <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
+        결제 내역
+      </b-button>
+      <b-button href="/StoreReviewList">
+>>>>>>> main
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         결제 / 리뷰 내역
       </b-button>
@@ -258,6 +266,7 @@ export default {
 }
 #Exbtn {
   padding: 0% 1.5%;
+  color: white;
 }
 @media (max-width: 650px) {
   #Exbtn {
