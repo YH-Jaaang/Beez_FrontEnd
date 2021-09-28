@@ -1,32 +1,38 @@
 <template>
-  <div class="StoreQR_section">
-    <div class="StoreQR text-center">
-      <a id="Store_QR">
-        <FontAwesomeIcon :icon="faStore" style="color:#100055" />
-        가게 QR코드</a
-      >
-    </div>
-    <!-- <div>
+  <div id="app">
+    <div class="StoreQR_section">
+      <div class="StoreQR text-center">
+        <a id="Store_QR">
+          <FontAwesomeIcon :icon="faStore" style="color:#100055" />
+          가게 QR코드</a
+        >
+      </div>
+      <!-- <div>
       <ul id="QR">
         <img src="../assets/charge/QRtest.png" alt="QR_card" />
       </ul>
-    </div> -->
-    <span class="span-blank">빈</span>
-
-    <div>
-      <div class="StoreQR_box">
-        <li class="bar_qr">
-          <a>우리가게 정보</a>
-        </li>
-        <li>
-          <a>점명: {{ Store_name }}</a>
-          <a style="float:right">{{ Store_userId }}님</a>
-        </li>
-      </div>
+      </div> -->
       <span class="span-blank">빈</span>
-    </div>
 
-    
+      <div>
+        <div class="StoreQR_box">
+          <li class="bar_qr">
+            <a>우리가게 정보</a>
+          </li>
+          <li>
+            <a>점명: {{ Store_name }}</a>
+            <a style="float:right">{{ Store_userId }}님</a>
+          </li>
+        </div>
+        <span class="span-blank">빈</span>
+      </div>
+
+      <qriously
+        id="store_qr"
+        :value="value"
+        :size="200"
+      />
+    </div>
   </div>
 </template>
 
@@ -38,7 +44,6 @@ export default {
   components: {
     FontAwesomeIcon,
   },
-
   data() {
     return {
       //고객 ID
@@ -46,14 +51,11 @@ export default {
       //가게이름
       Store_name: "이집 용하네 김밥",
 
-      //qr
+      value: "djdjdjdjejdjdjiae",
 
       //아이콘
       faStore,
     };
-  },
-  methods: {},
-  computed: {
   },
 };
 </script>
@@ -122,35 +124,4 @@ export default {
 }
 
 /*----------------------------QR generator-------------------------------*/
-input {
-  border: 2px solid #000;
-  border-color: #fff;
-  transition: 1s;
-}
-
-input:hover {
-  border-color: rgb(40, 42, 43);
-}
-
-#app h1 {
-  font-size: 48px;
-  transition: 1s;
-  cursor: default;
-}
-
-#app h1:hover {
-  color: rgb(40, 42, 43);
-  color: linear-gradient(90deg, rgb(0, 0, 0) 38%, rgbrgb(0, 0, 0));
-}
-
-input {
-  font-size: 2em;
-  margin-bottom: 30px;
-}
-
-.output {
-  border: 1px solid #222;
-  padding: 30px 15px;
-  background-color: #0006;
-}
 </style>

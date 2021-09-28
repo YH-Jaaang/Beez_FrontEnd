@@ -7,6 +7,8 @@ import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import VueCookies from "vue-cookies";
 import axios from "axios";
 
+//vue qr 생성
+import VueQriously from "vue-qriously";
 //fontAwesome (bootstrapIcon과 동시 사용 가능)
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +23,8 @@ library.add(fab);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.use(VueQriously);
+
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
 axios.defaults.baseURL = "https://172.30.1.8:9091";
