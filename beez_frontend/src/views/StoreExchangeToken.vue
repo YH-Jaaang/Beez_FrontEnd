@@ -29,7 +29,7 @@
             </b-input-group>
 
             <b-input-group append="원">
-              <b-form-input v-model="form.bzToWon">{{
+              <b-form-input v-model="form.bzToWon" disabled>{{
                 form.bzToWon
               }}</b-form-input>
             </b-input-group>
@@ -217,6 +217,7 @@ export default {
   background-color: rgba(125, 174, 224, 0.463);
   border-radius: 10px;
   margin-bottom: 10px;
+  width: 45px;
   color: #100055;
   font-weight: 600;
 }

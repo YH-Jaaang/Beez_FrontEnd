@@ -2,7 +2,8 @@
   <div class="StoreReview_section">
     <div class="StoreReview text-center">
       <a id="Store_Review">
-        <FontAwesomeIcon :icon="faStore" style="color:#100055" />
+        <FontAwesomeIcon :icon="faThumbsUp" style="color:#100055" />
+
         우리가게 리뷰
       </a>
     </div>
@@ -134,7 +135,7 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faStore } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 
 export default {
   components: {
@@ -152,7 +153,7 @@ export default {
       storeSales: "30,000",
 
       //아이콘
-      faStore,
+      faThumbsUp,
     };
   },
   methods: {

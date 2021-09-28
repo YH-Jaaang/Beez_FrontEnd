@@ -55,7 +55,7 @@
 
                 <ul>
                   <li>
-                    <b-button id="login_btn" @click="loginBtn">
+                    <b-button id="Store_login_btn" @click="loginBtn">
                       Login
                     </b-button>
                   </li>
@@ -72,18 +72,34 @@
             </b-tab>
 
             <!-- 소상공인 로그인 탭 -->
-            <b-tab title="소상공인 시작하기"
-              ><form class="login_form">
+            <b-tab title="소상공인 시작하기" color="#0d4890">
+              <ul id="login_explain">
                 <li>
-                  <FontAwesomeIcon :icon="faUserCheck" style="color:#fbca47" />
-                  <input class="enter_form" placeholder="ID" type="text" />
+                  <h1>WELCOME TO</h1>
+                  <h1>BEEZ</h1>
+                </li>
+                <li>
+                  <h5>
+                    BEEZ와 함께라면, 저렴한 수수료 혜택을 받을 수 있습니다.
+                  </h5>
+                  <h5>BEEZ로 수익을 쭉쭉 창출하세요!</h5>
+                </li>
+              </ul>
+              <form class="login_form">
+                <li>
+                  <FontAwesomeIcon :icon="faUserCheck" style="color:#0d4890" />
+                  <input
+                    class="Store_enter_form"
+                    placeholder="ID"
+                    type="text"
+                  />
                   <!-- v-model="store_id" -->
                 </li>
 
                 <li>
-                  <FontAwesomeIcon :icon="faLock" style="color:#fbca47" />
+                  <FontAwesomeIcon :icon="faLock" style="color:#0d4890" />
                   <input
-                    class="enter_form"
+                    class="Store_enter_form"
                     placeholder="PASSWORD"
                     type="password"
                     autocomplete="off"
@@ -306,6 +322,17 @@ h5 {
   width: 77%;
   margin-left: 13px;
 }
+.Store_enter_form {
+  margin-bottom: 2%;
+  border: #0d4890 solid 2px;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 18px;
+  background-color: #fff;
+  font-size: 17px;
+  width: 77%;
+  margin-left: 13px;
+}
 .review_btn {
   width: 214px;
   font-size: 17px;
@@ -327,6 +354,7 @@ h5 {
   padding: 2px 0;
   border-radius: 48px;
   color: #fff;
+  background-color: #0d4890;
 }
 
 #store_join_btn {
@@ -334,9 +362,9 @@ h5 {
   font-size: 17px;
   padding: 2px 0;
   border-radius: 48px;
-  color: #ffde02;
+  color: #0d4890;
   background-color: #fff;
-  border: 2px solid #ffde02;
+  border: 2px solid #0d4890;
 }
 
 .li_btn .btn {

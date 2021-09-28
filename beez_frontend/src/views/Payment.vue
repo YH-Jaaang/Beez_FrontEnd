@@ -13,9 +13,13 @@
             <b-form-group
               description="오른쪽 버튼을 눌러 QR코드를 인식해주세요."
             >
-              <b-form-input id="payForm" v-model="form.scanned" required>{{
-                form.scanned
-              }}</b-form-input>
+              <b-form-input
+                id="payForm"
+                v-model="form.scanned"
+                required
+                disabled
+                >{{ form.scanned }}</b-form-input
+              >
 
               <b-button v-b-modal.pay_modal>
                 <FontAwesomeIcon :icon="faQrcode" style="color:#f8b704" />
