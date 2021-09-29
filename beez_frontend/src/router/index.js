@@ -34,6 +34,14 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+  {
+    path: "/PaymentList",
+    components: {
+      default: () => import("@/views/PaymentList.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
 
   {
     path: "/Charge",
@@ -88,6 +96,14 @@ const routes = [
     path: "/StoreWithdrawal",
     components: {
       default: () => import("@/views/StoreWithdrawal.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
+    path: "/StoreWithdrawalList",
+    components: {
+      default: () => import("@/views/StoreWithdrawalList.vue"),
       header: () => import("@/layout/StoreHeader.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },

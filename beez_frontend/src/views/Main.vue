@@ -75,13 +75,13 @@
       />
     </div>
     <div class="li_btn text-center">
-      <b-button href="ChargeList">
+      <b-button href="PaymentList">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제 내역
       </b-button>
-      <b-button href="/">
+      <b-button href="/ChargeList">
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
-        가게 목록
+        충전 내역
       </b-button>
     </div>
   </div>

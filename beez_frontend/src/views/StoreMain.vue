@@ -36,6 +36,11 @@
             <a>출금가능 현금</a>
             <a style="float:right">{{ CashSales }}원</a>
           </li>
+          <li>
+            <b-button id="WithdrawalButton" href="StoreWithdrawalList"
+              >출금 내역</b-button
+            >
+          </li>
           <div class="text-center"></div>
         </ul>
       </div>
@@ -93,6 +98,10 @@
         <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         결제 / 리뷰 내역
       </b-button>
+      <!--<b-button href="/StoreWithdrawalList">
+         <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> 
+        출금 내역
+      </b-button> -->
     </div>
   </div>
 </template>
@@ -200,7 +209,14 @@ export default {
   padding-bottom: 9px;
   font-size: 14px;
 }
-
+#WithdrawalButton {
+  color: #fff;
+  background-color: #0d4890;
+  margin: auto;
+  padding: 0% 18%;
+  display: block;
+  font-weight: 60;
+}
 /*-------------------------- 비즈-------------------------- */
 .detail_bz_ceo {
   color: #0d4890;

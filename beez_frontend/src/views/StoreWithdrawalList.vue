@@ -1,41 +1,42 @@
 <template>
-  <div class="ChargeList_section">
-    <div class="ChargeList text-center">
-      <a id="User_ChargeList">
-        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#f8b704" />
-        충전 내역
+  <div class="StoreWithdrawalList_section">
+    <div class="StoreWithdrawalList text-center">
+      <a id="Store_WithdrawalList">
+        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#100055" />
+
+        출금 내역
       </a>
     </div>
     <span class="span-blank">빈</span>
-    <!--<ul class="User_information">
-      <a id="ChargeList_font">
-        연결된 카드 카드번호:459002-123-45678
-      </a>
-      <a id="ChargeList_font2" style="float:right">
-        예금주: {{}}
-      </a>
-      a style="float:right"> {{ ChargeList_Money }} 원 </!--a>
-    </ul>-->
+    <ul class="Store_TotalSales">
+      <li id="WithdrawalList_font">
+        <a>
+          연결된 계좌:459002-123-56789(국민)
+        </a>
+        <a style="float:right">예금주: {{ Store_name }} </a>
+      </li>
+      <!--a style="float:right"> {{ Withdrawal_Money }} 원 </!--a>-->
+    </ul>
 
-    <div class="ChargeList_box">
-      <div class="user_history">
+    <div class="WithdrawalList_box">
+      <div class="store_history">
         <ul>
           <li>
-            <a>{{ Store_month }}월{{ Store_day }}일 ({{ Store_days }})</a>
+            <a>{{ Store_month }}월{{ Store_day }}일 </a>
           </li>
           <li class="bar">
-            <a> 예금주:{{ Store_userId }}님</a>
-            <a style="float:right">{{ ChargeList_amount }}원</a>
+            <a> 예금주:{{ Store_name }}님</a>
+            <a style="float:right">{{ Withdrawal_amount }}원</a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="ChargeList_box">
+    <div class="WithdrawalList_box">
       <div class="store_history">
         <ul>
           <li class="">
             <a>2021/{{ Store_month }}/{{ Store_day }} 10:00:10</a>
-            <a style="float:right">{{ ChargeList_amount }}원</a>
+            <a style="float:right">{{ Withdrawal_amount }}원</a>
           </li>
         </ul>
       </div>
@@ -64,13 +65,16 @@ export default {
     return {
       //날짜
       Store_day: "1",
-      Store_days: "금",
       Store_month: "10",
-      //고객 ID
-      Store_userId: "YongHan123",
-      // 충전금액
-      ChargeList_amount: "200,000",
+      Store_Withrawal_time: "09:20:24",
 
+      // 출금가능금액
+      Withdrawal_Money: "1,000,000",
+      //고객 ID, 정보
+      Store_userId: "KingGilDong",
+      Store_name: "홍길동",
+      // 출금금액
+      Withdrawal_amount: "2,000,000",
       //아이콘
       faFileInvoiceDollar,
     };
@@ -91,53 +95,49 @@ export default {
   font-style: normal;
 }
 /*----------------------------title-------------------------------*/
-.ChargeList_section {
+.StoreWithdrawalList_section {
   font-family: BCcardB;
   font-weight: 600;
 }
 
-.ChargeList {
+.StoreWithdrawalList {
   font-family: BCcardB;
   text-align: center;
-  color: #f8b704;
+  color: #100055;
   font-weight: 900;
-  border-bottom: 3px solid #f8b704;
+  border-bottom: 3px solid #100055;
   margin: 0 10% 0 10%;
 }
 /*---------------------------출금가능한 금액-------------------------------*/
-#User_ChargeList {
+#Store_WithdrawalList {
   font-size: 24px;
 }
-.User_information {
+.Store_TotalSales {
   font-size: 22px;
   font-weight: 900;
-  color: #76512c;
+  color: #100055;
   padding: 2% 2%;
-  background-color: #fdfded;
+  background-color: #e0f5f7;
   width: 86%;
   margin: 3% auto;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
-.ChargeList_box {
+.WithdrawalList_box {
   padding: 0% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #faf3cc;
+  background-color: #dbf3e8;
   width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
   margin-left: 7.5%;
-  color: #76512c;
 }
-#ChargeList_font {
-  font-size: 12px;
-}
-#ChargeList_font2 {
+#WithdrawalList_font {
   font-size: 12px;
 }
 
 .bar {
-  border-bottom: 1.5px solid #f8b704;
+  border-bottom: 1.5px solid #100055;
   margin-bottom: 4%;
 }
 .overflow-auto {
@@ -146,10 +146,10 @@ export default {
 }
 
 @media (max-width: 420px) {
-  #User_ChargeList {
+  #Store_WithdrawalList {
     font-size: 18pt;
   }
-  .ChargeList_box {
+  .WithdrawalList_box {
     font-size: 8pt;
   }
 }
