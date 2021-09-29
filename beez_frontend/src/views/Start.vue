@@ -71,7 +71,7 @@
                 </b-button>
               </li>
               <li>
-                <b-button id="join_btn">
+                <b-button href="/SignUp" id="join_btn">
                   Sign-up
                 </b-button>
               </li>
