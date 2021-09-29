@@ -256,7 +256,7 @@ export default {
   margin-right: 25px;
   font-size: 25px;
   font-weight: 900;
-  border: 2.5px solid #100055;
+  border: 1.5px solid #100055;
 }
 @media (max-width: 400px) {
   #changetoken_amount {

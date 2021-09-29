@@ -2,13 +2,13 @@
   <div id="start">
     <div>
       <div class="li_btn text-center">
-        <!-- <b-button href="/Main" @click="setCookies">
+        <b-button href="/Main" @click="setCookies">
           지역주민<br />시작하기
         </b-button>
         <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
-        <div class="span-blank">빈공간</div> -->
+        <div class="span-blank">빈공간</div>
 
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
@@ -156,15 +156,28 @@
       </div>
     </div>
 
-    <div>
-      <b-card id="explain_btn">
-        <a>
-          BEEZ 지역화폐
-        </a>
-        <a>
-          가맹점 찾기
-        </a>
+    <div id="explain_btn">
+      <b-card class="ex_01">
+        <li>
+          <a>
+            BEEZ 지역화폐
+          </a>
+          <a id="highlight">
+            가맹점 찾기
+          </a>
+        </li>
         <img src="../assets/start_main/icon01.png" />
+      </b-card>
+      <b-card class="ex_02">
+        <li>
+          <a>
+            국민지원금
+          </a>
+          <a id="highlight">
+            온라인 신청하기
+          </a>
+        </li>
+        <img src="../assets/start_main/icon02.png" />
       </b-card>
     </div>
 
@@ -195,7 +208,43 @@
         </b-carousel-slide>
       </b-carousel>
     </div>
-    <div class="span-blank">빈공간</div>
+
+    <div class="explain_bz">
+      <b-card-group deck>
+        <b-card header="BEEZ 지역화폐 소식">
+          <ui>
+            <li>
+              <p>충전, 구매, 리뷰 모두 혜택이?</p>
+              <h4>BEEZ지역화폐 지역주민 활용 가이드</h4>
+            </li>
+            <img src="../assets/start_main/icon07.png" />
+          </ui>
+
+          <ui>
+            <li>
+              <p>골목 상권의 활성화를 위한,</p>
+              <h4>BEEZ지역화폐 소상공인 활용 가이드</h4>
+            </li>
+            <img src="../assets/start_main/icon08.png" />
+          </ui>
+        </b-card>
+      </b-card-group>
+    </div>
+
+    <div>
+      <b-card id="end_start">
+        <li>
+          <h4>
+            공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -207,6 +256,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const storage = window.sessionStorage;
 
@@ -230,6 +280,7 @@ export default {
       faUserCheck,
       faLock,
       faBitcoin,
+      faAngleRight,
     };
   },
   methods: {
@@ -315,6 +366,12 @@ export default {
   font-style: normal;
 }
 @font-face {
+  font-family: "GmarketSansTTFLight";
+  src: url("../fonts/GmarketSansTTFLight.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: "GmarketSansTTFMedium";
   src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
   font-weight: normal;
@@ -329,7 +386,7 @@ export default {
 /*--------------------------로그인-------------------------- */
 /*----지역/소상 탭 */
 #login_tab {
-  margin: 6%;
+  margin: 5%;
   font-family: "GmarketSansTTFBold";
 }
 
@@ -506,17 +563,133 @@ export default {
 }
 
 /*--------------------------지역화폐 관련 정보 버튼-------------------------- */
+#explain_btn {
+  padding-left: 4.5%;
+  padding-right: 4.5%;
+  color: #fff;
+  font-family: "Cafe24SsurroundAir";
+  font-size: 17px;
+  margin-top: 17%;
+  margin-bottom: 3%;
+}
+
+#highlight {
+  font-family: "Cafe24Ssurround";
+  margin-left: 6px;
+  font-size: 19px;
+}
+
 #explain_btn img {
-  width: 13%;
+  width: 12%;
   float: right;
 }
 
+#explain_btn li {
+  display: inline-block;
+}
+
+.ex_01 {
+  margin-bottom: 3%;
+}
+
+.ex_01 .card-body {
+  padding: 0%;
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #6d36f8;
+  border-radius: 8px;
+}
+
+.ex_02 .card-body {
+  padding: 0%;
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #f3a600;
+  border-radius: 8px;
+}
+/*--------------------------지역화폐 소식-------------------------- */
+.explain_bz {
+  margin-top: 15%;
+  margin-bottom: 10%;
+  font-family: "GmarketSansTTFLight";
+  position: relative;
+  padding-left: 4.5%;
+  padding-right: 4.5%;
+}
+
+.explain_bz .card {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.explain_bz img {
+  width: 15%;
+  float: right;
+  margin-right: 5px;
+}
+
+.explain_bz .card-header {
+  padding-left: 7%;
+  padding-right: 6%;
+  font-family: "GmarketSansTTFMedium";
+  font-size: 16px;
+}
+
+.explain_bz .card-body {
+  padding: 2%;
+}
+
+.explain_bz p {
+  margin-bottom: 0;
+}
+
+.explain_bz h4 {
+  padding: 0;
+  font-family: "GmarketSansTTFMedium";
+}
+
+.explain_bz li {
+  display: inline-block;
+}
+
+.explain_bz ui {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 /*--------------------------하단 슬라이드-------------------------- */
 #start_carousel img {
   width: 100%;
+  display: inline-block;
+  border-radius: 10px;
 }
 
 #start_carousel {
-  margin-top: 17%;
+  margin-bottom: 10%;
+  padding-left: 4.5%;
+  padding-right: 4.5%;
+}
+
+/*--------------------------공지사항/q&a-------------------------- */
+#end_start {
+  font-family: "GmarketSansTTFMedium";
+}
+
+#end_start .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+#end_start li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#end_start h4 {
+  padding: 0;
 }
 </style>

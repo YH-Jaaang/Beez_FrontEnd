@@ -214,7 +214,7 @@ export default {
   background-color: #e0f5f7;
   font-size: 23px;
   font-weight: 900;
-  border: 2.5px solid #100055;
+  border: 1.5px solid #100055;
   font-family: BCcardB;
 }
 
