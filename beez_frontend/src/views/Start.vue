@@ -2,104 +2,131 @@
   <div id="start">
     <div>
       <div class="li_btn text-center">
-        <b-button href="/Main" @click="setCookies">
+        <!-- <b-button href="/Main" @click="setCookies">
           지역주민<br />시작하기
         </b-button>
         <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
-        <div class="span-blank">빈공간</div>
+        <div class="span-blank">빈공간</div> -->
 
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
             <!-- 지역주민 로그인 탭 -->
-            <b-tab title="지역주민 시작하기" active>
-              <ul id="login_explain">
+            <b-tab title="지역주민 시작하기" active id="user_tab">
+              <ul id="explain">
                 <li>
                   <h1>WELCOME TO</h1>
-                  <h1>BEEZ</h1>
+                  <h1 id="ex_title">
+                    BEEZ
+                    <FontAwesomeIcon :icon="faBitcoin" id="user_icon" />
+                  </h1>
                 </li>
                 <li>
+                  <h5>끝이 없는 혜택, BZ 토큰이 와르르!</h5>
                   <h5>BEEZ와 함께 지역 상권을 맘껏 이용해보세요.</h5>
-                  <h5>BEEZ와 함께라면, 혜택이 팡팡!</h5>
                 </li>
               </ul>
-              <form class="login_form">
-                <li>
-                  <FontAwesomeIcon
-                    :icon="faUserCheck"
-                    style="color:#fbca47"
-                    size="lg"
-                  />
-                  <input
+
+              <b-form class="user_login">
+                <b-input-group>
+                  <b-input-group-append>
+                    <FontAwesomeIcon
+                      :icon="faUserCheck"
+                      style="color:#ffbd07"
+                      size="lg"
+                    />
+                  </b-input-group-append>
+                  <b-form-input
                     class="enter_form"
                     placeholder="ID"
                     type="text"
                     v-model="id"
-                  />
-                </li>
-                <li>
-                  <FontAwesomeIcon
-                    :icon="faLock"
-                    style="color:#fbca47"
-                    size="lg"
-                  />
-                  <input
+                  ></b-form-input>
+                </b-input-group>
+              </b-form>
+
+              <b-form class="user_login">
+                <b-input-group>
+                  <b-input-group-append>
+                    <FontAwesomeIcon
+                      :icon="faLock"
+                      style="color:#ffbd07"
+                      size="lg"
+                    />
+                  </b-input-group-append>
+                  <b-form-input
                     class="enter_form"
                     placeholder="PASSWORD"
                     type="password"
                     v-model="password"
                     autocomplete="off"
                   />
-                </li>
+                </b-input-group>
+              </b-form>
 
-                <ul>
-                  <li>
-                    <b-button id="Store_login_btn" @click="loginBtn">
-                      Login
-                    </b-button>
-                  </li>
-                  <li>
-                    <b-button id="store_join_btn">
-                      Sign-up
-                    </b-button>
-                  </li>
-                  <li>
-                    <a id="font-red">{{ errMsg }}</a>
-                  </li>
-                </ul>
-              </form>
+              <li>
+                <b-button id="login_btn" @click="loginBtn">
+                  Login
+                </b-button>
+              </li>
+              <li>
+                <b-button id="join_btn">
+                  Sign-up
+                </b-button>
+              </li>
+              <li>
+                <a id="font-red">{{ errMsg }}</a>
+              </li>
             </b-tab>
 
             <!-- 소상공인 로그인 탭 -->
-            <b-tab title="소상공인 시작하기" color="#0d4890">
-              <ul id="login_explain">
+            <b-tab title="소상공인 시작하기" id="store_tab">
+              <ul id="explain">
                 <li>
                   <h1>WELCOME TO</h1>
-                  <h1>BEEZ</h1>
+                  <h1 id="ex_title">
+                    BEEZ
+                    <FontAwesomeIcon :icon="faBitcoin" id="user_icon" />
+                  </h1>
                 </li>
                 <li>
                   <h5>
-                    BEEZ와 함께라면, 저렴한 수수료 혜택을 받을 수 있습니다.
+                    소상공인을 위한 지역화폐, BEEZ
                   </h5>
-                  <h5>BEEZ로 수익을 쭉쭉 창출하세요!</h5>
+                  <h5>꿀 떨어지는 혜택 가득한 BEEZ를 이용해보세요.</h5>
                 </li>
               </ul>
-              <form class="login_form">
-                <li>
-                  <FontAwesomeIcon :icon="faUserCheck" style="color:#0d4890" />
-                  <input
-                    class="Store_enter_form"
+
+              <b-form class="store_login">
+                <b-input-group>
+                  <b-input-group-append>
+                    <FontAwesomeIcon
+                      :icon="faUserCheck"
+                      style="color:#0d4890"
+                      size="lg"
+                    />
+                  </b-input-group-append>
+                  <b-form-input
+                    class="enter_form"
                     placeholder="ID"
                     type="text"
-                  />
+                  ></b-form-input>
                   <!-- v-model="store_id" -->
-                </li>
+                </b-input-group>
+              </b-form>
 
-                <li>
-                  <FontAwesomeIcon :icon="faLock" style="color:#0d4890" />
-                  <input
-                    class="Store_enter_form"
+              <b-form class="store_login">
+                <b-input-group>
+                  <b-input-group-append>
+                    <FontAwesomeIcon
+                      :icon="faLock"
+                      style="color:#0d4890"
+                      size="lg"
+                    />
+                  </b-input-group-append>
+                  <b-form-input
+                    class="enter_form"
                     placeholder="PASSWORD"
                     type="password"
                     autocomplete="off"
@@ -107,26 +134,38 @@
                   <!-- v-model="store_password" -->
 
                   <!-- @click="storeLoginBtn" -->
-                </li>
+                </b-input-group>
+              </b-form>
 
-                <li>
-                  <b-button id="store_login_btn">
-                    Login
-                  </b-button>
-                </li>
-                <li>
-                  <b-button id="store_join_btn">
-                    Sign-up
-                  </b-button>
-                </li>
-                <li>
-                  <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
-                </li>
-              </form></b-tab
-            >
+              <li>
+                <b-button id="login_btn">
+                  Login
+                </b-button>
+              </li>
+              <li>
+                <b-button id="join_btn">
+                  Sign-up
+                </b-button>
+              </li>
+              <li>
+                <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
+              </li>
+            </b-tab>
           </b-tabs>
         </div>
       </div>
+    </div>
+
+    <div>
+      <b-card id="explain_btn">
+        <a>
+          BEEZ 지역화폐
+        </a>
+        <a>
+          가맹점 찾기
+        </a>
+        <img src="../assets/start_main/icon01.png" />
+      </b-card>
     </div>
 
     <div>
@@ -167,6 +206,8 @@ import VueCookies from "vue-cookies";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+
 const storage = window.sessionStorage;
 
 export default {
@@ -188,6 +229,7 @@ export default {
       //아이콘
       faUserCheck,
       faLock,
+      faBitcoin,
     };
   },
   methods: {
@@ -260,34 +302,36 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansTTFBold";
+  src: url("../fonts/GmarketSansTTFBold.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /*--------------------------로그인-------------------------- */
+/*----지역/소상 탭 */
 #login_tab {
   margin: 6%;
+  font-family: "GmarketSansTTFBold";
 }
-
-#login_explain h1,
-h5 {
-  display: flex;
-  margin-left: 2%;
-}
-
-/*--------------------------하단 슬라이드-------------------------- */
-#start_carousel img {
-  width: 100%;
-}
-
-/*-------------------------- 지역주민/소상공인 로그인 탭-------------------------- */
-
-.li_btn {
-  font-family: BCcardB;
-  padding-bottom: 30px;
-}
-
-/* .nav {
-  padding-left: 15px;
-  padding-right: 15px;
-} */
 
 .nav-tabs .nav-link {
   border-top-left-radius: 1.25rem;
@@ -295,92 +339,184 @@ h5 {
 }
 
 .nav-tabs .nav-link.active {
-  border-color: #fbca47 #fbca47 #fff;
+  border-color: #aba8a2 #aba8a2 #fff;
 }
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  color: #fbca47;
+  color: #ffbd07;
   font-weight: 600;
 }
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link {
-  color: #17094c;
+  color: #0d4890;
 }
-.login_form {
-  /* padding: 20px; */
-  font-family: BCcardB;
+
+/*----로그인 전 beez 설명-- */
+#explain {
+  border-radius: 20px;
+  padding-top: 15px;
 }
-.enter_form {
-  margin-bottom: 2%;
-  border: #fbca47 solid 2px;
+
+#user_tab #explain {
+  background-color: #f8f3e19a;
+}
+
+#store_tab #explain {
+  background-color: #e6ecf79a;
+}
+
+#login_tab h1 {
+  font-family: "Cafe24Ssurround";
+  font-weight: bold;
+  display: flex;
+  margin-left: 5%;
+}
+
+#login_tab h5 {
+  font-family: "GmarketSansTTFMedium";
+  /* font-weight: bolder; */
+  display: flex;
+  margin-left: 4%;
+  font-size: 14px;
+}
+
+#ex_title {
+  font-size: 35px;
+  -webkit-text-stroke-width: 0.4mm;
+}
+
+#user_tab #ex_title {
+  color: #ffbd07;
+  -webkit-text-stroke-color: #ffbd07;
+}
+
+#store_tab #ex_title {
+  color: #0d4890;
+  -webkit-text-stroke-color: #0d4890;
+}
+
+#user_icon {
+  margin-left: 10px;
+}
+
+/*----로그인 폼-- */
+.user_login {
+  padding-top: 5%;
+  padding-left: 6%;
+  padding-right: 6%;
+  font-family: Cafe24SsurroundAir;
+}
+
+.store_login {
+  padding-top: 5%;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-family: Cafe24SsurroundAir;
+}
+
+.user_login .input-group {
+  background-color: #fff3c5;
+  /* border: #fbca47 solid 2px; */
+  border-radius: 20px;
+}
+
+.store_login .input-group {
+  background-color: #b9d9ff;
+  /* border: #fbca47 solid 2px; */
+  border-radius: 20px;
+}
+
+.user_login .input-group-append {
+  margin: 12px;
+  display: block;
+}
+
+.store_login .input-group-append {
+  margin: 12px;
+  display: block;
+}
+
+.user_login .enter_form {
   height: 50px;
   padding: 0 20px;
-  border-radius: 18px;
-  background-color: #fff;
-  font-size: 17px;
+  background-color: #fff3c5;
+  font-size: 13px;
   width: 77%;
-  margin-left: 13px;
 }
-.Store_enter_form {
-  margin-bottom: 2%;
-  border: #0d4890 solid 2px;
+
+.store_login .enter_form {
   height: 50px;
   padding: 0 20px;
-  border-radius: 18px;
-  background-color: #fff;
-  font-size: 17px;
+  background-color: #b9d9ff;
+  font-size: 13px;
   width: 77%;
-  margin-left: 13px;
 }
-.review_btn {
-  width: 214px;
-  font-size: 17px;
-  padding: 2px 0;
-  border-radius: 48px;
-  color: #fff;
+
+.user_login .form-control {
+  background-color: #fff3c5;
+}
+
+.store_login .form-control {
+  background-color: #b9d9ff;
 }
 
 #login_btn {
-  width: 214px;
+  width: 55%;
   font-size: 17px;
-  padding: 2px 0;
-  border-radius: 48px;
-  color: #fff;
+  /* padding: 2px 0; */
+  border-radius: 17px;
+  margin-top: 30px;
 }
-#store_login_btn {
-  width: 214px;
-  font-size: 17px;
-  padding: 2px 0;
-  border-radius: 48px;
+
+#user_tab #login_btn {
+  color: #fff;
+  background-color: #ffbd07;
+}
+
+#store_tab #login_btn {
   color: #fff;
   background-color: #0d4890;
 }
 
-#store_join_btn {
-  width: 214px;
+#join_btn {
+  width: 55%;
   font-size: 17px;
-  padding: 2px 0;
-  border-radius: 48px;
+  /* padding: 2px 0; */
+  border-radius: 17px;
+}
+
+#user_tab #join_btn {
+  color: #ffbd07;
+  background-color: #fff;
+  border: 2px solid #ffbd07;
+}
+
+#store_tab #join_btn {
   color: #0d4890;
   background-color: #fff;
   border: 2px solid #0d4890;
 }
 
-.li_btn .btn {
-  color: #76512c;
-  background-color: #ffde02;
-  margin-left: 25px;
-  margin-right: 25px;
-  font-size: 25px;
-  font-weight: 900;
-  /* border: 2.5px solid #76512c; */
-  width: 35%;
+#font-red {
+  font-family: "GmarketSansTTFMedium";
+  font-weight: bolder;
+  color: rgb(226, 38, 38);
+  font-size: 15px;
 }
 
-#font-red {
-  color: rgb(226, 38, 38);
-  font-size: 13px;
-  margin-right: 7px;
+/*--------------------------지역화폐 관련 정보 버튼-------------------------- */
+#explain_btn img {
+  width: 13%;
+  float: right;
+}
+
+/*--------------------------하단 슬라이드-------------------------- */
+#start_carousel img {
+  width: 100%;
+}
+
+#start_carousel {
+  margin-top: 17%;
 }
 </style>

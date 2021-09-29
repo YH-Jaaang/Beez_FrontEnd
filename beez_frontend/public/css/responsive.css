@@ -150,7 +150,7 @@
   }
   .enter_form {
     width: 100%;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
   .blog_box h3 {
     padding-top: 30px;

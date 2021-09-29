@@ -630,7 +630,7 @@ ul.btn li:last-child {
 }
 
 .enter_form {
-  border: #fff solid 1px;
+  /* border: #fff solid 1px; */
   height: 55px;
   padding: 0 25px;
   border-radius: 30px;

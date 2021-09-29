@@ -163,7 +163,16 @@ export default {
   },
 };
 </script>
+
 <style>
+/*-----------------폰트, @media---------------------------- */
+@font-face {
+  font-family: "BCcardB";
+  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*----------------------------title-------------------------------*/
 .StoreReview_section {
   font-family: BCcardB;

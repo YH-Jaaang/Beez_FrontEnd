@@ -7,15 +7,14 @@
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
 
-        <b-navbar-toggle>
-          <a href="/StoreQR">
-            <FontAwesomeIcon :icon="faQrcode" id="storeQR" />
+        <b-navbar-toggle target="nav-collapse">
+          <a href="/StoreQR" id="storeQR">
+            <FontAwesomeIcon :icon="faQrcode" />
+          </a>
+          <a id="fabars">
+            <FontAwesomeIcon :icon="faBars" />
           </a>
         </b-navbar-toggle>
-
-        <b-navbar-toggle target="nav-collapse"
-          ><FontAwesomeIcon :icon="faBars" id="fabars"
-        /></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -121,6 +120,7 @@ export default {
 
 #fabars {
   color: #1158aece;
+  margin-left: 25px;
   /* 7fb6bb */
 }
 

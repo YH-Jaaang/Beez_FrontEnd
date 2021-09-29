@@ -7,11 +7,6 @@
           가게 QR코드</a
         >
       </div>
-      <!-- <div>
-      <ul id="QR">
-        <img src="../assets/charge/QRtest.png" alt="QR_card" />
-      </ul>
-      </div> -->
       <span class="span-blank">빈</span>
 
       <div>
@@ -27,11 +22,7 @@
         <span class="span-blank">빈</span>
       </div>
 
-      <qriously
-        id="store_qr"
-        :value="value"
-        :size="200"
-      />
+      <qriously id="store_qr" :value="value" :size="200" />
     </div>
   </div>
 </template>
@@ -51,7 +42,7 @@ export default {
       //가게이름
       Store_name: "이집 용하네 김밥",
 
-      value: "djdjdjdjejdjdjiae",
+      value:"2 values fail",
 
       //아이콘
       faStore,
@@ -124,4 +115,7 @@ export default {
 }
 
 /*----------------------------QR generator-------------------------------*/
+#store_qr {
+  text-align: center;
+}
 </style>

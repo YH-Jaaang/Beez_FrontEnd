@@ -8,7 +8,7 @@
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"
-          ><FontAwesomeIcon :icon="faBars" style="color:#fbca47"
+          ><FontAwesomeIcon :icon="faBars" style="color:#ffbd07"
         /></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
@@ -98,10 +98,6 @@ export default {
   background-color: #ffffff;
 }
 
-/* .navbar-brand img {
-  margin-left: 14px;
-} */
-
 .navbar-brand img {
   max-width: 33%;
   height: auto;
@@ -109,25 +105,12 @@ export default {
 
 .header {
   font-family: BCcardL;
-  /* margin-bottom: 5.5rem; */
-  /* padding-bottom: 50px; */
 }
-/* 화면 조정 필요(full화면과 핸드폰 화면 차이 있음.)*/
-
-/* .navbar-brand {
-  padding-left: 20px;
-} */
 
 .nav-link {
-  border-bottom: #fbca47 solid 3px;
-  color: #fbca47;
+  border-bottom: #ffbd07 solid 3px;
+  color: #ffbd07;
 }
-
-/* .navbar-collapse {
-  padding-left: 9px;
-  padding-bottom: 0.5rem;
-  padding-right: 13px;
-} */
 
 .navbar-nav {
   margin: 0 25px;
