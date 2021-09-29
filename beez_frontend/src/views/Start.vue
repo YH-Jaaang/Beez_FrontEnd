@@ -2,13 +2,13 @@
   <div id="start">
     <div>
       <div class="li_btn text-center">
-        <!-- <b-button href="/Main" @click="setCookies">
+        <b-button href="/Main" @click="setCookies">
           지역주민<br />시작하기
         </b-button>
         <b-button href="/" @click="setBusinessCookies">
           소상공인<br />시작하기
         </b-button>
-        <div class="span-blank">빈공간</div> -->
+        <div class="span-blank">빈공간</div>
 
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
@@ -71,7 +71,7 @@
                 </b-button>
               </li>
               <li>
-                <b-button id="join_btn">
+                <b-button href="/SignUp" id="join_btn">
                   Sign-up
                 </b-button>
               </li>

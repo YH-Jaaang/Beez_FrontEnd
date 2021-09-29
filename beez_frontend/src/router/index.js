@@ -14,6 +14,15 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+  //회원가입 페이지
+  {
+    path: "/SignUp",
+    components: {
+      default: () => import("@/views/SignUp.vue"),
+      header: () => import("@/layout/StartHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
   //사용자 페이지
   {
     path: "/Main",
