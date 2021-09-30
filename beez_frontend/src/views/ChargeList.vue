@@ -7,48 +7,92 @@
       </a>
     </div>
     <span class="span-blank">빈</span>
-    <!--<ul class="User_information">
-      <a id="ChargeList_font">
-        연결된 카드 카드번호:459002-123-45678
-      </a>
-      <a id="ChargeList_font2" style="float:right">
-        예금주: {{}}
-      </a>
-      a style="float:right"> {{ ChargeList_Money }} 원 </!--a>
-    </ul>-->
+    <ul class="Store_TotalSales">
+      <li id="User_information">
+        <a> 연결된 계좌: {{ Charge_account }}</a>
+        <div>
+          <a>은행: {{ Charge_bank }}</a>
+          <a style="float:right">예금주: {{ Charge_name }} </a>
+        </div>
+      </li>
+    </ul>
 
     <div class="ChargeList_box">
-      <div class="user_history">
+      <div class="Charge_history">
         <ul>
-          <li>
-            <a>{{ Store_month }}월{{ Store_day }}일 ({{ Store_days }})</a>
+          <li class="">
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
           </li>
-          <li class="bar">
-            <a> 예금주:{{ Store_userId }}님</a>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ChargeList_box">
+      <div class="Charge_history">
+        <ul>
+          <li class="">
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ChargeList_box">
+      <div class="Charge_history">
+        <ul>
+          <li class="">
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ChargeList_box">
+      <div class="Charge_history">
+        <ul>
+          <li class="">
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
             <a style="float:right">{{ ChargeList_amount }}원</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="ChargeList_box">
-      <div class="store_history">
+      <div class="Charge_history">
         <ul>
           <li class="">
-            <a>2021/{{ Store_month }}/{{ Store_day }} 10:00:10</a>
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
             <a style="float:right">{{ ChargeList_amount }}원</a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="overflow-auto">
+    <!--<div class="overflow-auto">
       <b-pagination-nav
         :link-gen="linkGen"
         :number-of-pages="10"
         use-router
         align="center"
       >
-      </b-pagination-nav>
-    </div>
+      </b-pagination-nav>-->
   </div>
 </template>
 
@@ -62,12 +106,18 @@ export default {
   },
   data() {
     return {
+      //고객정보
+      Charge_account: "459002-123-12345",
+      Charge_bank: "국민",
+      Charge_name: "홍길동",
       //날짜
-      Store_day: "1",
-      Store_days: "금",
-      Store_month: "10",
+      Charge_year: "2021",
+      Charge_day: "1",
+      Charge_days: "금",
+      Charge_month: "10",
+      Charge_time: "17:49:59",
       //고객 ID
-      Store_userId: "YongHan123",
+      Charge_userId: "YongHan123",
       // 충전금액
       ChargeList_amount: "200,000",
 
@@ -103,26 +153,29 @@ export default {
   font-weight: 900;
   border-bottom: 3px solid #f8b704;
   margin: 0 10% 0 10%;
+  margin-bottom: -4%;
 }
 /*---------------------------출금가능한 금액-------------------------------*/
 #User_ChargeList {
   font-size: 24px;
 }
-.User_information {
-  font-size: 22px;
+#User_information {
+  font-size: 14px;
   font-weight: 900;
-  color: #76512c;
+  color: #ffbd07;
   padding: 2% 2%;
-  background-color: #fdfded;
+  background-color: #faf3cc;
   width: 86%;
   margin: 3% auto;
+  margin-bottom: 8%;
+  border-radius: 10px;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .ChargeList_box {
   padding: 0% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #faf3cc;
+  background-color: #ccf7fa;
   width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;

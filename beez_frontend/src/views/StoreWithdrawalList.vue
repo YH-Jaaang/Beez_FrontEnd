@@ -10,22 +10,24 @@
     <span class="span-blank">빈</span>
     <ul class="Store_TotalSales">
       <li id="WithdrawalList_font">
-        <a>
-          연결된 계좌:459002-123-56789(국민)
-        </a>
-        <a style="float:right">예금주: {{ Store_name }} </a>
+        <a>계좌 번호: {{ Store_Withrawal_account }} </a>
+        <div>
+          <a>은행: {{ Store_Withrawal_bank }}</a>
+          <a style="float:right">예금주: {{ Store_Withrawal_name }} </a>
+        </div>
       </li>
-      <!--a style="float:right"> {{ Withdrawal_Money }} 원 </!--a>-->
     </ul>
 
     <div class="WithdrawalList_box">
       <div class="store_history">
         <ul>
-          <li>
-            <a>{{ Store_month }}월{{ Store_day }}일 </a>
-          </li>
-          <li class="bar">
-            <a> 예금주:{{ Store_name }}님</a>
+          <li class="">
+            <a
+              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+                Store_Withrawal_day
+              }}
+              {{ Store_Withrawal_time }}</a
+            >
             <a style="float:right">{{ Withdrawal_amount }}원</a>
           </li>
         </ul>
@@ -35,13 +37,48 @@
       <div class="store_history">
         <ul>
           <li class="">
-            <a>2021/{{ Store_month }}/{{ Store_day }} 10:00:10</a>
+            <a
+              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+                Store_Withrawal_day
+              }}
+              {{ Store_Withrawal_time }}</a
+            >
             <a style="float:right">{{ Withdrawal_amount }}원</a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="overflow-auto">
+    <div class="WithdrawalList_box">
+      <div class="store_history">
+        <ul>
+          <li class="">
+            <a
+              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+                Store_Withrawal_day
+              }}
+              {{ Store_Withrawal_time }}</a
+            >
+            <a style="float:right">{{ Withdrawal_amount }}원</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="WithdrawalList_box">
+      <div class="store_history">
+        <ul>
+          <li class="">
+            <a
+              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+                Store_Withrawal_day
+              }}
+              {{ Store_Withrawal_time }}</a
+            >
+            <a style="float:right">{{ Withdrawal_amount }}원</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--<div class="overflow-auto">
       <b-pagination-nav
         :link-gen="linkGen"
         :number-of-pages="10"
@@ -49,7 +86,7 @@
         align="center"
       >
       </b-pagination-nav>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -64,15 +101,17 @@ export default {
   data() {
     return {
       //날짜
-      Store_day: "1",
-      Store_month: "10",
+      Store_Withrawal_year: "2021",
+      Store_Withrawal_day: "1",
+      Store_Withrawal_month: "10",
       Store_Withrawal_time: "09:20:24",
 
       // 출금가능금액
       Withdrawal_Money: "1,000,000",
-      //고객 ID, 정보
-      Store_userId: "KingGilDong",
-      Store_name: "홍길동",
+      //고객정보
+      Store_Withrawal_account: "459002-123-12345",
+      Store_Withrawal_bank: "국민",
+      Store_Withrawal_name: "홍길동",
       // 출금금액
       Withdrawal_amount: "2,000,000",
       //아이콘
@@ -107,6 +146,7 @@ export default {
   font-weight: 900;
   border-bottom: 3px solid #100055;
   margin: 0 10% 0 10%;
+  margin-bottom: -4%;
 }
 /*---------------------------출금가능한 금액-------------------------------*/
 #Store_WithdrawalList {
@@ -120,6 +160,8 @@ export default {
   background-color: #e0f5f7;
   width: 86%;
   margin: 3% auto;
+  border-radius: 10px;
+  margin-bottom: 8%;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .WithdrawalList_box {

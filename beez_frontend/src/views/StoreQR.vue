@@ -42,7 +42,7 @@ export default {
       //가게이름
       Store_name: "이집 용하네 김밥",
 
-      value:"2 values fail",
+      value: "2 values fail",
 
       //아이콘
       faStore,
@@ -78,7 +78,7 @@ export default {
 .StoreQR {
   color: #100055;
   padding: 0% 0%;
-  border-bottom: 4px solid #100055;
+  border-bottom: 3px solid #100055;
   width: 80%;
   margin: 0 auto;
 }
