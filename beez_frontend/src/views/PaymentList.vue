@@ -390,14 +390,15 @@ export default {
 .Reviewlist_box {
   padding: 2% 2%;
   border-radius: 20px;
-  border: #6e6b79;
   background-color: #fdfded;
   width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
+  margin: 0 auto;
   margin-bottom: 15px;
-  margin-left: 7.5%;
   color: #76512c;
+  font-size: 8pt;
 }
+
 .keyword_Review_box {
   width: 300px 300px;
   margin: auto;
@@ -429,9 +430,6 @@ export default {
     font-size: 18pt;
   }
   .keyword_Review_box {
-    font-size: 8pt;
-  }
-  .Reviewlist_box {
     font-size: 8pt;
   }
 }

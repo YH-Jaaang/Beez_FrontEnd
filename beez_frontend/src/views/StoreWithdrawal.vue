@@ -1,11 +1,7 @@
 <template>
   <div>
     <b-card id="card_StoreWithdrawal">
-      <img
-        src="../assets/charge/card_logo2.png"
-        alt="card"
-        style="float:center"
-      />
+      <img src="../assets/Card3.png" alt="card" style="float:center" />
     </b-card>
 
     <!-- 출금가능원화보다 초과되면 에러메세지(:state),출금 모달창 수정하기  -->
@@ -149,18 +145,18 @@ export default {
 /*--------------------------card--------------------------- */
 #card_StoreWithdrawal {
   font-family: BCcardB;
-  background-color: rgba(177, 175, 175, 0.394);
+  background-color: #b9ddf7;
   /* padding: 10px 7px; */
   border-radius: 50px;
-  border: 2px solid #8b8898;
+  /* border: 2px solid #8b8898; */
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
 }
 
 #card_StoreWithdrawal img {
-  margin: -10px -16px;
-  height: 15rem;
+  margin: 1px -30px;
+  height: 13rem;
 }
 
 /*-------------------------- withdrawal-section -------------------------- */

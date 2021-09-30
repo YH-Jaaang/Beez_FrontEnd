@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card id="card_TokenChange">
-      <img src="../assets/charge/beez_card.png" alt="card" />
+      <img src="../assets/Card3.png" alt="card" />
     </b-card>
 
     <div class="exchange_section">
@@ -161,18 +161,18 @@ export default {
 /*--------------------------card--------------------------- */
 #card_TokenChange {
   font-family: BCcardB;
-  background-color: #fff;
+  background-color: #b9ddf7;
   /* padding: 10px 7px; */
   border-radius: 50px;
-  border: 2.5px solid #76512ce3;
+  /* border: 2.5px solid #76512ce3; */
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
 }
 
 #card_TokenChange img {
-  margin: -12px -31px;
-  height: 15rem;
+  margin: 1px -30px;
+  height: 13rem;
 }
 
 /*-------------------------- changetoken-section -------------------------- */

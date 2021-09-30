@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-card id="card_charge">
-      <img src="../assets/charge/beez_card.png" alt="card" />
+      <img src="../assets/Card3.png" alt="card" />
     </b-card>
 
     <div class="charge_section">
@@ -185,18 +185,18 @@ export default {
 /*--------------------------card--------------------------- */
 #card_charge {
   font-family: BCcardB;
-  background-color: #fff;
+  background-color: rgba(177, 175, 175, 0.394);
   /* padding: 10px 7px; */
   border-radius: 50px;
-  border: 2.5px solid #76512ce3;
+  /* border: 2.5px solid #76512ce3; */
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
 }
 
 #card_charge img {
-  margin: -12px -31px;
-  height: 15rem;
+  margin: 1px -30px;
+  height: 13rem;
 }
 
 /*-------------------------- charge-section -------------------------- */
