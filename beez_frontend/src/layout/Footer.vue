@@ -164,6 +164,10 @@ export default {};
 }
 
 /* ---------------------------footer_wrap-------------------------- */
+.footer {
+  margin-top: 30px;
+}
+
 .footer_wrap {
   width: 100%;
   font-family: "BCcardB";
