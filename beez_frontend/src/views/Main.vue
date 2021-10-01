@@ -26,6 +26,8 @@
             </b-button>
           </div>
         </ul>
+
+        <b-button id="Chargebtn" href="/ChargeList">충전 내역</b-button>
       </div>
     </b-card>
     <b-card id="card_main">
@@ -77,12 +79,12 @@
     <div class="li_btn text-center">
       <b-button href="PaymentList">
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
-        결제 내역
+        결제/리뷰 내역
       </b-button>
-      <b-button href="/ChargeList">
-        <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
-        충전 내역
-      </b-button>
+      <!-- <b-button href="/ChargeList">
+         <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> 
+        충전 내역 
+      </b-button>-->
     </div>
   </div>
 </template>
@@ -175,7 +177,17 @@ export default {
   font-size: 14px;
   color: #76512c;
 }
-
+#Chargebtn {
+  color: #fff;
+  background-color: #76512cb8;
+  margin: auto;
+  padding: 1.5% 3%;
+  display: block;
+  font-weight: 60;
+  width: 90%;
+  margin-top: 4%;
+  font-size: 17px;
+}
 /*-------------------------- 비즈-------------------------- */
 .detail_bz {
   color: #76512c;
@@ -210,9 +222,9 @@ export default {
   background-color: #ffde02;
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 900;
   /* border: 2.5px solid #76512c; */
-  width: 35%;
+  width: 45%;
 }
 </style>

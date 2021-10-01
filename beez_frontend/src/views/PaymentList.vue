@@ -425,14 +425,6 @@ export default {
   display: block;
   font-weight: 700;
 }
-@media (max-width: 420px) {
-  #Store_Review {
-    font-size: 18pt;
-  }
-  .keyword_Review_box {
-    font-size: 8pt;
-  }
-}
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;

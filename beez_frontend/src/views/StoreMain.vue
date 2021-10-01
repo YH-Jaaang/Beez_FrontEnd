@@ -103,6 +103,50 @@
         출금 내역
       </b-button> -->
     </div>
+    <div>
+      <b-form-checkbox
+        id="checkbox-1"
+        v-model="status"
+        name="checkbox-1"
+        value="동의 함"
+        unchecked-value="동의 안 함"
+      >
+        BEEZ서비스 이용약관 유의(필수)
+        <a>
+          /확인: <strong>{{ status }}</strong>
+        </a>
+        <div>
+          <b-button v-b-modal.modal-1>자세히 보기</b-button>
+
+          <b-modal id="modal-1" title="BEEZ서비스 이용약관 내용">
+            <p class="my-4">BEEZ 서비스 이용을 동의합니다!</p>
+          </b-modal>
+        </div>
+      </b-form-checkbox>
+    </div>
+    <div>
+      <b-form-checkbox
+        id="checkbox-2"
+        v-model="status2"
+        name="checkbox-2"
+        value="동의 함"
+        unchecked-value="동의 안 함"
+      >
+        개인정보 취급 위탁 동의(필수)
+        <a>
+          /확인: <strong>{{ status2 }}</strong>
+        </a>
+        <div>
+          <b-button v-b-modal.modal-2>자세히 보기</b-button>
+
+          <b-modal id="modal-2" title="개인정보 취급 위탁 동의설명">
+            <p class="my-4">
+              개인정보 취급 위탁 동의설명란입니다.
+            </p>
+          </b-modal>
+        </div>
+      </b-form-checkbox>
+    </div>
   </div>
 </template>
 
@@ -136,6 +180,9 @@ export default {
       myBzExample: "5300",
       myBzExchange: "5000",
       month: 0,
+      //동의확인
+      status: "동의 안함",
+      status2: "동의 안함",
     };
   },
   created() {

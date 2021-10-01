@@ -77,12 +77,28 @@
         >
       </b-modal>
     </div>
+    <b-card id="end_StoreWithdrawal">
+      <li>
+        <h4>
+          출금 규정/안내<FontAwesomeIcon
+            :icon="faAngleRight"
+            style="float:right"
+          />
+        </h4>
+      </li>
+      <li>
+        <h4>
+          Q % A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+        </h4>
+      </li>
+    </b-card>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -101,6 +117,7 @@ export default {
 
       //아이콘
       faRedo,
+      faAngleRight,
     };
   },
   methods: {
@@ -141,7 +158,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /*--------------------------card--------------------------- */
 #card_StoreWithdrawal {
   font-family: BCcardB;
@@ -279,5 +301,19 @@ export default {
 }
 .posit_rel.margin2 {
   left: 17%;
+}
+/*--------------------------------안내----------------------------------------*/
+#end_StoreWithdrawal {
+  font-family: "GmarketSansTTFMedium";
+}
+#end_StoreWithdrawal .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+#end_StoreWithdrawal li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 </style>

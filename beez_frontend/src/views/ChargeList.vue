@@ -85,6 +85,7 @@
         </ul>
       </div>
     </div>
+    <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
     <!--<div class="overflow-auto">
       <b-pagination-nav
         :link-gen="linkGen"
@@ -162,7 +163,7 @@ export default {
 #User_information {
   font-size: 14px;
   font-weight: 900;
-  color: #ffbd07;
+  color: #76512c;
   padding: 2% 2%;
   background-color: #faf3cc;
   width: 86%;
@@ -175,7 +176,7 @@ export default {
   padding: 0% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #ccf7fa;
+  background-color: #ffbf60;
   width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
@@ -190,7 +191,7 @@ export default {
 }
 
 .bar {
-  border-bottom: 1.5px solid #f8b704;
+  border-bottom: 1.5px solid #f799d0;
   margin-bottom: 4%;
 }
 .overflow-auto {
@@ -209,5 +210,16 @@ export default {
 /*---------------------------페이지 넘김------------------------------*/
 .overflow-auto {
   color: #100055;
+}
+#ChargeList_btn2 {
+  margin: 0 auto;
+  background-color: #faf3cc;
+  color: saddlebrown;
+  display: block;
+  padding: 2%;
+  width: 20%;
+  font-size: 18px;
+  font-weight: 900;
+  border: 2.5px solid #76512c;
 }
 </style>
