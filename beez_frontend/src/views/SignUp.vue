@@ -68,7 +68,7 @@
             required
           ></b-form-input>
         </b-input-group>
-        <div v-if="!passwordValidError" id="error">
+        <div v-if="!passwordValidError">
           8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
         </div>
 
@@ -84,7 +84,7 @@
             required
           ></b-form-input>
         </b-input-group>
-        <div v-if="!passwordCheckValidError" id="error">
+        <div v-if="!passwordCheckValidError">
           비밀번호가 일치하지 않습니다.
         </div>
 
@@ -267,6 +267,18 @@
             </div>
           </b-form-checkbox>
         </div>
+         <!-- 은행 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon :icon="faPiggyBank" size="lg" style="color:#f89604" />
+          </b-input-group-append>
+          <b-form-select
+            v-model="bank_name"
+            :options="banks"
+            required
+          ></b-form-select>
+        </b-input-group>
+
         <div id="signUp_btn">
           <b-button type="submit">가입하기</b-button>
         </div>
@@ -309,6 +321,7 @@ export default {
       //동의확인
       status: "동의 안함",
       status2: "동의 안함",
+      banks: [{text: '은행 선택'}]
     };
   },
 
@@ -397,11 +410,8 @@ export default {
     },
     //-------------------회원가입 최종 버튼--------------------------------------
     submitForm() {
-      var location = document.querySelector("#error").offsetTop;
-
       if (!this.passwordValidError || !this.passwordCheckValidError) {
-        // 버튼 클릭시 오류난 곳으로 이동
-        window.scrollTo({ top: location, behavior: "smooth" });
+        alert("회원가입 입력란을 확인해주세요.");
         return;
       }
       this.$router.push("/");
