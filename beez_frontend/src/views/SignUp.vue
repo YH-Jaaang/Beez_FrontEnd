@@ -13,7 +13,7 @@
       <img src="../assets/start_main/join01.png" />
     </ui>
     <b-card header="회원 가입" class="signUp_form">
-      <b-form v-model="valid" @submit.prevent="submitForm">
+      <b-form @submit.prevent="submitForm">
         <!-- 이름 -->
         <b-input-group>
           <b-input-group-append>
@@ -24,9 +24,10 @@
             />
           </b-input-group-append>
           <b-form-input
-            v-model="name"
+            v-model="user_name"
             placeholder="NAME"
             type="text"
+            maxlength="13"
             required
           ></b-form-input>
         </b-input-group>
@@ -62,9 +63,14 @@
             type="password"
             v-model="password"
             placeholder="PASSWORD"
+            maxlength="16"
+            @blur="passwordValid"
             required
           ></b-form-input>
         </b-input-group>
+        <div v-if="!passwordValidError" id="error">
+          8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
+        </div>
 
         <!-- 비밀번호 재확인 -->
         <b-input-group>
@@ -73,12 +79,14 @@
             type="password"
             v-model="password2"
             placeholder="ENTER PASSWORD AGAIN"
+            maxlength="16"
+            @blur="passwordCheckValid"
             required
           ></b-form-input>
         </b-input-group>
-        <!-- <span class="badge badge-danger mt-1" v-if="passwordAgain"
-          >비밀번호를 다시 확인해주세요.</span
-        > -->
+        <div v-if="!passwordCheckValidError" id="error">
+          비밀번호가 일치하지 않습니다.
+        </div>
 
         <!-- 전화 번호 -->
         <b-input-group>
@@ -93,6 +101,7 @@
             v-model="phone"
             type="text"
             placeholder="PHONE"
+            maxlength="13"
             @keyup="getPhoneMask(phone)"
             required
           ></b-form-input>
@@ -128,9 +137,10 @@ export default {
       faLock,
       faPhoneAlt,
 
-      valid: false,
+      passwordValidError: true,
+      passwordCheckValidError: true,
 
-      name: "",
+      user_name: "",
       email: "",
       password: "",
       phone: "",
@@ -205,16 +215,32 @@ export default {
     },
     // -----------------------------PHONE 하이픈 관련 끝----------------------
 
-    // -----------------------------비밀번호 재확인----------------------
-    submitForm() {
-      if (this.password != this.password2) {
-        console.log("비밀번호 재확인 실패");
-        alert("비밀번호를 다시 입력해주세요.");
-        return (this.password = ""), (this.password2 = "");
+    // -----------------------------비밀번호 유효성 검사----------------------
+    passwordValid() {
+      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.password)) {
+        this.passwordValidError = true;
       } else {
-        console.log("dd");
-        this.$router.push("/");
+        this.passwordValidError = false;
       }
+    },
+    //-------------------비밀번호 재확인--------------------------------------
+    passwordCheckValid() {
+      if (this.password === this.password2) {
+        this.passwordCheckValidError = true;
+      } else {
+        this.passwordCheckValidError = false;
+      }
+    },
+    //-------------------회원가입 최종 버튼--------------------------------------
+    submitForm() {
+      var location = document.querySelector("#error").offsetTop;
+
+      if (!this.passwordValidError || !this.passwordCheckValidError) {
+        // 버튼 클릭시 오류난 곳으로 이동
+        window.scrollTo({ top: location, behavior: "smooth" });
+        return;
+      }
+      this.$router.push("/");
     },
   },
 };
@@ -321,6 +347,8 @@ export default {
   background-color: #f89604;
   color: #fff;
   font-size: 14px;
+  border-radius: 20px;
+  border-color: #f89604;
 }
 
 #signUp_btn .btn {
