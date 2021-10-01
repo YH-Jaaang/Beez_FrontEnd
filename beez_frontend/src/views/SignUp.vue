@@ -65,7 +65,7 @@
             required
           ></b-form-input>
         </b-input-group>
-        <div v-if="!passwordValidError">
+        <div v-if="!passwordValidError" id="error1">
           8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
         </div>
 
@@ -81,7 +81,7 @@
             required
           ></b-form-input>
         </b-input-group>
-        <div v-if="!passwordCheckValidError">
+        <div v-if="!passwordCheckValidError" id="error1">
           비밀번호가 일치하지 않습니다.
         </div>
 
@@ -114,36 +114,47 @@
             />
           </b-input-group-append>
           <b-form-select
+            class="select"
             v-model="bank_name"
             :options="banks"
             required
           ></b-form-select>
         </b-input-group>
 
+        <!-- 계좌번호 -->
+        <b-input-group>
+          <b-form-input
+            id="again2"
+            type="number"
+            v-model="account_number"
+            placeholder="계좌번호 입력"
+            maxlength="25"
+            required
+          ></b-form-input>
+        </b-input-group>
+
         <!-- 회원가입 동의-->
         <b-form-checkbox
           id="checkbox-1"
           v-model="status"
-          name="checkbox-1"
           value="동의 함"
           unchecked-value="동의 안 함"
         >
           BEEZ서비스 이용약관 동의
           <a id="agreement_point"> (필수) </a>
           <b-button id="Store_modal_btn" v-b-modal.modal-1
-            >자세히 보기 ></b-button
+            >자세히 보기</b-button
           >
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-2"
           v-model="status2"
-          name="checkbox-2"
           value="동의 함"
           unchecked-value="동의 안 함"
         >
           개인정보 취급 위탁 동의설명 <a id="agreement_point"> (필수) </a>
-          <b-button id="Store_modal_btn" v-b-modal.modal-2
-            >자세히 보기 ></b-button
+          <b-button id="Store_modal_btn2" v-b-modal.modal-2
+            >자세히 보기</b-button
           >
         </b-form-checkbox>
 
@@ -281,6 +292,7 @@ import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -293,6 +305,7 @@ export default {
       faEnvelope,
       faLock,
       faPhoneAlt,
+      faPiggyBank,
 
       passwordValidError: true,
       passwordCheckValidError: true,
@@ -302,10 +315,32 @@ export default {
       password: "",
       phone: "",
       password2: "",
+      bank_name: null,
+      account_number: "",
+
       //동의확인
       status: "동의 안함",
       status2: "동의 안함",
-      banks: [{ text: "은행 선택" }],
+      banks: [
+        { text: "은행선택", value: null },
+        "국민",
+        "농협",
+        "신한",
+        "IBK기업",
+        "하나",
+        "우리",
+        "카카오뱅크",
+        "SC제일",
+        "대구",
+        "부산",
+        "광주",
+        "새마을금고",
+        "경남",
+        "전북",
+        "제주",
+        "산업",
+        "수협",
+      ],
     };
   },
 
@@ -407,6 +442,19 @@ export default {
 <style>
 /*-----------------폰트, @media---------------------------- */
 @font-face {
+  font-family: "KoPubWorldDotumLight";
+  src: url("../fonts/KoPubWorldDotumLight.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "KoPubWorldDotumMedium";
+  src: url("../fonts/KoPubWorldDotumMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "GmarketSansTTFBold";
   src: url("../fonts/GmarketSansTTFBold.ttf") format("woff");
   font-weight: normal;
@@ -491,13 +539,33 @@ export default {
   font-size: 15px;
 }
 
+.signUp_form .custom-select {
+  background-color: antiquewhite;
+  border: 0px;
+  border-radius: 20px;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 20px;
+  height: 50px;
+  font-size: 15px;
+}
+
 #again.form-control {
+  padding-left: 52px;
+}
+
+#again2.form-control {
   padding-left: 52px;
 }
 
 .signUp_form .input-group-append {
   margin: 13px;
   display: block;
+}
+
+#error1,
+#error2 {
+  font-family: "KoPubWorldDotumLight";
 }
 
 /*-----------------버튼 ---------------------------- */
@@ -507,6 +575,7 @@ export default {
   font-size: 14px;
   border-radius: 20px;
   border-color: #f89604;
+  font-family: "KoPubWorldDotumLight";
 }
 
 #signUp_btn .btn {
@@ -514,7 +583,8 @@ export default {
   margin-top: 10%;
   border-radius: 17px;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 19px;
+  font-family: "Cafe24Ssurround";
 }
 /* -------------------------------------동의란---------------------------- */
 .Agree_Checkbox {
@@ -532,9 +602,19 @@ export default {
   font-weight: 500;
 }
 
-#Store_modal_btn {
-  padding: 0% 7%;
-  font-size: 13px;
-  background-color: #f89604b0;
+#Store_modal_btn,
+#Store_modal_btn2 {
+  padding: 1% 3%;
+  font-size: 11px;
+  background-color: rgb(180, 183, 199);
+  border-color: rgb(180, 183, 199);
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #f89604;
+}
+
+#signUp .custom-control {
+  font-family: "KoPubWorldDotumLight";
 }
 </style>
