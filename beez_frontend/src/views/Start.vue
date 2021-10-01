@@ -39,8 +39,8 @@
                   </b-input-group-append>
                   <b-form-input
                     class="enter_form"
-                    placeholder="ID"
-                    type="text"
+                    placeholder="EMAIL"
+                    type="email"
                     v-model="id"
                   ></b-form-input>
                 </b-input-group>
@@ -109,8 +109,8 @@
                   </b-input-group-append>
                   <b-form-input
                     class="enter_form"
-                    placeholder="ID"
-                    type="text"
+                    placeholder="EMAIL"
+                    type="email"
                   ></b-form-input>
                   <!-- v-model="store_id" -->
                 </b-input-group>
@@ -287,7 +287,7 @@ export default {
     async loginBtn() {
       if (this.id == "") {
         this.showAlert = true;
-        this.errMsg = "아이디를 입력해주세요";
+        this.errMsg = "이메일을 입력해주세요";
         return;
       } else if (this.password == "") {
         this.showAlert = true;
@@ -317,7 +317,7 @@ export default {
           })
           .catch(() => {
             this.showAlert = true;
-            this.errMsg = "ID 또는 PASSWORD를 다시 확인해주세요";
+            this.errMsg = "EMAIL 또는 PASSWORD를 다시 확인해주세요";
           });
       }
     },
@@ -498,7 +498,7 @@ export default {
   height: 50px;
   padding: 0 20px;
   background-color: #fff3c5;
-  font-size: 13px;
+  font-size: 15px;
   width: 77%;
 }
 

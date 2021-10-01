@@ -1,128 +1,219 @@
 <template>
-  <div class="SignUp_section">
-    <div class="SignUp_title">
-      <a id="SignUp_title_font">
-        <FontAwesomeIcon :icon="faUserPlus" style="color:#ffde02s" />
-        회원가입
-      </a>
-    </div>
-
-    <div class="SignUp_input_box">
-      <a>이름</a>
-      <b-form-input
-        v-model="text"
-        id="input-valid"
-        :state="true"
-        name="Username"
-        placeholder="Enter your name"
-      >
-        <div class="alert-danger" v-if="submitted && errors.has('username')">
-          {{ errors.first("username") }}
-        </div>
-      </b-form-input>
-
-      <div>
-        <b-input-group type="number" id="input-valid">
-          <ul>
-            <b-dropdown text="010" variant="info">
-              <b-dropdown-item>010</b-dropdown-item>
-              <b-dropdown-item>011</b-dropdown-item>
-              <b-dropdown-item>016</b-dropdown-item>
-              <b-dropdown-item>019</b-dropdown-item>
-            </b-dropdown>
-          </ul>
-          <b-form-input></b-form-input>
+  <div id="signUp">
+    <!-- <b-container> -->
+    <!-- <b-layout align-center row wrap>
+        <b-flex xs12> -->
+    <ui id="explain">
+      <li>
+        <h1>Let's</h1>
+        <h1 style="color:#f89604">
+          Start!
+        </h1>
+      </li>
+      <img src="../assets/start_main/join01.png" />
+    </ui>
+    <b-card header="회원 가입" class="signUp_form">
+      <b-form v-model="valid" @submit.prevent="submitForm">
+        <!-- 이름 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon
+              :icon="faUserCheck"
+              size="lg"
+              style="color:#f89604"
+            />
+          </b-input-group-append>
+          <b-form-input
+            v-model="name"
+            placeholder="NAME"
+            type="text"
+            required
+          ></b-form-input>
         </b-input-group>
-      </div>
 
-      <ul>
-        닉네임
-        <b-form-input
-          v-model="text"
-          id="input-valid"
-          :state="true"
-          placeholder="Enter your Email"
-          ><button id="Confirmation_btn">중복확인</button></b-form-input
-        >
-      </ul>
-      <ul>
-        <div class="form-group mb-3">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="input-valid"
+        <!-- 이메일 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon
+              :icon="faEnvelope"
+              size="lg"
+              style="color:#f89604"
+            />
+          </b-input-group-append>
+          <b-form-input
             v-model="email"
-            placeholder="Enter email"
-            @blur="checkDuplicate"
-          />
-          <span class="badge badge-danger mt-1" v-if="!availableEmail"
-            >이미 사용중인 이메일입니다.</span
-          >
+            placeholder="EMAIL"
+            type="email"
+            required
+          ></b-form-input>
+          <b-button>
+            중복확인
+          </b-button>
+          <!-- 중복검사 완료시 체크 표시로 변함 -->
+          <img style="display: none;" />
+        </b-input-group>
+
+        <!-- 비밀번호 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon :icon="faLock" size="lg" style="color:#f89604" />
+          </b-input-group-append>
+          <b-form-input
+            type="password"
+            v-model="password"
+            placeholder="PASSWORD"
+            required
+          ></b-form-input>
+        </b-input-group>
+
+        <!-- 비밀번호 재확인 -->
+        <b-input-group>
+          <b-form-input
+            id="again"
+            type="password"
+            v-model="password2"
+            placeholder="ENTER PASSWORD AGAIN"
+            required
+          ></b-form-input>
+        </b-input-group>
+        <!-- <span class="badge badge-danger mt-1" v-if="passwordAgain"
+          >비밀번호를 다시 확인해주세요.</span
+        > -->
+
+        <!-- 전화 번호 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon
+              :icon="faPhoneAlt"
+              size="lg"
+              style="color:#f89604"
+            />
+          </b-input-group-append>
+          <b-form-input
+            v-model="phone"
+            type="text"
+            placeholder="PHONE"
+            @keyup="getPhoneMask(phone)"
+            required
+          ></b-form-input>
+        </b-input-group>
+        <div id="signUp_btn">
+          <b-button type="submit">가입하기</b-button>
         </div>
-      </ul>
-      <ul>
-        비밀번호<b-form-input
-          v-model="text"
-          type="password"
-          placeholder="비밀번호"
-          id="input-valid"
-        ></b-form-input>
-      </ul>
-      <ul>
-        <b-form-input
-          v-model="text"
-          type="password"
-          placeholder="비밀번호 확인"
-          id="input-valid"
-        ></b-form-input>
-      </ul>
-    </div>
-    <b-button class="mt-3" id="SignUp_btn" href="/Start">취소</b-button>
-    <b-button class="mt-3" id="SignUp_btn" href="/">확인</b-button>
+      </b-form>
+    </b-card>
+
+    <!-- </b-flex>
+      </b-layout> -->
+    <!-- </b-container> -->
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
     FontAwesomeIcon,
   },
-
   data() {
     return {
-      user: new User("", "", ""),
-      submitted: false,
-      successful: false,
-      message: "",
       //아이콘
-      faUserPlus,
+      faUserCheck,
+      faEnvelope,
+      faLock,
+      faPhoneAlt,
+
+      valid: false,
+
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      password2: "",
     };
   },
 
   methods: {
-    async checkDuplicate() {
-      //일단은 사용가능한 이메일로 true로 초기화 한다.
-      this.availableEmail = true;
+    // -----------------------------PHONE 하이픈 관련 시작----------------------
+    getPhoneMask(val) {
+      let res = this.getMask(val);
+      this.phone = res;
+      //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
+      this.model.phone = this.phone.replace(/[^0-9]/g, "");
+    },
+    getMask(phoneNumber) {
+      if (!phoneNumber) return phoneNumber;
+      phoneNumber = phoneNumber.replace(/[^0-9]/g, "");
 
-      //이메일 유효성을 검사한다.
-      if (!validateEmail(this.email)) {
-        //유효성이 틀리다면 data 값을 false로 한다.
-        this.availableEmailForm = false;
-        return;
+      let res = "";
+      if (phoneNumber.length < 3) {
+        res = phoneNumber;
       } else {
-        this.availableEmailForm = true;
+        if (phoneNumber.substr(0, 2) == "02") {
+          if (phoneNumber.length <= 5) {
+            res = phoneNumber.substr(0, 2) + "-" + phoneNumber.substr(2, 3);
+          } else if (phoneNumber.length > 5 && phoneNumber.length <= 9) {
+            res =
+              phoneNumber.substr(0, 2) +
+              "-" +
+              phoneNumber.substr(2, 3) +
+              "-" +
+              phoneNumber.substr(5);
+          } else if (phoneNumber.length > 9) {
+            res =
+              phoneNumber.substr(0, 2) +
+              "-" +
+              phoneNumber.substr(2, 4) +
+              "-" +
+              phoneNumber.substr(6);
+          }
+        } else {
+          if (phoneNumber.length < 8) {
+            res = phoneNumber;
+          } else if (phoneNumber.length == 8) {
+            res = phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3);
+          } else if (phoneNumber.length == 9) {
+            res =
+              phoneNumber.substr(0, 3) +
+              "-" +
+              phoneNumber.substr(3, 3) +
+              "-" +
+              phoneNumber.substr(6);
+          } else if (phoneNumber.length == 10) {
+            res =
+              phoneNumber.substr(0, 3) +
+              "-" +
+              phoneNumber.substr(3, 3) +
+              "-" +
+              phoneNumber.substr(6);
+          } else if (phoneNumber.length > 10) {
+            res =
+              phoneNumber.substr(0, 3) +
+              "-" +
+              phoneNumber.substr(3, 4) +
+              "-" +
+              phoneNumber.substr(7);
+          }
+        }
       }
+      return res;
+    },
+    // -----------------------------PHONE 하이픈 관련 끝----------------------
 
-      //이메일 중복체크를 한다.
-      const response = await checkDuplicateEmail(this.email);
-      if (!response.data) {
-        this.availableEmail = false;
+    // -----------------------------비밀번호 재확인----------------------
+    submitForm() {
+      if (this.password != this.password2) {
+        console.log("비밀번호 재확인 실패");
+        alert("비밀번호를 다시 입력해주세요.");
+        return (this.password = ""), (this.password2 = "");
       } else {
-        this.availableEmail = true;
+        console.log("dd");
+        this.$router.push("/");
       }
     },
   },
@@ -132,48 +223,111 @@ export default {
 <style>
 /*-----------------폰트, @media---------------------------- */
 @font-face {
-  font-family: "BCcardB";
-  src: url("../fonts/BCcardL.ttf") format("woff");
+  font-family: "GmarketSansTTFBold";
+  src: url("../fonts/GmarketSansTTFBold.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }
-/*-----------------------------title------------------------------------*/
-
-.signup_section {
-  width: 70%;
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.SignUp_title {
-  font-family: BCcardB;
+/*-----------------회원가입 폼 전---------------------------- */
+#signUp {
+  margin: 5%;
+  font-family: "Cafe24SsurroundAir";
+}
+
+#signUp #explain {
+  border-radius: 20px;
+  padding-top: 9%;
+  background-color: #eaf8e19a;
+  display: inline-block;
+}
+
+#signUp #explain li {
+  display: inline-block;
+  margin-left: 7%;
+}
+
+#signUp #explain h1 {
+  font-size: 35px;
+  font-family: "Cafe24Ssurround";
+  color: rgb(0, 157, 255);
+}
+
+#signUp #explain img {
+  float: right;
+  width: 45%;
+  margin-top: -7%;
+  margin-right: 4%;
+}
+
+/*-----------------회원가입 폼 ---------------------------- */
+.signUp_form {
   text-align: center;
-  color: #f8b704;
-  font-weight: 900;
-  border-bottom: 3px solid #f8b704;
-  margin: 0 10% 0 10%;
-  font-size: 28px;
-  margin-bottom: 10%;
+  margin-top: 8%;
 }
-/*------------------------------가입란-------------------------------------*/
-.SignUp_input_box {
-  font-family: BCcardB;
-  text-align: center;
-  font-weight: 900;
-  margin: 0 10% 0 10%;
-  padding: 1% 1%;
+
+.signUp_form .card-header {
+  font-family: "Cafe24Ssurround";
+  color: #f89604;
+  font-size: 20px;
+  border-bottom: 2px solid #f89604;
+  margin-bottom: 2%;
 }
-#input-valid {
+
+.signUp_form .card-body {
+  padding: 8%;
+}
+
+.signUp_form .input-group {
   background-color: antiquewhite;
+  margin-bottom: 6%;
+  /* padding: 2.8%; */
+  border-radius: 20px;
 }
-.b-dropdown {
-  background-color: #f8b704;
-}
-#input_number {
-  width: 60%;
+
+.signUp_form .form-control {
   background-color: antiquewhite;
+  border-radius: 20px;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 20px;
+  height: 50px;
+  font-size: 15px;
 }
-#SignUp_btn {
-  background-color: antiquewhite;
-  margin-bottom: 10%;
-  padding: auto;
+
+#again.form-control {
+  padding-left: 52px;
+}
+
+.signUp_form .input-group-append {
+  margin: 13px;
+  display: block;
+}
+
+/*-----------------버튼 ---------------------------- */
+.signUp_form .btn {
+  background-color: #f89604;
+  color: #fff;
+  font-size: 14px;
+}
+
+#signUp_btn .btn {
+  width: 100%;
+  margin-top: 10%;
+  border-radius: 17px;
+  font-weight: 600;
+  font-size: 17px;
 }
 </style>
