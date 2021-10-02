@@ -164,8 +164,8 @@
         </div>
 
         <!-- 동의 란 -->
-        <b-modal id="modal-1" title="BEEZ서비스 이용약관 내용">
-          <ul class="my-4">
+        <b-modal id="modal-1" hide-footer title="BEEZ서비스 이용약관 내용">
+          <ul>
             <p>BEEZ서비스를 이용 하실 고객 여러분을 환영합니다.</p>
             <p>
               BEEZ 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본
@@ -198,8 +198,8 @@
             </p>
           </ul>
         </b-modal>
-        <b-modal id="modal-2" title="개인정보 취급 위탁 동의설명">
-          <ul class="my-4">
+        <b-modal id="modal-2" hide-footer title="개인정보 취급 위탁 동의설명">
+          <ul>
             <a>
               개인정보보호법에 따라 BEEZ에 회원가입 신청하시는 분께 수집하는
               개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및
