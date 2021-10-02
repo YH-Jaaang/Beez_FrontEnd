@@ -3,7 +3,8 @@
     <b-card id="card_main">
       <div class="to_ac">
         <span>사용 가능금액</span>
-        <span style="float:right">{{ total }}원</span>
+        <!-- filter를 이용하여 콤마찍기 -->
+        <span style="float:right">{{ this.$store.state.total | comma }}원</span>
       </div>
       <div class="de_ac">
         <ul class="detail_ac">
@@ -116,6 +117,14 @@ export default {
   methods: {
     onComplete(data) {
       console.log("data:", data);
+    },
+  },
+  beforeCreate() {
+    this.$store.commit("login");
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
 };

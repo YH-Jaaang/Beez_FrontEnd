@@ -36,8 +36,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
-import VueCookies from "vue-cookies";
-//const storage = window.sessionStorage;
 
 export default {
   components: {
@@ -52,32 +50,24 @@ export default {
   },
   methods: {
     reset: () => {
-      VueCookies.remove("Id");
-      VueCookies.remove("Address");
-      // storage.setItem("jwt-auth-token", "");
-      // storage.setItem("login_user", "");
-      // storage.setItem("wallet_address", "");
+      localStorage.clear();
     },
   },
   beforeCreate() {
-    const id = VueCookies.get("Id");
-    //&& storage.getItem("jwt-auth-token") != ""
-    if (VueCookies.get("Address")) {
-      if (id == "user") this.$router.push("/Main");
-      else if (id != "business") {
-        VueCookies.remove("Id");
-        VueCookies.remove("Address");
-        // storage.setItem("jwt-auth-token", "");
-        // storage.setItem("login_user", "");
-        // storage.setItem("wallet_address", "");
+    //아이디가 user가 아닐경우, address가 없을 경우, address가 20바이트가 아닐 경우
+    //ID가 STORE일 경우, STORE페이지로 이동
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (token) {
+      if (role == "STORE") return true;
+      else if (role == "USER") this.$router.push("/Main");
+      else {
+        localStorage.clear();
         this.$router.push("/");
       }
     } else {
-      VueCookies.remove("Id");
-      VueCookies.remove("Address");
-      // storage.setItem("jwt-auth-token", "");
-      // storage.setItem("login_user", "");
-      // storage.setItem("wallet_address", "");
+      localStorage.clear();
       this.$router.push("/");
     }
   },
