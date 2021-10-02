@@ -200,7 +200,7 @@
           <b-button
             class="modal_checkbox_back"
             inline-block
-            ref="Agree_Checkbox"
+            href="Agree_Checkbox"
             @click="hideModal"
             >확 인</b-button
           >
@@ -288,7 +288,7 @@
           <b-button
             class="modal_checkbox_back"
             inline-block
-            ref="Agree_Checkbox"
+            href="Agree_Checkbox"
             @click="hideModal"
             >확 인</b-button
           >
@@ -640,5 +640,30 @@ export default {
 
 .checkbox .custom-control-label {
   display: block;
+}
+/* -------------------------------모달창 css------------------------------------- */
+#modal_font1 {
+  font-size: 10px;
+}
+.modal_checkbox_back {
+  font-family: "KoPubWorldDotumLight";
+  padding: 1% 45%;
+  margin: 0 auto;
+  align-content: center;
+  display: block;
+  background-color: rgb(180, 183, 199);
+  border-color: rgb(180, 183, 199);
+  font-weight: 600;
+  color: #fff;
+  margin-top: 15%;
+}
+.modal-header {
+  margin: 3%;
+  font-family: "KoPubWorldDotumLight";
+  text-align: center;
+}
+.modal-body {
+  font-size: 12px;
+  font-family: "KoPubWorldDotumLight";
 }
 </style>
