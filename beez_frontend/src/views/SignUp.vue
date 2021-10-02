@@ -142,7 +142,7 @@
           >
             <a>BEEZ 서비스 이용약관 동의</a>
             <a id="point">(필수)</a>
-            <b-button id="Store_modal_btn" v-b-modal.modal-1
+            <b-button id="Store_modal_btn" v-b-modal.modal1
               >자세히 보기</b-button
             >
           </b-form-checkbox>
@@ -153,7 +153,7 @@
           >
             <a>개인정보 취급 위탁 동의</a>
             <a id="point">(필수)</a>
-            <b-button id="Store_modal_btn2" v-b-modal.modal-2
+            <b-button id="Store_modal_btn2" v-b-modal.modal2
               >자세히 보기</b-button
             >
           </b-form-checkbox>
@@ -164,9 +164,9 @@
         </div>
 
         <!-- 동의 란 -->
-        <b-modal id="modal-1" hide-footer title="BEEZ서비스 이용약관 내용">
+        <b-modal id="modal1" hide-footer title="BEEZ 서비스 이용약관 내용">
           <ul>
-            <p>BEEZ서비스를 이용 하실 고객 여러분을 환영합니다.</p>
+            <p>BEEZ 서비스를 이용 하실 고객 여러분을 환영합니다.</p>
             <p>
               BEEZ 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본
               약관은 다양한 BEEZ 서비스의 이용과 관련하여 서비스 회원(이하
@@ -197,15 +197,11 @@
               있습니다.
             </p>
           </ul>
-          <b-button
-            class="modal_checkbox_back"
-            inline-block
-            href="Agree_Checkbox"
-            @click="hideModal"
+          <b-button class="modal_checkbox_back" @click="$bvModal.hide('modal1')"
             >확 인</b-button
           >
         </b-modal>
-        <b-modal id="modal-2" hide-footer title="개인정보 취급 위탁 동의설명">
+        <b-modal id="modal2" hide-footer title="개인정보 취급 위탁 동의설명">
           <ul>
             <a>
               개인정보보호법에 따라 BEEZ에 회원가입 신청하시는 분께 수집하는
@@ -285,11 +281,7 @@
             개인정보, 즉, 필수 항목에 대한 수집 및 이용 동의를 거부하실 경우,
             회원가입이 어려울 수 있습니다.
           </p>
-          <b-button
-            class="modal_checkbox_back"
-            inline-block
-            href="Agree_Checkbox"
-            @click="hideModal"
+          <b-button class="modal_checkbox_back" @click="$bvModal.hide('modal2')"
             >확 인</b-button
           >
         </b-modal>
@@ -636,34 +628,32 @@ export default {
 
 .checkbox {
   margin-top: 50px;
+  margin-left: -17px;
+  margin-right: -17px;
 }
 
 .checkbox .custom-control-label {
   display: block;
 }
 /* -------------------------------모달창 css------------------------------------- */
-#modal_font1 {
-  font-size: 10px;
-}
-.modal_checkbox_back {
+#modal1,
+#modal2 {
   font-family: "KoPubWorldDotumLight";
+}
+
+.modal_checkbox_back {
   padding: 1% 45%;
-  margin: 0 auto;
-  align-content: center;
   display: block;
   background-color: rgb(180, 183, 199);
   border-color: rgb(180, 183, 199);
-  font-weight: 600;
   color: #fff;
-  margin-top: 15%;
+  margin-top: 40px;
 }
 .modal-header {
   margin: 3%;
-  font-family: "KoPubWorldDotumLight";
   text-align: center;
 }
 .modal-body {
   font-size: 12px;
-  font-family: "KoPubWorldDotumLight";
 }
 </style>
