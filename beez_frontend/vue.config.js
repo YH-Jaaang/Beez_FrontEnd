@@ -5,6 +5,13 @@ module.exports = {
     port: 8081, // CHANGE YOUR PORT HERE!
     https: true,
     hotOnly: false,
+    proxy: {
+      "^/api": {
+        target: "https://172.30.1.54:9091",
+        changeOrigin: true,
+        logLevel: "debug",
+      },
+    },
   },
   lintOnSave: false,
   outputDir: "build",

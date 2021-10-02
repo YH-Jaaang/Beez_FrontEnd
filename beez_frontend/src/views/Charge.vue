@@ -78,9 +78,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-//import VueCookies from "vue-cookies";
-
-const storage = window.sessionStorage;
 
 export default {
   name: "App",
@@ -104,6 +101,7 @@ export default {
       // show: true,
     };
   },
+
   methods: {
     //충전 입력 폼
     onSubmit(event) {
@@ -130,25 +128,24 @@ export default {
     //값 전달 axios
     async chargePost() {
       var params = {
-        address: storage.getItem("wallet_address"),
+        email: localStorage.getItem("email"),
         charge: this.form.number,
       };
+      //이런식으로 header 토큰 삽입 => security 활성화.
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
 
-      await axios({
-        method: "post",
-        url: "/charge/amount",
-        params,
-        headers: {
-          Authorization: "Bearer " + storage.getItem("jwt-auth-token"),
-        },
-      })
+      //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+      await axios
+        .post("/api/charge/amount", params)
         .then((res) => {
           console.log(res.data);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          //여기서 모달창 하나 띄우고 확인 눌렀을 경우, Clear 시키기
+          //여기서 localStorage.clear(); 안먹힘
         });
-      this.$router.push("/");
+      this.$router.push("/Main");
     },
   },
   computed: {

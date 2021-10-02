@@ -2,14 +2,7 @@
   <div id="start">
     <div>
       <div class="li_btn text-center">
-        <b-button href="/Main" @click="setCookies">
-          지역주민<br />시작하기
-        </b-button>
-        <b-button href="/" @click="setBusinessCookies">
-          소상공인<br />시작하기
-        </b-button>
         <div class="span-blank">빈공간</div>
-
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
             <!-- 지역주민 로그인 탭 -->
@@ -76,7 +69,12 @@
               ><form class="login_form">
                 <li>
                   <FontAwesomeIcon :icon="faUserCheck" style="color:#fbca47" />
-                  <input class="enter_form" placeholder="ID" type="text" />
+                  <input
+                    class="enter_form"
+                    placeholder="ID"
+                    type="text"
+                    v-model="storeId"
+                  />
                   <!-- v-model="store_id" -->
                 </li>
 
@@ -86,6 +84,7 @@
                     class="enter_form"
                     placeholder="PASSWORD"
                     type="password"
+                    v-model="storePassword"
                     autocomplete="off"
                   />
                   <!-- v-model="store_password" -->
@@ -94,7 +93,7 @@
                 </li>
 
                 <li>
-                  <b-button id="store_login_btn">
+                  <b-button id="store_login_btn" @click="storeLoginBtn">
                     Login
                   </b-button>
                 </li>
@@ -104,7 +103,7 @@
                   </b-button>
                 </li>
                 <li>
-                  <!-- <a id="font-red">{{ StoreErrMsg }}</a> -->
+                  <a id="font-red">{{ StoreErrMsg }}</a>
                 </li>
               </form></b-tab
             >
@@ -147,11 +146,10 @@
 <script>
 import axios from "axios";
 import "url-search-params-polyfill";
-import VueCookies from "vue-cookies";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-const storage = window.sessionStorage;
+//const storage = window.sessionStorage;
 
 export default {
   name: "start",
@@ -164,8 +162,12 @@ export default {
       sliding: null,
       id: "",
       password: "",
+      userRole: "USER",
       showAlert: false,
       errMsg: "",
+      storeId: "",
+      storePassword: "",
+      storeRole: "STORE",
       StoreShowAlert: false,
       StoreErrMsg: "",
 
@@ -175,6 +177,7 @@ export default {
     };
   },
   methods: {
+    //사용자 로그인 화면
     async loginBtn() {
       if (this.id == "") {
         this.showAlert = true;
@@ -186,25 +189,20 @@ export default {
         return;
       } else {
         var params = {
-          username: this.id,
+          email: this.id,
           password: this.password,
+          role: this.userRole,
         };
-        storage.setItem("jwt-auth-token", "");
-        storage.setItem("login_user", "");
-        storage.setItem("wallet_address", "");
+        //세션 초기화
+        localStorage.clear();
         await axios
-          .post("/login/login", params)
+          .post("/api/login", params)
           .then((res) => {
-            //여기서 로그인 했을때 존재하지 않으면 존재하지 않는 아이디 입니다.라는 노티 띄우고 존재하면 쿠키 삽입 후 페이지 이동.
-            // console.log(res.data.data[0]);
-            // console.log(res);
-            // console.log(res.headers);
-            storage.setItem("jwt-auth-token", res.data.data[0]);
-            storage.setItem("login_user", params.username);
-            storage.setItem("wallet_address", res.data.data[1]);
-            VueCookies.set("Id", "user");
-            VueCookies.set("Address", res.data.data[1]);
-            this.$router.push("/Main");
+            localStorage.setItem("token", res.data.data[0]);
+            localStorage.setItem("email", params.email);
+            localStorage.setItem("nickName", res.data.data[1]);
+            localStorage.setItem("role", this.userRole);
+            if (this.$route.path !== "/Main") this.$router.push("/Main");
           })
           .catch(() => {
             this.showAlert = true;
@@ -212,16 +210,42 @@ export default {
           });
       }
     },
-    setCookies: () => {
-      if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
-        VueCookies.set("Id", "user");
-        VueCookies.set("Address", "0x3237F3B077bf7C5367a74D4e877D8Fc8c2B9a7c6");
-      }
-    },
-    setBusinessCookies: () => {
-      if (!VueCookies.isKey("Id") || !VueCookies.isKey("Address")) {
-        VueCookies.set("Id", "business");
-        VueCookies.set("Address", "0x3237F3B077bf7C5367a74D4e877D8Fc8c2B9a7c6");
+    //소상공인 로그인 화면
+    async storeLoginBtn() {
+      if (this.storeId == "") {
+        this.StoreShowAlert = true;
+        this.StoreErrMsg = "아이디를 입력해주세요";
+        return;
+      } else if (this.storePassword == "") {
+        this.StoreShowAlert = true;
+        this.StoreErrMsg = "비밀번호를 입력해주세요";
+        return;
+      } else {
+        var params = {
+          email: this.storeId,
+          password: this.storePassword,
+          role: this.storeRole,
+        };
+        //세션 초기화
+        localStorage.setItem("token", "");
+        localStorage.setItem("email", "");
+        localStorage.setItem("nickName", "");
+        localStorage.setItem("role", "");
+        await axios
+          .post("/api/login", params)
+          .then((res) => {
+            //여기서 로그인 했을때 존재하지 않으면 존재하지 않는 아이디 입니다.라는 노티 띄우고 존재하면 쿠키 삽입 후 페이지 이동.
+            localStorage.setItem("token", res.data.data[0]);
+            localStorage.setItem("email", params.email);
+            localStorage.setItem("nickName", res.data.data[1]);
+            localStorage.setItem("role", this.storeRole);
+            if (this.$route.path !== "/StoreMain")
+              this.$router.push("/StoreMain");
+          })
+          .catch(() => {
+            this.StoreShowAlert = true;
+            this.StoreErrMsg = "ID 또는 PASSWORD를 다시 확인해주세요";
+          });
       }
     },
 
