@@ -19,7 +19,6 @@
     "vue-qrcode-reader": "^3.0.3",
     "vue-qriously": "^1.1.1",
     "vue-router": "^3.2.0",
-    "vue-scrollto": "^2.20.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

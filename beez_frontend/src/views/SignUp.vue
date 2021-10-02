@@ -513,7 +513,6 @@ export default {
   color: #f89604;
   font-size: 20px;
   border-bottom: 2px solid #f89604;
-  margin-bottom: 2%;
 }
 
 .signUp_form .card-body {
@@ -522,7 +521,8 @@ export default {
 
 .signUp_form .input-group {
   background-color: antiquewhite;
-  margin-bottom: 6%;
+  /* margin-bottom: 6%; */
+  margin-top: 6%;
   /* padding: 2.8%; */
   border-radius: 20px;
 }
@@ -564,6 +564,7 @@ export default {
 #error1,
 #error2 {
   font-family: "KoPubWorldDotumLight";
+  color: #f00000;
 }
 
 /*-----------------버튼 ---------------------------- */
