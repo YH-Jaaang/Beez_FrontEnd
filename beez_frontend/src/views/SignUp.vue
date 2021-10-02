@@ -197,6 +197,13 @@
               있습니다.
             </p>
           </ul>
+          <b-button
+            class="modal_checkbox_back"
+            inline-block
+            ref="Agree_Checkbox"
+            @click="hideModal"
+            >확 인</b-button
+          >
         </b-modal>
         <b-modal id="modal-2" hide-footer title="개인정보 취급 위탁 동의설명">
           <ul>
@@ -278,6 +285,13 @@
             개인정보, 즉, 필수 항목에 대한 수집 및 이용 동의를 거부하실 경우,
             회원가입이 어려울 수 있습니다.
           </p>
+          <b-button
+            class="modal_checkbox_back"
+            inline-block
+            ref="Agree_Checkbox"
+            @click="hideModal"
+            >확 인</b-button
+          >
         </b-modal>
       </b-form>
     </b-card>
@@ -432,6 +446,10 @@ export default {
         return;
       }
       this.$router.push("/");
+    },
+    // --------------------------모달 취소 창--------------------------------
+    hideModal() {
+      this.$refs["Agree_Checkbox"].hide();
     },
   },
 };
