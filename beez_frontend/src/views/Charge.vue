@@ -15,11 +15,25 @@
       <ul class="charge_am">
         <li class="poss_am">
           <a>충전가능금액</a>
-          <a class="posit_rel left">{{ poss_ch }} 원</a>
+          <a class="posit_rel left"
+            >{{
+              parseInt(
+                this.$store.state.maxWonCharge - this.$store.state.wonOfMon
+              )
+            }}
+            원</a
+          >
         </li>
         <li class="poss_am">
           <a>혜택가능금액</a>
-          <a class="posit_rel left">{{ poss_am }} 원</a>
+          <a class="posit_rel left">
+            {{
+              parseInt(
+                this.$store.state.maxIncentive - this.$store.state.incOfMon * 10
+              )
+            }}
+            원</a
+          >
         </li>
 
         <b-form @submit="onSubmit" @reset="onReset">
@@ -49,7 +63,7 @@
       </div>
     </div>
 
-    <div class="charge_modal" id="dd">
+    <div class="charge_modal" id="modal_top">
       <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
         <div class="d-block">
           <a class="posit_rel margin138">충전 금액</a>
@@ -59,9 +73,7 @@
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
         <div class="d-block">
           <a class="posit_rel margin138">인센티브</a>
-          <a class="posit_rel" style="float:right"
-            >{{ form.number * 0.1 }} 원</a
-          >
+          <a class="posit_rel" style="float:right">{{ incentive_amount }} 원</a>
         </div>
         <div class="d-block" id="total_charge">
           <a class="posit_rel margin90">총 충전금액</a>
@@ -77,6 +89,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+// import { correct } from "@/views/components/Correct.vue";
 import axios from "axios";
 
 export default {
@@ -88,9 +101,8 @@ export default {
     return {
       bank_na: "KB 국민",
       account_no: "748 ****** 25437",
-      poss_ch: "2000000",
-      poss_am: "500,000",
       error: "",
+      incentive_amount: "",
       charge_amount: "",
       //아이콘
       faRedo,
@@ -101,7 +113,15 @@ export default {
       // show: true,
     };
   },
-
+  beforeCreate() {
+    this.$store.commit("message", "충전");
+    this.$store.commit("chargeMain");
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   methods: {
     //충전 입력 폼
     onSubmit(event) {
@@ -126,25 +146,29 @@ export default {
     },
 
     //값 전달 axios
-    async chargePost() {
+    chargePost() {
       var params = {
         email: localStorage.getItem("email"),
         charge: this.form.number,
       };
-      //이런식으로 header 토큰 삽입 => security 활성화.
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("token");
+      (async () => {
+        //이런식으로 header 토큰 삽입 => security 활성화.
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("token");
 
-      //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
-      await axios
-        .post("/api/charge/amount", params)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch(() => {
-          //여기서 모달창 하나 띄우고 확인 눌렀을 경우, Clear 시키기
-          //여기서 localStorage.clear(); 안먹힘
-        });
+        //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+        await axios
+          .post("/api/charge/amount", params)
+          .then((res) => {
+            //여기서 Correct.vue 처리 해주면 됨
+            alert(res.data);
+            console.log(res);
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      })();
+      //페이지 이동
       this.$router.push("/Main");
     },
   },
@@ -157,12 +181,32 @@ export default {
         text.error = "10,000원 이상 충전 가능합니다.";
       else if (this.form.number % 1000 !== 0)
         text.error = "1,000원 단위로 충전 가능합니다";
-      else if (this.form.number > 2000000)
+      else if (
+        this.form.number >
+        this.$store.state.maxWonCharge - this.$store.state.wonOfMon
+      )
         text.error = "충전가능금액을 초과하였습니다.";
       else {
         text.error = "충전 가능합니다.";
+        if (
+          parseInt(this.$store.state.wonOfMon) + parseInt(this.form.number) <=
+          this.$store.state.maxIncentive
+        ) {
+          text.incentive_amount = this.form.number;
+        } else if (
+          //this.$store.state.wonOfMon < this.$store.state.maxIncentive
+          this.$store.state.wonOfMon < this.$store.state.maxWonCharge
+        ) {
+          text.incentive_amount =
+            parseInt(this.$store.state.maxIncentive) -
+            parseInt(this.$store.state.incOfMon * 10);
+        } else {
+          text.incentive_amount = 0;
+        }
+        text.incentive_amount =
+          text.incentive_amount * this.$store.state.incentiveRate * 0.001;
         text.charge_amount =
-          parseInt(this.form.number) + parseInt(this.form.number * 0.1);
+          parseInt(this.form.number) + parseInt(this.incentive_amount);
       }
       return true;
     },
@@ -267,7 +311,7 @@ export default {
 }
 
 /*-------------------------- 충전 모달창-------------------------- */
-#dd {
+#modal_top {
   top: 550px;
 }
 #ch_modal {

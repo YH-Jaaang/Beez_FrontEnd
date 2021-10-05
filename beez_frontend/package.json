@@ -16,10 +16,12 @@
     "url-search-params-polyfill": "^8.1.1",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
+    "vue-numeric-keypad": "^1.1.2",
     "vue-qrcode-reader": "^3.0.3",
     "vue-qriously": "^1.1.1",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "web3": "^1.6.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

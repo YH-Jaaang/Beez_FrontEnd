@@ -167,6 +167,7 @@ import VueQrReader from "../components/VueQrReader.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { PAYMENT_ABI } from "@/ABI/ContractABI.js";
 
 export default {
   name: "app",
@@ -244,22 +245,68 @@ export default {
     hideModal() {
       this.$refs["pay_modal"].hide();
     },
-    payPost() {
-      // ----------------------------------추후 수정-------------------------------
-      // axios
-      //   .get("http://localhost:9091/charge/amount", {
-      //     params: {
-      //       address: VueCookies.get("Address"),
-      //       pay: this.form.price,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+    async payPost() {
+      const Web3 = require("web3");
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+        )
+      );
+      //const WON_CONTRACT_ADDRESS = "0x9F52A059D3f09EC05744b25d6Aa9F9938EaD0b1d";
+      //const BZ_CONTRACT_ADDRESS = "0xa33969baEBb81A670396cAf8c85E70f502755780";
+      const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //0x0571CA5EE022e3dA4Ac316e8DcA29b07B9dc32f5  //0xd4EeA67D803B0FD1B341b873658394359D75399a-영수증리턴
+      const to_ADDRESS = "0xbbEC30aBA3f9Bf7cA056e5429788d17a1c0FCcC1"; //사용자(db) 원토큰 백만원, 비즈 십만원
+      const recipient_ADDRESS = "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26"; //소상공인(db)
+      const cost = this.form.price; //입력값
+      const won_mount = this.won; //입력값을 활용해 계산
+      const beez_mount = this.form.bz * 100; //입력값
+      const PRIVATE_KEY =
+        "0xff844916a140fa290b94e36573c0de3d6db3ac72ed3177391b1b45b3ef228998"; //바꿔
+      const CONTRACT_ABI = PAYMENT_ABI; //import 컨트랙트
+      const sendRawTx = (rawTx) =>
+        new Promise((resolve, reject) =>
+          web3.eth
+            .sendSignedTransaction(rawTx)
+            .on("transactionHash", resolve)
+            .on("error", reject)
+        );
+      //(async () => {
+      const { address: from } = web3.eth.accounts.privateKeyToAccount(
+        PRIVATE_KEY
+      );
+      const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      //const query = await contract.methods.addWhitelisted(
+      const query = await contract.methods.payment(
+        to_ADDRESS,
+        recipient_ADDRESS,
+        cost,
+        won_mount,
+        beez_mount,
+        "1633177666" //충전시간
+      );
+      const transaction = {
+        to: CONTRACT_ADDRESS,
+        from,
+        value: "0",
+        data: query.encodeABI(),
+        gasPrice: web3.utils.toWei("2", "gwei"),
+        gas: Math.round((await query.estimateGas({ from })) * 1.5), // 1.5 coefficient, just make sure that gas amount is enough
+        nonce: await web3.eth.getTransactionCount(from, "pending"),
+      };
+      const signed = await web3.eth.accounts.signTransaction(
+        transaction,
+        PRIVATE_KEY
+      );
+      await sendRawTx(signed.rawTransaction)
+        .then((res) => {
+          //응답이오면 출력인데 백앤드에서 요청을 보내면 응답이 보통은 옴
+          //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
+          console.log(res);
+        })
+        .catch(() => {});
+      //console.log(hash);
       this.$router.push("/");
+      //})();
     },
   },
   computed: {

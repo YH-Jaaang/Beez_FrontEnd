@@ -23,6 +23,25 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+  //message 컴포넌트
+  {
+    path: "/Correct",
+    components: {
+      default: () => import("@/views/components/Correct.vue"),
+    },
+  },
+  {
+    path: "/Fail",
+    components: {
+      default: () => import("@/views/components/Fail.vue"),
+    },
+  },
+  {
+    path: "/Keypad",
+    components: {
+      default: () => import("@/views/components/Keypad.vue"),
+    },
+  },
   //사용자 페이지
   {
     path: "/Main",
