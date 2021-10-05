@@ -1,6 +1,6 @@
 <template>
   <div id="signUp">
-    <ui id="explain">
+    <ul id="explain">
       <li>
         <h1>Let's</h1>
         <h1 style="color:#f89604">
@@ -8,7 +8,7 @@
         </h1>
       </li>
       <img src="../assets/start_main/join01.png" />
-    </ui>
+    </ul>
     <b-card header="회원 가입" class="signUp_form">
       <b-form @submit.prevent="submitForm">
         <!-- 이름 -->
@@ -22,6 +22,7 @@
           </b-input-group-append>
           <b-form-input
             v-model="user_name"
+            @keyup="nameValid"
             placeholder="NAME"
             type="text"
             maxlength="13"
@@ -40,8 +41,10 @@
           </b-input-group-append>
           <b-form-input
             v-model="email"
+            @blur="emailValid"
+            @keyup="emailValid2"
             placeholder="EMAIL"
-            type="email"
+            type="text"
             required
           ></b-form-input>
           <b-button>
@@ -50,6 +53,9 @@
           <!-- 중복검사 완료시 체크 표시로 변함 -->
           <img style="display: none;" />
         </b-input-group>
+        <div v-if="!emailValidError" id="error1">
+          잘못된 이메일 형식입니다.
+        </div>
 
         <!-- 비밀번호 -->
         <b-input-group>
@@ -75,7 +81,7 @@
             id="again"
             type="password"
             v-model="password2"
-            placeholder="ENTER PASSWORD AGAIN"
+            placeholder="PASSWORD AGAIN"
             maxlength="16"
             @blur="passwordCheckValid"
             required
@@ -125,8 +131,9 @@
         <b-input-group>
           <b-form-input
             id="again2"
-            type="number"
+            type="text"
             v-model="account_number"
+            @keyup="accountValid"
             placeholder="계좌번호 입력"
             maxlength="25"
             required
@@ -135,22 +142,14 @@
 
         <!-- 회원가입 동의-->
         <div class="checkbox">
-          <b-form-checkbox
-            v-model="checkbox1"
-            value="동의 함"
-            unchecked-value="동의 안 함"
-          >
+          <b-form-checkbox v-model="checkbox1">
             <a>BEEZ 서비스 이용약관 동의</a>
             <a id="point">(필수)</a>
             <b-button id="Store_modal_btn" v-b-modal.modal1
               >자세히 보기</b-button
             >
           </b-form-checkbox>
-          <b-form-checkbox
-            v-model="checkbox2"
-            value="동의 함"
-            unchecked-value="동의 안 함"
-          >
+          <b-form-checkbox v-model="checkbox2">
             <a>개인정보 취급 위탁 동의</a>
             <a id="point">(필수)</a>
             <b-button id="Store_modal_btn2" v-b-modal.modal2
@@ -161,6 +160,7 @@
 
         <div id="signUp_btn">
           <b-button type="submit">가입하기</b-button>
+          <b-button href="/" id="signUp_btn2">취소</b-button>
         </div>
 
         <!-- 동의 란 -->
@@ -302,6 +302,7 @@ export default {
   components: {
     FontAwesomeIcon,
   },
+
   data() {
     return {
       //아이콘
@@ -313,6 +314,7 @@ export default {
 
       passwordValidError: true,
       passwordCheckValidError: true,
+      emailValidError: true,
 
       user_name: "",
       email: "",
@@ -322,9 +324,9 @@ export default {
       bank_name: null,
       account_number: "",
 
-      //동의확인
-      checkbox1: "동의 안함",
-      checkbox2: "동의 안함",
+      checkbox1: "",
+      checkbox2: "",
+
       banks: [
         { text: "은행선택", value: null },
         "국민",
@@ -354,7 +356,7 @@ export default {
       let res = this.getMask(val);
       this.phone = res;
       //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
-      this.model.phone = this.phone.replace(/[^0-9]/g, "");
+      // this.model.phone = this.phone.replace(/[^0-9]/g, "");
     },
     getMask(phoneNumber) {
       if (!phoneNumber) return phoneNumber;
@@ -415,6 +417,34 @@ export default {
     },
     // -----------------------------PHONE 하이픈 관련 끝----------------------
 
+    // -----------------------------이름 유효성 검사----------------------
+    // <!-- onKeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/g,'');" -->
+    nameValid() {
+      this.user_name = this.user_name.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/g, "");
+    },
+
+    // -----------------------------계좌번호 유효성 검사----------------------
+    accountValid() {
+      this.account_number = this.account_number.replace(/[^-0-9]/g, "");
+    },
+
+    // -----------------------------이메일 유효성 검사----------------------
+    emailValid() {
+      if (
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
+          this.email
+        )
+      ) {
+        this.emailValidError = true;
+      } else {
+        this.emailValidError = false;
+      }
+    },
+
+    emailValid2() {
+      this.email = this.email.replace(/[^a-zA-Z0-9*@.]/g, "");
+    },
+
     // -----------------------------비밀번호 유효성 검사----------------------
     passwordValid() {
       if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.password)) {
@@ -433,11 +463,19 @@ export default {
     },
     //-------------------회원가입 최종 버튼--------------------------------------
     submitForm() {
-      if (!this.passwordValidError || !this.passwordCheckValidError) {
+      if (
+        !this.passwordValidError ||
+        !this.passwordCheckValidError ||
+        !this.emailValidError
+      ) {
         alert("회원가입 입력란을 확인해주세요.");
         return;
+      } else if (!this.checkbox1 || !this.checkbox2) {
+        alert("회원가입 동의란을 확인해주세요.");
+        return;
+      } else {
+        this.$router.push("/");
       }
-      this.$router.push("/");
     },
     // --------------------------모달 취소 창--------------------------------
     hideModal() {
@@ -575,6 +613,7 @@ export default {
 #error2 {
   font-family: "KoPubWorldDotumLight";
   color: #f00000;
+  font-size: 13px;
 }
 
 /*-----------------버튼 ---------------------------- */
@@ -594,6 +633,12 @@ export default {
   font-weight: 600;
   font-size: 19px;
   font-family: "Cafe24Ssurround";
+}
+
+#signUp_btn2 {
+  background-color: #fff;
+  color: #f89604;
+  border: 3px solid;
 }
 
 /* -------------------------------------동의란---------------------------- */
@@ -630,6 +675,7 @@ export default {
   margin-top: 50px;
   margin-left: -17px;
   margin-right: -17px;
+  margin-bottom: 25px;
 }
 
 .checkbox .custom-control-label {
