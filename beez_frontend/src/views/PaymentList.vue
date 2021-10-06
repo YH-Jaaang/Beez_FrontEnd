@@ -23,13 +23,9 @@
         </ul>
       </div>
 
-      <div class="keyword_Review">
-        <li class="keyword_Review_box">
-          <b-button id="Review_btn2" @click="KeywordModal"
-            >키워드 리뷰 (BEEZ토큰지급)</b-button
-          >
-        </li>
-      </div>
+      <b-button id="Review_btn2" @click="KeywordModal"
+        >키워드 리뷰 (BEEZ토큰지급)</b-button
+      >
     </div>
 
     <div class="Reviewlist_box">
@@ -52,280 +48,58 @@
         </li>
       </div>
     </div>
-    <div class="Reviewlist_box">
-      <div class="User_history">
-        <ul>
-          <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_days }})</a>
-          </li>
-          <li class="bar">
-            <a> 가게 이름: {{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
-          </li>
-        </ul>
-      </div>
 
-      <div class="keyword_Review">
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요!</a>
-          <a>반찬종류가 많아요!</a>
-          <a>주차하기 편해요!</a>
-        </li>
-      </div>
-    </div>
-
-    <div class="KeywordReview_modal">
+    <div class="review_modal">
       <b-modal
         id="Review_modal"
-        ref="KeywordReview_modal"
+        ref="review_modal"
         hide-footer
         title="키워드 리뷰"
       >
-        <div class="keyboxtitle">
-          <div class="Keyword_box">
-            <!--첫 번째 -->
-            <div class="keybox">
-              <div class="keybox_title">
-                분위기
-              </div>
-              <div class="Keyword_column" name="check" type="radio">
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="1"
-                    button
-                  >
-                    분위기가 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="2"
-                    button
-                  >
-                    비즈니스에 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="3"
-                    button
-                  >
-                    친구랑 가기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="4"
-                    button
-                  >
-                    데이트하기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="5"
-                    button
-                  >
-                    데이트하기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked1"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="6"
-                    button
-                  >
-                    사장님이 친절해요!
-                  </b-form-checkbox>
-                </div>
-              </div>
+        <div class="Keyword_box">
+          <!--첫 번째 -->
+          <div class="keybox">
+            <div class="keybox_title">
+              분위기
             </div>
-            <!--두 번째 -->
-            <div class="keybox">
-              <div class="keybox_title">
-                편의시설
-              </div>
-              <div class="Keyword_column" name="check" type="radio">
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="1"
-                    button
-                  >
-                    서비스가 너무 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="2"
-                    button
-                  >
-                    상품종류가 다양해요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="3"
-                    button
-                  >
-                    주차하기 편해요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="4"
-                    button
-                  >
-                    데이트하기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="5"
-                    button
-                  >
-                    데이트하기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked2"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="6"
-                    button
-                  >
-                    사장님이 친절해요!
-                  </b-form-checkbox>
-                </div>
-              </div>
-            </div>
-            <!--세 번째 -->
-            <div class="keybox">
-              <div class="keybox_title">
-                교통
-              </div>
-              <div class="Keyword_column" name="check" type="radio">
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="1"
-                    button
-                  >
-                    대중교통이 편해요!
-                  </b-form-checkbox>
-                </div>
+            <b-form-checkbox-group
+              v-model="checked1"
+              @change="clickFunc"
+              buttons
+              :options="keyword1"
+              class="Keyword_column"
+            ></b-form-checkbox-group>
+          </div>
 
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="2"
-                    button
-                  >
-                    데이트하기 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="3"
-                    button
-                  >
-                    가게위치가 좋아요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="4"
-                    button
-                  >
-                    주차하기 편해요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="5"
-                    button
-                  >
-                    주차하기 힘들어요!
-                  </b-form-checkbox>
-                </div>
-                <div class="KeywordReview_modal" id="Review1">
-                  <b-form-checkbox
-                    v-model="checked3"
-                    name="check-button"
-                    class="keyword"
-                    @change="clickFunc"
-                    value="6"
-                    button
-                  >
-                    대중교통을 추천해요!
-                  </b-form-checkbox>
-                </div>
-              </div>
+          <!--두 번째 -->
+          <div class="keybox">
+            <div class="keybox_title">
+              편의시설
             </div>
+            <b-form-checkbox-group
+              v-model="checked2"
+              @change="clickFunc"
+              buttons
+              :options="keyword2"
+              class="Keyword_column"
+            ></b-form-checkbox-group>
+          </div>
+
+          <!--세 번째 -->
+          <div class="keybox">
+            <div class="keybox_title">
+              교통
+            </div>
+            <b-form-checkbox-group
+              v-model="checked3"
+              @change="clickFunc"
+              buttons
+              :options="keyword3"
+              class="Keyword_column"
+            ></b-form-checkbox-group>
           </div>
         </div>
+
         <div>
           <b-button
             class="keyword_check"
@@ -339,16 +113,6 @@
           >
         </div>
       </b-modal>
-    </div>
-
-    <div class="overflow-auto">
-      <b-pagination-nav
-        :link-gen="linkGen"
-        :number-of-pages="10"
-        use-router
-        align="center"
-      >
-      </b-pagination-nav>
     </div>
   </div>
 </template>
@@ -376,12 +140,34 @@ export default {
       faList,
       //모달 체크박스
 
-      /** 2021-10-05
-       * @author CMH
-       */
       checked1: [],
       checked2: [],
       checked3: [],
+
+      keyword1: [
+        { text: "분위기가 좋아요!", value: "1" },
+        { text: "비즈니스에 좋아요!", value: "2" },
+        { text: "친구랑 가기 좋아요!", value: "3" },
+        { text: "데이트하기 좋아요!", value: "4" },
+        { text: "데이트하기 좋아요!", value: "5" },
+        { text: "사장님이 친절해요!", value: "6" },
+      ],
+      keyword2: [
+        { text: "서비스가 좋아요!", value: "1" },
+        { text: "상품종류가 다양해요!", value: "2" },
+        { text: "주차하기 편해요!", value: "3" },
+        { text: "데이트하기 좋아요!", value: "4" },
+        { text: "데이트하기 좋아요!", value: "5" },
+        { text: "사장님이 친절해요!", value: "6" },
+      ],
+      keyword3: [
+        { text: "대중교통이 편해요!", value: "1" },
+        { text: "주차하기 힘들어요!", value: "2" },
+        { text: "주차하기 편해요!", value: "3" },
+        { text: "가게위치가 좋아요!", value: "4" },
+        { text: "데이트하기 좋아요!", value: "5" },
+        { text: "대중교통을 추천해요!", value: "6" },
+      ],
 
       checkedValues: [],
     };
@@ -412,10 +198,10 @@ export default {
     },
     //모달 취소 버튼
     KeywordModal() {
-      this.$refs["KeywordReview_modal"].show();
+      this.$refs["review_modal"].show();
     },
     hideModal2() {
-      this.$refs["KeywordReview_modal"].hide();
+      this.$refs["review_modal"].hide();
     },
   },
 
@@ -462,7 +248,6 @@ export default {
 }
 
 .keyword_Review_box {
-  width: 300px 300px;
   margin: auto;
   display: block;
 }
@@ -476,9 +261,7 @@ export default {
   border-bottom: 2px solid #ffde02;
   margin-bottom: 4%;
 }
-.overflow-auto {
-  width: 100%;
-}
+
 #Review_btn2 {
   color: #76512c;
   background-color: #ffde02;
@@ -487,28 +270,14 @@ export default {
   display: block;
   font-weight: 700;
 }
+
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;
 }
-.KeywordReview_modal {
-  font-family: BCcardB;
-  color: #ffde02;
-  width: 90%;
-  margin-bottom: 2px;
-}
-#Review1 {
-  margin-left: 8%;
-  margin-right: 8%;
-  text-align: center;
-  font-size: 12px;
-}
-.Keyword_box {
-  font-size: 7pt;
-}
 
 .keybox {
-  font-size: 7pt;
+  font-family: "BCcardB";
   margin-bottom: 20px;
   background-color: #fdfded;
   padding: 3% 1%;
@@ -517,19 +286,17 @@ export default {
 }
 
 .keybox_title {
-  font-family: "BCcardB";
   border-bottom: 2px solid #ffde02;
   margin: 0 auto;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 17px;
   width: 89%;
-  font-size: 12px;
   font-weight: 600;
   font-size: 15px;
   color: #76512c;
 }
 
-.KeywordReview_modal .btn {
+.review_modal .btn {
   border-radius: 5px;
   margin-bottom: 3%;
   font-weight: 600;
@@ -538,31 +305,49 @@ export default {
   border: 1px solid #c5c5c5;
   width: 130px;
 }
-.KeywordReview_modal .btn-secondary:not(:disabled):not(.disabled).active {
+.btn-secondary:not(:disabled):not(.disabled).active {
   background-color: #c5c5c5;
+  border-color: #c5c5c5;
 }
+
 .keyword_check {
-  font-family: "BCcardB";
   background-color: #feffae;
   font-weight: 600;
   margin-left: 18%;
   padding: 2% 7%;
-
-  margin-bottom: 10%;
+  font-family: BCcardB;
+  margin-bottom: 8%;
   color: #76512c;
 }
 
 .Keyword_column {
   display: grid;
   grid: ". .";
+  justify-content: space-evenly;
+  font-size: 12px;
 }
+
+.Keyword_column .btn {
+  margin-bottom: 3%;
+  font-weight: 600;
+  color: #696663;
+  background-color: white;
+  border: 1px solid #76512c;
+}
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+  border-radius: 10px;
+}
+
+.btn-group > .btn:not(:first-child) {
+  border-radius: 10px;
+}
+
 #Review_modal .modal-title {
   font-family: "BCcardB";
   font-weight: 600;
+  color: #76512c;
 }
 
-/* ---------------------------페이지 넘김------------------------------*/
-.overflow-auto {
-  color: #100055;
-}
+
 </style>
