@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <h1 id="page_title">
-        <FontAwesomeIcon :icon="faQrcode" style="color:#f8b704" />
+        <FontAwesomeIcon :icon="faQrcode" style="color:#76512c78" />
         결제하기
       </h1>
     </div>
@@ -159,6 +159,23 @@
         </div>
       </b-card>
     </b-form>
+    <div>
+      <b-card class="end_Payment">
+        <li>
+          <h4>
+            결제 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -167,6 +184,7 @@ import VueQrReader from "../components/VueQrReader.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "app",
@@ -183,7 +201,7 @@ export default {
       //아이콘
       faQrcode,
       faBitcoin,
-
+      faAngleRight,
       //결제 입력폼
       form: {
         scanned: "",
@@ -286,7 +304,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 #page_title {
   font-family: BCcardB;
   text-align: center;
@@ -465,5 +488,26 @@ export default {
 #total_pay {
   position: relative;
   right: -5%;
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Payment {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_Payment .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Payment li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Payment h4 {
+  padding: 0;
 }
 </style>

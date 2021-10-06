@@ -13,7 +13,7 @@
       <div class="User_history">
         <ul>
           <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_time }})</a>
+            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
             <!--리뷰 마감 기한 필요-->
           </li>
           <li class="bar">
@@ -31,7 +31,7 @@
       <div class="User_history">
         <ul>
           <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_time }})</a>
+            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
           </li>
           <li class="bar">
             <a>{{ Store_Infor }}</a>
@@ -157,6 +157,7 @@ export default {
       //아이콘
       faClipboardList,
       faAngleRight,
+
       //모달 체크박스
 
       checked1: [],
@@ -274,7 +275,7 @@ export default {
 
 .keyword_Review_box {
   margin: auto;
-  display: block;
+  margin-left: 5%;
 }
 .keyword_Review_box a {
   padding: 1% 2%;
@@ -298,14 +299,12 @@ export default {
 #Paymentlist_check {
   margin: 0 auto;
   background-color: #fdfded;
-  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
-
   display: block;
   padding: 2%;
   width: 20%;
   font-size: 15px;
   font-weight: 900;
-  margin-bottom: 8%;
+  margin-bottom: 17%;
 }
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {

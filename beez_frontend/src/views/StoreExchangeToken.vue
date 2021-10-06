@@ -186,7 +186,6 @@ export default {
 }
 /*--------------------------card--------------------------- */
 #card_TokenChange {
-  font-family: BCcardB;
   background-color: #b9ddf7;
   /* padding: 10px 7px; */
   border-radius: 50px;
@@ -280,9 +279,9 @@ export default {
   background-color: #e0f5f7;
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 900;
-  border: 1.5px solid #100055;
+  border: 1px solid #fff;
 }
 @media (max-width: 400px) {
   #changetoken_amount {
@@ -313,6 +312,7 @@ export default {
   margin-left: 15%;
   font-size: 14px;
   font-weight: 700;
+  border: 1px solid white;
 }
 
 #total_excharge {

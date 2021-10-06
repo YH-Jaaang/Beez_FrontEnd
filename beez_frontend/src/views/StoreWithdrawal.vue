@@ -88,7 +88,7 @@
       </li>
       <li>
         <h4>
-          Q % A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
         </h4>
       </li>
     </b-card>
@@ -230,10 +230,9 @@ export default {
   margin-top: 5%;
   color: #100055;
   background-color: #e0f5f7;
-  font-size: 23px;
+  font-size: 20px;
   font-weight: 900;
-  border: 1.5px solid #100055;
-  font-family: BCcardB;
+  border: 1.5px solid #fff;
 }
 
 /*-------------------------- 충전 모달창-------------------------- */

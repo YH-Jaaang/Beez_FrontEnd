@@ -103,7 +103,7 @@ export default {
   margin: 0 auto;
 }
 #Store_QR {
-  font-size: 24pt;
+  font-size: 18pt;
 }
 
 .Reviewlist {
@@ -155,7 +155,6 @@ export default {
   font-size: 18px;
   font-weight: 900;
   margin-bottom: 8%;
-  border: 2.5px solid #100055;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 #end_StoreQR {

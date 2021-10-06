@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="charge">
     <b-card id="card_charge">
       <img src="../assets/Card3.png" alt="card" />
     </b-card>
@@ -72,6 +72,23 @@
         <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
       </b-modal>
     </div>
+    <div>
+      <b-card class="end_Charge">
+        <li>
+          <h4>
+            충전 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -79,9 +96,10 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  name: "App",
+  name: "charge",
   components: {
     FontAwesomeIcon,
   },
@@ -95,7 +113,7 @@ export default {
       charge_amount: "",
       //아이콘
       faRedo,
-
+      faAngleRight,
       form: {
         number: "",
       },
@@ -184,7 +202,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /*--------------------------card--------------------------- */
 #card_charge {
   font-family: BCcardB;
@@ -339,5 +362,26 @@ export default {
 }
 .posit_rel.margin164 {
   left: 20%;
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Charge {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_Charge .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Charge li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Charge h4 {
+  padding: 0;
 }
 </style>

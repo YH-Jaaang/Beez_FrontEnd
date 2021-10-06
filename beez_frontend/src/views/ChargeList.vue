@@ -2,7 +2,7 @@
   <div class="ChargeList_section">
     <div class="ChargeList text-center">
       <a id="User_ChargeList">
-        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#f8b704" />
+        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#76512cb8" />
         충전 내역
       </a>
     </div>
@@ -86,6 +86,23 @@
       </div>
     </div>
     <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
+    <div>
+      <b-card class="end_Chargelist">
+        <li>
+          <h4>
+            충전내역 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
     <!--<div class="overflow-auto">
       <b-pagination-nav
         :link-gen="linkGen"
@@ -100,6 +117,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -124,6 +142,7 @@ export default {
 
       //아이콘
       faFileInvoiceDollar,
+      faAngleRight,
     };
   },
   methods: {
@@ -141,6 +160,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /*----------------------------title-------------------------------*/
 .ChargeList_section {
   font-family: BCcardB;
@@ -148,7 +173,6 @@ export default {
 }
 
 .ChargeList {
-  font-family: BCcardB;
   text-align: center;
   color: #76512cb8;
   font-weight: 900;
@@ -164,10 +188,10 @@ export default {
   font-size: 14px;
   font-weight: 900;
   color: #714d2ad5;
-  padding: 2% 2%;
+  padding: 2% 4%;
   background-color: #f1ebe4;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
-  width: 86%;
+  width: 82%;
   margin: 3% auto;
   margin-bottom: 8%;
   border-radius: 10px;
@@ -178,10 +202,10 @@ export default {
   border-radius: 20px;
   border: #6e6b79;
   background-color: #faf3cc;
-  width: 86%;
+  width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
-  margin-left: 7.5%;
+  margin-left: 9%;
   color: #76512c;
 }
 #ChargeList_font {
@@ -209,9 +233,7 @@ export default {
   }
 }
 /*---------------------------페이지 넘김------------------------------*/
-.overflow-auto {
-  color: #100055;
-}
+
 #ChargeList_btn2 {
   margin: 0 auto;
   background-color: #94785bb8;
@@ -221,6 +243,28 @@ export default {
   width: 20%;
   font-size: 18px;
   font-weight: 900;
+  margin-bottom: 10%;
   /* border: 2.5px solid #76512c; */
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Chargelist {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_Chargelist .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Chargelist li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Chargelist h4 {
+  padding: 0;
 }
 </style>
