@@ -12,64 +12,43 @@
     <div class="Reviewlist_box">
       <div class="User_history">
         <ul>
-          <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_days }})</a>
+          <li v-for="(review, i) in reviewContents" :key="i">
+            방문시간 : {{ review.visitTime }} 구매금액 :
+            {{ review.cost }} 상호명 : {{ review.recipient }}
+
             <!--리뷰 마감 기한 필요-->
           </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="Reviewlist_box">
+      <div class="User_history">
+        <ul>
+          <li>
+            <a>
+              <!--{{ this.visitor }}-->
+            </a>
+          </li>
           <li class="bar">
-            <a> 가게 이름:{{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
+            <a>
+              <!-- reviewContent.storeId  -->
+            </a>
+            <a style="float:right">
+              <!-- {{reviewContent.cost}}원 -->
+            </a>
           </li>
         </ul>
       </div>
 
       <div class="keyword_Review">
         <li class="keyword_Review_box">
-          <b-button id="Review_btn2" @click="KeywordModal"
+          <!-- 리뷰리스트 이벤트 만들어야함 -->
+          <b-button id="Review_btn2" @click="KeywordReview_modal"
             >키워드 리뷰 (BEEZ토큰지급)</b-button
           >
-        </li>
-      </div>
-    </div>
 
-    <div class="Reviewlist_box">
-      <div class="User_history">
-        <ul>
-          <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_days }})</a>
-          </li>
-          <li class="bar">
-            <a> 가게 이름:{{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
-          </li>
-        </ul>
-      </div>
-      <div class="keyword_Review">
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요!</a>
-          <a>반찬종류가 많아요!</a>
-          <a>주차하기 편해요!</a>
-        </li>
-      </div>
-    </div>
-    <div class="Reviewlist_box">
-      <div class="User_history">
-        <ul>
-          <li>
-            <a>{{ User_month }}월{{ User_day }}일 ({{ User_days }})</a>
-          </li>
-          <li class="bar">
-            <a> 가게 이름: {{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="keyword_Review">
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요!</a>
-          <a>반찬종류가 많아요!</a>
-          <a>주차하기 편해요!</a>
+          <!-- reviewList -->
         </li>
       </div>
     </div>
@@ -320,6 +299,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
+import { PAYMENT_ABI } from "@/ABI/ContractABI.js";
 
 export default {
   components: {
@@ -328,23 +308,35 @@ export default {
 
   data() {
     return {
-      //날짜
-      User_day: "1",
-      User_days: "금",
-      User_month: "10",
-      //고객 ID
-      Store_Infor: "새마을포차",
-      //매출
-      UserCost: "30,000",
-      //아이콘
-      faList,
-      //모달 체크박스
-      NoMultiCheck: false,
+      reviewContents: [],
     };
   },
   created() {
     // this.init();
   },
+  beforeCreate() {
+    const Web3 = require("web3");
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(
+        "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+      )
+    );
+    const visitor = "0xbbEC30aBA3f9Bf7cA056e5429788d17a1c0FCcC1"; //DB
+    const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
+    const CONTRACT_ABI = PAYMENT_ABI;
+    const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+    // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
+    const text = this;
+    contract.methods
+      .getReviewForVisitor(visitor)
+      .call()
+      .then(function(reviewContents) {
+        console.log(reviewContents);
+        text.reviewContents = reviewContents;
+      });
+  },
+
   methods: {
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
