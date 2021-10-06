@@ -120,7 +120,6 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
-import { PAYMENT_ABI } from "@/ABI/ContractABI.js";
 
 export default {
   components: {
