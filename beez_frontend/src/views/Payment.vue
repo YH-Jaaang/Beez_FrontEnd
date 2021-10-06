@@ -137,7 +137,7 @@
           </div>
 
           <div class="form_btn text-center">
-            <b-button type="submit" ref="pay_btn" :disabled="error.length > 9"
+            <b-button type="submit" :disabled="error.length > 9"
               >결제</b-button
             >
             <b-button href="/Main">취소</b-button>
