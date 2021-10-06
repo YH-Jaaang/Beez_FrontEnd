@@ -221,7 +221,6 @@ export default {
 .keyword_Review_box {
   width: 300px 300px;
   margin: 0 auto;
-  margin-left: 9.5%;
 }
 .keyword_Review_box a {
   padding: 1% 2%;

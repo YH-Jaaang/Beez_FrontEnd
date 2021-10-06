@@ -117,6 +117,20 @@
         결제 / 리뷰 내역
       </b-button>
     </div>
+    <div>
+      <b-card class="end_StoreMain">
+        <li>
+          <h4>
+            공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -195,6 +209,7 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+
 /*--------------------------유저 설명-------------------------- */
 #user_explain2 {
   border-radius: 20px;
@@ -431,5 +446,26 @@ export default {
   margin-right: 25px;
   font-size: 25px;
   font-weight: 900;
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_StoreMain {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_StoreMain .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_StoreMain li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_StoreMain h4 {
+  padding: 0;
 }
 </style>
