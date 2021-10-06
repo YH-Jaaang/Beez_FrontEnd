@@ -375,18 +375,18 @@ export default {
 #page_title {
   font-family: BCcardB;
   text-align: center;
-  color: #f8b704;
+  color: #76512c78;
   font-weight: 900;
-  border-bottom: 3px solid #f8b704;
+  border-bottom: 3px solid #76512c78;
   margin: 10%;
 }
 
 #card_qr {
   font-family: BCcardB;
-  border: 3px solid #76512c;
+  border: 2.5px solid #76512c78;
   border-radius: 30px;
   margin: 4% 6%;
-  color: #76512c;
+  color: #76512c78;
 }
 
 #card_qr .card-body {
@@ -394,8 +394,8 @@ export default {
 }
 
 #card_qr .card-title {
-  color: #76512c;
-  border-bottom: 2.5px solid #76512c;
+  color: #76512ce3;
+  border-bottom: 2.5px solid #76512ce3;
   font-weight: 900;
   margin-bottom: 20px;
 }
@@ -447,7 +447,7 @@ export default {
 }
 
 .qrsuccess {
-  color: #fb0000;
+  color: #108a2c;
 }
 
 .qrheader {
@@ -489,8 +489,8 @@ export default {
 #bz_amount .btn {
   margin-right: 10px;
   /* color: #f8b704; */
-  font-weight: 600;
-  background-color: #f8b704;
+  font-weight: 900;
+  background-color: #f8b7048e;
   margin-top: 10px;
 }
 

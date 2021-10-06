@@ -41,7 +41,8 @@
           <b-input-group class="form_charge">
             <b-form-input
               v-model="form.number"
-              type="number"
+              @keyup="chargeValid"
+              type="text"
               :state="ch_state"
             ></b-form-input>
 
@@ -193,6 +194,11 @@ export default {
       //페이지 이동
       this.$router.push("/Main");
     },
+
+    //----------------입력폼에 숫자만----------------------
+    chargeValid() {
+      this.form.number = this.form.number.replace(/[^0-9]/g, "");
+    },
   },
   computed: {
     ch_state() {
@@ -251,7 +257,7 @@ export default {
   background-color: rgba(177, 175, 175, 0.394);
   /* padding: 10px 7px; */
   border-radius: 50px;
-  /* border: 2.5px solid #76512ce3; */
+  border: 2.5px solid #9d8d7c6b;
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
@@ -317,10 +323,11 @@ export default {
 #ch_btn {
   margin-top: 5%;
   color: #76512c;
-  background-color: #ffde02;
+  background-color: #f8d97171;
   font-size: 23px;
   font-weight: 900;
-  border: 2.5px solid #76512c;
+  /* border: 2.5px solid #76512c; */
+  border: 0;
   font-family: BCcardB;
 }
 #btn_color {

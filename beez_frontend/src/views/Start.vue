@@ -2,7 +2,6 @@
   <div id="start">
     <div>
       <div class="li_btn text-center">
-        <div class="span-blank">빈공간</div>
         <div id="login_tab">
           <b-tabs content-class="mt-3" justified>
             <!-- 지역주민 로그인 탭 -->
@@ -137,11 +136,7 @@
                   Login
                 </b-button>
               </li>
-              <li>
-                <b-button id="join_btn">
-                  Sign-up
-                </b-button>
-              </li>
+
               <li>
                 <a id="font-red">{{ StoreErrMsg }}</a>
               </li>
@@ -227,7 +222,7 @@
     </div>
 
     <div>
-      <b-card id="end_start">
+      <b-card class="end_start">
         <li>
           <h4>
             공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
@@ -523,7 +518,7 @@ export default {
   height: 50px;
   padding: 0 20px;
   background-color: #b9d9ff;
-  font-size: 13px;
+  font-size: 15px;
   width: 77%;
 }
 
@@ -573,10 +568,10 @@ export default {
 }
 
 #font-red {
-  font-family: "GmarketSansTTFMedium";
+  font-family: "GmarketSansTTFLight";
   font-weight: bolder;
   color: rgb(226, 38, 38);
-  font-size: 15px;
+  font-size: 13px;
 }
 
 /*--------------------------지역화폐 관련 정보 버튼-------------------------- */
@@ -689,16 +684,16 @@ export default {
 }
 
 /*--------------------------공지사항/q&a-------------------------- */
-#end_start {
+.end_start {
   font-family: "GmarketSansTTFMedium";
 }
 
-#end_start .card-body {
+.end_start .card-body {
   font-weight: 600;
   padding: 0;
 }
 
-#end_start li {
+.end_start li {
   padding-left: 6%;
   padding-right: 6%;
   padding-top: 4%;
@@ -706,7 +701,7 @@ export default {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-#end_start h4 {
+.end_start h4 {
   padding: 0;
 }
 </style>

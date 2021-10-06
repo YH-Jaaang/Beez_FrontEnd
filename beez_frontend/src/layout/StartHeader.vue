@@ -3,20 +3,20 @@
     <div class="header">
       <b-navbar toggleable="lg" type="light">
         <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
-        <b-navbar-brand href="#">
+        <b-navbar-brand href="/">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"
+        <!-- <b-navbar-toggle target="nav-collapse"
           ><FontAwesomeIcon :icon="faBars" style="color:#ffbd07"
-        /></b-navbar-toggle>
+        /></b-navbar-toggle> -->
 
-        <b-collapse id="nav-collapse" is-nav>
+        <!-- <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="/" class="ml-auto">HOME</b-nav-item>
             <b-nav-item href="/" class="ml-auto">로그인</b-nav-item>
           </b-navbar-nav>
-        </b-collapse>
+        </b-collapse> -->
       </b-navbar>
     </div>
   </header>

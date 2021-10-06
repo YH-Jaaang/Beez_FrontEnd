@@ -1,21 +1,37 @@
 <template>
-  <div>
+  <div id="main">
+    <ul id="user_explain">
+      <li>
+        <h1>Sunny</h1>
+        <h5>님,</h5>
+        <h5>환영합니다.</h5>
+      </li>
+      <img src="../assets/main/main04.png" />
+    </ul>
+
     <b-card id="card_main">
-      <div class="to_ac">
-        <span>사용 가능금액</span>
-        <!-- filter를 이용하여 콤마찍기 -->
-        <span style="float:right"
-          >{{ this.$store.state.wonBalace | comma }}원</span
-        >
-      </div>
+      <b-card class="to_ac">
+        <b-container>
+          <b-row>
+            <img src="../assets/main/main01.png" />
+            <b-col>
+              <h3>
+                사용 가능금액
+                <FontAwesomeIcon :icon="faAngleRight" id="ac_icon" />
+              </h3>
+              <!-- filter를 이용하여 콤마찍기 -->
+              <h1>{{ this.$store.state.wonBalace | comma }}원</h1>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+
       <div class="de_ac">
         <ul class="detail_ac">
           <li>
             <a>이달의 충전금액</a>
             <a style="float:right"
-              >{{
-                (this.$store.state.wonOfMon / this.$store.state.wonOfMon)
-                  | comma
+              >(this.$store.state.wonOfMon / this.$store.state.wonOfMon) | comma
               }}원</a
             >
           </li>
@@ -36,44 +52,32 @@
             </b-button>
           </div>
         </ul>
-
-        <b-button id="Chargebtn" href="/ChargeList">충전 내역</b-button>
       </div>
     </b-card>
-    <b-card id="card_main">
+
+    <b-card id="card_main2">
+      <b-card class="title_bz">
+        <h2>
+          <img src="../assets/main/main03.png" />
+          MY BEEZ
+        </h2>
+      </b-card>
+
       <div class="bz_ac">
         <ul class="detail_bz">
-          <div class="title_bz">
-            <a>
-              <FontAwesomeIcon
-                :icon="faBitcoin"
-                style="color:#76512c"
-                size="lg"
-              />
-              MY BEEZ
-            </a>
-          </div>
           <li>
             <a>이달의 BEEZ</a>
-            <a style="float:right">
+            <a class="bz_amount">
               {{ this.$store.state.bzOfMon | comma }}
-              <FontAwesomeIcon
-                :icon="faBitcoin"
-                style="color:#76512c"
-                size="lg"
-              />
             </a>
+            <img src="../assets/main/main03.png" />
           </li>
           <li>
             <a>사용가능 BEEZ</a>
-            <a style="float:right">
+            <a class="bz_amount">
               {{ this.$store.state.bzBalace | comma }}
-              <FontAwesomeIcon
-                :icon="faBitcoin"
-                style="color:#76512c"
-                size="lg"
-              />
             </a>
+            <img src="../assets/main/main03.png" />
           </li>
         </ul>
       </div>
@@ -81,20 +85,33 @@
     <div class="text-center">
       <FontAwesomeIcon
         :icon="faCaretDown"
-        style="color:#76512c"
+        style="color:#755328bf"
         vertical-align="middle"
         size="5x"
       />
     </div>
     <div class="li_btn text-center">
       <b-button href="PaymentList">
-        <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제/리뷰 내역
       </b-button>
-      <!-- <b-button href="/ChargeList">
-         <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> 
-        충전 내역 
-      </b-button>-->
+      <b-button href="/ChargeList">
+        충전 내역
+      </b-button>
+    </div>
+
+    <div>
+      <b-card class="end_start">
+        <li>
+          <h4>
+            공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
     </div>
   </div>
 </template>
@@ -105,6 +122,7 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -113,11 +131,13 @@ export default {
   data() {
     return {
       msg: "This is demo net work",
+
       //아이콘
       faWonSign,
       faQrcode,
       faBitcoin,
       faCaretDown,
+      faAngleRight,
     };
   },
   methods: {
@@ -144,102 +164,231 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GmarketSansTTFBold";
+  src: url("../fonts/GmarketSansTTFBold.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/*--------------------------유저 설명-------------------------- */
+#user_explain {
+  border-radius: 20px;
+  padding: 0;
+  /* background-color: #f8f3e19a; */
+  border: 2px solid #76512c;
+  margin: 5%;
+  /* color: #76512c; */
+  display: inline-block;
+}
+
+#user_explain li {
+  margin-top: 7%;
+  margin-left: 7%;
+  display: inline-block;
+}
+
+#user_explain img {
+  float: right;
+  width: 50%;
+  margin-top: -28%;
+  margin-right: 4%;
+}
+
+@media (min-width: 500px) {
+  #user_explain img {
+    margin-top: 0;
+  }
+}
+
+#user_explain h1 {
+  font-family: "Cafe24Ssurround";
+  display: inline-block;
+  margin-left: 5%;
+  color: #5a4605fd;
+  border-bottom: 2px solid #20160c;
+  padding: 0;
+}
+
+#user_explain h5 {
+  font-family: "GmarketSansTTFMedium";
+  display: inline-block;
+  margin-left: 4%;
+  font-size: 15px;
+  margin-top: 15px;
+}
 
 /*--------------------------card_ 원화-------------------------- */
 #card_main {
   font-family: BCcardB;
-  background-color: #ffde02;
-  /* padding: 10px 7px; */
-  border-radius: 50px;
+  background-color: rgba(252, 203, 111, 0.299);
+  border-radius: 30px;
   margin-top: 4%;
   margin-left: 4%;
   margin-right: 4%;
   /* border: 2.5px solid #8e8883e3; */
 }
 
-/* .card-body {
-  padding-top: 29px;
-  padding-left: 27px;
-  padding-right: 27px;
-} */
+.card-body {
+  padding: 0;
+}
 
 .to_ac {
-  font-size: 22px;
+  background-color: #ffbd07b3;
+  border-start-start-radius: 30px;
+  border-start-end-radius: 30px;
+  /* border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  padding: 3%;
+}
+
+.to_ac .col {
+  align-self: center;
+  text-align: end;
+}
+
+.to_ac h1 {
+  font-size: 25px;
   font-weight: 900;
   color: #76512c;
-  padding-bottom: 8px;
+  padding-bottom: 0;
+}
+
+.to_ac h3 {
+  font-weight: 900;
+  color: #76512c;
+  padding-bottom: 12px;
+}
+
+.to_ac img {
+  width: 30%;
+  margin-right: 10%;
+}
+
+#ac_icon {
+  margin-left: 10px;
 }
 
 .detail_ac .btn {
   color: #fff;
-  background-color: #76512cb8;
+  background-color: #755328bf;
   margin-left: 14px;
   margin-right: 14px;
   font-size: 17px;
+  width: 40%;
 }
 
 .detail_ac {
-  color: #76512c;
-  font-weight: 600;
-  background-color: #fff2a3;
+  font-weight: 700;
   border-radius: 17px;
-  padding: 12px 14px;
-  /* border: 2px solid #76512c; */
+  padding: 15px 20px;
 }
 
 .detail_ac li {
   padding-bottom: 9px;
-  font-size: 14px;
-  color: #76512c;
-}
-#Chargebtn {
-  color: #fff;
-  background-color: #76512cb8;
-  margin: auto;
-  padding: 1.5% 3%;
-  display: block;
-  font-weight: 60;
-  width: 90%;
-  margin-top: 4%;
-  font-size: 17px;
-}
-/*-------------------------- 비즈-------------------------- */
-.detail_bz {
-  color: #76512c;
-  font-weight: 600;
-  background-color: #fff2a3;
-  border-radius: 17px;
-  padding: 8px 14px;
-  /* border: 2px solid #76512c; */
-}
-.detail_bz li {
-  padding-top: 9px;
-  padding-left: 8px;
-  padding-right: 8px;
   font-size: 15px;
+  color: #23180d;
+}
+
+/*-------------------------- 비즈-------------------------- */
+#card_main2 {
+  font-family: BCcardB;
+  background-color: #ffe6253d;
+  border-radius: 30px;
+  margin-top: 4%;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.detail_bz {
+  color: #23180d;
+  font-weight: 700;
+  border-radius: 17px;
+  padding: 15px 20px;
+}
+
+.detail_bz img {
+  width: 8%;
+  float: right;
+}
+
+.detail_bz li {
+  padding-bottom: 9px;
+  font-size: 16px;
+  display: block;
+}
+
+.bz_amount {
+  float: right;
+  margin-left: 5px;
+}
+
+.title_bz h2 {
+  font-size: 23px;
+  font-weight: 900;
+  color: #76512c;
+  display: inline-block;
+  padding: 0;
 }
 
 .title_bz {
-  font-size: 21px;
-  font-weight: 900;
-  border-bottom: 2px solid #76512c;
-  padding-left: 5px;
+  background-color: #ffe625d2;
+  border-start-start-radius: 30px;
+  border-start-end-radius: 30px;
+  /* border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  padding: 4%;
+}
+
+.title_bz img {
+  width: 10%;
+  margin-right: 5px;
 }
 
 /*-------------------------- 내역/리뷰 버튼-------------------------- */
-.li_btn {
+.li_btn .btn {
+  /* color: #76512c; */
+  background-color: #fdef2e7d;
+  font-size: 17px;
+  font-weight: 900;
+  width: 40%;
+  margin-left: 14px;
+  margin-right: 14px;
+  padding: 2%;
   font-family: BCcardB;
-  padding-bottom: 30px;
+  margin-bottom: 60px;
 }
 
-.li_btn .btn {
-  color: #76512c;
-  background-color: #ffde02;
-  margin-left: 25px;
-  margin-right: 25px;
-  font-size: 20px;
-  font-weight: 900;
-  /* border: 2.5px solid #76512c; */
-  width: 45%;
+/*--------------------------공지사항/q&a-------------------------- */
+.end_start {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_start .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_start li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_start h4 {
+  padding: 0;
 }
 </style>

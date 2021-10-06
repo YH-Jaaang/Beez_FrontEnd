@@ -186,9 +186,9 @@ export default {
 .ChargeList {
   font-family: BCcardB;
   text-align: center;
-  color: #f8b704;
+  color: #76512cb8;
   font-weight: 900;
-  border-bottom: 3px solid #f8b704;
+  border-bottom: 1.8px solid #76512cb8;
   margin: 0 10% 0 10%;
   margin-bottom: -4%;
 }
@@ -199,9 +199,10 @@ export default {
 #User_information {
   font-size: 14px;
   font-weight: 900;
-  color: #76512c;
+  color: #714d2ad5;
   padding: 2% 2%;
-  background-color: #faf3cc;
+  background-color: #f1ebe4;
+  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   width: 86%;
   margin: 3% auto;
   margin-bottom: 8%;
@@ -209,10 +210,10 @@ export default {
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .ChargeList_box {
-  padding: 0% 2%;
+  padding: 1% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #ffbf60;
+  background-color: #faf3cc;
   width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
@@ -249,13 +250,13 @@ export default {
 }
 #ChargeList_btn2 {
   margin: 0 auto;
-  background-color: #faf3cc;
-  color: saddlebrown;
+  background-color: #94785bb8;
+  color: white;
   display: block;
   padding: 2%;
   width: 20%;
   font-size: 18px;
   font-weight: 900;
-  border: 2.5px solid #76512c;
+  /* border: 2.5px solid #76512c; */
 }
 </style>
