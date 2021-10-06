@@ -23,8 +23,9 @@
           <b-input-group class="form_charge">
             <b-form-input
               v-model="withdrawal_won"
-              type="number"
+              type="text"
               :state="wi_state"
+              @keyup="wonValid"
             ></b-form-input>
 
             <b-input-group-append>
@@ -67,7 +68,6 @@
           <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
         </div>
 
-        <b-button class="mt-3" inline-block @click="hideModal2">취소</b-button>
         <b-button
           class="mt-3"
           inline-block
@@ -75,6 +75,7 @@
           href="/Storemain"
           >확인</b-button
         >
+        <b-button class="mt-3" inline-block @click="hideModal2">취소</b-button>
       </b-modal>
     </div>
     <b-card id="end_StoreWithdrawal">
@@ -127,6 +128,9 @@ export default {
     hideModal2() {
       this.$refs["WithdrawalWon_modal"].hide();
     },
+    wonValid() {
+      this.withdrawal_won = this.withdrawal_won.replace(/[^0-9]/g, "");
+    },
   },
   computed: {
     wi_state() {
@@ -167,10 +171,9 @@ export default {
 /*--------------------------card--------------------------- */
 #card_StoreWithdrawal {
   font-family: BCcardB;
-  background-color: #b9ddf7;
-  /* padding: 10px 7px; */
+  background-color: #c6e4fa;
   border-radius: 50px;
-  /* border: 2px solid #8b8898; */
+  border: 2px solid rgb(51, 28, 155);
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
@@ -190,7 +193,7 @@ export default {
 
 .Storebank_ac {
   font-size: 15px;
-  background-color: #00adfd71;
+  background-color: #0069fd44;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 30px;
@@ -206,14 +209,27 @@ export default {
 
 .withdrawal_amount {
   font-size: 20px;
-  background-color: #e0f5f7;
+  background-color: #e0ecf7;
   border-radius: 17px;
   padding: 20px 14px;
 }
 
 .withdrawal_amount .form-control {
-  background-color: rgba(164, 162, 158, 0.612);
+  background-color: rgba(164, 162, 158, 0.49);
   border-radius: 10px;
+  margin-top: -0.3%;
+  margin-bottom: -0.3%;
+}
+
+@media (min-width: 454px) {
+  .input-group-append {
+    margin-top: -0.2%;
+    margin-bottom: -0.2%;
+  }
+}
+
+#re_btn {
+  background-color: rgba(164, 162, 158, 0.49);
 }
 
 #btn_color2 {
@@ -238,6 +254,10 @@ export default {
 /*-------------------------- 충전 모달창-------------------------- */
 .modal-header {
   margin: 3%;
+}
+
+.modal-title {
+  font-weight: 800;
 }
 #wi_modal {
   font-family: BCcardB;
