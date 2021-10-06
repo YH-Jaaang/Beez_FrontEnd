@@ -26,7 +26,7 @@
         </b-container>
       </b-card>
 
-      <div class="de_ac">
+      <div>
         <ul class="detail_ac">
           <li>
             <a>이달의 충전금액</a>
@@ -58,7 +58,7 @@
         </h2>
       </b-card>
 
-      <div class="bz_ac">
+      <div>
         <ul class="detail_bz">
           <li>
             <a>이달의 BEEZ</a>
