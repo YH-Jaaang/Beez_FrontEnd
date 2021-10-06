@@ -69,7 +69,7 @@
                   <li>
                     <a>보유 BZ</a>
                     <a style="float:right">
-                      {{ myBz }}
+                      {{ this.$store.state.bzBalace | comma }}
                       <FontAwesomeIcon
                         :icon="faBitcoin"
                         style="color:#76512c"
@@ -167,7 +167,9 @@ import VueQrReader from "../components/VueQrReader.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
-import { PAYMENT_ABI } from "@/ABI/ContractABI.js";
+import { PAYMENT_ABI } from "@/contract/ContractABI.js";
+import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import axios from "axios";
 
 export default {
   name: "app",
@@ -194,7 +196,17 @@ export default {
       myBz: 33,
       won: "",
       error: "",
+      userpPrivateKey: "",
+      userAddress: "",
     };
+  },
+  beforeCreate() {
+    this.$store.commit("main");
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
   methods: {
     //QR카메라
@@ -245,24 +257,49 @@ export default {
     hideModal() {
       this.$refs["pay_modal"].hide();
     },
+    //db에서 address, privateAddress받아오기
     async payPost() {
+      // const privateKey = "";
+      // const userAddress ="";
+      (async () => {
+        //이런식으로 header 토큰 삽입 => security 활성화.
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("token");
+
+        //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+        await axios
+          .get("/api/users")
+          .then((res) => {
+            //여기서 Correct.vue 처리 해주면 됨
+            alert(res.data);
+            console.log(res);
+            this.userpPrivateKey = res.data.data.privateKey;
+            this.userAddress = res.data.data.walletAddress;
+            console.log(this.userpPrivateKey);
+            console.log(this.userAddress);
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      })();
+
       const Web3 = require("web3");
       const web3 = new Web3(
         new Web3.providers.HttpProvider(
           "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
         )
       );
-      //const WON_CONTRACT_ADDRESS = "0x9F52A059D3f09EC05744b25d6Aa9F9938EaD0b1d";
-      //const BZ_CONTRACT_ADDRESS = "0xa33969baEBb81A670396cAf8c85E70f502755780";
-      const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //0x0571CA5EE022e3dA4Ac316e8DcA29b07B9dc32f5  //0xd4EeA67D803B0FD1B341b873658394359D75399a-영수증리턴
-      const to_ADDRESS = "0xbbEC30aBA3f9Bf7cA056e5429788d17a1c0FCcC1"; //사용자(db) 원토큰 백만원, 비즈 십만원
-      const recipient_ADDRESS = "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26"; //소상공인(db)
+      //msg.sender credentials(자격증명) - PRIVATE_ADDRESS를 활용
+      const PRIVATE_KEY = this.userpPrivateKey; //바꿔
+
+      /****************************Solidity 매개변수****************************/
+      const to_ADDRESS = this.userAddress; //사용자(db) 원토큰 백만원, 비즈 십만원
+      const recipient_ADDRESS = "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26"; //소상공인(qr)
       const cost = this.form.price; //입력값
       const won_mount = this.won; //입력값을 활용해 계산
       const beez_mount = this.form.bz * 100; //입력값
-      const PRIVATE_KEY =
-        "0xff844916a140fa290b94e36573c0de3d6db3ac72ed3177391b1b45b3ef228998"; //바꿔
-      const CONTRACT_ABI = PAYMENT_ABI; //import 컨트랙트
+      /***********************************************************************/
+
       const sendRawTx = (rawTx) =>
         new Promise((resolve, reject) =>
           web3.eth
@@ -270,11 +307,11 @@ export default {
             .on("transactionHash", resolve)
             .on("error", reject)
         );
-      //(async () => {
+
       const { address: from } = web3.eth.accounts.privateKeyToAccount(
         PRIVATE_KEY
       );
-      const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS); //import 컨트랙트 - ABI, ADDRESS
       //const query = await contract.methods.addWhitelisted(
       const query = await contract.methods.payment(
         to_ADDRESS,
@@ -303,10 +340,11 @@ export default {
           //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
           console.log(res);
         })
-        .catch(() => {});
+        .catch(() => {
+          console.log("다시");
+        });
       //console.log(hash);
       this.$router.push("/");
-      //})();
     },
   },
   computed: {
@@ -316,7 +354,7 @@ export default {
       else if (this.form.bz.length == 0) text.error = "";
       else if (this.form.price < this.form.bz * 100)
         text.error = "BZ 사용금액이 결제금액을 초과하였습니다.";
-      else if (this.form.bz > this.myBz)
+      else if (this.$store.state.bzBalace < this.form.bz)
         text.error = "사용 가능한 BZ가 부족합니다.";
       else text.error = "사용 가능합니다.";
       return true;

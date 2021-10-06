@@ -1,11 +1,20 @@
 <template>
-  <div class="keypad">
+  <div class="keypad" @click.stop="show = true">
     <div class="text_pass">보안 비밀번호</div>
-    <input type="password" :value="value" @click.stop="show = true" readonly />
+    <span v-if="value.length <= 5">
+      <span v-for="values in value" :key="values">
+        <input class="input_pass" type="text" :value="values" readonly />
+      </span>
+    </span>
+    <span v-else @click.stop="show = false">
+      <span v-for="i in 6" :key="i">
+        <input class="input_pass" type="text" :value="value[i - 1]" readonly />
+      </span>
+    </span>
     <VueNumericKeypad
       :value.sync="value"
-      :show.sync="show"
-      :options="options"
+      :show.sync="this.show"
+      :options="this.options"
     />
   </div>
 </template>
@@ -14,14 +23,15 @@
 import VueNumericKeypad from "vue-numeric-keypad";
 
 export default {
-  name: "App",
+  name: "keypad",
   components: {
     VueNumericKeypad,
   },
   data() {
     return {
+      wow: "",
       value: "",
-      show: 0,
+      show: true,
       options: {
         keyRandomize: true,
         randomizeClick: true,
@@ -37,6 +47,19 @@ export default {
       }.bind(this)
     );
   },
+  watch: {
+    always: function() {
+      console.log("d");
+    },
+  },
+
+  methods: {
+    onSubmit() {
+      alert("dd");
+      this.wow += this.value;
+      console.log(this.wow);
+    },
+  },
 };
 </script>
 <style>
@@ -49,8 +72,11 @@ export default {
 }
 .keypad {
   font-family: BCcardB;
+  text-align: center;
 }
 .text_pass {
-  font-size: 30px;
+  top: 30%;
+  font-size: 35px;
+  color: #fff;
 }
 </style>

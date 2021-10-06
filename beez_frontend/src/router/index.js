@@ -24,22 +24,21 @@ const routes = [
     },
   },
   //message 컴포넌트
+  // {
+  //   path: "/Correct",
+  //   component: import("@/layout/Footer.vue"),
+  //   name: "correct",
+  // },
+  // {
+  //   path: "/Fail",
+  //   components: {
+  //     default: () => import("@/views/components/Fail.vue"),
+  //   },
+  // },
   {
-    path: "/Correct",
+    path: "/PasswordCheck",
     components: {
-      default: () => import("@/views/components/Correct.vue"),
-    },
-  },
-  {
-    path: "/Fail",
-    components: {
-      default: () => import("@/views/components/Fail.vue"),
-    },
-  },
-  {
-    path: "/Keypad",
-    components: {
-      default: () => import("@/views/components/Keypad.vue"),
+      default: () => import("@/views/PasswordCheck.vue"),
     },
   },
   //사용자 페이지

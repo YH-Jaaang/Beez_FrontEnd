@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: "fail",
   data() {
     return { dismissCountDown: 10 };
   },

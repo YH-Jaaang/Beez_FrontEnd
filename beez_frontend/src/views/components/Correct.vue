@@ -28,3 +28,9 @@ export default {
   },
 };
 </script>
+<style>
+.correct {
+  top: 500px;
+  visibility: hidden;
+}
+</style>

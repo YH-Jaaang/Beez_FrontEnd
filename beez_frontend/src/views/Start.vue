@@ -304,6 +304,7 @@ export default {
             localStorage.setItem("token", res.data.data[0]);
             localStorage.setItem("email", params.email);
             localStorage.setItem("nickName", res.data.data[1]);
+            localStorage.setItem("address", res.data.data[2]);
             localStorage.setItem("role", this.userRole);
             if (this.$route.path !== "/Main") this.$router.push("/Main");
           })
@@ -330,10 +331,7 @@ export default {
           role: this.storeRole,
         };
         //세션 초기화
-        localStorage.setItem("token", "");
-        localStorage.setItem("email", "");
-        localStorage.setItem("nickName", "");
-        localStorage.setItem("role", "");
+        localStorage.clear();
         await axios
           .post("/api/login", params)
           .then((res) => {
@@ -341,6 +339,7 @@ export default {
             localStorage.setItem("token", res.data.data[0]);
             localStorage.setItem("email", params.email);
             localStorage.setItem("nickName", res.data.data[1]);
+            localStorage.setItem("address", res.data.data[2]);
             localStorage.setItem("role", this.storeRole);
             if (this.$route.path !== "/StoreMain")
               this.$router.push("/StoreMain");

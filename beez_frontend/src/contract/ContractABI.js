@@ -382,24 +382,9 @@ const PAYMENT_ABI = [
     name: "recipientMainLoad",
     outputs: [
       {
-        internalType: "uint256",
-        name: "wonIncome",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "exChangeWon",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "bzIncome",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "exChangeBz",
-        type: "uint256",
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -430,33 +415,46 @@ const PAYMENT_ABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "address",
+        name: "_to",
+        type: "address",
+      },
+    ],
     name: "userMainLoad",
     outputs: [
       {
-        internalType: "uint256",
-        name: "canUseWon",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "monthChargeWon",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "monthIncentiveWon",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "monthBeez",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "canUseBeez",
-        type: "uint256",
+        components: [
+          {
+            internalType: "uint256",
+            name: "wonBalace",
+            type: "uint256",
+          },
+          {
+            internalType: "uint128",
+            name: "WonOfMon",
+            type: "uint128",
+          },
+          {
+            internalType: "uint128",
+            name: "IncOfMon",
+            type: "uint128",
+          },
+          {
+            internalType: "uint256",
+            name: "BzBalace",
+            type: "uint256",
+          },
+          {
+            internalType: "uint128",
+            name: "BzOfMon",
+            type: "uint128",
+          },
+        ],
+        internalType: "struct Payment.Main",
+        name: "",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
@@ -506,7 +504,6 @@ const PAYMENT_ABI = [
     type: "function",
   },
 ];
-///////////////////////////////////////////////////////////////////////////////////
 const WONTOKEN_ABI = [
   {
     anonymous: false,
@@ -783,7 +780,13 @@ const WONTOKEN_ABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "address",
+        name: "_to",
+        type: "address",
+      },
+    ],
     name: "balanceIncOfMon",
     outputs: [
       {
@@ -815,7 +818,13 @@ const WONTOKEN_ABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "address",
+        name: "_to",
+        type: "address",
+      },
+    ],
     name: "balanceWonOfMon",
     outputs: [
       {
@@ -962,7 +971,6 @@ const WONTOKEN_ABI = [
     type: "function",
   },
 ];
-///////////////////////////////////////////////////////////////////////////////////
 const BZTOKEN_ABI = [
   {
     inputs: [],
@@ -1376,3 +1384,6 @@ const BZTOKEN_ABI = [
 ];
 
 export { PAYMENT_ABI, WONTOKEN_ABI, BZTOKEN_ABI };
+// const PAYMENT_ABI = ;
+// const WONTOKEN_ABI = ;
+// const BZTOKEN_ABI = ;

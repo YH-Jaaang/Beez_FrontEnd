@@ -19,7 +19,7 @@
             >{{
               parseInt(
                 this.$store.state.maxWonCharge - this.$store.state.wonOfMon
-              )
+              ) | comma
             }}
             원</a
           >
@@ -30,7 +30,7 @@
             {{
               parseInt(
                 this.$store.state.maxIncentive - this.$store.state.incOfMon * 10
-              )
+              ) | comma
             }}
             원</a
           >
@@ -67,17 +67,23 @@
       <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
         <div class="d-block">
           <a class="posit_rel margin138">충전 금액</a>
-          <a class="posit_rel" style="float:right">{{ form.number }} 원</a>
+          <a class="posit_rel" style="float:right"
+            >{{ form.number | comma }} 원</a
+          >
         </div>
         <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
         <div class="d-block">
           <a class="posit_rel margin138">인센티브</a>
-          <a class="posit_rel" style="float:right">{{ incentive_amount }} 원</a>
+          <a class="posit_rel" style="float:right"
+            >{{ incentive_amount | comma }} 원</a
+          >
         </div>
         <div class="d-block" id="total_charge">
           <a class="posit_rel margin90">총 충전금액</a>
-          <a class="posit_rel2" style="float:right">{{ charge_amount }} 원</a>
+          <a class="posit_rel2" style="float:right"
+            >{{ charge_amount | comma }} 원</a
+          >
         </div>
         <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
         <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
@@ -89,7 +95,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
-// import { correct } from "@/views/components/Correct.vue";
+
 import axios from "axios";
 
 export default {
@@ -99,8 +105,8 @@ export default {
   },
   data() {
     return {
-      bank_na: "KB 국민",
-      account_no: "748 ****** 25437",
+      bank_na: "",
+      account_no: "",
       error: "",
       incentive_amount: "",
       charge_amount: "",
@@ -114,8 +120,22 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store.commit("message", "충전");
-    this.$store.commit("chargeMain");
+    var params = {
+      email: localStorage.getItem("email"),
+    };
+    (async () => {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+      await axios
+        .post("/api/charge/account", params)
+        .then((res) => {
+          console.log(res);
+          this.bank_na = res.data.data.bankName;
+          this.account_no = res.data.data.accountNumber;
+        })
+        .catch(() => {});
+    })();
+    this.$store.commit("main");
   },
   filters: {
     comma(val) {
@@ -160,12 +180,14 @@ export default {
         await axios
           .post("/api/charge/amount", params)
           .then((res) => {
-            //여기서 Correct.vue 처리 해주면 됨
-            alert(res.data);
+            //toast로 충전 정보 전달
+            this.$toaster.success("충전이 완료되었습니다.");
             console.log(res);
+            this.$store.commit("main");
           })
           .catch((err) => {
             alert(err);
+            this.$toaster.error("충전에 실패하였습니다. 다시 시도해 주세요.");
           });
       })();
       //페이지 이동

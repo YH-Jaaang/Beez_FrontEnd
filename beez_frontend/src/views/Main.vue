@@ -4,17 +4,26 @@
       <div class="to_ac">
         <span>사용 가능금액</span>
         <!-- filter를 이용하여 콤마찍기 -->
-        <span style="float:right">{{ this.$store.state.total | comma }}원</span>
+        <span style="float:right"
+          >{{ this.$store.state.wonBalace | comma }}원</span
+        >
       </div>
       <div class="de_ac">
         <ul class="detail_ac">
           <li>
             <a>이달의 충전금액</a>
-            <a style="float:right">{{ chargeOfMonth }}원</a>
+            <a style="float:right"
+              >{{
+                (this.$store.state.wonOfMon / this.$store.state.wonOfMon)
+                  | comma
+              }}원</a
+            >
           </li>
           <li>
             <a>이달의 인센티브</a>
-            <a style="float:right">{{ incentiveOfMonth }}원</a>
+            <a style="float:right"
+              >{{ this.$store.state.incOfMon | comma }}원</a
+            >
           </li>
           <div class="text-center">
             <b-button href="Charge">
@@ -47,7 +56,7 @@
           <li>
             <a>이달의 BEEZ</a>
             <a style="float:right">
-              {{ myBz }}
+              {{ this.$store.state.bzOfMon | comma }}
               <FontAwesomeIcon
                 :icon="faBitcoin"
                 style="color:#76512c"
@@ -58,7 +67,7 @@
           <li>
             <a>사용가능 BEEZ</a>
             <a style="float:right">
-              {{ myBz }}
+              {{ this.$store.state.bzBalace | comma }}
               <FontAwesomeIcon
                 :icon="faBitcoin"
                 style="color:#76512c"
@@ -96,16 +105,13 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+
 export default {
   components: {
     FontAwesomeIcon,
   },
   data() {
     return {
-      total: "300,000",
-      incentiveOfMonth: "10,000",
-      chargeOfMonth: "100,000",
-      myBz: 33,
       msg: "This is demo net work",
       //아이콘
       faWonSign,
@@ -120,7 +126,7 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.commit("login");
+    this.$store.commit("main");
   },
   filters: {
     comma(val) {

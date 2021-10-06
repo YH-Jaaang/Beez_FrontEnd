@@ -9,82 +9,88 @@
     <span class="span-blank">빈</span>
     <ul class="Store_TotalSales">
       <li id="User_information">
-        <a> 연결된 계좌: {{ Charge_account }}</a>
+        <a> 연결된 계좌: {{ charge_account }}</a>
         <div>
-          <a>은행: {{ Charge_bank }}</a>
-          <a style="float:right">예금주: {{ Charge_name }} </a>
+          <a>은행: {{ charge_bank }}</a>
+          <a style="float:right">예금주: {{ charge_name }} </a>
         </div>
       </li>
     </ul>
 
-    <div class="ChargeList_box">
-      <div class="Charge_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
+    <pull-to-refresh
+      className="forTest"
+      :refreshing="false"
+      :indicator="{ deactivate: 'pull down' }"
+    >
+      <div class="ChargeList_box">
+        <div class="Charge_history">
+          <ul>
+            <li class="">
+              <a
+                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+                {{ Charge_time }}</a
+              >
+              <a style="float:right">{{ ChargeList_amount }}원</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="ChargeList_box">
-      <div class="Charge_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
+      <div class="ChargeList_box">
+        <div class="Charge_history">
+          <ul>
+            <li class="">
+              <a
+                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+                {{ Charge_time }}</a
+              >
+              <a style="float:right">{{ ChargeList_amount }}원</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="ChargeList_box">
-      <div class="Charge_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
+      <div class="ChargeList_box">
+        <div class="Charge_history">
+          <ul>
+            <li class="">
+              <a
+                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+                {{ Charge_time }}</a
+              >
+              <a style="float:right">{{ ChargeList_amount }}원</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="ChargeList_box">
-      <div class="Charge_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
+      <div class="ChargeList_box">
+        <div class="Charge_history">
+          <ul>
+            <li class="">
+              <a
+                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+                {{ Charge_time }}</a
+              >
+              <a style="float:right">{{ ChargeList_amount }}원</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="ChargeList_box">
-      <div class="Charge_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
+      <div class="ChargeList_box">
+        <div class="Charge_history">
+          <ul>
+            <li class="">
+              <a
+                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+                {{ Charge_time }}</a
+              >
+              <a style="float:right">{{ ChargeList_amount }}원</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </pull-to-refresh>
     <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
     <!--<div class="overflow-auto">
       <b-pagination-nav
@@ -101,16 +107,20 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 
+import PullToRefresh from "v-pull-to-refresh";
+import axios from "axios";
+
 export default {
   components: {
     FontAwesomeIcon,
+    PullToRefresh,
   },
   data() {
     return {
       //고객정보
-      Charge_account: "459002-123-12345",
-      Charge_bank: "국민",
-      Charge_name: "홍길동",
+      charge_account: "",
+      charge_bank: "",
+      charge_name: "",
       //날짜
       Charge_year: "2021",
       Charge_day: "1",
@@ -126,7 +136,33 @@ export default {
       faFileInvoiceDollar,
     };
   },
+  beforeCreate() {
+    var params = {
+      email: localStorage.getItem("email"),
+    };
+    (async () => {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+      await axios
+        .post("/api/charge/account", params)
+        .then((res) => {
+          console.log(res);
+          this.charge_name = res.data.data.name;
+          this.charge_bank = res.data.data.bankName;
+          this.charge_account = res.data.data.accountNumber;
+        })
+        .catch(() => {});
+    })();
+  },
   methods: {
+    //새로고침
+    // onRefresh: async () => {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       resolve();
+    //     }, 1000);
+    //   });
+    // },
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
     },
