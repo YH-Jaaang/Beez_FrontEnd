@@ -199,10 +199,16 @@ export default {
 }
 
 #user_explain img {
-  width: 50%;
   float: right;
+  width: 50%;
   margin-top: -28%;
   margin-right: 4%;
+}
+
+@media (min-width: 500px) {
+  #user_explain img {
+    margin-top: 0;
+  }
 }
 
 #user_explain h1 {

@@ -27,7 +27,8 @@
           <b-input-group class="form_charge">
             <b-form-input
               v-model="form.number"
-              type="number"
+              @keyup="chargeValid"
+              type="text"
               :state="ch_state"
             ></b-form-input>
 
@@ -146,6 +147,11 @@ export default {
           //여기서 localStorage.clear(); 안먹힘
         });
       this.$router.push("/Main");
+    },
+
+    //----------------입력폼에 숫자만----------------------
+    chargeValid() {
+      this.form.number = this.form.number.replace(/[^0-9]/g, "");
     },
   },
   computed: {
