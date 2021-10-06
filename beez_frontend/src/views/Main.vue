@@ -2,11 +2,11 @@
   <div id="main">
     <ul id="user_explain">
       <li>
-        <h1>Sunny</h1>
+        <h1>{{ this.$store.state.nickName }}</h1>
         <h5>님,</h5>
         <h5>환영합니다.</h5>
+        <img src="../assets/main/main04.png" />
       </li>
-      <img src="../assets/main/main04.png" />
     </ul>
 
     <b-card id="card_main">
@@ -31,8 +31,7 @@
           <li>
             <a>이달의 충전금액</a>
             <a style="float:right"
-              >(this.$store.state.wonOfMon / this.$store.state.wonOfMon) | comma
-              }}원</a
+              >{{ this.$store.state.wonOfMon | comma }}원</a
             >
           </li>
           <li>
@@ -131,7 +130,6 @@ export default {
   data() {
     return {
       msg: "This is demo net work",
-
       //아이콘
       faWonSign,
       faQrcode,

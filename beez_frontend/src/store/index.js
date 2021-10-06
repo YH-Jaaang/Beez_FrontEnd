@@ -15,6 +15,7 @@ const web3 = new Web3(
 export default new Vuex.Store({
   //vue의 data
   state: {
+    nickName: localStorage.getItem("nickName"),
     //사용자 Main 화면
     wonBalace: "",
     wonOfMon: "",

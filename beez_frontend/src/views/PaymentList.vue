@@ -35,8 +35,8 @@
             </a>
           </li>
           <li class="bar">
-            <a> 가게 이름:{{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
+            <a> 가게 이름:{{}}</a>
+            <a style="float:right">{{}}원</a>
           </li>
         </ul>
       </div>
@@ -120,6 +120,7 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
+import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 
 export default {
   components: {
@@ -128,18 +129,10 @@ export default {
 
   data() {
     return {
-      //날짜
-      User_day: "1",
-      User_days: "금",
-      User_month: "10",
-      //고객 ID
-      Store_Infor: "새마을포차",
-      //매출
-      UserCost: "30,000",
+      reviewContents: [],
       //아이콘
       faList,
       //모달 체크박스
-
       checked1: [],
       checked2: [],
       checked3: [],
@@ -171,6 +164,28 @@ export default {
 
       checkedValues: [],
     };
+  },
+  beforeCreate() {
+    const Web3 = require("web3");
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(
+        "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+      )
+    );
+    const visitor = "0xbbEC30aBA3f9Bf7cA056e5429788d17a1c0FCcC1"; //DB
+    const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
+    const CONTRACT_ABI = PAYMENT_ABI;
+    const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+    // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
+    const text = this;
+    contract.methods
+      .getReviewForVisitor(visitor)
+      .call()
+      .then((reviewContents) => {
+        console.log(reviewContents);
+        text.reviewContents = reviewContents;
+      });
   },
   props: ["removeValue"],
   methods: {
