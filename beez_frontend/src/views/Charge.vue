@@ -22,7 +22,7 @@
           <a class="posit_rel left">{{ poss_am }} 원</a>
         </li>
 
-        <b-form @submit="onSubmit" @reset="onReset">
+        <b-form @submit="onSubmit">
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
           <b-input-group class="form_charge">
             <b-form-input
@@ -45,12 +45,12 @@
       </ul>
       <div class="text-center">
         <b-button id="ch_btn" @click="showModal" :disabled="error.length > 9">
-          충전
+          충 전
         </b-button>
       </div>
     </div>
 
-    <div class="charge_modal" id="dd">
+    <div class="charge_modal">
       <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
         <div class="d-block">
           <a class="posit_rel margin138">충전 금액</a>
@@ -68,8 +68,8 @@
           <a class="posit_rel margin90">총 충전금액</a>
           <a class="posit_rel2" style="float:right">{{ charge_amount }} 원</a>
         </div>
-        <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
         <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
+        <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
       </b-modal>
     </div>
   </div>
@@ -184,6 +184,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /*--------------------------card--------------------------- */
 #card_charge {
@@ -258,11 +264,11 @@ export default {
   margin-top: 5%;
   color: #76512c;
   background-color: #f8d97171;
-  font-size: 23px;
-  font-weight: 900;
-  /* border: 2.5px solid #76512c; */
+  font-size: 20px;
   border: 0;
-  font-family: BCcardB;
+  font-family: Cafe24Ssurround;
+  width: 40%;
+  border-radius: 17px;
 }
 #btn_color {
   color: #fbca47;
@@ -274,14 +280,16 @@ export default {
 }
 
 /*-------------------------- 충전 모달창-------------------------- */
-#dd {
-  top: 550px;
+.modal-title {
+  font-weight: 800;
 }
+
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
   padding: 10px;
   top: 10%;
+  padding-left: 10px;
 }
 .modal-header {
   margin: 3%;
@@ -289,7 +297,7 @@ export default {
 
 #ch_modal .btn {
   color: #76512c;
-  background-color: #ffde02;
+  background-color: #ffde028c;
   width: 30%;
   margin-left: 15%;
   font-size: 14px;

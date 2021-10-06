@@ -168,8 +168,6 @@ export default {
         { text: "데이트하기 좋아요!", value: "5" },
         { text: "대중교통을 추천해요!", value: "6" },
       ],
-
-      checkedValues: [],
     };
   },
   props: ["removeValue"],
