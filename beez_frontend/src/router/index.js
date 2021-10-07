@@ -40,9 +40,6 @@ const routes = [
     components: {
       default: () => import("@/views/PasswordCheck.vue"),
     },
-    // beforeEnter: function(to, from, next) {
-    //   // 인증 값 검증 로직 추가
-    // },
   },
   //사용자 페이지
   {
@@ -51,9 +48,6 @@ const routes = [
       default: () => import("@/views/Main.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
-    },
-    meta: {
-      requiresAuth: true,
     },
   },
   {
@@ -145,19 +139,5 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-});
-router.beforeEach(function(to, from, next) {
-  // to: 이동할 url에 해당하는 라우팅 객체
-  if (
-    to.matched.some(function(routeInfo) {
-      return routeInfo.meta.authRequired;
-    })
-  ) {
-    // 이동할 페이지에 인증 정보가 필요하면 경고 창을 띄우고 페이지 전환은 하지 않음
-    next("/PasswordCheck");
-  } else {
-    console.log("routing success : '" + to.path + "'");
-    next(); // 페이지 전환
-  }
 });
 export default router;
