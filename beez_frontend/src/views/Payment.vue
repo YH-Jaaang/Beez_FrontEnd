@@ -126,12 +126,10 @@
               <a class="posit_rel margin90">총 결제금액</a>
               <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
             </div>
-            <div class="text-center">
-              <b-button class="mt-3" @click="payPost">확인</b-button>
-              <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
-                >취소</b-button
-              >
-            </div>
+            <b-button class="mt-3" @click="payPost">확인</b-button>
+            <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
+              >취소</b-button
+            >
           </b-modal>
 
           <div class="form_btn text-center">
@@ -483,11 +481,11 @@ export default {
 #p_modal .btn {
   color: #76512c;
   background-color: #ffde028c;
-  width: 25%;
-  margin-left: 5%;
-  margin-right: 5%;
+  width: 30%;
+  margin-left: 15%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
 
 #total_pay {
@@ -522,6 +520,7 @@ export default {
 /*--------------------------공지사항/q&a-------------------------- */
 .end_Payment {
   font-family: "GmarketSansTTFMedium";
+  margin-top: 20%;
 }
 
 .end_Payment .card-body {

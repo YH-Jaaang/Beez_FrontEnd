@@ -102,13 +102,13 @@
 
         <div>
           <b-button
-            class="keyword_check"
+            class="keyword_check mt-3"
             inline-block
             @click="hideModal2"
             href="/paymentList"
             >확인</b-button
           >
-          <b-button class="keyword_check" inline-block @click="hideModal2"
+          <b-button class="keyword_check mt-3" inline-block @click="hideModal2"
             >취소</b-button
           >
         </div>
@@ -296,16 +296,13 @@ export default {
 }
 #Paymentlist_check {
   margin: 0 auto;
-  background-color: #fdfded;
+  background-color: #ffffad;
   display: block;
   padding: 2%;
   width: 20%;
   font-size: 18px;
   font-weight: 900;
-  margin-top: 8%;
-  margin-bottom: 15%;
-  border-radius: 15px;
-  color: #76512c;
+  margin-bottom: 20%;
 }
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
@@ -347,13 +344,13 @@ export default {
 }
 
 .keyword_check {
-  background-color: #feffae;
-  font-weight: 600;
-  margin-left: 18%;
-  padding: 2% 7%;
   font-family: BCcardB;
-  margin-bottom: 8%;
   color: #76512c;
+  background-color: #feffae;
+  width: 30%;
+  margin-left: 15%;
+  font-weight: 600;
+  border-radius: 15px;
 }
 
 .Keyword_column {
