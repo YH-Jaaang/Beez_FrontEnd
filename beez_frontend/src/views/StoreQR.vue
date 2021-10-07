@@ -4,7 +4,7 @@
       <div class="StoreQR text-center">
         <a id="Store_QR">
           <FontAwesomeIcon :icon="faStore" style="color:#100055" />
-          QR코드</a
+          QR 코드</a
         >
       </div>
       <span class="span-blank">빈</span>
@@ -103,7 +103,7 @@ export default {
   margin: 0 auto;
 }
 #Store_QR {
-  font-size: 24pt;
+  font-size: 18pt;
 }
 
 .Reviewlist {
@@ -115,7 +115,7 @@ export default {
   padding: 6% 4%;
   color: #100055;
   border-radius: 20px;
-  background-color: #e0f5f7;
+  background-color: #e0eef7;
   width: 70%;
   margin: 0 auto;
   font-size: 12pt;
@@ -147,15 +147,15 @@ export default {
 }
 #StoreQR_btn2 {
   margin: 0 auto;
-  background-color: #e0f5f7;
+  background-color: #bfdefa;
   color: #100055;
   display: block;
   padding: 2%;
   width: 20%;
   font-size: 18px;
   font-weight: 900;
-  margin-bottom: 8%;
-  border: 2.5px solid #100055;
+  margin-bottom: 15%;
+  border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 #end_StoreQR {

@@ -2,8 +2,8 @@
   <div class="UserReview_section">
     <div class="UserReview text-center">
       <a id="User_Review">
-        <FontAwesomeIcon :icon="faList" style="color:#ffde02s" />
-        MY 리뷰
+        <FontAwesomeIcon :icon="faClipboardList" style="color:#ffde02s" />
+        결제/리뷰내역
       </a>
     </div>
     <span class="span-blank">빈</span>
@@ -28,6 +28,12 @@
               {{ review.bzTokenCount / $store.state.incentiveRate }}</span
             >
             개
+            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
+            <!--리뷰 마감 기한 필요-->
+          </li>
+          <li class="bar">
+            <a>{{ Store_Infor }}</a>
+            <a style="float:right">{{ UserCost }}원</a>
           </li>
         </ul>
       </div>
@@ -48,18 +54,15 @@
         </div>
       </li>
     </div>
-
     <div class="Reviewlist_box">
       <div class="User_history">
         <ul>
           <li>
-            <a>
-              <!--{{ this.visitor }}-->
-            </a>
+            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
           </li>
           <li class="bar">
-            <a> 가게 이름:{{}}</a>
-            <a style="float:right">{{}}원</a>
+            <a>{{ Store_Infor }}</a>
+            <a style="float:right">{{ UserCost }}원</a>
           </li>
         </ul>
       </div>
@@ -71,9 +74,11 @@
         </li>
       </div>
     </div>
+    <b-button id="Paymentlist_check" href="/Main">확 인</b-button>
 
     <div class="review_modal">
       <b-modal
+        centered
         id="Review_modal"
         ref="review_modal"
         hide-footer
@@ -125,17 +130,34 @@
 
         <div>
           <b-button
-            class="keyword_check"
+            class="keyword_check mt-3"
             inline-block
             @click="hideModal2"
             href="/paymentList"
             >확인</b-button
           >
-          <b-button class="keyword_check" inline-block @click="hideModal2"
+          <b-button class="keyword_check mt-3" inline-block @click="hideModal2"
             >취소</b-button
           >
         </div>
       </b-modal>
+    </div>
+    <div>
+      <b-card class="end_Paymentlist">
+        <li>
+          <h4>
+            키워드 리뷰 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
     </div>
   </div>
 </template>
@@ -144,6 +166,8 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
+import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -154,7 +178,9 @@ export default {
     return {
       reviewContents: [],
       //아이콘
-      faList,
+      faClipboardList,
+      faAngleRight,
+
       //모달 체크박스
       checked1: [],
       checked2: [],
@@ -184,8 +210,6 @@ export default {
         { text: "데이트하기 좋아요!", value: "5" },
         { text: "대중교통을 추천해요!", value: "6" },
       ],
-
-      checkedValues: [],
     };
   },
   beforeCreate() {
@@ -254,6 +278,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /*----------------------------title-------------------------------*/
 .UserReview_section {
   font-family: BCcardB;
@@ -287,7 +317,7 @@ export default {
 
 .keyword_Review_box {
   margin: auto;
-  display: block;
+  margin-left: 5%;
 }
 .keyword_Review_box a {
   padding: 1% 2%;
@@ -308,7 +338,19 @@ export default {
   display: block;
   font-weight: 700;
 }
-
+#Paymentlist_check {
+  margin: 0 auto;
+  background-color: #ffffad;
+  display: block;
+  padding: 1.5%;
+  width: 25%;
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 20%;
+  margin-top: 8%;
+  border-radius: 15px;
+  color: #76512c;
+}
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;
@@ -349,13 +391,13 @@ export default {
 }
 
 .keyword_check {
-  background-color: #feffae;
-  font-weight: 600;
-  margin-left: 18%;
-  padding: 2% 7%;
   font-family: BCcardB;
-  margin-bottom: 8%;
   color: #76512c;
+  background-color: #feffae;
+  width: 25%;
+  margin-left: 18%;
+  font-weight: 600;
+  border-radius: 15px;
 }
 
 .Keyword_column {
@@ -385,5 +427,27 @@ export default {
   font-family: "BCcardB";
   font-weight: 600;
   color: #76512c;
+}
+
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Paymentlist {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_Paymentlist .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Paymentlist li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Paymentlist h4 {
+  padding: 0;
 }
 </style>
