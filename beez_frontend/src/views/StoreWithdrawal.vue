@@ -42,39 +42,35 @@
       </ul>
 
       <div class="text-center">
-        <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
+        <b-button
+          id="wi_btn"
+          @click="$bvModal.show('wi_modal')"
+          :disabled="error.length > 9"
+        >
           출금
         </b-button>
-        <span class="span-blank">빈</span>
         <b-button id="wi_btn" href="/StoreMain">취소</b-button>
       </div>
     </div>
 
-    <div class="WithdrawalWon_modal">
-      <b-modal
-        id="wi_modal"
-        ref="WithdrawalWon_modal"
-        hide-footer
-        title="출금 정보"
-      >
-        <div class="d-block">
-          <a class="posit_rel margin">출금가능 금액</a>
-          <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
-        </div>
-        <div class="d-block">
-          <a class="posit_rel margin">출금 금액</a>
-          <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
-        </div>
-        <div class="d-block" id="total_excharge">
-          <a class="posit_rel margin2">잔여 금액</a>
-          <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
-        </div>
+    <b-modal id="wi_modal" hide-footer title="출금 정보">
+      <div class="d-block">
+        <a class="posit_rel margin">출금가능 금액</a>
+        <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
+      </div>
+      <div class="d-block">
+        <a class="posit_rel margin">출금 금액</a>
+        <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
+      </div>
+      <div class="d-block" id="total_excharge">
+        <a class="posit_rel margin2">잔여 금액</a>
+        <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
+      </div>
 
-        <!-- 확인버튼 홈으로 보내야함 -->
-        <b-button class="mt-3">확인</b-button>
-        <b-button class="mt-3" @click="hideModal2">취소</b-button>
-      </b-modal>
-    </div>
+      <b-button class="mt-3" @click="withdrawalPost">확인</b-button>
+      <b-button class="mt-3" @click="$bvModal.hide('wi_modal')">취소</b-button>
+    </b-modal>
+
     <b-card id="end_StoreWithdrawal">
       <li>
         <h4>
@@ -119,14 +115,11 @@ export default {
     };
   },
   methods: {
-    showWiModal() {
-      this.$refs["WithdrawalWon_modal"].show();
-    },
-    hideModal2() {
-      this.$refs["WithdrawalWon_modal"].hide();
-    },
     wonValid() {
       this.withdrawal_won = this.withdrawal_won.replace(/[^0-9]/g, "");
+    },
+    withdrawalPost() {
+      this.$router.push("/StoreMain");
     },
   },
   computed: {

@@ -42,42 +42,38 @@
         </ul>
 
         <div class="exchange_btn text-center">
-          <b-button @click="showExModal" :disabled="error.length > 9">
+          <b-button
+            @click="$bvModal.show('ex_modal')"
+            :disabled="error.length > 9"
+          >
             환전
           </b-button>
         </div>
       </b-form>
 
-      <div class="exchange_modal" id="dd">
-        <b-modal
-          id="ex_modal"
-          ref="exchange_modal"
-          hide-footer
-          title="환전 정보"
-        >
-          <div class="d-block">
-            <a class="posit_rel margin">출금가능 BZ</a>
-            <a class="posit_rel" style="float:right"> {{ form.bzAmount }} BZ</a>
-          </div>
-          <div class="d-block">
-            <a class="posit_rel margin">환전 BZ</a>
-            <a class="posit_rel" style="float:right"> {{ form.bzInput }} BZ</a>
-          </div>
-          <div class="d-block">
-            <a class="posit_rel margin">환전 금액</a>
-            <a class="posit_rel" style="float:right"> {{ form.bzToWon }} 원</a>
-          </div>
-          <div class="d-block" id="total_excharge">
-            <a class="posit_rel margin2">잔여 BZ</a>
-            <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
-          </div>
+      <b-modal id="ex_modal" hide-footer title="환전 정보">
+        <div class="d-block">
+          <a class="posit_rel margin">출금가능 BZ</a>
+          <a class="posit_rel" style="float:right"> {{ form.bzAmount }} BZ</a>
+        </div>
+        <div class="d-block">
+          <a class="posit_rel margin">환전 BZ</a>
+          <a class="posit_rel" style="float:right"> {{ form.bzInput }} BZ</a>
+        </div>
+        <div class="d-block">
+          <a class="posit_rel margin">환전 금액</a>
+          <a class="posit_rel" style="float:right"> {{ form.bzToWon }} 원</a>
+        </div>
+        <div class="d-block" id="total_excharge">
+          <a class="posit_rel margin2">잔여 BZ</a>
+          <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
+        </div>
 
-          <b-button class="mt-3" @click="exchangePost"
-            >확인</b-button
-          >
-          <b-button class="mt-3" @click="hideModal">취소</b-button>
-        </b-modal>
-      </div>
+        <b-button class="mt-3" @click="exchangePost">확인</b-button>
+        <b-button class="mt-3" @click="$bvModal.hide('ex_modal')"
+          >취소</b-button
+        >
+      </b-modal>
     </div>
     <b-card id="end_StoreExchangeToken">
       <li>
@@ -123,13 +119,6 @@ export default {
     };
   },
   methods: {
-    showExModal() {
-      this.$refs["exchange_modal"].show();
-      // alert(JSON.stringify(this.form));
-    },
-    hideModal() {
-      this.$refs["exchange_modal"].hide();
-    },
     exchangePost() {
       // axios
       //   .get("http://localhost:9091/charge/amount", {
