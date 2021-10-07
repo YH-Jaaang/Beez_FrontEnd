@@ -130,7 +130,6 @@ export default {
       await axios
         .post("/api/charge/account", params)
         .then((res) => {
-          console.log(res);
           this.bank_na = res.data.data.bankName;
           this.account_no = res.data.data.accountNumber;
         })
@@ -180,14 +179,12 @@ export default {
         //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
         await axios
           .post("/api/charge/amount", params)
-          .then((res) => {
+          .then(() => {
             //toast로 충전 정보 전달
             this.$toaster.success("충전이 완료되었습니다.");
-            console.log(res);
             this.$store.commit("main");
           })
-          .catch((err) => {
-            alert(err);
+          .catch(() => {
             this.$toaster.error("충전에 실패하였습니다. 다시 시도해 주세요.");
           });
       })();

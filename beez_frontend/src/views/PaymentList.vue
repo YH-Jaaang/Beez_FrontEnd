@@ -7,23 +7,46 @@
       </a>
     </div>
     <span class="span-blank">빈</span>
-
+    <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
-    <div class="Reviewlist_box">
+
+    <div class="Reviewlist_box" v-for="(review, i) in reviewContents" :key="i">
       <div class="User_history">
         <ul>
-          <li v-for="(review, i) in reviewContents" :key="i">
-            방문시간 : {{ review.visitTime }} 구매금액 :
-            {{ review.cost }} 상호명 : {{ review.recipient }}
-
-            <!--리뷰 마감 기한 필요-->
+          <li>
+            가게 이름 :
+            {{ review.recipient }}
+            <!-- 가격,원화,비즈 -->
+          </li>
+          <li>
+            <span>가격 : {{ review.cost }}원</span>
+            <span class="span-blank">blank</span>
+            <span>지불 : {{ review.wonTokenCount }}원</span>
+            <span class="span-blank">blank</span>
+            <span
+              >Beez :
+              {{ review.bzTokenCount / $store.state.incentiveRate }}</span
+            >
+            개
           </li>
         </ul>
       </div>
-
-      <b-button id="Review_btn2" @click="KeywordModal"
-        >키워드 리뷰 (BEEZ토큰지급)</b-button
-      >
+      <div class="User_history">
+        <b-button id="Review_btn2" @click="KeywordModal"
+          >키워드 리뷰 (BEEZ토큰지급)</b-button
+        >
+      </div>
+      
+      <li>
+        <li class="bar"></li>
+        <div class="keyword_Review">
+          <li class="keyword_Review_box">
+            <a>분위기가 좋아요!</a>
+            <a>반찬종류가 많아요!</a>
+            <a>주차하기 편해요!</a>
+          </li>
+        </div>
+      </li>
     </div>
 
     <div class="Reviewlist_box">

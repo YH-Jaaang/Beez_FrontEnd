@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 
@@ -43,11 +42,8 @@ export default new Vuex.Store({
           state.incOfMon = res["IncOfMon"];
           state.bzOfMon = res["BzOfMon"] / state.incentiveRate;
           state.bzBalace = res["BzBalace"] / state.incentiveRate;
-          console.log(res);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch(() => {});
     },
   },
   //비동기를 사용하거나 여러 mutations 연달아 실행할때,

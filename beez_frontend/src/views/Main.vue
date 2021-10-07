@@ -2,11 +2,11 @@
   <div id="main">
     <ul id="user_explain">
       <li>
-        <h1>{{ this.$store.state.nickName }}</h1>
+        <h1>{{ nickName }}</h1>
         <h5>님,</h5>
         <h5>환영합니다.</h5>
-        <img src="../assets/main/main04.png" />
       </li>
+      <img src="../assets/main/main04.png" />
     </ul>
 
     <b-card id="card_main">
@@ -129,6 +129,7 @@ export default {
   },
   data() {
     return {
+      nickName: localStorage.getItem("nickName"),
       msg: "This is demo net work",
       //아이콘
       faWonSign,

@@ -92,14 +92,6 @@
       </div>
     </pull-to-refresh>
     <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
-    <!--<div class="overflow-auto">
-      <b-pagination-nav
-        :link-gen="linkGen"
-        :number-of-pages="10"
-        use-router
-        align="center"
-      >
-      </b-pagination-nav>-->
   </div>
 </template>
 
@@ -146,7 +138,6 @@ export default {
       await axios
         .post("/api/charge/account", params)
         .then((res) => {
-          console.log(res);
           this.charge_name = res.data.data.name;
           this.charge_bank = res.data.data.bankName;
           this.charge_account = res.data.data.accountNumber;
@@ -163,9 +154,6 @@ export default {
     //     }, 1000);
     //   });
     // },
-    linkGen(pageNum) {
-      return pageNum === 1 ? "?" : `?page=${pageNum}`;
-    },
   },
 };
 </script>

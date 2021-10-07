@@ -10,5 +10,15 @@
 export default {
   name: "App",
   components: {},
+  // mathods: {
+  //   getServerSideProps({ req, res, params }) {
+  //     if (!req.headers.referer) {
+  //       res.statusCode = 302;
+  //       res.setHeader("Location", `/<link>`); // Replace <link> with your url link
+  //       res.end();
+  //     }
+  //     return { props: {} };
+  //   },
+  // },
 };
 </script>

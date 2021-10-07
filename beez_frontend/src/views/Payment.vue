@@ -273,7 +273,7 @@ export default {
             //여기서 Correct.vue 처리 해주면 됨
             alert(res.data);
             console.log(res);
-            this.userpPrivateKey = res.data.data.privateKey;
+            this.userpPrivateKey = "0x" + res.data.data.privateKey;
             this.userAddress = res.data.data.walletAddress;
             console.log(this.userpPrivateKey);
             console.log(this.userAddress);
