@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <b-modal id="ch_modal" hide-footer title="충전 정보">
+    <b-modal centered id="ch_modal" hide-footer title="충전 정보">
       <div class="d-block">
         <a class="posit_rel margin138">충전 금액</a>
         <a class="posit_rel" style="float:right">{{ form.number }} 원</a>
@@ -210,6 +210,12 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /*--------------------------card--------------------------- */
 #card_charge {
@@ -285,9 +291,9 @@ export default {
   margin-top: 5%;
   color: #76512c;
   background-color: #f8d97171;
-  font-size: 20px;
-  border: 0;
-  font-family: Cafe24Ssurround;
+  border-color: #f8d97171;
+  font-size: 17px;
+  font-weight: 900;
   width: 27%;
   border-radius: 17px;
   margin-bottom: 17%;
@@ -311,10 +317,11 @@ export default {
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
-  padding: 10px;
-  top: 10%;
-  padding-left: 10px;
+  /* padding: 5%; */
+  /* top: 10%; */
+  font-size: 15px;
 }
+
 .modal-header {
   margin: 3%;
 }
@@ -322,8 +329,8 @@ export default {
 #ch_modal .btn {
   color: #76512c;
   background-color: #ffde028c;
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
   border-radius: 15px;

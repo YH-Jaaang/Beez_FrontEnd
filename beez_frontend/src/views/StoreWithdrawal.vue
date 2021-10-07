@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <b-modal id="wi_modal" hide-footer title="출금 정보">
+    <b-modal centered id="wi_modal" hide-footer title="출금 정보">
       <div class="d-block">
         <a class="posit_rel margin">출금가능 금액</a>
         <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
@@ -236,7 +236,7 @@ export default {
   color: #100055;
   background-color: #e0f5f7;
   border-color: #e0ecf7;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 900;
   width: 25%;
   margin-left: 7%;
@@ -257,15 +257,16 @@ export default {
 #wi_modal {
   font-family: BCcardB;
   color: #100055;
-  padding: 10px;
-  top: 10%;
+  font-size: 15px;
+  /* padding: 10px;
+  top: 10%; */
 }
 
 #wi_modal .btn {
   color: #100055;
   background-color: rgba(125, 174, 224, 0.463);
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
   border-radius: 15px;

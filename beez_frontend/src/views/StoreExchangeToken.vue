@@ -52,7 +52,7 @@
         </div>
       </b-form>
 
-      <b-modal id="ex_modal" hide-footer title="환전 정보">
+      <b-modal centered id="ex_modal" hide-footer title="환전 정보">
         <div class="d-block">
           <a class="posit_rel margin">출금가능 BZ</a>
           <a class="posit_rel" style="float:right"> {{ form.bzAmount }} BZ</a>
@@ -271,7 +271,7 @@ export default {
   border-color: #0a6adf1a;
   margin-left: 7%;
   margin-right: 7%;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 900;
   border-radius: 15px;
   width: 25%;
@@ -300,15 +300,16 @@ export default {
 #ex_modal {
   font-family: BCcardB;
   color: #100055;
-  padding: 10px;
-  top: 10%;
+  /* padding: 10px;
+  top: 10%; */
+  font-size: 15px;
 }
 
 #ex_modal .btn {
   color: #100055;
   background-color: rgba(125, 174, 224, 0.463);
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
   border: 1px solid white;

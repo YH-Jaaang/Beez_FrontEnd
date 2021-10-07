@@ -241,7 +241,7 @@ export default {
   color: white;
   display: block;
   padding: 1.5%;
-  width: 23%;
+  width: 25%;
   font-size: 16px;
   font-weight: 900;
   margin-bottom: 20%;

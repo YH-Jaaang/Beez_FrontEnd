@@ -113,7 +113,7 @@
             </b-collapse>
           </div>
 
-          <b-modal id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
+          <b-modal centered id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
             <div class="d-block">
               <a class="posit_rel margin138">현금 결제</a>
               <a class="posit_rel" style="float:right">{{ won }} 원</a>
@@ -295,6 +295,13 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 #page_title {
   font-family: BCcardB;
   text-align: center;
@@ -354,6 +361,8 @@ export default {
   background-color: #76512cb8;
   border-color: #76512cb8;
   display: inline-block;
+  font-weight: 900;
+  font-size: 17px;
 }
 
 #pay_modal {
@@ -382,8 +391,8 @@ export default {
 /*---------------------------결제 폼------------------------------ */
 .form_btn .btn {
   margin-top: 30px;
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 20px;
+  margin-right: 20px;
   font-size: 17px;
   border-radius: 15px;
   width: 27%;
@@ -414,11 +423,11 @@ export default {
 
 /*---------------------------BZ 폼------------------------------ */
 #bz_amount .btn {
-  font-weight: 900;
   background-color: #f8b704;
   border-color: #f8b704;
   margin-top: 10px;
   width: 33%;
+  font-size: 15px;
 }
 
 #bzForm img {
@@ -473,16 +482,16 @@ export default {
 #p_modal {
   font-family: BCcardB;
   color: #76512c;
-  padding: 10px;
-  top: 10%;
-  padding-left: 10px;
+  /* padding: 4%; */
+  /* top: 10%; */
+  font-size: 15px;
 }
 
 #p_modal .btn {
   color: #76512c;
   background-color: #ffde028c;
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
   border-radius: 15px;

@@ -51,6 +51,7 @@
 
     <div class="review_modal">
       <b-modal
+        centered
         id="Review_modal"
         ref="review_modal"
         hide-footer
@@ -298,9 +299,9 @@ export default {
   margin: 0 auto;
   background-color: #ffffad;
   display: block;
-  padding: 2%;
-  width: 20%;
-  font-size: 18px;
+  padding: 1.5%;
+  width: 25%;
+  font-size: 16px;
   font-weight: 900;
   margin-bottom: 20%;
   margin-top: 8%;
@@ -350,8 +351,8 @@ export default {
   font-family: BCcardB;
   color: #76512c;
   background-color: #feffae;
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-weight: 600;
   border-radius: 15px;
 }
