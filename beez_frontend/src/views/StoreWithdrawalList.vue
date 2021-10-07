@@ -217,11 +217,13 @@ export default {
   margin: 0 auto;
   background-color: #e0f5f7;
   display: block;
-  padding: 2%;
-  width: 20%;
-  font-size: 15px;
+  width: 25%;
+  font-size: 17px;
   font-weight: 900;
-  margin-bottom: 17%;
+  margin-top: 8%;
+  margin-bottom: 20%;
+  color: #100055;
+  border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_StoreWithdrawalList {

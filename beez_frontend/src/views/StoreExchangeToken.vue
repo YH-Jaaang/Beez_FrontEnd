@@ -268,15 +268,16 @@ export default {
 .exchange_btn .btn {
   color: #100055;
   background-color: #0a6adf1a;
-  margin-left: 25px;
-  margin-right: 25px;
+  border-color: #0a6adf1a;
+  margin-left: 7%;
+  margin-right: 7%;
   font-size: 20px;
   font-weight: 900;
-  border: 1px solid #fff;
   border-radius: 15px;
   width: 25%;
-  margin-bottom: 15%;
+  margin-bottom: 17%;
 }
+
 @media (max-width: 400px) {
   #changetoken_amount {
     display: inline-block;

@@ -235,13 +235,13 @@ export default {
 #wi_btn {
   color: #100055;
   background-color: #e0f5f7;
+  border-color: #e0ecf7;
   font-size: 20px;
   font-weight: 900;
   width: 25%;
-  border: 1.5px solid #fff;
   margin-left: 7%;
   margin-right: 7%;
-  margin-bottom: 15%;
+  margin-bottom: 17%;
   margin-top: 8%;
   border-radius: 15px;
 }

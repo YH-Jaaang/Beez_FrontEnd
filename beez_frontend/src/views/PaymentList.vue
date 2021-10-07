@@ -303,6 +303,9 @@ export default {
   font-size: 18px;
   font-weight: 900;
   margin-bottom: 20%;
+  margin-top: 8%;
+  border-radius: 15px;
+  color: #76512c;
 }
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {

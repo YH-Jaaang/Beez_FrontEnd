@@ -251,14 +251,14 @@ export default {
 /*---------------------------페이지 넘김------------------------------*/
 #StoreReviewList_check {
   margin: 0 auto;
+  color: #100055;
   background-color: #e0f5f7;
   display: block;
-  padding: 2%;
-  width: 20%;
-  font-size: 15px;
+  width: 25%;
+  font-size: 17px;
   font-weight: 900;
-  margin-bottom: 17%;
-  color: #100055;
+  margin-top: 8%;
+  margin-bottom: 20%;
   border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
