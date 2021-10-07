@@ -45,6 +45,8 @@
         <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
           출금
         </b-button>
+        <span class="span-blank">빈</span>
+        <b-button id="wi_btn" href="/StoreMain">취소</b-button>
       </div>
     </div>
 
