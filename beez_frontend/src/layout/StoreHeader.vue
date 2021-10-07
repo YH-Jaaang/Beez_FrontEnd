@@ -19,11 +19,11 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="/StoreMain" class="ml-auto">HOME</b-nav-item>
-            <b-nav-item href="/" class="ml-auto color" @click="reset"
-              >로그아웃</b-nav-item
-            >
             <b-nav-item href="/StoreQR" class="ml-auto color"
               >QR코드</b-nav-item
+            >
+            <b-nav-item href="/" class="ml-auto color" @click="reset"
+              >로그아웃</b-nav-item
             >
           </b-navbar-nav>
         </b-collapse>
