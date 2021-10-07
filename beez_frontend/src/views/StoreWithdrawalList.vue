@@ -190,9 +190,10 @@ export default {
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
   margin-left: 7.5%;
+  font-size: 10pt;
 }
 #WithdrawalList_font {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .bar {
@@ -204,14 +205,6 @@ export default {
   text-align: center;
 }
 
-@media (max-width: 420px) {
-  #Store_WithdrawalList {
-    font-size: 18pt;
-  }
-  .WithdrawalList_box {
-    font-size: 8pt;
-  }
-}
 /*---------------------------페이지 넘김------------------------------*/
 #StoreWithdrawalList_check {
   margin: 0 auto;

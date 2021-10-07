@@ -110,14 +110,6 @@
         </li>
       </b-card>
     </div>
-    <!--<div class="overflow-auto">
-      <b-pagination-nav
-        :link-gen="linkGen"
-        :number-of-pages="10"
-        use-router
-        align="center"
-      >
-      </b-pagination-nav>-->
   </div>
 </template>
 
@@ -241,27 +233,6 @@ export default {
   margin-left: 9%;
   color: #76512c;
   font-size: 10pt;
-}
-#ChargeList_font {
-  font-size: 12px;
-}
-#ChargeList_font2 {
-  font-size: 12px;
-}
-
-.bar {
-  border-bottom: 1.5px solid #f799d0;
-  margin-bottom: 4%;
-}
-.overflow-auto {
-  width: 100%;
-  text-align: center;
-}
-
-@media (max-width: 420px) {
-  #User_ChargeList {
-    font-size: 18pt;
-  }
 }
 /*---------------------------페이지 넘김------------------------------*/
 

@@ -63,32 +63,11 @@
             <b-collapse id="bzForm" class="mt-1">
               <b-card>
                 <b-form-group>
-                  <<<<<<< HEAD
-                  <li>
-                    <a>보유 BZ</a>
-                    <a style="float:right">
-                      {{ this.$store.state.bzBalace | comma }}
-                      <FontAwesomeIcon
-                        :icon="faBitcoin"
-                        style="color:#76512c"
-                        size="lg"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a>사용 BZ</a>
-                    <b-form-input
-                      v-model="form.bz"
-                      :state="validation"
-                      type="number"
-                    ></b-form-input>
-                  </li>
-                  =======
                   <ul>
                     <li id="bz_am">
                       <a>보유 BZ</a>
                       <a class="bz_amount">
-                        {{ myBz }}
+                        {{ this.$store.state.bzBalace | comma }}
                       </a>
                       <img src="../assets/main/main03.png" />
                     </li>
@@ -102,7 +81,6 @@
                       ></b-form-input>
                     </li>
                   </ul>
-                  >>>>>>> ui3
                 </b-form-group>
 
                 <!-- <b-button size="sm">사용</b-button> -->
@@ -285,11 +263,6 @@ export default {
         this.$refs["pay_modal"].show();
         this.won = parseInt(this.form.price) - parseInt(this.form.bz * 100);
       }
-    },
-
-    //최종 결제 버튼 후 모달
-    hideModal() {
-      this.$refs["pay_modal"].hide();
     },
     //db에서 address, privateAddress받아오기
     async payPost() {

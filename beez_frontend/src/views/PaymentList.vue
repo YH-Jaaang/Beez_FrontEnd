@@ -38,7 +38,7 @@
         </ul>
       </div>
       <div class="User_history">
-        <b-button id="Review_btn2" @click="KeywordModal"
+        <b-button id="Review_btn2" @click="$bvModal.show('Review_modal')"
           >키워드 리뷰 (BEEZ토큰지급)</b-button
         >
       </div>
@@ -80,12 +80,10 @@
       <b-modal
         centered
         id="Review_modal"
-        ref="review_modal"
         hide-footer
         title="키워드 리뷰"
       >
-        <div class="Keyword_box">
-          <!--첫 번째 -->
+        <!--첫 번째 -->
           <div class="keybox">
             <div class="keybox_title">
               분위기
@@ -126,17 +124,18 @@
               class="Keyword_column"
             ></b-form-checkbox-group>
           </div>
-        </div>
 
         <div>
+          <!------------- 리뷰 선택한 후 확인버튼 기능 없음-------- -->
           <b-button
             class="keyword_check mt-3"
-            inline-block
-            @click="hideModal2"
+            @click="ff"
             href="/paymentList"
             >확인</b-button
           >
-          <b-button class="keyword_check mt-3" inline-block @click="hideModal2"
+          <b-button 
+            class="keyword_check mt-3" 
+            @click="$bvModal.hide('Review_modal')"
             >취소</b-button
           >
         </div>
@@ -164,7 +163,6 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -258,16 +256,7 @@ export default {
         }
       }
     },
-    //모달 취소 버튼
-    KeywordModal() {
-      this.$refs["review_modal"].show();
-    },
-    hideModal2() {
-      this.$refs["review_modal"].hide();
-    },
   },
-
-  computed: {},
 };
 </script>
 <style>
@@ -303,27 +292,27 @@ export default {
 }
 
 /*----------------------------Reviewlsit box-------------------------------*/
+.User_history {
+  font-size: 10pt;
+}
+
 .Reviewlist_box {
   padding: 2% 2%;
   border-radius: 20px;
   background-color: #fdfded;
-  width: 86%;
+  width: 85%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 auto;
   margin-bottom: 15px;
   color: #76512c;
-  font-size: 8pt;
 }
 
-.keyword_Review_box {
-  margin: auto;
-  margin-left: 5%;
-}
 .keyword_Review_box a {
+  font-size: 8pt;
   padding: 1% 2%;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #fff;
-  margin: 0 auto;
+  margin: 0 3px 0 3px;
 }
 .bar {
   border-bottom: 2px solid #ffde02;
@@ -344,7 +333,7 @@ export default {
   display: block;
   padding: 1.5%;
   width: 25%;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 900;
   margin-bottom: 20%;
   margin-top: 8%;

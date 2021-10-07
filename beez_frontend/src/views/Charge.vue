@@ -90,10 +90,8 @@
           >{{ charge_amount | comma }} 원</a
         >
       </div>
-      <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
-      <b-button class="mt-3" inline-block @click="$bvModal.hide('ch_modal')"
-        >취소</b-button
-      >
+      <b-button class="mt-3" @click="chargePost">확인</b-button>
+      <b-button class="mt-3" @click="$bvModal.hide('ch_modal')">취소</b-button>
     </b-modal>
 
     <div>
@@ -310,12 +308,9 @@ export default {
   font-size: 15px;
   background-color: #faebbb71;
   border-radius: 10px;
-  padding: 8px;
+  padding: 3% 5% 3% 5%;
   margin-bottom: 30px;
 }
-/* .bank_ac li {
-  padding: 10px;
-} */
 
 .form_charge {
   margin-top: 10px;

@@ -217,7 +217,7 @@ export default {
   border-radius: 20px;
   border: #6e6b79;
   background-color: #e0f5f7;
-  width: 83%;
+  width: 85%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin-bottom: 15px;
   margin-left: 7.5%;
@@ -231,7 +231,7 @@ export default {
   margin: 0 3px 0 3px;
 }
 .bar {
-  border-bottom: 1.5px solid #100055;
+  border-bottom: 2px solid #100055;
   margin-bottom: 4%;
 }
 .overflow-auto {
