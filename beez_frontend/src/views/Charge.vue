@@ -44,7 +44,11 @@
         </b-form>
       </ul>
       <div class="text-center">
-        <b-button id="ch_btn" @click="showModal" :disabled="error.length > 9">
+        <b-button
+          id="ch_btn"
+          @click="$bvModal.show('ch_modal')"
+          :disabled="error.length > 9"
+        >
           충전
         </b-button>
         <b-button id="ch_btn" href="/Main">취소</b-button>
@@ -284,7 +288,7 @@ export default {
   font-size: 20px;
   border: 0;
   font-family: Cafe24Ssurround;
-  width: 25%;
+  width: 27%;
   border-radius: 17px;
   margin-bottom: 15%;
   margin-left: 7%;
@@ -322,7 +326,9 @@ export default {
   margin-left: 15%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
+
 #total_charge {
   border-top: 2px solid #76512c;
   margin-top: 2%;
