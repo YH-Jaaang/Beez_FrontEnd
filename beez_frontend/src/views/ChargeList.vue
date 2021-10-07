@@ -239,12 +239,13 @@ export default {
   background-color: #94785bb8;
   color: white;
   display: block;
-  padding: 2%;
-  width: 20%;
-  font-size: 18px;
+  padding: 1.5%;
+  width: 23%;
+  font-size: 16px;
   font-weight: 900;
-  margin-bottom: 10%;
-  /* border: 2.5px solid #76512c; */
+  margin-bottom: 20%;
+  margin-top: 8%;
+  border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_Chargelist {

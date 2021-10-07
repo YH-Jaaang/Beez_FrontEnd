@@ -4,7 +4,7 @@
       <div class="StoreQR text-center">
         <a id="Store_QR">
           <FontAwesomeIcon :icon="faStore" style="color:#100055" />
-          QR코드</a
+          QR 코드</a
         >
       </div>
       <span class="span-blank">빈</span>
@@ -154,7 +154,8 @@ export default {
   width: 20%;
   font-size: 18px;
   font-weight: 900;
-  margin-bottom: 8%;
+  margin-bottom: 15%;
+  border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 #end_StoreQR {

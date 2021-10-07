@@ -245,12 +245,17 @@ export default {
 
 /*-------------------------- 출금 버튼-------------------------- */
 #wi_btn {
-  margin-top: 5%;
   color: #100055;
   background-color: #e0f5f7;
   font-size: 20px;
   font-weight: 900;
+  width: 25%;
   border: 1.5px solid #fff;
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-bottom: 15%;
+  margin-top: 8%;
+  border-radius: 15px;
 }
 
 /*-------------------------- 충전 모달창-------------------------- */

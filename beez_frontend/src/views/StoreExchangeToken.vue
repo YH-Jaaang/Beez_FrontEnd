@@ -45,6 +45,7 @@
           <b-button @click="showExModal" :disabled="error.length > 9">
             환전
           </b-button>
+          <b-button id="wi_btn" href="/StoreMain">취소</b-button>
         </div>
       </b-form>
 
@@ -283,6 +284,9 @@ export default {
   font-size: 20px;
   font-weight: 900;
   border: 1px solid #fff;
+  border-radius: 15px;
+  width: 25%;
+  margin-bottom: 15%;
 }
 @media (max-width: 400px) {
   #changetoken_amount {

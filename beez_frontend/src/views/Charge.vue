@@ -45,8 +45,9 @@
       </ul>
       <div class="text-center">
         <b-button id="ch_btn" @click="showModal" :disabled="error.length > 9">
-          충 전
+          충전
         </b-button>
+        <b-button id="ch_btn" href="/Main">취소</b-button>
       </div>
     </div>
 
@@ -272,6 +273,7 @@ export default {
   background-color: #f8d97171;
   border-radius: 17px;
   padding: 20px 14px;
+  margin-bottom: 5%;
 }
 
 /* .charge_am {
@@ -291,8 +293,11 @@ export default {
   font-size: 20px;
   border: 0;
   font-family: Cafe24Ssurround;
-  width: 40%;
+  width: 25%;
   border-radius: 17px;
+  margin-bottom: 15%;
+  margin-left: 7%;
+  margin-right: 7%;
 }
 #btn_color {
   color: #fbca47;

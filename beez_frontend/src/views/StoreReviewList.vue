@@ -258,6 +258,8 @@ export default {
   font-size: 15px;
   font-weight: 900;
   margin-bottom: 17%;
+  color: #100055;
+  border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_StoreReviewLsit {

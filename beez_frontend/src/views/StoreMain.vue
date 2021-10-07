@@ -444,8 +444,10 @@ export default {
   background-color: #03349692;
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 900;
+  width: 55%;
+  margin-bottom: 15%;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_StoreMain {

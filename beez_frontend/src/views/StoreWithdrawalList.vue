@@ -83,7 +83,7 @@
       <b-card class="end_StoreWithdrawalList">
         <li>
           <h4>
-            현금출금 안내<FontAwesomeIcon
+            현금 출금 안내<FontAwesomeIcon
               :icon="faAngleRight"
               style="float:right"
             />
