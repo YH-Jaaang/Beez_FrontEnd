@@ -387,6 +387,8 @@ export default {
   margin-left: 14px;
   margin-right: 14px;
   font-size: 17px;
+  border-radius: 15px;
+  width: 27%;
 }
 
 .pay_amount {

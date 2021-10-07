@@ -311,6 +311,7 @@ export default {
   font-size: 14px;
   font-weight: 700;
   border: 1px solid white;
+  border-radius: 15px;
 }
 
 #total_excharge {

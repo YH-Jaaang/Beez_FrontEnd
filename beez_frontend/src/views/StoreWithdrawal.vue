@@ -268,6 +268,7 @@ export default {
   margin-left: 15%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
 
 #total_excharge {
@@ -315,6 +316,9 @@ export default {
 }
 .posit_rel.margin2 {
   left: 17%;
+}
+.mt-3 {
+  border-radius: 15px;
 }
 /*--------------------------------안내----------------------------------------*/
 #end_StoreWithdrawal {
