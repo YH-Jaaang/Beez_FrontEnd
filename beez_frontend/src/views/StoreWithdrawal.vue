@@ -23,8 +23,9 @@
           <b-input-group class="form_charge">
             <b-form-input
               v-model="withdrawal_won"
-              type="number"
+              type="text"
               :state="wi_state"
+              @keyup="wonValid"
             ></b-form-input>
 
             <b-input-group-append>
@@ -41,42 +42,35 @@
       </ul>
 
       <div class="text-center">
-        <b-button id="wi_btn" @click="showWiModal" :disabled="error.length > 9">
+        <b-button
+          id="wi_btn"
+          @click="$bvModal.show('wi_modal')"
+          :disabled="error.length > 9"
+        >
           출금
         </b-button>
+        <b-button id="wi_btn" href="/StoreMain">취소</b-button>
       </div>
     </div>
 
-    <div class="WithdrawalWon_modal">
-      <b-modal
-        id="wi_modal"
-        ref="WithdrawalWon_modal"
-        hide-footer
-        title="출금 정보"
-      >
-        <div class="d-block">
-          <a class="posit_rel margin">출금가능 금액</a>
-          <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
-        </div>
-        <div class="d-block">
-          <a class="posit_rel margin">출금 금액</a>
-          <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
-        </div>
-        <div class="d-block" id="total_excharge">
-          <a class="posit_rel margin2">잔여 금액</a>
-          <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
-        </div>
+    <b-modal centered id="wi_modal" hide-footer title="출금 정보">
+      <div class="d-block">
+        <a class="posit_rel margin">출금가능 금액</a>
+        <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
+      </div>
+      <div class="d-block">
+        <a class="posit_rel margin">출금 금액</a>
+        <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
+      </div>
+      <div class="d-block" id="total_excharge">
+        <a class="posit_rel margin2">잔여 금액</a>
+        <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
+      </div>
 
-        <b-button class="mt-3" inline-block @click="hideModal2">취소</b-button>
-        <b-button
-          class="mt-3"
-          inline-block
-          @click="hideModal2"
-          href="/Storemain"
-          >확인</b-button
-        >
-      </b-modal>
-    </div>
+      <b-button class="mt-3" @click="withdrawalPost">확인</b-button>
+      <b-button class="mt-3" @click="$bvModal.hide('wi_modal')">취소</b-button>
+    </b-modal>
+
     <b-card id="end_StoreWithdrawal">
       <li>
         <h4>
@@ -88,7 +82,7 @@
       </li>
       <li>
         <h4>
-          Q % A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
         </h4>
       </li>
     </b-card>
@@ -121,11 +115,11 @@ export default {
     };
   },
   methods: {
-    showWiModal() {
-      this.$refs["WithdrawalWon_modal"].show();
+    wonValid() {
+      this.withdrawal_won = this.withdrawal_won.replace(/[^0-9]/g, "");
     },
-    hideModal2() {
-      this.$refs["WithdrawalWon_modal"].hide();
+    withdrawalPost() {
+      this.$router.push("/StoreMain");
     },
   },
   computed: {
@@ -167,10 +161,9 @@ export default {
 /*--------------------------card--------------------------- */
 #card_StoreWithdrawal {
   font-family: BCcardB;
-  background-color: #b9ddf7;
-  /* padding: 10px 7px; */
+  background-color: #c6e4fa;
   border-radius: 50px;
-  /* border: 2px solid #8b8898; */
+  border: 2px solid rgb(51, 28, 155);
   width: 12rem;
   height: 17rem;
   margin: 30px auto;
@@ -190,7 +183,7 @@ export default {
 
 .Storebank_ac {
   font-size: 15px;
-  background-color: #00adfd71;
+  background-color: #0069fd44;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 30px;
@@ -206,14 +199,27 @@ export default {
 
 .withdrawal_amount {
   font-size: 20px;
-  background-color: #e0f5f7;
+  background-color: #e0ecf7;
   border-radius: 17px;
   padding: 20px 14px;
 }
 
 .withdrawal_amount .form-control {
-  background-color: rgba(164, 162, 158, 0.612);
+  background-color: rgba(164, 162, 158, 0.49);
   border-radius: 10px;
+  margin-top: -0.3%;
+  margin-bottom: -0.3%;
+}
+
+@media (min-width: 454px) {
+  .input-group-append {
+    margin-top: -0.2%;
+    margin-bottom: -0.2%;
+  }
+}
+
+#re_btn {
+  background-color: rgba(164, 162, 158, 0.49);
 }
 
 #btn_color2 {
@@ -227,33 +233,43 @@ export default {
 
 /*-------------------------- 출금 버튼-------------------------- */
 #wi_btn {
-  margin-top: 5%;
   color: #100055;
   background-color: #e0f5f7;
-  font-size: 23px;
+  border-color: #e0ecf7;
+  font-size: 17px;
   font-weight: 900;
-  border: 1.5px solid #100055;
-  font-family: BCcardB;
+  width: 25%;
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-bottom: 17%;
+  margin-top: 8%;
+  border-radius: 15px;
 }
 
 /*-------------------------- 충전 모달창-------------------------- */
 .modal-header {
   margin: 3%;
 }
+
+.modal-title {
+  font-weight: 800;
+}
 #wi_modal {
   font-family: BCcardB;
   color: #100055;
-  padding: 10px;
-  top: 10%;
+  font-size: 15px;
+  /* padding: 10px;
+  top: 10%; */
 }
 
 #wi_modal .btn {
   color: #100055;
   background-color: rgba(125, 174, 224, 0.463);
-  width: 30%;
-  margin-left: 15%;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
 
 #total_excharge {
@@ -301,6 +317,9 @@ export default {
 }
 .posit_rel.margin2 {
   left: 17%;
+}
+.mt-3 {
+  border-radius: 15px;
 }
 /*--------------------------------안내----------------------------------------*/
 #end_StoreWithdrawal {

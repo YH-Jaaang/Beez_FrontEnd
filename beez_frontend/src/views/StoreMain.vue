@@ -1,107 +1,136 @@
 <template>
   <div>
+    <ul id="user_explain2">
+      <li>
+        <h1>Sunny</h1>
+        <h5>님,</h5>
+        <h5>환영합니다.</h5>
+      </li>
+      <img src="../assets/main/main05.png" />
+    </ul>
+
     <b-card id="card_main_ceo">
-      <div class="to_ac_ceo">
-        <span>{{ month }}월 총 매출</span>
-        <span style="float:right">{{ totalSales }}원</span>
-      </div>
-      <div class="de_ac">
+      <b-card class="to_ac_ceo">
+        <b-container>
+          <b-row>
+            <img src="../assets/main/main06.png" />
+            <b-col>
+              <h3>
+                {{ month }}월 총 매출
+                <FontAwesomeIcon :icon="faAngleRight" id="ac_icon2" />
+              </h3>
+              <!-- filter를 이용하여 콤마찍기 -->
+              <h1>{{ totalSales }} 원</h1>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+
+      <div>
         <ul class="detail_ac_ceo">
           <li>
-            <a>현금매출</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a>현금 매출</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
           <li>
-            <a>토큰매출</a>
-            <a style="float:right">{{ TokenSales }}원</a>
+            <a>토큰 매출</a>
+            <a style="float:right">{{ TokenSales }} 원</a>
           </li>
           <div class="text-center"></div>
         </ul>
-        <span class="span-blank">빈</span>
-        <ul class="detail_ac_ceo">
-          <div class="title_bz_ceo">
-            <a>
-              <FontAwesomeIcon :icon="faWonSign" style="color:#0d4890" />
-              현금매출
-            </a>
-            <b-button id="Exbtn" href="StoreWithdrawal" style="float:right">
-              출금
-            </b-button>
-          </div>
+      </div>
+    </b-card>
+
+    <b-card id="card_main_ceo2">
+      <b-card class="title_won">
+        <h2>
+          <img src="../assets/main/main08.png" />
+          현금 매출
+          <b-button href="StoreWithdrawal" style="float:right">
+            출금
+          </b-button>
+        </h2>
+      </b-card>
+
+      <div>
+        <ul class="detail_won">
           <li>
             <a>이번달 매출</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
           <li>
             <a>출금가능 현금</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
-          <li>
-            <b-button id="WithdrawalButton" href="StoreWithdrawalList"
-              >출금 내역</b-button
+          <li class="text-center">
+            <b-button id="WithdrawalBtn" href="StoreWithdrawalList">
+              <FontAwesomeIcon :icon="faFileInvoiceDollar" id="wi_icon" />
+              출금 내역</b-button
             >
           </li>
           <div class="text-center"></div>
         </ul>
       </div>
-      <br />
-      <div class="bz_ac">
+    </b-card>
+
+    <b-card id="card_main_ceo3">
+      <b-card class="title_bz_ceo">
+        <h2>
+          <img src="../assets/main/main03.png" />
+          MY BEEZ
+          <b-button href="StoreExchangeToken" style="float:right">
+            환전
+          </b-button>
+        </h2>
+      </b-card>
+
+      <div>
         <ul class="detail_bz_ceo">
-          <div class="title_bz_ceo">
-            <a>
-              <FontAwesomeIcon
-                :icon="faBitcoin"
-                style="color:#10055"
-                size="lg"
-              />
-              BEEZ
-            </a>
-            <b-button id="Exbtn" href="StoreExchangeToken" style="float:right">
-              환전
-            </b-button>
-          </div>
           <li>
-            <div>
-              <a>이번달 BEEZ</a>
-              <a style="float:right">
-                {{ myBzExample }}
-                <FontAwesomeIcon
-                  :icon="faBitcoin"
-                  style="color:#10055"
-                  size="lg"
-                />
-              </a>
-            </div>
-            <a>환전가능 BEEZ</a>
-            <a style="float:right">
-              {{ myBzExchange }}
-              <FontAwesomeIcon
-                :icon="faBitcoin"
-                style="color:#10055"
-                size="lg"
-              />
+            <a>이번달 BEEZ</a>
+            <a class="bz_amount">
+              {{ myBzExample }}
             </a>
+            <img src="../assets/main/main03.png" />
+          </li>
+          <li>
+            <a>환전가능 BEEZ</a>
+            <a class="bz_amount">
+              {{ myBzExchange }}
+            </a>
+            <img src="../assets/main/main03.png" />
           </li>
         </ul>
       </div>
-      <div class="text-center">
-        <FontAwesomeIcon
-          :icon="faCaretDown"
-          style="color:#fff"
-          vertical-align="middle"
-          size="5x"
-        />
-      </div>
     </b-card>
+
+    <div class="text-center">
+      <FontAwesomeIcon
+        :icon="faCaretDown"
+        style="color:#03349692"
+        vertical-align="middle"
+        size="5x"
+      />
+    </div>
+
     <div class="li_btn_ceo text-center">
       <b-button href="/StoreReviewList">
-        <!-- <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> -->
         결제 / 리뷰 내역
       </b-button>
-      <!--<b-button href="/StoreWithdrawalList">
-         <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> 
-        출금 내역
-      </b-button> -->
+    </div>
+    <div>
+      <b-card class="end_StoreMain">
+        <li>
+          <h4>
+            공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
     </div>
   </div>
 </template>
@@ -110,8 +139,9 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -127,8 +157,10 @@ export default {
       //아이콘
       faWonSign,
       faQrcode,
-      faBitcoin,
       faCaretDown,
+      faAngleRight,
+      faFileInvoiceDollar,
+
       //매출값
       totalSales: "11,530,000",
       CashSales: "11,000,000",
@@ -166,89 +198,251 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
-/*--------------------------card_ 원화-------------------------- */
+/*--------------------------유저 설명-------------------------- */
+#user_explain2 {
+  border-radius: 20px;
+  padding: 0;
+  /* background-color: #f8f3e19a; */
+  border: 2px solid #76512c;
+  margin: 5%;
+  /* color: #76512c; */
+  display: inline-block;
+}
+
+#user_explain2 li {
+  margin-top: 7%;
+  margin-left: 7%;
+  display: inline-block;
+}
+
+#user_explain2 img {
+  float: right;
+  width: 50%;
+  margin-top: -28%;
+  margin-right: 4%;
+}
+
+@media (min-width: 500px) {
+  #user_explain2 img {
+    margin-top: 0;
+  }
+}
+
+#user_explain2 h1 {
+  font-family: "Cafe24Ssurround";
+  display: inline-block;
+  margin-left: 5%;
+  color: #5a4605fd;
+  border-bottom: 2px solid #20160c;
+  padding: 0;
+}
+
+#user_explain2 h5 {
+  font-family: "GmarketSansTTFMedium";
+  display: inline-block;
+  margin-left: 4%;
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+/*--------------------------card_ 원화1-------------------------- */
 #card_main_ceo {
   font-family: BCcardB;
-  background-color: #1158aece;
-  /* padding: 10px 7px; */
-  border-radius: 50px;
-  margin: 4% 6%;
-  /* border: 2.5px solid #8e8883e3; */
+  background-color: #1158ae23;
+  border-radius: 30px;
+  margin-top: 4%;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
-/* .card-body {
-  padding-top: 29px;
-  padding-left: 27px;
-  padding-right: 27px;
-} */
+.card-body {
+  padding: 0;
+}
 
 .to_ac_ceo {
-  font-size: 22px;
-  font-weight: 900;
-  color: #ffffff;
-  padding-bottom: 8px;
+  background-color: #2261aed2;
+  border-start-start-radius: 30px;
+  border-start-end-radius: 30px;
+  padding: 3%;
 }
 
-.detail_ac_ceo .btn {
-  color: rgb(255, 255, 255);
-  background-color: #0d4890;
-  margin-left: 14px;
-  margin-right: 14px;
-  font-size: 17px;
+.to_ac_ceo .col {
+  align-self: center;
+  text-align: end;
+}
+
+.to_ac_ceo h1 {
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+  padding-bottom: 0;
+}
+
+.to_ac_ceo h3 {
+  font-weight: 900;
+  color: #fff;
+  padding-bottom: 12px;
+}
+
+.to_ac_ceo img {
+  width: 30%;
+  margin-right: 10%;
+}
+
+#ac_icon2 {
+  margin-left: 10px;
 }
 
 .detail_ac_ceo {
-  color: #0d4890;
-
-  font-weight: 600;
-  background-color: #e0f5f7;
+  font-weight: 700;
   border-radius: 17px;
-  padding: 12px 14px;
-  /* border: 2px solid #76512c; */
+  padding: 10px 18px;
 }
 
-.detail_ac li {
+.detail_ac_ceo li {
   padding-bottom: 9px;
-  font-size: 14px;
-}
-#WithdrawalButton {
-  color: #fff;
-  background-color: #0d4890;
-  margin: auto;
-  padding: 0% 18%;
-  display: block;
-  font-weight: 60;
-}
-/*-------------------------- 비즈-------------------------- */
-.detail_bz_ceo {
-  color: #0d4890;
-  font-weight: 600;
-  background-color: #e0f5f7;
-  border-radius: 17px;
-  padding: 8px 14px;
-  /* border: 2px solid #76512c; */
-}
-.detail_bz_ceo li {
-  padding-top: 9px;
-  padding-left: 8px;
-  padding-right: 8px;
   font-size: 15px;
+  color: #23180d;
+}
+
+/*--------------------------현금매출-------------------------- */
+#card_main_ceo2 {
+  font-family: BCcardB;
+  background-color: #001fb818;
+  border-radius: 30px;
+  margin-top: 6%;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.title_won h2 {
+  font-size: 23px;
+  font-weight: 900;
+  color: #fff;
+  display: inline-block;
+  padding: 0;
+}
+
+.title_won {
+  background-color: #001fb8a7;
+  border-start-start-radius: 30px;
+  border-start-end-radius: 30px;
+  padding: 4% 6% 3% 6%;
+}
+
+.title_won .btn {
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  border: 2px solid;
+  padding: 2px 10px 2px 10px;
+}
+
+.detail_won {
+  color: #23180d;
+  font-weight: 700;
+  border-radius: 17px;
+  padding: 10px 18px;
+}
+
+.detail_won li {
+  padding-bottom: 9px;
+  font-size: 15px;
+  display: block;
+}
+
+#WithdrawalBtn {
+  color: #fff;
+  font-size: 16px;
+  background-color: #001fb8a7;
+  font-weight: 600;
+  width: 80%;
+}
+
+#wi_icon {
+  color: #fff;
+  margin-right: 5px;
+}
+
+.title_won img {
+  width: 15%;
+  margin-right: 5px;
+}
+
+/*-------------------------- 비즈-------------------------- */
+#card_main_ceo3 {
+  font-family: BCcardB;
+  background-color: #001fb818;
+  border-radius: 30px;
+  margin-top: 6%;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.detail_bz_ceo {
+  color: #23180d;
+  font-weight: 700;
+  border-radius: 17px;
+  padding: 10px 18px;
+}
+
+.detail_bz_ceo img {
+  width: 8%;
+  float: right;
+}
+
+.detail_bz_ceo li {
+  padding-bottom: 9px;
+  font-size: 15px;
+  display: block;
+}
+
+.title_bz_ceo h2 {
+  font-size: 23px;
+  font-weight: 900;
+  color: #fff;
+  display: inline-block;
+  padding: 0;
 }
 
 .title_bz_ceo {
-  font-size: 21px;
-  font-weight: 900;
-  border-bottom: 2px solid #0d4890;
-  padding-left: 5px;
+  background-color: #001fb87d;
+  border-start-start-radius: 30px;
+  border-start-end-radius: 30px;
+  padding: 4% 6% 3% 6%;
 }
 
-.detail_bz_ceo .btn {
-  background-color: #0d4890;
-  margin-left: 14px;
-  margin-right: 14px;
-  font-size: 17px;
+.title_bz_ceo img {
+  width: 12%;
+  margin-right: 5px;
 }
+
+.bz_amount {
+  float: right;
+  margin-left: 5px;
+}
+
+.title_bz_ceo .btn {
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  border: 2px solid;
+  padding: 2px 10px 2px 10px;
+}
+
 /*-------------------------- 내역/리뷰 버튼-------------------------- */
 .li_btn_ceo {
   font-family: BCcardB;
@@ -257,20 +451,33 @@ export default {
 
 .li_btn_ceo .btn {
   color: #ffffff;
-  background-color: #1158aece;
+  background-color: #2261aed2;
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 900;
-  /* border: 2.5px solid #76512c; */
+  width: 55%;
+  margin-bottom: 15%;
 }
-#Exbtn {
-  padding: 0% 1.5%;
-  color: white;
+/*--------------------------공지사항/q&a-------------------------- */
+.end_StoreMain {
+  font-family: "GmarketSansTTFMedium";
 }
-@media (max-width: 650px) {
-  #Exbtn {
-    padding: 1% 4%;
-  }
+
+.end_StoreMain .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_StoreMain li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_StoreMain h4 {
+  padding: 0;
 }
 </style>

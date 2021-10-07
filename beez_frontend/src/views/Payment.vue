@@ -2,24 +2,20 @@
   <div id="app">
     <div>
       <h1 id="page_title">
-        <FontAwesomeIcon :icon="faQrcode" style="color:#f8b704" />
+        <FontAwesomeIcon :icon="faQrcode" style="color:#76512c78" />
         결제하기
       </h1>
     </div>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit="onSubmit">
       <b-card id="card_qr" title="QR코드 인식">
         <div class="qrbtn">
           <div class="pay_form">
             <b-form-group
               description="오른쪽 버튼을 눌러 QR코드를 인식해주세요."
             >
-              <b-form-input
-                id="payForm"
-                v-model="form.scanned"
-                required
-                disabled
-                >{{ form.scanned }}</b-form-input
-              >
+              <b-form-input id="payForm" v-model="form.scanned" disabled>{{
+                form.scanned
+              }}</b-form-input>
 
               <b-button v-b-modal.pay_modal>
                 <FontAwesomeIcon :icon="faQrcode" style="color:#f8b704" />
@@ -55,7 +51,8 @@
             <b-form-input
               id="pay_amount"
               v-model="form.price"
-              type="number"
+              @keyup="payAmountValid"
+              type="text"
               required
               style="float:right"
             ></b-form-input>
@@ -66,6 +63,7 @@
             <b-collapse id="bzForm" class="mt-1">
               <b-card>
                 <b-form-group>
+                  <<<<<<< HEAD
                   <li>
                     <a>보유 BZ</a>
                     <a style="float:right">
@@ -85,20 +83,34 @@
                       type="number"
                     ></b-form-input>
                   </li>
+                  =======
+                  <ul>
+                    <li id="bz_am">
+                      <a>보유 BZ</a>
+                      <a class="bz_amount">
+                        {{ myBz }}
+                      </a>
+                      <img src="../assets/main/main03.png" />
+                    </li>
+                    <li>
+                      <a>사용 BZ</a>
+                      <b-form-input
+                        v-model="form.bz"
+                        @keyup="bzValid"
+                        :state="validation"
+                        type="text"
+                      ></b-form-input>
+                    </li>
+                  </ul>
+                  >>>>>>> ui3
                 </b-form-group>
 
                 <!-- <b-button size="sm">사용</b-button> -->
                 <a id="font-red" style="float:right">{{ error }}</a>
 
                 <div class="bz_detail">
-                  <a>
-                    <FontAwesomeIcon
-                      :icon="faBitcoin"
-                      style="color:#76512c"
-                      size="lg"
-                    />
-                    BZ 사용 방법</a
-                  >
+                  <img src="../assets/main/main03.png" style="float:left" />
+                  <a id="ex"> BZ 사용 방법</a>
                   <li>
                     <a
                       >- BZ를 사용하시려면 [사용 BZ]를 입력하시고 [사용]을
@@ -123,42 +135,55 @@
             </b-collapse>
           </div>
 
-          <div class="pay_modal">
-            <b-modal id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
-              <div class="d-block">
-                <a class="posit_rel margin138">현금 결제</a>
-                <a class="posit_rel" style="float:right">{{ won }} 원</a>
-              </div>
-              <div class="d-block">
-                <a class="posit_rel margin138">BZ 결제</a>
-                <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
-              </div>
-              <div class="d-block" id="total_pay">
-                <a class="posit_rel margin90">총 결제금액</a>
-                <a class="posit_rel2" style="float:right"
-                  >{{ form.price }} 원</a
-                >
-              </div>
-              <div class="text-center">
-                <b-button class="mt-3" inline-block @click="hideModal"
-                  >취소</b-button
-                >
-                <b-button class="mt-3" inline-block @click="payPost"
-                  >확인</b-button
-                >
-              </div>
-            </b-modal>
-          </div>
+          <b-modal
+            centered
+            id="p_modal"
+            ref="pay_modal"
+            hide-footer
+            title="결제 정보"
+          >
+            <div class="d-block">
+              <a class="posit_rel margin138">현금 결제</a>
+              <a class="posit_rel" style="float:right">{{ won }} 원</a>
+            </div>
+            <div class="d-block">
+              <a class="posit_rel margin138">BZ 결제</a>
+              <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
+            </div>
+            <div class="d-block" id="total_pay">
+              <a class="posit_rel margin90">총 결제금액</a>
+              <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
+            </div>
+            <b-button class="mt-3" @click="payPost">확인</b-button>
+            <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
+              >취소</b-button
+            >
+          </b-modal>
 
           <div class="form_btn text-center">
-            <b-button type="reset">취소</b-button>
-            <b-button type="submit" ref="pay_btn" :disabled="error.length > 9"
-              >결제</b-button
-            >
+            <b-button type="submit" :disabled="error.length > 9">결제</b-button>
+            <b-button href="/Main">취소</b-button>
           </div>
         </div>
       </b-card>
     </b-form>
+    <div>
+      <b-card class="end_Payment">
+        <li>
+          <h4>
+            결제 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -170,6 +195,7 @@ import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import axios from "axios";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "app",
@@ -186,7 +212,7 @@ export default {
       //아이콘
       faQrcode,
       faBitcoin,
-
+      faAngleRight,
       //결제 입력폼
       form: {
         scanned: "",
@@ -239,18 +265,26 @@ export default {
       console.error(this.errorMessage);
     },
 
+    // -----------------------------결제금액폼 유효성 검사----------------------
+    payAmountValid() {
+      this.form.price = this.form.price.replace(/[^0-9]/g, "");
+    },
+    bzValid() {
+      this.form.bz = this.form.bz.replace(/[^0-9]/g, "");
+    },
+
     //결제 입력폼
     onSubmit(event) {
-      event.preventDefault();
-      // alert(JSON.stringify(this.form));
-      this.$refs["pay_modal"].show();
-      this.won = parseInt(this.form.price) - parseInt(this.form.bz * 100);
-    },
-    onReset(event) {
-      event.preventDefault();
-      this.form.scanned = "";
-      this.form.price = "";
-      this.form.bz = "";
+      if (this.form.scanned.length == 0) {
+        event.preventDefault();
+        alert("QR코드를 인식해주세요.");
+        return;
+      } else {
+        event.preventDefault();
+        // alert(JSON.stringify(this.form));
+        this.$refs["pay_modal"].show();
+        this.won = parseInt(this.form.price) - parseInt(this.form.bz * 100);
+      }
     },
 
     //최종 결제 버튼 후 모달
@@ -371,13 +405,25 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 #page_title {
   font-family: BCcardB;
   text-align: center;
-  color: #76512c78;
+  color: #76512cc1;
   font-weight: 900;
-  border-bottom: 3px solid #76512c78;
+  border-bottom: 3px solid #76512cc1;
   margin: 10%;
 }
 
@@ -386,7 +432,6 @@ export default {
   border: 2.5px solid #76512c78;
   border-radius: 30px;
   margin: 4% 6%;
-  color: #76512c78;
 }
 
 #card_qr .card-body {
@@ -430,12 +475,15 @@ export default {
 #card_qr .btn {
   color: #fff;
   background-color: #76512cb8;
+  border-color: #76512cb8;
   display: inline-block;
+  font-weight: 900;
+  font-size: 17px;
 }
 
 #pay_modal {
   font-family: BCcardB;
-  color: #f8b704;
+  color: #76512c;
   font-size: 18px;
   font-weight: 600;
   text-align: center;
@@ -443,7 +491,8 @@ export default {
 
 #pay_modal .btn {
   color: #fff;
-  background-color: #76512cb8;
+  background-color: #76512c93;
+  width: 23%;
 }
 
 .qrsuccess {
@@ -452,19 +501,22 @@ export default {
 
 .qrheader {
   margin: 5%;
-  border-bottom: 3px solid #f8b704;
+  border-bottom: 3px solid #76512c;
 }
 
 /*---------------------------결제 폼------------------------------ */
 .form_btn .btn {
   margin-top: 30px;
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 20px;
+  margin-right: 20px;
   font-size: 17px;
+  border-radius: 15px;
+  width: 27%;
 }
 
-.pay_amount a {
-  color: #76512c;
+.pay_amount {
+  /* color: #76512c; */
+  color: #0c0804;
   font-weight: 600;
   margin-left: 5px;
 }
@@ -482,33 +534,37 @@ export default {
 }
 
 #pay_amount {
-  width: 75%;
+  width: 68%;
 }
 
 /*---------------------------BZ 폼------------------------------ */
 #bz_amount .btn {
-  margin-right: 10px;
-  /* color: #f8b704; */
-  font-weight: 900;
-  background-color: #f8b7048e;
+  background-color: #f8b704;
+  border-color: #f8b704;
   margin-top: 10px;
+  width: 33%;
+  font-size: 15px;
+}
+
+#bzForm img {
+  width: 8%;
+  float: right;
 }
 
 #bzForm .card {
-  background-color: rgba(253, 249, 136, 0.285);
+  background-color: rgba(253, 249, 136, 0.211);
   border-radius: 15px;
 }
 
 #bzForm .form-control {
-  width: 50%;
+  width: 58%;
   float: right;
 }
 
-/* #bzForm .btn {
+.bz_amount {
   float: right;
-  margin-bottom: 5px;
-  margin-top: 5px;
-} */
+  margin-left: 5px;
+}
 
 #font-red {
   color: rgb(226, 38, 38);
@@ -522,22 +578,39 @@ export default {
   font-size: 11px;
 }
 
+#ex {
+  margin-left: 5px;
+}
+
+#bz_am {
+  margin-bottom: 8px;
+}
+
 /*---------------------------결제 버튼 후 모달------------------------------ */
+.modal-header {
+  margin: 3%;
+}
+
+.modal-title {
+  font-weight: 800;
+}
 
 #p_modal {
   font-family: BCcardB;
   color: #76512c;
-  font-weight: 600;
+  /* padding: 4%; */
+  /* top: 10%; */
+  font-size: 15px;
 }
 
 #p_modal .btn {
   color: #76512c;
-  background-color: #ffde02;
+  background-color: #ffde028c;
   width: 25%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
 
 #total_pay {
@@ -550,5 +623,45 @@ export default {
 #total_pay {
   position: relative;
   right: -5%;
+}
+
+.posit_rel.margin90 {
+  left: 13.5%;
+}
+
+.posit_rel.margin138 {
+  left: 17%;
+}
+
+.posit_rel {
+  position: relative;
+  right: 19%;
+}
+
+.posit_rel2 {
+  position: relative;
+  right: 14.5%;
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Payment {
+  font-family: "GmarketSansTTFMedium";
+  margin-top: 20%;
+}
+
+.end_Payment .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Payment li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Payment h4 {
+  padding: 0;
 }
 </style>

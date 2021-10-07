@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="charge">
     <b-card id="card_charge">
       <img src="../assets/Card3.png" alt="card" />
     </b-card>
@@ -36,7 +36,7 @@
           >
         </li>
 
-        <b-form @submit="onSubmit" @reset="onReset">
+        <b-form @submit="onSubmit">
           <!-- <b-form @submit="onSubmit" @reset="onReset" v-if="show"> -->
           <b-input-group class="form_charge">
             <b-form-input
@@ -58,37 +58,60 @@
         </b-form>
       </ul>
       <div class="text-center">
-        <b-button id="ch_btn" @click="showModal" :disabled="error.length > 9">
+        <b-button
+          id="ch_btn"
+          @click="$bvModal.show('ch_modal')"
+          :disabled="error.length > 9"
+        >
           충전
         </b-button>
+        <b-button id="ch_btn" href="/Main">취소</b-button>
       </div>
     </div>
 
-    <div class="charge_modal" id="modal_top">
-      <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
-        <div class="d-block">
-          <a class="posit_rel margin138">충전 금액</a>
-          <a class="posit_rel" style="float:right"
-            >{{ form.number | comma }} 원</a
-          >
-        </div>
-        <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
+    <b-modal centered id="ch_modal" hide-footer title="충전 정보">
+      <div class="d-block">
+        <a class="posit_rel margin138">충전 금액</a>
+        <a class="posit_rel" style="float:right"
+          >{{ form.number | comma }} 원</a
+        >
+      </div>
+      <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
-        <div class="d-block">
-          <a class="posit_rel margin138">인센티브</a>
-          <a class="posit_rel" style="float:right"
-            >{{ incentive_amount | comma }} 원</a
-          >
-        </div>
-        <div class="d-block" id="total_charge">
-          <a class="posit_rel margin90">총 충전금액</a>
-          <a class="posit_rel2" style="float:right"
-            >{{ charge_amount | comma }} 원</a
-          >
-        </div>
-        <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
-        <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
-      </b-modal>
+      <div class="d-block">
+        <a class="posit_rel margin138">인센티브</a>
+        <a class="posit_rel" style="float:right"
+          >{{ incentive_amount | comma } 원</a
+        >
+      </div>
+      <div class="d-block" id="total_charge">
+        <a class="posit_rel margin90">총 충전금액</a>
+        <a class="posit_rel2" style="float:right"
+          >{{ charge_amount | comma }} 원</a
+        >
+      </div>
+      <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
+      <b-button class="mt-3" inline-block @click="$bvModal.hide('ch_modal')"
+        >취소</b-button
+      >
+    </b-modal>
+
+    <div>
+      <b-card class="end_Charge">
+        <li>
+          <h4>
+            충전 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
     </div>
   </div>
 </template>
@@ -98,9 +121,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  name: "App",
+  name: "charge",
   components: {
     FontAwesomeIcon,
   },
@@ -113,7 +137,7 @@ export default {
       charge_amount: "",
       //아이콘
       faRedo,
-
+      faAngleRight,
       form: {
         number: "",
       },
@@ -155,14 +179,6 @@ export default {
       // this.$nextTick(() => {
       //   this.show = true;
       // });
-    },
-
-    //충전 버튼 후 모달창
-    showModal() {
-      this.$refs["charge_modal"].show();
-    },
-    hideModal() {
-      this.$refs["charge_modal"].hide();
     },
 
     //값 전달 axios
@@ -247,6 +263,24 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24Ssurround";
+  src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /*--------------------------card--------------------------- */
 #card_charge {
@@ -305,6 +339,7 @@ export default {
   background-color: #f8d97171;
   border-radius: 17px;
   padding: 20px 14px;
+  margin-bottom: 5%;
 }
 
 /* .charge_am {
@@ -321,11 +356,14 @@ export default {
   margin-top: 5%;
   color: #76512c;
   background-color: #f8d97171;
-  font-size: 23px;
+  border-color: #f8d97171;
+  font-size: 17px;
   font-weight: 900;
-  /* border: 2.5px solid #76512c; */
-  border: 0;
-  font-family: BCcardB;
+  width: 27%;
+  border-radius: 17px;
+  margin-bottom: 17%;
+  margin-left: 7%;
+  margin-right: 7%;
 }
 #btn_color {
   color: #fbca47;
@@ -337,27 +375,32 @@ export default {
 }
 
 /*-------------------------- 충전 모달창-------------------------- */
-#modal_top {
-  top: 550px;
+.modal-title {
+  font-weight: 800;
 }
+
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
-  padding: 10px;
-  top: 10%;
+  /* padding: 5%; */
+  /* top: 10%; */
+  font-size: 15px;
 }
+
 .modal-header {
   margin: 3%;
 }
 
 #ch_modal .btn {
   color: #76512c;
-  background-color: #ffde02;
-  width: 30%;
-  margin-left: 15%;
+  background-color: #ffde028c;
+  width: 25%;
+  margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 15px;
 }
+
 #total_charge {
   border-top: 2px solid #76512c;
   margin-top: 2%;
@@ -402,5 +445,26 @@ export default {
 }
 .posit_rel.margin164 {
   left: 20%;
+}
+/*--------------------------공지사항/q&a-------------------------- */
+.end_Charge {
+  font-family: "GmarketSansTTFMedium";
+}
+
+.end_Charge .card-body {
+  font-weight: 600;
+  padding: 0;
+}
+
+.end_Charge li {
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.end_Charge h4 {
+  padding: 0;
 }
 </style>
