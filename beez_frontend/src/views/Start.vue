@@ -202,21 +202,21 @@
     <div class="explain_bz">
       <b-card-group deck>
         <b-card header="BEEZ 지역화폐 소식">
-          <ui>
+          <ul>
             <li>
               <p>충전, 구매, 리뷰 모두 혜택이?</p>
               <h4>BEEZ지역화폐 지역주민 활용 가이드</h4>
             </li>
             <img src="../assets/start_main/icon07.png" />
-          </ui>
+          </ul>
 
-          <ui>
+          <ul>
             <li>
               <p>골목 상권의 활성화를 위한,</p>
               <h4>BEEZ지역화폐 소상공인 활용 가이드</h4>
             </li>
             <img src="../assets/start_main/icon08.png" />
-          </ui>
+          </ul>
         </b-card>
       </b-card-group>
     </div>
@@ -666,7 +666,7 @@ export default {
   display: inline-block;
 }
 
-.explain_bz ui {
+.explain_bz ul {
   display: inline-block;
   margin-top: 15px;
   margin-bottom: 15px;

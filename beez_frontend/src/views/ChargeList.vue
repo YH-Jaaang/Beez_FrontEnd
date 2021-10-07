@@ -86,6 +86,7 @@
       </div>
     </div>
     <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
+
     <div>
       <b-card class="end_Chargelist">
         <li>
@@ -236,7 +237,7 @@ export default {
 
 #ChargeList_btn2 {
   margin: 0 auto;
-  background-color: #94785bb8;
+  background-color: #94785ba1;
   color: white;
   display: block;
   padding: 1.5%;
@@ -247,6 +248,7 @@ export default {
   margin-top: 8%;
   border-radius: 15px;
 }
+
 /*--------------------------공지사항/q&a-------------------------- */
 .end_Chargelist {
   font-family: "GmarketSansTTFMedium";

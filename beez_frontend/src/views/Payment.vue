@@ -113,33 +113,29 @@
             </b-collapse>
           </div>
 
-          <div class="pay_modal">
-            <b-modal id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
-              <div class="d-block">
-                <a class="posit_rel margin138">현금 결제</a>
-                <a class="posit_rel" style="float:right">{{ won }} 원</a>
-              </div>
-              <div class="d-block">
-                <a class="posit_rel margin138">BZ 결제</a>
-                <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
-              </div>
-              <div class="d-block" id="total_pay">
-                <a class="posit_rel margin90">총 결제금액</a>
-                <a class="posit_rel2" style="float:right"
-                  >{{ form.price }} 원</a
-                >
-              </div>
-              <div class="text-center">
-                <b-button class="mt-3" @click="payPost">확인</b-button>
-                <b-button class="mt-3" @click="hideModal">취소</b-button>
-              </div>
-            </b-modal>
-          </div>
+          <b-modal id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
+            <div class="d-block">
+              <a class="posit_rel margin138">현금 결제</a>
+              <a class="posit_rel" style="float:right">{{ won }} 원</a>
+            </div>
+            <div class="d-block">
+              <a class="posit_rel margin138">BZ 결제</a>
+              <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
+            </div>
+            <div class="d-block" id="total_pay">
+              <a class="posit_rel margin90">총 결제금액</a>
+              <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
+            </div>
+            <div class="text-center">
+              <b-button class="mt-3" @click="payPost">확인</b-button>
+              <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
+                >취소</b-button
+              >
+            </div>
+          </b-modal>
 
           <div class="form_btn text-center">
-            <b-button type="submit" :disabled="error.length > 9"
-              >결제</b-button
-            >
+            <b-button type="submit" :disabled="error.length > 9">결제</b-button>
             <b-button href="/Main">취소</b-button>
           </div>
         </div>
@@ -251,17 +247,8 @@ export default {
         this.won = parseInt(this.form.price) - parseInt(this.form.bz * 100);
       }
     },
-    // onReset(event) {
-    //   event.preventDefault();
-    //   this.form.scanned = "";
-    //   this.form.price = "";
-    //   this.form.bz = "";
-    // },
 
     //최종 결제 버튼 후 모달
-    hideModal() {
-      this.$refs["pay_modal"].hide();
-    },
     payPost() {
       // ----------------------------------추후 수정-------------------------------
       // axios
@@ -511,6 +498,24 @@ export default {
 #total_pay {
   position: relative;
   right: -5%;
+}
+
+.posit_rel.margin90 {
+  left: 13.5%;
+}
+
+.posit_rel.margin138 {
+  left: 17%;
+}
+
+.posit_rel {
+  position: relative;
+  right: 19%;
+}
+
+.posit_rel2 {
+  position: relative;
+  right: 14.5%;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_Payment {

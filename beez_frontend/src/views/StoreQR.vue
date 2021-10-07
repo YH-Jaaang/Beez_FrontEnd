@@ -115,7 +115,7 @@ export default {
   padding: 6% 4%;
   color: #100055;
   border-radius: 20px;
-  background-color: #e0f5f7;
+  background-color: #e0eef7;
   width: 70%;
   margin: 0 auto;
   font-size: 12pt;
@@ -147,7 +147,7 @@ export default {
 }
 #StoreQR_btn2 {
   margin: 0 auto;
-  background-color: #e0f5f7;
+  background-color: #bfdefa;
   color: #100055;
   display: block;
   padding: 2%;

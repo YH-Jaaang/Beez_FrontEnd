@@ -20,7 +20,7 @@
                 <FontAwesomeIcon :icon="faAngleRight" id="ac_icon2" />
               </h3>
               <!-- filter를 이용하여 콤마찍기 -->
-              <h1>{{ totalSales }}원</h1>
+              <h1>{{ totalSales }} 원</h1>
             </b-col>
           </b-row>
         </b-container>
@@ -30,11 +30,11 @@
         <ul class="detail_ac_ceo">
           <li>
             <a>현금 매출</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
           <li>
             <a>토큰 매출</a>
-            <a style="float:right">{{ TokenSales }}원</a>
+            <a style="float:right">{{ TokenSales }} 원</a>
           </li>
           <div class="text-center"></div>
         </ul>
@@ -44,27 +44,28 @@
     <b-card id="card_main_ceo2">
       <b-card class="title_won">
         <h2>
-          <FontAwesomeIcon :icon="faWonSign" style="color:#fff" />
+          <img src="../assets/main/main08.png" />
           현금 매출
+          <b-button href="StoreWithdrawal" style="float:right">
+            출금
+          </b-button>
         </h2>
-        <b-button href="StoreWithdrawal" style="float:right">
-          출금
-        </b-button>
       </b-card>
 
       <div>
         <ul class="detail_won">
           <li>
             <a>이번달 매출</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
           <li>
             <a>출금가능 현금</a>
-            <a style="float:right">{{ CashSales }}원</a>
+            <a style="float:right">{{ CashSales }} 원</a>
           </li>
           <li class="text-center">
-            <b-button id="WithdrawalBtn" href="StoreWithdrawalList"
-              >출금 내역</b-button
+            <b-button id="WithdrawalBtn" href="StoreWithdrawalList">
+              <FontAwesomeIcon :icon="faFileInvoiceDollar" id="wi_icon" />
+              출금 내역</b-button
             >
           </li>
           <div class="text-center"></div>
@@ -138,9 +139,9 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -156,9 +157,9 @@ export default {
       //아이콘
       faWonSign,
       faQrcode,
-      faBitcoin,
       faCaretDown,
       faAngleRight,
+      faFileInvoiceDollar,
 
       //매출값
       totalSales: "11,530,000",
@@ -348,7 +349,6 @@ export default {
   font-size: 18px;
   border: 2px solid;
   padding: 2px 10px 2px 10px;
-  margin-top: -4px;
 }
 
 .detail_won {
@@ -366,10 +366,20 @@ export default {
 
 #WithdrawalBtn {
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   background-color: #001fb8a7;
   font-weight: 600;
   width: 80%;
+}
+
+#wi_icon {
+  color: #fff;
+  margin-right: 5px;
+}
+
+.title_won img {
+  width: 15%;
+  margin-right: 5px;
 }
 
 /*-------------------------- 비즈-------------------------- */
@@ -416,7 +426,7 @@ export default {
 }
 
 .title_bz_ceo img {
-  width: 10%;
+  width: 12%;
   margin-right: 5px;
 }
 
@@ -431,8 +441,8 @@ export default {
   font-size: 18px;
   border: 2px solid;
   padding: 2px 10px 2px 10px;
-  margin-top: -4px;
 }
+
 /*-------------------------- 내역/리뷰 버튼-------------------------- */
 .li_btn_ceo {
   font-family: BCcardB;
@@ -441,7 +451,7 @@ export default {
 
 .li_btn_ceo .btn {
   color: #ffffff;
-  background-color: #03349692;
+  background-color: #2261aed2;
   margin-left: 25px;
   margin-right: 25px;
   font-size: 23px;

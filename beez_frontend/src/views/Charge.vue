@@ -51,28 +51,27 @@
       </div>
     </div>
 
-    <div class="charge_modal">
-      <b-modal id="ch_modal" ref="charge_modal" hide-footer title="충전 정보">
-        <div class="d-block">
-          <a class="posit_rel margin138">충전 금액</a>
-          <a class="posit_rel" style="float:right">{{ form.number }} 원</a>
-        </div>
-        <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
+    <b-modal id="ch_modal" hide-footer title="충전 정보">
+      <div class="d-block">
+        <a class="posit_rel margin138">충전 금액</a>
+        <a class="posit_rel" style="float:right">{{ form.number }} 원</a>
+      </div>
+      <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
-        <div class="d-block">
-          <a class="posit_rel margin138">인센티브</a>
-          <a class="posit_rel" style="float:right"
-            >{{ form.number * 0.1 }} 원</a
-          >
-        </div>
-        <div class="d-block" id="total_charge">
-          <a class="posit_rel margin90">총 충전금액</a>
-          <a class="posit_rel2" style="float:right">{{ charge_amount }} 원</a>
-        </div>
-        <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
-        <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
-      </b-modal>
-    </div>
+      <div class="d-block">
+        <a class="posit_rel margin138">인센티브</a>
+        <a class="posit_rel" style="float:right">{{ form.number * 0.1 }} 원</a>
+      </div>
+      <div class="d-block" id="total_charge">
+        <a class="posit_rel margin90">총 충전금액</a>
+        <a class="posit_rel2" style="float:right">{{ charge_amount }} 원</a>
+      </div>
+      <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
+      <b-button class="mt-3" inline-block @click="$bvModal.hide('ch_modal')"
+        >취소</b-button
+      >
+    </b-modal>
+
     <div>
       <b-card class="end_Charge">
         <li>
@@ -135,14 +134,6 @@ export default {
       // this.$nextTick(() => {
       //   this.show = true;
       // });
-    },
-
-    //충전 버튼 후 모달창
-    showModal() {
-      this.$refs["charge_modal"].show();
-    },
-    hideModal() {
-      this.$refs["charge_modal"].hide();
     },
 
     //값 전달 axios
