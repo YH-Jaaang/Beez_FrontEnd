@@ -366,7 +366,7 @@ export default {
   margin-right: 14px;
   padding: 2%;
   font-family: BCcardB;
-  margin-bottom: 60px;
+  margin-bottom: 20%;
 }
 
 /*--------------------------공지사항/q&a-------------------------- */

@@ -302,7 +302,7 @@ export default {
   width: 20%;
   font-size: 15px;
   font-weight: 900;
-  margin-bottom: 17%;
+  margin-bottom: 20%;
 }
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {

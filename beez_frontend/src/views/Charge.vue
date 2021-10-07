@@ -290,7 +290,7 @@ export default {
   font-family: Cafe24Ssurround;
   width: 27%;
   border-radius: 17px;
-  margin-bottom: 15%;
+  margin-bottom: 17%;
   margin-left: 7%;
   margin-right: 7%;
 }
