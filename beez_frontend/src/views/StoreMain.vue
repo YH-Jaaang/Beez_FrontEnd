@@ -19,26 +19,22 @@
                 {{ month }}월 총 매출
                 <FontAwesomeIcon :icon="faAngleRight" id="ac_icon2" />
               </h3>
-              <!-- filter를 이용하여 콤마찍기 -->
               <h1>{{ totalSales }} 원</h1>
             </b-col>
           </b-row>
         </b-container>
       </b-card>
-
-      <div>
-        <ul class="detail_ac_ceo">
-          <li>
-            <a>현금 매출</a>
-            <a style="float:right">{{ CashSales }} 원</a>
-          </li>
-          <li>
-            <a>토큰 매출</a>
-            <a style="float:right">{{ TokenSales }} 원</a>
-          </li>
-          <div class="text-center"></div>
-        </ul>
-      </div>
+      <ul class="detail_ac_ceo">
+        <li>
+          <a>현금 매출</a>
+          <a style="float:right">{{ CashSales }} 원</a>
+        </li>
+        <li>
+          <a>토큰 매출</a>
+          <a style="float:right">{{ TokenSales }} 원</a>
+        </li>
+        <div class="text-center"></div>
+      </ul>
     </b-card>
 
     <b-card id="card_main_ceo2">
@@ -51,26 +47,22 @@
           </b-button>
         </h2>
       </b-card>
-
-      <div>
-        <ul class="detail_won">
-          <li>
-            <a>이번달 매출</a>
-            <a style="float:right">{{ CashSales }} 원</a>
-          </li>
-          <li>
-            <a>출금가능 현금</a>
-            <a style="float:right">{{ CashSales }} 원</a>
-          </li>
-          <li class="text-center">
-            <b-button id="WithdrawalBtn" href="StoreWithdrawalList">
-              <FontAwesomeIcon :icon="faFileInvoiceDollar" id="wi_icon" />
-              출금 내역</b-button
-            >
-          </li>
-          <div class="text-center"></div>
-        </ul>
-      </div>
+      <ul class="detail_won">
+        <li>
+          <a>이번달 매출</a>
+          <a style="float:right">{{ CashSales }} 원</a>
+        </li>
+        <li>
+          <a>출금가능 현금</a>
+          <a style="float:right">{{ CashSales }} 원</a>
+        </li>
+        <li class="text-center">
+          <b-button id="WithdrawalBtn" href="StoreWithdrawalList">
+            <FontAwesomeIcon :icon="faFileInvoiceDollar" id="wi_icon" />
+            출금 내역</b-button
+          >
+        </li>
+      </ul>
     </b-card>
 
     <b-card id="card_main_ceo3">
@@ -137,7 +129,6 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -149,13 +140,7 @@ export default {
   },
   data() {
     return {
-      total: "300,000",
-      incentiveOfMonth: "10,000",
-      chargeOfMonth: "100,000",
-      myBz: 33,
-
       //아이콘
-      faWonSign,
       faQrcode,
       faCaretDown,
       faAngleRight,
@@ -168,9 +153,6 @@ export default {
       myBzExample: "5300",
       myBzExchange: "5000",
       month: 0,
-      //동의확인
-      status: "동의 안함",
-      status2: "동의 안함",
     };
   },
   created() {
@@ -215,10 +197,8 @@ export default {
 #user_explain2 {
   border-radius: 20px;
   padding: 0;
-  /* background-color: #f8f3e19a; */
   border: 2px solid #76512c;
   margin: 5%;
-  /* color: #76512c; */
   display: inline-block;
 }
 
@@ -231,8 +211,7 @@ export default {
 #user_explain2 img {
   float: right;
   width: 50%;
-  margin-top: -28%;
-  margin-right: 4%;
+  margin: -28% 4% 0% 0%;
 }
 
 @media (min-width: 500px) {
@@ -251,11 +230,10 @@ export default {
 }
 
 #user_explain2 h5 {
+  font-size: 15px;
   font-family: "GmarketSansTTFMedium";
   display: inline-block;
-  margin-left: 4%;
-  font-size: 15px;
-  margin-top: 15px;
+  margin: 15px 0% 0% 4%;
 }
 
 /*--------------------------card_ 원화1-------------------------- */
@@ -263,9 +241,7 @@ export default {
   font-family: BCcardB;
   background-color: #1158ae23;
   border-radius: 30px;
-  margin-top: 4%;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin: 4% 4% 0% 4%;
 }
 
 .card-body {
@@ -323,9 +299,7 @@ export default {
   font-family: BCcardB;
   background-color: #001fb818;
   border-radius: 30px;
-  margin-top: 6%;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin: 6% 4% 0% 4%;
 }
 
 .title_won h2 {
@@ -387,9 +361,7 @@ export default {
   font-family: BCcardB;
   background-color: #001fb818;
   border-radius: 30px;
-  margin-top: 6%;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin: 6% 4% 0% 4%;
 }
 
 .detail_bz_ceo {
@@ -452,12 +424,10 @@ export default {
 .li_btn_ceo .btn {
   color: #ffffff;
   background-color: #2261aed2;
-  margin-left: 25px;
-  margin-right: 25px;
   font-size: 23px;
   font-weight: 900;
   width: 55%;
-  margin-bottom: 15%;
+  margin: 0 25px 15% 25px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
 .end_StoreMain {
@@ -470,10 +440,7 @@ export default {
 }
 
 .end_StoreMain li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 

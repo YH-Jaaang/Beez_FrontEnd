@@ -1,15 +1,14 @@
 <template>
   <div class="StoreWithdrawalList_section">
-    <div class="StoreWithdrawalList text-center">
-      <a id="Store_WithdrawalList">
+    <div class="StoreWithdrawalList">
+      <a>
         <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#100055" />
-
         출금 내역
       </a>
     </div>
-    <span class="span-blank">빈</span>
+
     <ul class="Store_TotalSales">
-      <li id="WithdrawalList_font">
+      <li>
         <a>계좌 번호: {{ Store_Withrawal_account }} </a>
         <div>
           <a>은행: {{ Store_Withrawal_bank }}</a>
@@ -19,83 +18,63 @@
     </ul>
 
     <div class="WithdrawalList_box">
-      <div class="store_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-                Store_Withrawal_day
-              }}
-              {{ Store_Withrawal_time }}</a
-            >
-            <a style="float:right">{{ Withdrawal_amount }}원</a>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li>
+          <a
+            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+              Store_Withrawal_day
+            }}
+            {{ Store_Withrawal_time }}</a
+          >
+          <a style="float:right">{{ Withdrawal_amount }}원</a>
+        </li>
+      </ul>
     </div>
+
     <div class="WithdrawalList_box">
-      <div class="store_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-                Store_Withrawal_day
-              }}
-              {{ Store_Withrawal_time }}</a
-            >
-            <a style="float:right">{{ Withdrawal_amount }}원</a>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li>
+          <a
+            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+              Store_Withrawal_day
+            }}
+            {{ Store_Withrawal_time }}</a
+          >
+          <a style="float:right">{{ Withdrawal_amount }}원</a>
+        </li>
+      </ul>
     </div>
+
     <div class="WithdrawalList_box">
-      <div class="store_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-                Store_Withrawal_day
-              }}
-              {{ Store_Withrawal_time }}</a
-            >
-            <a style="float:right">{{ Withdrawal_amount }}원</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="WithdrawalList_box">
-      <div class="store_history">
-        <ul>
-          <li class="">
-            <a
-              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-                Store_Withrawal_day
-              }}
-              {{ Store_Withrawal_time }}</a
-            >
-            <a style="float:right">{{ Withdrawal_amount }}원</a>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li>
+          <a
+            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+              Store_Withrawal_day
+            }}
+            {{ Store_Withrawal_time }}</a
+          >
+          <a style="float:right">{{ Withdrawal_amount }}원</a>
+        </li>
+      </ul>
     </div>
     <b-button id="StoreWithdrawalList_check" href="/StoreMain">확 인</b-button>
-    <div>
-      <b-card class="end_StoreWithdrawalList">
-        <li>
-          <h4>
-            현금 출금 안내<FontAwesomeIcon
-              :icon="faAngleRight"
-              style="float:right"
-            />
-          </h4>
-        </li>
-        <li>
-          <h4>
-            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
-          </h4>
-        </li>
-      </b-card>
-    </div>
+
+    <b-card id="end_StoreWithdrawalList">
+      <li>
+        <h4>
+          현금 출금 안내<FontAwesomeIcon
+            :icon="faAngleRight"
+            style="float:right"
+          />
+        </h4>
+      </li>
+      <li>
+        <h4>
+          Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+        </h4>
+      </li>
+    </b-card>
   </div>
 </template>
 
@@ -157,28 +136,22 @@ export default {
 }
 
 .StoreWithdrawalList {
-  font-family: BCcardB;
   text-align: center;
   color: #100055;
-  font-weight: 900;
   border-bottom: 3px solid #100055;
-  margin: 0 10% 0 10%;
-  margin-bottom: -4%;
-}
-/*---------------------------출금가능한 금액-------------------------------*/
-#Store_WithdrawalList {
+  margin: 0 10% 4% 10%;
   font-size: 24px;
 }
+
+/*---------------------------계좌 정보-------------------------------*/
 .Store_TotalSales {
-  font-size: 22px;
-  font-weight: 900;
+  font-size: 14px;
   color: #100055;
   padding: 2% 3%;
   background-color: #e0f5f7;
   width: 83%;
-  margin: 3% auto;
+  margin: 3% auto 5% 8%;
   border-radius: 10px;
-  margin-bottom: 8%;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .WithdrawalList_box {
@@ -188,55 +161,42 @@ export default {
   background-color: #dbf3e8;
   width: 83%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
-  margin-bottom: 15px;
-  margin-left: 7.5%;
+  margin: 0 0 15px 7.5%;
   font-size: 10pt;
-}
-#WithdrawalList_font {
-  font-size: 14px;
 }
 
 .bar {
   border-bottom: 1.5px solid #100055;
   margin-bottom: 4%;
 }
-.overflow-auto {
-  width: 100%;
-  text-align: center;
-}
 
 /*---------------------------페이지 넘김------------------------------*/
 #StoreWithdrawalList_check {
-  margin: 0 auto;
   background-color: #e0f5f7;
   display: block;
   width: 25%;
   font-size: 17px;
   font-weight: 900;
-  margin-top: 8%;
-  margin-bottom: 20%;
+  margin: 8% auto 20% auto;
   color: #100055;
   border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
-.end_StoreWithdrawalList {
+#end_StoreWithdrawalList {
   font-family: "GmarketSansTTFMedium";
 }
 
-.end_StoreWithdrawalList .card-body {
+#end_StoreWithdrawalList .card-body {
   font-weight: 600;
   padding: 0;
 }
 
-.end_StoreWithdrawalList li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+#end_StoreWithdrawalList li {
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.end_StoreWithdrawalList h4 {
+#end_StoreWithdrawalList h4 {
   padding: 0;
 }
 </style>

@@ -19,26 +19,22 @@
             <a style="position:relative; left:20px">{{ form.bzAmount }} 개</a>
           </li>
 
-          <ul class="change_token">
-            <b-input-group append="BZ">
-              <b-form-input
-                v-model="form.bzInput"
-                type="text"
-                @keyup="tokenValid"
-                :state="state"
-              ></b-form-input>
-            </b-input-group>
+          <b-input-group append="BZ">
+            <b-form-input
+              v-model="form.bzInput"
+              type="text"
+              @keyup="tokenValid"
+              :state="state"
+            ></b-form-input>
+          </b-input-group>
 
-            <b-input-group append="원">
-              <b-form-input v-model="form.bzToWon" disabled>{{
-                form.bzToWon
-              }}</b-form-input>
-            </b-input-group>
+          <b-input-group append="원">
+            <b-form-input v-model="form.bzToWon" disabled>{{
+              form.bzToWon
+            }}</b-form-input>
+          </b-input-group>
 
-            <li>
-              <a id="font-red">{{ error }}</a>
-            </li>
-          </ul>
+          <a id="font-red">{{ error }}</a>
         </ul>
 
         <div class="exchange_btn text-center">
@@ -48,7 +44,7 @@
           >
             환전
           </b-button>
-          <b-button id="wi_btn" href="/StoreMain">취소</b-button>
+          <b-button href="/StoreMain">취소</b-button>
         </div>
       </b-form>
 
@@ -65,7 +61,7 @@
           <a class="posit_rel margin">환전 금액</a>
           <a class="posit_rel" style="float:right"> {{ form.bzToWon }} 원</a>
         </div>
-        <div class="d-block" id="total_excharge">
+        <div class="d-block" id="total_charge">
           <a class="posit_rel margin2">잔여 BZ</a>
           <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
         </div>
@@ -182,7 +178,6 @@ export default {
   border: 2px solid rgb(51, 28, 155);
   border-radius: 50px;
   width: 12rem;
-  height: 17rem;
   margin: 30px auto;
 }
 
@@ -195,7 +190,7 @@ export default {
 .exchange_section {
   font-family: BCcardB;
   font-weight: 600;
-  margin: 30px 30px 30px 30px;
+  margin: 30px;
 }
 
 .Storebank_ac {
@@ -205,21 +200,9 @@ export default {
   padding: 10px;
   margin-bottom: 30px;
 }
-/* .bank_ac li {
-  padding: 10px;
-} */
 
 /*--------------------------BEEZ_amount/changetoken_amount------------------------------- */
-.BZ_am {
-  font-size: 12px;
-  margin-left: 10px;
-}
-
-.change_token {
-  font-size: 20px;
-}
-
-.change_token .form-control {
+.detail_bz_ceo .form-control {
   display: inline-block;
   background-color: rgba(125, 174, 224, 0.463);
   border: 2px solid rgba(125, 174, 224, 0.463);
@@ -229,7 +212,7 @@ export default {
   margin-bottom: 10px;
 }
 
-.change_token .input-group-text {
+.detail_bz_ceo .input-group-text {
   background-color: rgba(125, 174, 224, 0.463);
   border-radius: 10px;
   margin-bottom: 10px;
@@ -241,52 +224,31 @@ export default {
 #font-red {
   color: rgb(226, 38, 38);
   font-size: 13px;
-  margin-right: 7px;
+  margin-left: 7px;
 }
 /*-------------------------- 비즈-------------------------- */
 .detail_bz_ceo {
   color: #100055;
-  font-weight: 600;
   background-color: #0a6adf1a;
   border-radius: 17px;
   padding: 8px 14px;
-  /* border: 2px solid #76512c; */
 }
+
 .detail_bz_ceo li {
-  padding-top: 9px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 5px 8px 0 8px;
   font-size: 15px;
 }
 
 /*-------------------------- 환전 버튼-------------------------- */
-.exchange_btn {
-  font-family: BCcardB;
-  margin-top: 30px;
-}
-
 .exchange_btn .btn {
   color: #100055;
   background-color: #0a6adf1a;
   border-color: #0a6adf1a;
-  margin-left: 7%;
-  margin-right: 7%;
   font-size: 17px;
   font-weight: 900;
   border-radius: 15px;
   width: 25%;
-  margin-bottom: 17%;
-}
-
-@media (max-width: 400px) {
-  #changetoken_amount {
-    display: inline-block;
-    background-color: rgba(125, 174, 224, 0.463);
-    /* border: 2px solid #76512c; */
-    border-radius: 10px;
-    padding: 10px;
-    width: 83%;
-  }
+  margin: 8% 7% 17% 7%;
 }
 
 /*-------------------------- 환전 모달창-------------------------- */
@@ -300,8 +262,6 @@ export default {
 #ex_modal {
   font-family: BCcardB;
   color: #100055;
-  /* padding: 10px;
-  top: 10%; */
   font-size: 15px;
 }
 
@@ -312,36 +272,16 @@ export default {
   margin-left: 18%;
   font-size: 14px;
   font-weight: 700;
-  border: 1px solid white;
   border-radius: 15px;
 }
 
-#total_excharge {
-  border-top: 2px solid #100055;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_excharge {
-  position: relative;
-  right: -5%;
-}
 #total_charge {
   border-top: 2px solid #76512c;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_charge {
+  margin: 2% 11% 0 0;
   position: relative;
   right: -5%;
 }
 
-#align_right {
-  float: right;
-}
 .posit_rel {
   position: relative;
   right: 19%;
@@ -372,9 +312,11 @@ export default {
   padding: 0;
 }
 #end_StoreExchangeToken li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#end_StoreExchangeToken h4 {
+  padding: 0;
 }
 </style>

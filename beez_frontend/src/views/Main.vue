@@ -19,7 +19,6 @@
                 사용 가능금액
                 <FontAwesomeIcon :icon="faAngleRight" id="ac_icon" />
               </h3>
-              <!-- filter를 이용하여 콤마찍기 -->
               <h1>{{ this.$store.state.wonBalace | comma }}원</h1>
             </b-col>
           </b-row>
@@ -119,7 +118,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -134,7 +132,6 @@ export default {
       //아이콘
       faWonSign,
       faQrcode,
-      faBitcoin,
       faCaretDown,
       faAngleRight,
     };
@@ -164,12 +161,6 @@ export default {
   font-style: normal;
 }
 @font-face {
-  font-family: "GmarketSansTTFBold";
-  src: url("../fonts/GmarketSansTTFBold.ttf") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: "Cafe24Ssurround";
   src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
   font-weight: normal;
@@ -185,10 +176,8 @@ export default {
 #user_explain {
   border-radius: 20px;
   padding: 0;
-  /* background-color: #f8f3e19a; */
   border: 2px solid #76512c;
   margin: 5%;
-  /* color: #76512c; */
   display: inline-block;
 }
 
@@ -233,10 +222,7 @@ export default {
   font-family: BCcardB;
   background-color: rgba(252, 203, 111, 0.299);
   border-radius: 30px;
-  margin-top: 4%;
-  margin-left: 4%;
-  margin-right: 4%;
-  /* border: 2.5px solid #8e8883e3; */
+  margin: 4% 4% 0 4%;
 }
 
 .card-body {
@@ -247,8 +233,6 @@ export default {
   background-color: #ffbd07b3;
   border-start-start-radius: 30px;
   border-start-end-radius: 30px;
-  /* border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px; */
   padding: 3%;
 }
 
@@ -305,9 +289,7 @@ export default {
   font-family: BCcardB;
   background-color: #ffe6253d;
   border-radius: 30px;
-  margin-top: 4%;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin: 4% 4% 0 4%;
 }
 
 .detail_bz {
@@ -345,8 +327,6 @@ export default {
   background-color: #ffe625d2;
   border-start-start-radius: 30px;
   border-start-end-radius: 30px;
-  /* border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px; */
   padding: 4%;
 }
 
@@ -357,13 +337,11 @@ export default {
 
 /*-------------------------- 내역/리뷰 버튼-------------------------- */
 .li_btn .btn {
-  /* color: #76512c; */
   background-color: #fdef2e7d;
   font-size: 17px;
   font-weight: 900;
   width: 40%;
-  margin-left: 14px;
-  margin-right: 14px;
+  margin: 14px 14px;
   padding: 2%;
   font-family: BCcardB;
   margin-bottom: 20%;
@@ -380,10 +358,7 @@ export default {
 }
 
 .end_start li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 

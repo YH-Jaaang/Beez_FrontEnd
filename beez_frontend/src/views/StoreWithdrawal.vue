@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-card id="card_StoreWithdrawal">
-      <img src="../assets/Card3.png" alt="card" style="float:center" />
+    <b-card id="card_img">
+      <img src="../assets/Card3.png" />
     </b-card>
 
     <!-- 출금가능원화보다 초과되면 에러메세지(:state),출금 모달창 수정하기  -->
@@ -20,7 +20,7 @@
         </li>
 
         <b-form>
-          <b-input-group class="form_charge">
+          <b-input-group>
             <b-form-input
               v-model="withdrawal_won"
               type="text"
@@ -35,9 +35,7 @@
             </b-input-group-append>
           </b-input-group>
 
-          <li>
-            <a id="font-red">{{ error }}</a>
-          </li>
+          <a id="font-red">{{ error }}</a>
         </b-form>
       </ul>
 
@@ -158,18 +156,16 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-/*--------------------------card--------------------------- */
-#card_StoreWithdrawal {
-  font-family: BCcardB;
+/*--------------------------card img--------------------------- */
+#card_img {
   background-color: #c6e4fa;
   border-radius: 50px;
   border: 2px solid rgb(51, 28, 155);
   width: 12rem;
-  height: 17rem;
   margin: 30px auto;
 }
 
-#card_StoreWithdrawal img {
+#card_img img {
   margin: 1px -30px;
   height: 13rem;
 }
@@ -177,8 +173,9 @@ export default {
 /*-------------------------- withdrawal-section -------------------------- */
 .withdrawal_section {
   font-family: BCcardB;
+  color: #100055;
   font-weight: 600;
-  margin: 30px 30px 30px 30px;
+  margin: 30px;
 }
 
 .Storebank_ac {
@@ -192,8 +189,6 @@ export default {
 /*--------------------------withdrawal_amount------------------------------- */
 .withdrawal_amount li {
   font-size: 15px;
-  /* margin-left: 10px; */
-  color: #100055;
   padding: 0px;
 }
 
@@ -207,14 +202,12 @@ export default {
 .withdrawal_amount .form-control {
   background-color: rgba(164, 162, 158, 0.49);
   border-radius: 10px;
-  margin-top: -0.3%;
-  margin-bottom: -0.3%;
+  margin: -0.3% 0 -0.3% 0;
 }
 
 @media (min-width: 454px) {
   .input-group-append {
-    margin-top: -0.2%;
-    margin-bottom: -0.2%;
+    margin: -0.2% 0 -0.2% 0;
   }
 }
 
@@ -228,7 +221,7 @@ export default {
 #font-red {
   color: rgb(226, 38, 38);
   font-size: 13px;
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 /*-------------------------- 출금 버튼-------------------------- */
@@ -239,10 +232,7 @@ export default {
   font-size: 17px;
   font-weight: 900;
   width: 25%;
-  margin-left: 7%;
-  margin-right: 7%;
-  margin-bottom: 17%;
-  margin-top: 8%;
+  margin: 8% 7% 17% 7%;
   border-radius: 15px;
 }
 
@@ -254,12 +244,11 @@ export default {
 .modal-title {
   font-weight: 800;
 }
+
 #wi_modal {
   font-family: BCcardB;
   color: #100055;
   font-size: 15px;
-  /* padding: 10px;
-  top: 10%; */
 }
 
 #wi_modal .btn {
@@ -274,29 +263,9 @@ export default {
 
 #total_excharge {
   border-top: 2px solid #100055;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_excharge {
+  margin: 2% 11% 0 0;
   position: relative;
   right: -5%;
-}
-#total_charge {
-  border-top: 2px solid #76512c;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_charge {
-  position: relative;
-  right: -5%;
-}
-
-#align_right {
-  float: right;
 }
 .posit_rel {
   position: relative;
@@ -318,9 +287,7 @@ export default {
 .posit_rel.margin2 {
   left: 17%;
 }
-.mt-3 {
-  border-radius: 15px;
-}
+
 /*--------------------------------안내----------------------------------------*/
 #end_StoreWithdrawal {
   font-family: "GmarketSansTTFMedium";
@@ -330,9 +297,10 @@ export default {
   padding: 0;
 }
 #end_StoreWithdrawal li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+#end_StoreWithdrawal h4 {
+  padding: 0;
 }
 </style>
