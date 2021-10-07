@@ -70,14 +70,9 @@
           <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
         </div>
 
-        <b-button
-          class="mt-3"
-          inline-block
-          @click="hideModal2"
-          href="/Storemain"
-          >확인</b-button
-        >
-        <b-button class="mt-3" inline-block @click="hideModal2">취소</b-button>
+        <!-- 확인버튼 홈으로 보내야함 -->
+        <b-button class="mt-3">확인</b-button>
+        <b-button class="mt-3" @click="hideModal2">취소</b-button>
       </b-modal>
     </div>
     <b-card id="end_StoreWithdrawal">

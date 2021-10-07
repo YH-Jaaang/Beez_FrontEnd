@@ -73,10 +73,10 @@
             <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
           </div>
 
-          <b-button class="mt-3" inline-block @click="exchangePost"
+          <b-button class="mt-3" @click="exchangePost"
             >확인</b-button
           >
-          <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
+          <b-button class="mt-3" @click="hideModal">취소</b-button>
         </b-modal>
       </div>
     </div>
