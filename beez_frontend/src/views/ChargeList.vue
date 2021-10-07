@@ -207,6 +207,7 @@ export default {
   margin-bottom: 15px;
   margin-left: 7.5%;
   color: #76512c;
+  font-size: 10pt;
 }
 #ChargeList_font {
   font-size: 12px;
@@ -227,9 +228,6 @@ export default {
 @media (max-width: 420px) {
   #User_ChargeList {
     font-size: 18pt;
-  }
-  .ChargeList_box {
-    font-size: 8pt;
   }
 }
 /*---------------------------페이지 넘김------------------------------*/

@@ -113,7 +113,7 @@
         </ul>
       </div>
 
-      <div class="keyword_Review">
+      <div class="text-center">
         <li class="keyword_Review_box">
           <a>분위기가 좋아요! </a>
           <a>반찬종류가 많아요! </a>
@@ -192,6 +192,10 @@ export default {
 }
 
 /*----------------------------Reviewlsit box-------------------------------*/
+.store_history {
+  font-size: 10pt;
+}
+
 .Reviewlist_box {
   padding: 2% 2%;
   border-radius: 20px;
@@ -202,15 +206,13 @@ export default {
   margin-bottom: 15px;
   margin-left: 7.5%;
 }
-.keyword_Review_box {
-  width: 300px 300px;
-  margin: 0 auto;
-}
+
 .keyword_Review_box a {
+  font-size: 8pt;
   padding: 1% 2%;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #fff;
-  margin: 0 auto;
+  margin: 0 3px 0 3px;
 }
 .bar {
   border-bottom: 1.5px solid #100055;
@@ -221,17 +223,6 @@ export default {
   text-align: center;
 }
 
-@media (max-width: 420px) {
-  #Store_Review {
-    font-size: 18pt;
-  }
-  .keyword_Review_box {
-    font-size: 8pt;
-  }
-  .Reviewlist_box {
-    font-size: 8pt;
-  }
-}
 /*---------------------------페이지 넘김------------------------------*/
 .overflow-auto {
   color: #100055;
