@@ -2,170 +2,135 @@
   <div class="UserReview_section">
     <div class="UserReview text-center">
       <a id="User_Review">
-        <FontAwesomeIcon :icon="faClipboardList" style="color:#ffde02s" />
-        결제/리뷰내역
+        <FontAwesomeIcon :icon="faList" style="color:#ffde02s" />
+        MY 리뷰
       </a>
     </div>
     <span class="span-blank">빈</span>
     <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
-
-    <div class="Reviewlist_box" v-for="(review, i) in reviewContents" :key="i">
-      <div class="User_history">
-        <ul>
-          <li>
-            가게 이름 :
-            {{ review.recipient }}
-            <!-- 가격,원화,비즈 -->
-          </li>
-          <li>
-            <span>가격 : {{ review.cost }}원</span>
-            <span class="span-blank">blank</span>
-            <span>지불 : {{ review.wonTokenCount }}원</span>
-            <span class="span-blank">blank</span>
-            <span
-              >Beez :
-              {{ review.bzTokenCount / $store.state.incentiveRate }}</span
-            >
-            개
-            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
-            <!--리뷰 마감 기한 필요-->
-          </li>
-          <li class="bar">
-            <a>{{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
-          </li>
-        </ul>
-      </div>
-      <div class="User_history">
-        <b-button id="Review_btn2" @click="$bvModal.show('Review_modal')"
-          >키워드 리뷰 (BEEZ토큰지급)</b-button
-        >
-      </div>
-      
-      <li>
-        <li class="bar"></li>
-        <div class="keyword_Review">
-          <li class="keyword_Review_box">
-            <a>분위기가 좋아요!</a>
-            <a>반찬종류가 많아요!</a>
-            <a>주차하기 편해요!</a>
-          </li>
-        </div>
-      </li>
-    </div>
-    <div class="Reviewlist_box">
-      <div class="User_history">
-        <ul>
-          <li>
-            <a>{{ User_month }}/{{ User_day }}/{{ User_time }}</a>
-          </li>
-          <li class="bar">
-            <a>{{ Store_Infor }}</a>
-            <a style="float:right">{{ UserCost }}원</a>
-          </li>
-        </ul>
-      </div>
-      <div class="keyword_Review">
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요!</a>
-          <a>반찬종류가 많아요!</a>
-          <a>주차하기 편해요!</a>
-        </li>
-      </div>
-    </div>
-    <b-button id="Paymentlist_check" href="/Main">확 인</b-button>
-
-    <div class="review_modal">
-      <b-modal
-        centered
-        id="Review_modal"
-        hide-footer
-        title="키워드 리뷰"
-      >
-        <!--첫 번째 -->
-          <div class="keybox">
-            <div class="keybox_title">
-              분위기
-            </div>
-            <b-form-checkbox-group
-              v-model="checked1"
-              @change="clickFunc"
-              buttons
-              :options="keyword1"
-              class="Keyword_column"
-            ></b-form-checkbox-group>
-          </div>
-
-          <!--두 번째 -->
-          <div class="keybox">
-            <div class="keybox_title">
-              편의시설
-            </div>
-            <b-form-checkbox-group
-              v-model="checked2"
-              @change="clickFunc"
-              buttons
-              :options="keyword2"
-              class="Keyword_column"
-            ></b-form-checkbox-group>
-          </div>
-
-          <!--세 번째 -->
-          <div class="keybox">
-            <div class="keybox_title">
-              교통
-            </div>
-            <b-form-checkbox-group
-              v-model="checked3"
-              @change="clickFunc"
-              buttons
-              :options="keyword3"
-              class="Keyword_column"
-            ></b-form-checkbox-group>
-          </div>
-
-        <div>
-          <!------------- 리뷰 선택한 후 확인버튼 기능 없음-------- -->
-          <b-button
-            class="keyword_check mt-3"
-            @click="ff"
-            href="/paymentList"
-            >확인</b-button
-          >
-          <b-button 
-            class="keyword_check mt-3" 
-            @click="$bvModal.hide('Review_modal')"
-            >취소</b-button
-          >
-        </div>
-      </b-modal>
-    </div>
     <div>
-      <b-card class="end_Paymentlist">
-        <li>
-          <h4>
-            키워드 리뷰 안내<FontAwesomeIcon
-              :icon="faAngleRight"
-              style="float:right"
-            />
-          </h4>
-        </li>
-        <li>
-          <h4>
-            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
-          </h4>
-        </li>
-      </b-card>
+      <div
+        class="Reviewlist_box"
+        v-for="(review, i) in reviewContents"
+        :key="i"
+      >
+        <div class="User_history">
+          <ul>
+            <li>
+              {{ i }}.
+
+              <!-- 가게이름 -->
+              가게 이름 :
+              {{ review.recipient }} <br />
+              방문 시간 :
+              {{ review.visitTime }}
+              <!-- 가격,원화,비즈 -->
+              <a style="float:right">
+                가격 : {{ review.cost }}원<br />
+                지불 : {{ review.wonTokenCount }}원<br />
+                Beez : {{ review.bzTokenCount / $store.state.incentiveRate }}개
+                <!-- 이런식으로 하면 될듯 -->
+                <!-- {{ keyword1[1].text }} -->
+                <!-- {{ keyword[parseInt[review.value1]].text }} -->
+              </a>
+            </li>
+            <br />
+            <!-- 7일체크해야함 -->
+            <li v-if="review.value1 === '0'">
+              <a class="keyword_Review_box">
+                <b-button id="Review_btn2" @click="KeywordModal(i)"
+                  >{키워드 리뷰 (BEEZ토큰지급)}</b-button
+                >
+              </a>
+            </li>
+            <!-- 7일 계산용 {{ timestamp - review.visitTime }}  -->
+            <li v-else-if="timestamp - review.visitTime >= 604800">
+              <p>지금은 리뷰 작성이 불가능합니다.</p>
+            </li>
+            <!-- 이곳을 수정하면 될듯 -->
+            <li class="keyword_Review_box" v-else>
+              <a>{{ keyword1[review.value1].text }} </a>
+              <a>{{ keyword2[review.value2].text }}</a>
+              <a>{{ keyword3[review.value3].text }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="review_modal">
+        <b-modal
+          id="Review_mo dal"
+          ref="review_modal"
+          hide-footer
+          title="키워드 리뷰"
+        >
+          <div class="Keyword_box">
+            <!--첫 번째 -->
+            <div class="keybox">
+              <div class="keybox_title">
+                분위기
+              </div>
+              <b-form-checkbox-group
+                v-model="checked1"
+                @change="clickFunc"
+                buttons
+                :options="keyword1"
+                class="Keyword_column"
+              ></b-form-checkbox-group>
+            </div>
+
+            <!--두 번째 -->
+            <div class="keybox">
+              <div class="keybox_title">
+                편의시설
+              </div>
+              <b-form-checkbox-group
+                v-model="checked2"
+                @change="clickFunc"
+                buttons
+                :options="keyword2"
+                class="Keyword_column"
+              ></b-form-checkbox-group>
+            </div>
+
+            <!--세 번째 -->
+            <div class="keybox">
+              <div class="keybox_title">
+                교통
+              </div>
+
+              <b-form-checkbox-group
+                v-model="checked3"
+                @change="clickFunc"
+                buttons
+                :options="keyword3"
+                class="Keyword_column"
+              ></b-form-checkbox-group>
+            </div>
+          </div>
+
+          <div>
+            <b-button class="keyword_check" inline-block @click="writeReview()"
+              >확인</b-button
+            >
+
+            <b-button class="keyword_check" inline-block @click="hideModal2"
+              >취소</b-button
+            >
+          </div>
+        </b-modal>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
-import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import axios from "axios";
 
 export default {
   components: {
@@ -174,54 +139,57 @@ export default {
 
   data() {
     return {
+      web3: "",
+      timestamp: Math.floor(new Date().getTime() / 1000),
       reviewContents: [],
       //아이콘
-      faClipboardList,
-      faAngleRight,
-
+      faList,
       //모달 체크박스
       checked1: [],
       checked2: [],
       checked3: [],
 
       keyword1: [
-        { text: "분위기가 좋아요!", value: "1" },
-        { text: "비즈니스에 좋아요!", value: "2" },
-        { text: "친구랑 가기 좋아요!", value: "3" },
+        { text: "분위기가 좋아요!", value: "0" },
+        { text: "비즈니스에 좋아요!", value: "1" },
+        { text: "친구랑 가기 좋아요!", value: "2" },
+        { text: "데이트하기 좋아요!", value: "3" },
         { text: "데이트하기 좋아요!", value: "4" },
-        { text: "데이트하기 좋아요!", value: "5" },
-        { text: "사장님이 친절해요!", value: "6" },
+        { text: "사장님이 친절해요!", value: "5" },
       ],
       keyword2: [
-        { text: "서비스가 좋아요!", value: "1" },
-        { text: "상품종류가 다양해요!", value: "2" },
-        { text: "주차하기 편해요!", value: "3" },
+        { text: "서비스가 좋아요!", value: "0" },
+        { text: "상품종류가 다양해요!", value: "1" },
+        { text: "주차하기 편해요!", value: "2" },
+        { text: "데이트하기 좋아요!", value: "3" },
         { text: "데이트하기 좋아요!", value: "4" },
-        { text: "데이트하기 좋아요!", value: "5" },
-        { text: "사장님이 친절해요!", value: "6" },
+        { text: "사장님이 친절해요!", value: "5" },
       ],
       keyword3: [
-        { text: "대중교통이 편해요!", value: "1" },
-        { text: "주차하기 힘들어요!", value: "2" },
-        { text: "주차하기 편해요!", value: "3" },
-        { text: "가게위치가 좋아요!", value: "4" },
-        { text: "데이트하기 좋아요!", value: "5" },
-        { text: "대중교통을 추천해요!", value: "6" },
+        { text: "대중교통이 편해요!", value: "0" },
+        { text: "주차하기 힘들어요!", value: "1" },
+        { text: "주차하기 편해요!", value: "2" },
+        { text: "가게위치가 좋아요!", value: "3" },
+        { text: "데이트하기 좋아요!", value: "4" },
+        { text: "대중교통을 추천해요!", value: "5" },
       ],
+      userPrivateKey: "",
+      userAddress: "",
+      checkedValues: [],
     };
   },
   beforeCreate() {
     const Web3 = require("web3");
-    const web3 = new Web3(
+    this.web3 = new Web3(
       new Web3.providers.HttpProvider(
         "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
       )
     );
-    const visitor = "0xbbEC30aBA3f9Bf7cA056e5429788d17a1c0FCcC1"; //DB
-    const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
+    //DB
     const CONTRACT_ABI = PAYMENT_ABI;
-    const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
+    const contract = new this.web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+    const visitor = localStorage.getItem("address"); //DB
     // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
     const text = this;
     contract.methods
@@ -256,7 +224,92 @@ export default {
         }
       }
     },
+
+    async writeReview() {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+
+      await axios
+        .get("/api/users")
+        .then((res) => {
+          console.log(res);
+          this.userPrivateKey = "0x" + res.data.data.privateKey;
+          this.userAddress = res.data.data.walletAddress;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      const Web3 = require("web3");
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+        )
+      );
+      //const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
+      const CONTRACT_ABI = PAYMENT_ABI;
+      const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      const PRIVATE_KEY = this.userPrivateKey;
+
+      /****************************Solidity 매개변수****************************/
+      const visitor = this.userAddress; //DB
+      const receiptIdx = this.receiptIdx;
+      const value1 = this.checked1[0];
+      const value2 = this.checked2[0];
+      const value3 = this.checked3[0];
+      /****************************Solidity 매개변수****************************/
+      const sendRawTx = (rawTx) =>
+        new Promise((resolve, reject) =>
+          web3.eth
+            .sendSignedTransaction(rawTx)
+            .on("transactionHash", resolve)
+            .on("err", reject)
+        );
+
+      const { address: from } = web3.eth.accounts.privateKeyToAccount(
+        PRIVATE_KEY
+      );
+
+      const query = await contract.methods.writeReview(
+        visitor,
+        receiptIdx,
+        value1,
+        value2,
+        value3
+      );
+
+      const transaction = {
+        to: CONTRACT_ADDRESS,
+        from,
+        value: "0",
+        data: query.encodeABI(),
+        gasPrice: web3.utils.toWei("2", "gwei"),
+        gas: Math.round((await query.estimateGas({ from })) * 1.5),
+        nonce: await web3.eth.getTransactionCount(from, "pending"),
+      };
+
+      const signed = await web3.eth.accounts.signTransaction(
+        transaction,
+        PRIVATE_KEY
+      );
+      await sendRawTx(signed.rawTransaction)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(() => {});
+      this.$refs["review_modal"].hide();
+    },
+
+    //모달 취소 버튼
+    KeywordModal(i) {
+      this.$refs["review_modal"].show();
+      this.receiptIdx = i;
+    },
+    hideModal2() {
+      this.$refs["review_modal"].hide();
+    },
   },
+
+  computed: {},
 };
 </script>
 <style>
@@ -264,12 +317,6 @@ export default {
 @font-face {
   font-family: "BCcardB";
   src: url("../fonts/BCcardL.ttf") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "GmarketSansTTFMedium";
-  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -292,27 +339,27 @@ export default {
 }
 
 /*----------------------------Reviewlsit box-------------------------------*/
-.User_history {
-  font-size: 10pt;
-}
-
 .Reviewlist_box {
   padding: 2% 2%;
   border-radius: 20px;
   background-color: #fdfded;
-  width: 85%;
+  width: 86%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 auto;
   margin-bottom: 15px;
   color: #76512c;
+  font-size: 8pt;
 }
 
+.keyword_Review_box {
+  margin: auto;
+  display: block;
+}
 .keyword_Review_box a {
-  font-size: 8pt;
   padding: 1% 2%;
-  border-radius: 5px;
+  border-radius: 20px;
   background-color: #fff;
-  margin: 0 3px 0 3px;
+  margin: 0 auto;
 }
 .bar {
   border-bottom: 2px solid #ffde02;
@@ -327,19 +374,7 @@ export default {
   display: block;
   font-weight: 700;
 }
-#Paymentlist_check {
-  margin: 0 auto;
-  background-color: #ffffad;
-  display: block;
-  padding: 1.5%;
-  width: 25%;
-  font-size: 17px;
-  font-weight: 900;
-  margin-bottom: 20%;
-  margin-top: 8%;
-  border-radius: 15px;
-  color: #76512c;
-}
+
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;
@@ -380,13 +415,13 @@ export default {
 }
 
 .keyword_check {
-  font-family: BCcardB;
-  color: #76512c;
   background-color: #feffae;
-  width: 25%;
-  margin-left: 18%;
   font-weight: 600;
-  border-radius: 15px;
+  margin-left: 18%;
+  padding: 2% 7%;
+  font-family: BCcardB;
+  margin-bottom: 8%;
+  color: #76512c;
 }
 
 .Keyword_column {
@@ -416,27 +451,5 @@ export default {
   font-family: "BCcardB";
   font-weight: 600;
   color: #76512c;
-}
-
-/*--------------------------공지사항/q&a-------------------------- */
-.end_Paymentlist {
-  font-family: "GmarketSansTTFMedium";
-}
-
-.end_Paymentlist .card-body {
-  font-weight: 600;
-  padding: 0;
-}
-
-.end_Paymentlist li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.end_Paymentlist h4 {
-  padding: 0;
 }
 </style>

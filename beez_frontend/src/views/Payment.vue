@@ -268,27 +268,24 @@ export default {
     async payPost() {
       // const privateKey = "";
       // const userAddress ="";
-      (async () => {
-        //이런식으로 header 토큰 삽입 => security 활성화.
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + localStorage.getItem("token");
 
-        //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
-        await axios
-          .get("/api/users")
-          .then((res) => {
-            //여기서 Correct.vue 처리 해주면 됨
-            alert(res.data);
-            console.log(res);
-            this.userpPrivateKey = "0x" + res.data.data.privateKey;
-            this.userAddress = res.data.data.walletAddress;
-            console.log(this.userpPrivateKey);
-            console.log(this.userAddress);
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      })();
+      //이런식으로 header 토큰 삽입 => security 활성화.
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+
+      //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+      await axios
+        .get("/api/users")
+        .then((res) => {
+          //여기서 Correct.vue 처리 해주면 됨
+          this.userpPrivateKey = "0x" + res.data.data.privateKey;
+          this.userAddress = res.data.data.walletAddress;
+          console.log(this.userpPrivateKey);
+          console.log(this.userAddress);
+        })
+        .catch((err) => {
+          alert(err);
+        });
 
       const Web3 = require("web3");
       const web3 = new Web3(
@@ -297,7 +294,7 @@ export default {
         )
       );
       //msg.sender credentials(자격증명) - PRIVATE_ADDRESS를 활용
-      const PRIVATE_KEY = this.userpPrivateKey; //바꿔
+      const PRIVATE_KEY = this.userpPrivateKey;
 
       /****************************Solidity 매개변수****************************/
       const to_ADDRESS = this.userAddress; //사용자(db) 원토큰 백만원, 비즈 십만원
@@ -319,7 +316,7 @@ export default {
         PRIVATE_KEY
       );
       const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS); //import 컨트랙트 - ABI, ADDRESS
-      //const query = await contract.methods.addWhitelisted(
+
       const query = await contract.methods.payment(
         to_ADDRESS,
         recipient_ADDRESS,
