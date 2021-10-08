@@ -270,12 +270,13 @@ export default {
       // const userAddress ="";
 
       //이런식으로 header 토큰 삽입 => security 활성화.
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
 
       //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
       await axios
-        .get("/api/users")
+        .post("/api/users/priv")
         .then((res) => {
           //여기서 Correct.vue 처리 해주면 됨
           this.userpPrivateKey = "0x" + res.data.data.privateKey;
@@ -322,8 +323,7 @@ export default {
         recipient_ADDRESS,
         cost,
         won_mount,
-        beez_mount,
-        "1633177666" //충전시간
+        beez_mount
       );
       const transaction = {
         to: CONTRACT_ADDRESS,
@@ -343,6 +343,7 @@ export default {
           //응답이오면 출력인데 백앤드에서 요청을 보내면 응답이 보통은 옴
           //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
           console.log(res);
+          this.$store.commit("main");
         })
         .catch(() => {
           console.log("다시");

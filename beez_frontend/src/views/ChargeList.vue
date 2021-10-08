@@ -153,8 +153,9 @@ export default {
       email: localStorage.getItem("email"),
     };
     (async () => {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
       await axios
         .post("/api/charge/account", params)
         .then((res) => {

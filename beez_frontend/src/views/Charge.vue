@@ -81,7 +81,7 @@
       <div class="d-block">
         <a class="posit_rel margin138">인센티브</a>
         <a class="posit_rel" style="float:right"
-          >{{ incentive_amount | comma } 원</a
+          >{{ incentive_amount | comma }} 원</a
         >
       </div>
       <div class="d-block" id="total_charge">
@@ -147,8 +147,9 @@ export default {
       email: localStorage.getItem("email"),
     };
     (async () => {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
       await axios
         .post("/api/charge/account", params)
         .then((res) => {
@@ -184,11 +185,13 @@ export default {
       var params = {
         email: localStorage.getItem("email"),
         charge: this.form.number,
+        address: localStorage.getItem("address"),
       };
       (async () => {
         //이런식으로 header 토큰 삽입 => security 활성화.
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "token"
+        );
 
         //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
         await axios

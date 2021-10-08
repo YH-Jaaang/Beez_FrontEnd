@@ -296,7 +296,7 @@ export default {
         await axios
           .post("/api/login", params)
           .then((res) => {
-            localStorage.setItem("token", res.data.data[0]);
+            localStorage.setItem("token", res.headers.authorization);
             localStorage.setItem("email", params.email);
             localStorage.setItem("nickName", res.data.data[1]);
             localStorage.setItem("address", res.data.data[2]);
@@ -331,7 +331,7 @@ export default {
           .post("/api/login", params)
           .then((res) => {
             //여기서 로그인 했을때 존재하지 않으면 존재하지 않는 아이디 입니다.라는 노티 띄우고 존재하면 쿠키 삽입 후 페이지 이동.
-            localStorage.setItem("token", res.data.data[0]);
+            localStorage.setItem("token", res.headers.authorization);
             localStorage.setItem("email", params.email);
             localStorage.setItem("nickName", res.data.data[1]);
             localStorage.setItem("address", res.data.data[2]);

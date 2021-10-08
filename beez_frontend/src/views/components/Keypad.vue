@@ -53,12 +53,13 @@ export default {
     };
   },
   beforeCreate() {
-    axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "token"
+    );
     axios
       .get("/api/pass/confirm")
       .then((res) => {
-        if (res.data.data.failCount == 5) {
+        if (res.data.data.failCount >= 5) {
           this.$toaster.error(
             "보안 비밀번호 시도 횟수 초과입니다.\n 고객센터 문의 바랍니다."
           );
@@ -83,8 +84,9 @@ export default {
     checkPass() {
       if (this.text === "") {
         (async () => {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + localStorage.getItem("token");
+          axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+            "token"
+          );
           await axios
             .post("/api/pass/check", { password: this.value })
             .then(() => {
@@ -108,8 +110,9 @@ export default {
         } else {
           //console.log("디비에저장");
           (async () => {
-            axios.defaults.headers.common["Authorization"] =
-              "Bearer " + localStorage.getItem("token");
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = localStorage.getItem("token");
             await axios
               .post("/api/pass/storage", { passwordCheck: this.value })
               .then(() => {

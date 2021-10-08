@@ -39,7 +39,9 @@
             <!-- 7일체크해야함 -->
             <li v-if="review.value1 === '0'">
               <a class="keyword_Review_box">
-                <b-button id="Review_btn2" @click="KeywordModal(i)"
+                <b-button
+                  id="Review_btn2"
+                  @click="KeywordModal(review.visitTime)"
                   >{키워드 리뷰 (BEEZ토큰지급)}</b-button
                 >
               </a>
@@ -139,7 +141,7 @@ export default {
 
   data() {
     return {
-      web3: "",
+      receiptIdx: "",
       timestamp: Math.floor(new Date().getTime() / 1000),
       reviewContents: [],
       //아이콘
@@ -193,7 +195,7 @@ export default {
     // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
     const text = this;
     contract.methods
-      .getReviewForVisitor(visitor)
+      .getReview(visitor, 7)
       .call()
       .then((reviewContents) => {
         console.log(reviewContents);
@@ -226,11 +228,12 @@ export default {
     },
 
     async writeReview() {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
 
       await axios
-        .get("/api/users")
+        .post("/api/users/priv")
         .then((res) => {
           console.log(res);
           this.userPrivateKey = "0x" + res.data.data.privateKey;
@@ -252,7 +255,7 @@ export default {
 
       /****************************Solidity 매개변수****************************/
       const visitor = this.userAddress; //DB
-      const receiptIdx = this.receiptIdx;
+      const visitTime = this.visitTime;
       const value1 = this.checked1[0];
       const value2 = this.checked2[0];
       const value3 = this.checked3[0];
@@ -271,7 +274,7 @@ export default {
 
       const query = await contract.methods.writeReview(
         visitor,
-        receiptIdx,
+        visitTime,
         value1,
         value2,
         value3
@@ -300,9 +303,9 @@ export default {
     },
 
     //모달 취소 버튼
-    KeywordModal(i) {
+    KeywordModal(time) {
       this.$refs["review_modal"].show();
-      this.receiptIdx = i;
+      this.visitTime = time;
     },
     hideModal2() {
       this.$refs["review_modal"].hide();

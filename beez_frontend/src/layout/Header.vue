@@ -51,7 +51,7 @@ export default {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
 
-    if (token && token.length === 155) {
+    if (token && token.length === 162) {
       if (role == "USER") return true;
       else if (role == "STORE") this.$router.push("/StoreMain");
       else {
