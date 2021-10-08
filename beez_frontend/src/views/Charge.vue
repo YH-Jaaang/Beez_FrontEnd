@@ -52,9 +52,7 @@
               </b-button>
             </b-input-group-append>
           </b-input-group>
-          <li>
-            <a id="font-red">{{ error }}</a>
-          </li>
+          <a id="font-red">{{ error }}</a>
         </b-form>
       </ul>
       <div class="text-center">
@@ -90,6 +88,15 @@
           >{{ charge_amount | comma }} 원</a
         >
       </div>
+      <div class="note">
+        <h4>
+          <FontAwesomeIcon :icon="faExclamation" id="btn_color" />
+          충전 유의사항
+        </h4>
+        <h5>- 확인 버튼 클릭 이후 충전한 금액이 바로 적용되지 않습니다.</h5>
+        <h5>- 충전한 금액은 충전 완료 알림창이 뜬 이후에 적용됩니다.</h5>
+        <h5>- 확인 버튼 클릭 이후 충전 알림창까지 약 1분정도 소요됩니다.</h5>
+      </div>
       <b-button class="mt-3" @click="chargePost">확인</b-button>
       <b-button class="mt-3" @click="$bvModal.hide('ch_modal')">취소</b-button>
     </b-modal>
@@ -117,9 +124,9 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
-
 import axios from "axios";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "charge",
@@ -136,6 +143,8 @@ export default {
       //아이콘
       faRedo,
       faAngleRight,
+      faExclamation,
+
       form: {
         number: "",
       },
@@ -273,22 +282,14 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: "Cafe24SsurroundAir";
-  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 
 /*--------------------------card--------------------------- */
 #card_charge {
   font-family: BCcardB;
   background-color: rgba(177, 175, 175, 0.394);
-  /* padding: 10px 7px; */
   border-radius: 50px;
   border: 2.5px solid #9d8d7c6b;
   width: 12rem;
-  height: 17rem;
   margin: 30px auto;
 }
 
@@ -301,7 +302,7 @@ export default {
 .charge_section {
   font-family: BCcardB;
   font-weight: 600;
-  margin: 30px 30px 30px 30px;
+  margin: 30px;
 }
 
 .bank_ac {
@@ -319,7 +320,6 @@ export default {
 /*--------------------------poss_am/charge_am------------------------------- */
 .charge_am li {
   font-size: 13px;
-  /* margin-left: 10px; */
   color: #000;
   padding: 0px;
 }
@@ -337,18 +337,12 @@ export default {
   margin-bottom: 5%;
 }
 
-/* .charge_am {
-  background-color: rgba(164, 162, 158, 0.463);
-} */
-
 #re_btn {
   background-color: rgba(164, 162, 158, 0.612);
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin: 1px 0 1px 0;
 }
 
 #ch_btn {
-  margin-top: 5%;
   color: #76512c;
   background-color: #f8d97171;
   border-color: #f8d97171;
@@ -356,17 +350,17 @@ export default {
   font-weight: 900;
   width: 27%;
   border-radius: 17px;
-  margin-bottom: 17%;
-  margin-left: 7%;
-  margin-right: 7%;
+  margin: 5% 7% 17% 7%;
 }
+
 #btn_color {
   color: #fbca47;
 }
+
 #font-red {
   color: rgb(226, 38, 38);
   font-size: 13px;
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 /*-------------------------- 충전 모달창-------------------------- */
@@ -377,8 +371,6 @@ export default {
 #ch_modal {
   font-family: BCcardB;
   color: #76512c;
-  /* padding: 5%; */
-  /* top: 10%; */
   font-size: 15px;
 }
 
@@ -398,19 +390,35 @@ export default {
 
 #total_charge {
   border-top: 2px solid #76512c;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_charge {
+  margin: 2% 11% 0 0;
   position: relative;
   right: -5%;
+}
+
+.note h5 {
+  color: red;
+  font-size: 10px;
+  left: 5%;
+}
+
+.note h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  left: 10%;
+  padding-top: 10px;
+}
+
+.note {
+  margin: 10% 5% 0 5%;
+  background-color: #fbcb4721;
+  border-radius: 15px;
 }
 
 #align_right {
   float: right;
 }
+
 .posit_rel {
   position: relative;
   right: 19%;
@@ -452,10 +460,7 @@ export default {
 }
 
 .end_Charge li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 

@@ -66,6 +66,16 @@
           <a class="posit_rel2" style="float:right">{{ rest_bz }} BZ</a>
         </div>
 
+        <div class="note">
+          <h4>
+            <FontAwesomeIcon :icon="faExclamation" />
+            환전 유의사항
+          </h4>
+          <h5>- 확인 버튼 클릭 직후 환전이 바로 적용되지 않습니다.</h5>
+          <h5>- 환전한 금액은 환전 완료 알림창이 뜬 이후에 적용됩니다.</h5>
+          <h5>- 확인 버튼 클릭 이후 환전 알림창까지 약 1분정도 소요됩니다.</h5>
+        </div>
+
         <b-button class="mt-3" @click="exchangePost">확인</b-button>
         <b-button class="mt-3" @click="$bvModal.hide('ex_modal')"
           >취소</b-button
@@ -94,6 +104,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: { FontAwesomeIcon },
@@ -113,6 +124,7 @@ export default {
       //아이콘
       faRedo,
       faAngleRight,
+      faExclamation,
     };
   },
   methods: {
@@ -302,6 +314,26 @@ export default {
 
 .posit_rel.margin2 {
   left: 17%;
+}
+
+.note h5 {
+  color: red;
+  font-size: 10px;
+  left: 3%;
+}
+
+.note h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  left: 8%;
+  padding-top: 10px;
+}
+
+.note {
+  margin: 10% 5% 0 5%;
+  background-color: #bad5fa36;
+  border-radius: 15px;
 }
 /*--------------------------------안내----------------------------------------*/
 #end_StoreExchangeToken {

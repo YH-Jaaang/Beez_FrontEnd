@@ -1,13 +1,13 @@
 <template>
   <div class="ChargeList_section">
-    <div class="ChargeList text-center">
-      <a id="User_ChargeList">
+    <div class="ChargeList">
+      <a>
         <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#76512cb8" />
         충전 내역
       </a>
     </div>
-    <span class="span-blank">빈</span>
-    <ul class="Store_TotalSales">
+
+    <ul>
       <li id="User_information">
         <a> 연결된 계좌: {{ charge_account }}</a>
         <div>
@@ -23,72 +23,39 @@
       :indicator="{ deactivate: 'pull down' }"
     >
       <div class="ChargeList_box">
-        <div class="Charge_history">
-          <ul>
-            <li class="">
-              <a
-                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-                {{ Charge_time }}</a
-              >
-              <a style="float:right">{{ ChargeList_amount }}원</a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
+          </li>
+        </ul>
       </div>
 
       <div class="ChargeList_box">
-        <div class="Charge_history">
-          <ul>
-            <li class="">
-              <a
-                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-                {{ Charge_time }}</a
-              >
-              <a style="float:right">{{ ChargeList_amount }}원</a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
+          </li>
+        </ul>
       </div>
 
       <div class="ChargeList_box">
-        <div class="Charge_history">
-          <ul>
-            <li class="">
-              <a
-                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-                {{ Charge_time }}</a
-              >
-              <a style="float:right">{{ ChargeList_amount }}원</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="ChargeList_box">
-        <div class="Charge_history">
-          <ul>
-            <li class="">
-              <a
-                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-                {{ Charge_time }}</a
-              >
-              <a style="float:right">{{ ChargeList_amount }}원</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="ChargeList_box">
-        <div class="Charge_history">
-          <ul>
-            <li class="">
-              <a
-                >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-                {{ Charge_time }}</a
-              >
-              <a style="float:right">{{ ChargeList_amount }}원</a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <a
+              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
+              {{ Charge_time }}</a
+            >
+            <a style="float:right">{{ ChargeList_amount }}원</a>
+          </li>
+        </ul>
       </div>
     </pull-to-refresh>
     <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
@@ -203,12 +170,9 @@ export default {
   font-weight: 900;
   border-bottom: 1.8px solid #76512cb8;
   margin: 0 10% 0 10%;
-  margin-bottom: -4%;
-}
-/*---------------------------출금가능한 금액-------------------------------*/
-#User_ChargeList {
   font-size: 24px;
 }
+/*---------------------------출금가능한 금액-------------------------------*/
 #User_information {
   font-size: 14px;
   font-weight: 900;
@@ -217,8 +181,7 @@ export default {
   background-color: #f1ebe4;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   width: 82%;
-  margin: 3% auto;
-  margin-bottom: 8%;
+  margin: 3% auto 8% auto;
   border-radius: 10px;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
@@ -229,15 +192,13 @@ export default {
   background-color: #faf3cc;
   width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
-  margin-bottom: 15px;
-  margin-left: 9%;
+  margin: 0 0 15px 9%;
   color: #76512c;
   font-size: 10pt;
 }
 /*---------------------------페이지 넘김------------------------------*/
 
 #ChargeList_btn2 {
-  margin: 0 auto;
   background-color: #94785ba1;
   color: white;
   display: block;
@@ -245,8 +206,7 @@ export default {
   width: 25%;
   font-size: 16px;
   font-weight: 900;
-  margin-bottom: 20%;
-  margin-top: 8%;
+  margin: 8% auto 20% auto;
   border-radius: 15px;
 }
 
@@ -261,10 +221,7 @@ export default {
 }
 
 .end_Chargelist li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 

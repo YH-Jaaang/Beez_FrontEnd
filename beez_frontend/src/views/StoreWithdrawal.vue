@@ -65,6 +65,16 @@
         <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
       </div>
 
+      <div class="note">
+        <h4>
+          <FontAwesomeIcon :icon="faExclamation" />
+          출금 유의사항
+        </h4>
+        <h5>- 확인 버튼 클릭 직후 계좌 송금이 바로 진행되지 않습니다.</h5>
+        <h5>- 출금한 금액은 출금 완료 알림창이 뜬 이후에 송금됩니다.</h5>
+        <h5>- 확인 버튼 클릭 이후 출금 알림창까지 약 1분정도 소요됩니다.</h5>
+      </div>
+
       <b-button class="mt-3" @click="withdrawalPost">확인</b-button>
       <b-button class="mt-3" @click="$bvModal.hide('wi_modal')">취소</b-button>
     </b-modal>
@@ -91,6 +101,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -110,6 +121,7 @@ export default {
       //아이콘
       faRedo,
       faAngleRight,
+      faExclamation,
     };
   },
   methods: {
@@ -236,7 +248,7 @@ export default {
   border-radius: 15px;
 }
 
-/*-------------------------- 충전 모달창-------------------------- */
+/*-------------------------- 출금 모달창-------------------------- */
 .modal-header {
   margin: 3%;
 }
@@ -286,6 +298,26 @@ export default {
 }
 .posit_rel.margin2 {
   left: 17%;
+}
+
+.note h5 {
+  color: red;
+  font-size: 10px;
+  left: 3%;
+}
+
+.note h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  left: 8%;
+  padding-top: 10px;
+}
+
+.note {
+  margin: 10% 5% 0 5%;
+  background-color: #bad5fa36;
+  border-radius: 15px;
 }
 
 /*--------------------------------안내----------------------------------------*/
