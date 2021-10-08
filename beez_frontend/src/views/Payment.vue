@@ -132,6 +132,19 @@
               <a class="posit_rel margin90">총 결제금액</a>
               <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
             </div>
+            <div class="note">
+              <h4>
+                <FontAwesomeIcon :icon="faExclamation" id="btn_color" />
+                결제 유의사항
+              </h4>
+              <h5>
+                - 확인 버튼 클릭 이후 결제한 금액이 바로 적용되지 않습니다.
+              </h5>
+              <h5>- 결제는 결제 완료 알람창이 떠야 최종 결제 완료입니다.</h5>
+              <h5>
+                - 확인 버튼 클릭 이후 결제 알림창까지 약 1분정도 소요됩니다.
+              </h5>
+            </div>
             <b-button class="mt-3" @click="payPost">확인</b-button>
             <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
               >취소</b-button
@@ -174,6 +187,7 @@ import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import axios from "axios";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "app",
@@ -191,6 +205,7 @@ export default {
       faQrcode,
       faBitcoin,
       faAngleRight,
+      faExclamation,
       //결제 입력폼
       form: {
         scanned: "",
@@ -382,12 +397,6 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: "Cafe24SsurroundAir";
-  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 
 #page_title {
   font-family: BCcardB;
@@ -431,7 +440,6 @@ export default {
 
 .pay_form .form-control {
   background-color: rgba(164, 162, 158, 0.463);
-  /* border: 2px solid #76512c; */
   border-radius: 10px;
   display: inline-block;
 }
@@ -477,16 +485,13 @@ export default {
 
 /*---------------------------결제 폼------------------------------ */
 .form_btn .btn {
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 30px 20px 0 20px;
   font-size: 17px;
   border-radius: 15px;
   width: 27%;
 }
 
 .pay_amount {
-  /* color: #76512c; */
   color: #0c0804;
   font-weight: 600;
   margin-left: 5px;
@@ -500,7 +505,6 @@ export default {
 }
 
 .pay_amount .form-group {
-  /* text-align: center; */
   margin-bottom: 10px;
 }
 
@@ -569,8 +573,6 @@ export default {
 #p_modal {
   font-family: BCcardB;
   color: #76512c;
-  /* padding: 4%; */
-  /* top: 10%; */
   font-size: 15px;
 }
 
@@ -586,12 +588,7 @@ export default {
 
 #total_pay {
   border-top: 2px solid #76512c;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 11%;
-}
-
-#total_pay {
+  margin: 2% 11% 0 0;
   position: relative;
   right: -5%;
 }
@@ -613,6 +610,31 @@ export default {
   position: relative;
   right: 14.5%;
 }
+
+.note h5 {
+  color: red;
+  font-size: 10px;
+  left: 3%;
+}
+
+.note h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 10px;
+  left: 10%;
+}
+
+.note {
+  margin: 10% 5% 0 5%;
+  background-color: #fbcb4721;
+  border-radius: 15px;
+}
+
+#btn_color {
+  color: #fbca47;
+}
+
 /*--------------------------공지사항/q&a-------------------------- */
 .end_Payment {
   font-family: "GmarketSansTTFMedium";
@@ -625,10 +647,7 @@ export default {
 }
 
 .end_Payment li {
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding: 6% 6% 4% 4%;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
