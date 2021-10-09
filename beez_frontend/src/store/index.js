@@ -25,6 +25,8 @@ export default new Vuex.Store({
     maxWonCharge: 2000000, //한달 충전가능금액
     maxIncentive: 500000, //한달 혜택가능금액
     incentiveRate: 100,
+    //paymentList
+    reviewContents: [],
   },
   //mutations : 상태값을 변경시키는 로직 state를 수정
   mutations: {
@@ -44,6 +46,19 @@ export default new Vuex.Store({
           state.bzBalace = res["BzBalace"] / state.incentiveRate;
         })
         .catch(() => {});
+    },
+    //사용자 리뷰 리스트
+    paymentList: async (state, time) => {
+      const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS);
+      const visitor = localStorage.getItem("address");
+      // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
+      await contract.methods
+        .getReview(visitor, time)
+        .call()
+        .then((reviewContents) => {
+          console.log(reviewContents);
+          state.reviewContents = reviewContents;
+        });
     },
   },
   //비동기를 사용하거나 여러 mutations 연달아 실행할때,

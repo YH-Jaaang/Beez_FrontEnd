@@ -9,10 +9,26 @@
     <span class="span-blank">빈</span>
     <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
+    <div class="li_btn text-center">
+      <span class="span-blank">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span>
+      <b-button @click="reviewList(7)">
+        1주일
+      </b-button>
+      <b-button @click="reviewList(30)">
+        1개월
+      </b-button>
+      <b-button @click="reviewList(90)">
+        3개월
+      </b-button>
+      <b-button @click="reviewList(180)">
+        6개월
+      </b-button>
+    </div>
+
     <div>
       <div
         class="Reviewlist_box"
-        v-for="(review, i) in reviewContents"
+        v-for="(review, i) in this.$store.state.reviewContents"
         :key="i"
       >
         <div class="User_history">
@@ -141,9 +157,7 @@ export default {
 
   data() {
     return {
-      receiptIdx: "",
       timestamp: Math.floor(new Date().getTime() / 1000),
-      reviewContents: [],
       //아이콘
       faList,
       //모달 체크박스
@@ -181,26 +195,7 @@ export default {
     };
   },
   beforeCreate() {
-    const Web3 = require("web3");
-    this.web3 = new Web3(
-      new Web3.providers.HttpProvider(
-        "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
-      )
-    );
-    //DB
-    const CONTRACT_ABI = PAYMENT_ABI;
-
-    const contract = new this.web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-    const visitor = localStorage.getItem("address"); //DB
-    // foreach 파싱해서 배열에 넣기 const 배열(포문돌리기)
-    const text = this;
-    contract.methods
-      .getReview(visitor, 7)
-      .call()
-      .then((reviewContents) => {
-        console.log(reviewContents);
-        text.reviewContents = reviewContents;
-      });
+    this.$store.commit("paymentList", 7);
   },
   props: ["removeValue"],
   methods: {
@@ -226,7 +221,9 @@ export default {
         }
       }
     },
-
+    reviewList(date) {
+      this.$store.commit("paymentList", date);
+    },
     async writeReview() {
       axios.defaults.headers.common["Authorization"] = localStorage.getItem(
         "token"
@@ -294,11 +291,13 @@ export default {
         transaction,
         PRIVATE_KEY
       );
+
       await sendRawTx(signed.rawTransaction)
         .then((res) => {
           console.log(res);
         })
         .catch(() => {});
+
       this.$refs["review_modal"].hide();
     },
 
@@ -340,7 +339,17 @@ export default {
 #User_Review {
   font-size: 24px;
 }
-
+/*----------------------------기간별 버튼-------------------------------*/
+.li_btn .btn {
+  background-color: #fdef2e7d;
+  color: #000000;
+  border-color: #fff;
+  font-size: 5px;
+  font-weight: 900;
+  width: 12%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
 /*----------------------------Reviewlsit box-------------------------------*/
 .Reviewlist_box {
   padding: 2% 2%;

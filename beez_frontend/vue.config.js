@@ -7,7 +7,7 @@ module.exports = {
     hotOnly: false,
     proxy: {
       "^/api": {
-        target: "https://192.168.219.105:9091",
+        target: "https://172.30.1.54:9091",
         changeOrigin: true,
         logLevel: "debug",
       },
