@@ -14,7 +14,7 @@
               description="오른쪽 버튼을 눌러 QR코드를 인식해주세요."
             >
               <b-form-input id="payForm" v-model="form.scanned" disabled>{{
-                form.scanned
+                this.form.scanned
               }}</b-form-input>
 
               <b-button v-b-modal.pay_modal>
@@ -185,9 +185,11 @@ import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import { PROVIDER } from "@/contract/Provider.js";
 import axios from "axios";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { ethers } from "ethers";
 
 export default {
   name: "app",
@@ -281,9 +283,6 @@ export default {
     },
     //db에서 address, privateAddress받아오기
     async payPost() {
-      // const privateKey = "";
-      // const userAddress ="";
-
       //이런식으로 header 토큰 삽입 => security 활성화.
       axios.defaults.headers.common["Authorization"] = localStorage.getItem(
         "token"
@@ -303,68 +302,92 @@ export default {
           alert(err);
         });
 
-      const Web3 = require("web3");
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
-        )
-      );
       //msg.sender credentials(자격증명) - PRIVATE_ADDRESS를 활용
       const PRIVATE_KEY = this.userpPrivateKey;
 
       /****************************Solidity 매개변수****************************/
       const to_ADDRESS = this.userAddress; //사용자(db) 원토큰 백만원, 비즈 십만원
-      const recipient_ADDRESS = "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26"; //소상공인(qr)
+      const recipient_ADDRESS = this.form.scanned; //소상공인(qr)
       const cost = this.form.price; //입력값
       const won_mount = this.won; //입력값을 활용해 계산
       const beez_mount = this.form.bz * 100; //입력값
       /***********************************************************************/
+      const provider = PROVIDER;
 
-      const sendRawTx = (rawTx) =>
-        new Promise((resolve, reject) =>
-          web3.eth
-            .sendSignedTransaction(rawTx)
-            .on("transactionHash", resolve)
-            .on("error", reject)
-        );
+      const signer = await new ethers.Wallet(PRIVATE_KEY, provider);
 
-      const { address: from } = web3.eth.accounts.privateKeyToAccount(
-        PRIVATE_KEY
+      const contract = await new ethers.Contract(
+        CONTRACT_ADDRESS,
+        PAYMENT_ABI,
+        signer
       );
-      const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS); //import 컨트랙트 - ABI, ADDRESS
 
-      const query = await contract.methods.payment(
+      const sendTransaction = contract.payment(
         to_ADDRESS,
         recipient_ADDRESS,
         cost,
         won_mount,
         beez_mount
       );
-      const transaction = {
-        to: CONTRACT_ADDRESS,
-        from,
-        value: "0",
-        data: query.encodeABI(),
-        gasPrice: web3.utils.toWei("2", "gwei"),
-        gas: Math.round((await query.estimateGas({ from })) * 1.5), // 1.5 coefficient, just make sure that gas amount is enough
-        nonce: await web3.eth.getTransactionCount(from, "pending"),
-      };
-      const signed = await web3.eth.accounts.signTransaction(
-        transaction,
-        PRIVATE_KEY
-      );
-      await sendRawTx(signed.rawTransaction)
+      await sendTransaction
         .then((res) => {
-          //응답이오면 출력인데 백앤드에서 요청을 보내면 응답이 보통은 옴
-          //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
           console.log(res);
-          this.$store.commit("main");
         })
-        .catch(() => {
-          console.log("다시");
+        .catch((err) => {
+          console.log(err);
         });
-      //console.log(hash);
       this.$router.push("/");
+      // const Web3 = require("web3");
+      // const web3 = new Web3(
+      //   new Web3.providers.HttpProvider(
+      //     "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+      //   )
+      // );
+
+      // const sendRawTx = (rawTx) =>
+      //   new Promise((resolve, reject) =>
+      //     web3.eth
+      //       .sendSignedTransaction(rawTx)
+      //       .on("transactionHash", resolve)
+      //       .on("error", reject)
+      //   );
+
+      // const { address: from } = web3.eth.accounts.privateKeyToAccount(
+      //   PRIVATE_KEY
+      // );
+      // const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS); //import 컨트랙트 - ABI, ADDRESS
+
+      // const query = await contract.methods.payment(
+      //   to_ADDRESS,
+      //   recipient_ADDRESS,
+      //   cost,
+      //   won_mount,
+      //   beez_mount
+      // );
+      // const transaction = {
+      //   to: CONTRACT_ADDRESS,
+      //   from,
+      //   value: "0",
+      //   data: query.encodeABI(),
+      //   gasPrice: web3.utils.toWei("2", "gwei"),
+      //   gas: Math.round((await query.estimateGas({ from })) * 1.5), // 1.5 coefficient, just make sure that gas amount is enough
+      //   nonce: await web3.eth.getTransactionCount(from, "pending"),
+      // };
+      // const signed = await web3.eth.accounts.signTransaction(
+      //   transaction,
+      //   PRIVATE_KEY
+      // );
+      // await sendRawTx(signed.rawTransaction)
+      //   .then((res) => {
+      //     //응답이오면 출력인데 백앤드에서 요청을 보내면 응답이 보통은 옴
+      //     //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
+      //     console.log(res);
+      //     this.$store.commit("main");
+      //   })
+      //   .catch(() => {
+      //     console.log("다시");
+      //   });
+      //console.log(hash);
     },
   },
   computed: {

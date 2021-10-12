@@ -37,12 +37,12 @@
           <div class="customer_link">
             <ul class="customer_list">
               <li>
-                <a href="#" role="button">
+                <a href="javascript:void(0)" role="button" v-b-modal.modal1>
                   이용약관
                 </a>
               </li>
               <li>
-                <a href="#" role="button">
+                <a href="javascript:void(0)" role="button" v-b-modal.modal2>
                   개인정보처리방침
                 </a>
               </li>
@@ -124,10 +124,19 @@
         </address>
       </div>
     </div>
+    <useConditions />
+    <privacyPolicy />
   </footer>
 </template>
 <script>
-export default {};
+import useConditions from "@/views/components/UseConditions.vue";
+import privacyPolicy from "@/views/components/PrivacyPolicy.vue";
+export default {
+  components: {
+    useConditions,
+    privacyPolicy,
+  },
+};
 </script>
 
 <style>

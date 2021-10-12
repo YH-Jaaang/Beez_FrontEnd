@@ -52,13 +52,9 @@ export default {
   },
   data() {
     return {
-      //고객 ID
-      Store_userId: "강용한",
       //가게이름
-      Store_name: "이집 용하네 김밥",
-
-      value: "2 values fail",
-
+      Store_name: localStorage.getItem("nickName"),
+      value: localStorage.getItem("address"),
       //아이콘
       faAngleRight,
       faStore,

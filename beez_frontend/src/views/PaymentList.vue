@@ -7,20 +7,21 @@
       </a>
     </div>
     <span class="span-blank">빈</span>
+
     <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
     <div class="li_btn text-center">
       <span class="span-blank">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span>
-      <b-button @click="reviewList(7)">
+      <b-button @click="reviewList(7, 0)">
         1주일
       </b-button>
-      <b-button @click="reviewList(30)">
+      <b-button @click="reviewList(30, 0)">
         1개월
       </b-button>
-      <b-button @click="reviewList(90)">
+      <b-button @click="reviewList(90, 0)">
         3개월
       </b-button>
-      <b-button @click="reviewList(180)">
+      <b-button @click="reviewList(180, 0)">
         6개월
       </b-button>
     </div>
@@ -52,25 +53,26 @@
               </a>
             </li>
             <br />
+            <!-- 7일 계산용 {{ timestamp - review.visitTime }}  -->
+            <li v-if="timestamp - review.visitTime >= 604800">
+              <!-- <b-button id="Review_btn3" disabled
+                >키워드 리뷰 (BEEZ토큰지급)</b-button
+              > -->
+            </li>
             <!-- 7일체크해야함 -->
-            <li v-if="review.value1 === '0'">
+            <li v-else-if="review.value1 == ''">
               <a class="keyword_Review_box">
                 <b-button
                   id="Review_btn2"
                   @click="KeywordModal(review.visitTime)"
-                  >{키워드 리뷰 (BEEZ토큰지급)}</b-button
+                  >키워드 리뷰 (BEEZ토큰지급)</b-button
                 >
               </a>
             </li>
-            <!-- 7일 계산용 {{ timestamp - review.visitTime }}  -->
-            <li v-else-if="timestamp - review.visitTime >= 604800">
-              <p>지금은 리뷰 작성이 불가능합니다.</p>
-            </li>
-            <!-- 이곳을 수정하면 될듯 -->
             <li class="keyword_Review_box" v-else>
-              <a>{{ keyword1[review.value1].text }} </a>
-              <a>{{ keyword2[review.value2].text }}</a>
-              <a>{{ keyword3[review.value3].text }}</a>
+              <a>{{ review.value1 }} </a>
+              <a>{{ review.value2 }}</a>
+              <a>{{ review.value3 }}</a>
             </li>
           </ul>
         </div>
@@ -148,9 +150,12 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import { PROVIDER } from "@/contract/Provider.js";
+import { ethers } from "ethers";
 import axios from "axios";
 
 export default {
+  name: "paymentList",
   components: {
     FontAwesomeIcon,
   },
@@ -195,7 +200,7 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store.commit("paymentList", 7);
+    this.$store.commit("paymentList", 7, 0);
   },
   props: ["removeValue"],
   methods: {
@@ -239,64 +244,48 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      const Web3 = require("web3");
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
-        )
-      );
+      // const Web3 = require("web3");
+      // const web3 = new Web3(
+      //   new Web3.providers.HttpProvider(
+      //     "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
+      //   )
+      // );
       //const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
       const CONTRACT_ABI = PAYMENT_ABI;
-      const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      //const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
       const PRIVATE_KEY = this.userPrivateKey;
 
       /****************************Solidity 매개변수****************************/
       const visitor = this.userAddress; //DB
       const visitTime = this.visitTime;
-      const value1 = this.checked1[0];
-      const value2 = this.checked2[0];
-      const value3 = this.checked3[0];
-      /****************************Solidity 매개변수****************************/
-      const sendRawTx = (rawTx) =>
-        new Promise((resolve, reject) =>
-          web3.eth
-            .sendSignedTransaction(rawTx)
-            .on("transactionHash", resolve)
-            .on("err", reject)
-        );
+      const value1 = this.keyword1[this.checked1[0]].text;
+      const value2 = this.keyword2[this.checked2[0]].text;
+      const value3 = this.keyword3[this.checked3[0]].text;
+      const provider = PROVIDER;
 
-      const { address: from } = web3.eth.accounts.privateKeyToAccount(
-        PRIVATE_KEY
+      const signer = await new ethers.Wallet(PRIVATE_KEY, provider);
+
+      const contract = await new ethers.Contract(
+        CONTRACT_ADDRESS,
+        CONTRACT_ABI,
+        signer
       );
 
-      const query = await contract.methods.writeReview(
+      const sendTransaction = contract.writeReview(
         visitor,
         visitTime,
         value1,
         value2,
         value3
       );
-
-      const transaction = {
-        to: CONTRACT_ADDRESS,
-        from,
-        value: "0",
-        data: query.encodeABI(),
-        gasPrice: web3.utils.toWei("2", "gwei"),
-        gas: Math.round((await query.estimateGas({ from })) * 1.5),
-        nonce: await web3.eth.getTransactionCount(from, "pending"),
-      };
-
-      const signed = await web3.eth.accounts.signTransaction(
-        transaction,
-        PRIVATE_KEY
-      );
-
-      await sendRawTx(signed.rawTransaction)
+      await sendTransaction
         .then((res) => {
           console.log(res);
+          this.$store.commit("paymentList", 7, 0);
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.log(err);
+        });
 
       this.$refs["review_modal"].hide();
     },
@@ -326,6 +315,7 @@ export default {
 .UserReview_section {
   font-family: BCcardB;
   font-weight: 600;
+  min-height: calc(30vh);
 }
 
 .UserReview {
@@ -361,6 +351,7 @@ export default {
   margin-bottom: 15px;
   color: #76512c;
   font-size: 8pt;
+  min-height: 100px;
 }
 
 .keyword_Review_box {
@@ -386,7 +377,14 @@ export default {
   display: block;
   font-weight: 700;
 }
-
+#Review_btn3 {
+  color: #76512c;
+  background-color: #e0dfd8;
+  margin: auto;
+  padding: 1% 16%;
+  display: block;
+  font-weight: 700;
+}
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;
