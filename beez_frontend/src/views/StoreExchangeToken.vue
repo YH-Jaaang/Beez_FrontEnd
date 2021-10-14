@@ -16,7 +16,9 @@
         <ul class="detail_bz_ceo">
           <li>
             <a>환전가능 BZ</a>
-            <a style="position:relative; left:20px">{{ form.bzAmount }} 개</a>
+            <a style="position:relative; left:20px"
+              >{{ this.$store.state.myBz }} BZ</a
+            >
           </li>
 
           <b-input-group append="BZ">
@@ -59,7 +61,9 @@
         </div>
         <div class="d-block">
           <a class="posit_rel margin">환전 금액</a>
-          <a class="posit_rel" style="float:right"> {{ form.bzToWon }} 원</a>
+          <a class="posit_rel" style="float:right">
+            {{ form.bzToWon | comma }} 원</a
+          >
         </div>
         <div class="d-block" id="total_charge">
           <a class="posit_rel margin2">잔여 BZ</a>
@@ -105,21 +109,24 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default {
   components: { FontAwesomeIcon },
   data() {
     return {
-      bank_na: "KB 국민",
-      account_no: "748 ****** 25437",
+      bank_na: "!!",
+      account_no: "!!!",
+
       error: "",
       rest_bz: "",
 
       form: {
-        bzAmount: "50", //비즈량
-        bzInput: "", //비즈 환전 폼
-        bzToWon: "", // 결과 값
+        bzInput: "", //입력된 환전 bz
+        bzToWon: "", // 원 환산
       },
+      userpPrivateKey: "",
+      userAddress: "",
 
       //아이콘
       faRedo,
@@ -127,25 +134,58 @@ export default {
       faExclamation,
     };
   },
-  methods: {
-    exchangePost() {
-      // axios
-      //   .get("http://localhost:9091/charge/amount", {
-      //     params: {
-      //       address: VueCookies.get("Address"),
-      //       charge: this.form.number,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      this.$router.push("/StoreMain");
+  beforeCreate() {
+    var params = {
+      email: localStorage.getItem("email"),
+    };
+    (async () => {
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+      await axios
+        .post("/api/withdrawal/account", params)
+        .then((res) => {
+          this.bank_na = res.data.data.bankName;
+          this.account_no = res.data.data.accountNumber;
+        })
+        .catch(() => {});
+    })();
+    this.$store.commit("storeMain");
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+  },
+
+  methods: {
+    //----------------입력폼에 숫자만----------------------
     tokenValid() {
       this.form.bzInput = this.form.bzInput.replace(/[^0-9]/g, "");
+    },
+
+    exchangePost() {
+      var params = {
+        email: localStorage.getItem("email"),
+        exchange: this.form.bzInput,
+        address: localStorage.getItem("address"),
+      };
+      (async () => {
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "token"
+        );
+        await axios
+          .post("/api/exchange/amount", params)
+          .then(() => {
+            //toast로 충전 정보 전달
+            this.$toaster.success("환전이 완료되었습니다.");
+            this.$store.commit("storeMain");
+          })
+          .catch(() => {
+            this.$toaster.error("환전에 실패하였습니다. 다시 시도해 주세요.");
+          });
+      })();
+      this.$router.push("/StoreMain");
     },
   },
   computed: {
@@ -154,7 +194,9 @@ export default {
       if (this.form.bzInput.length == 0) {
         text.form.bzToWon = this.form.bzInput * 100;
         text.error = "환전할 BZ를 입력해주세요.";
-      } else if (parseInt(this.form.bzInput) > parseInt(this.form.bzAmount)) {
+      } else if (
+        parseInt(this.form.bzInput) > parseInt(this.$store.state.myBz)
+      ) {
         text.form.bzToWon = this.form.bzInput * 100;
         text.error = "환전가능 BZ가 부족합니다.";
       } else {
@@ -162,7 +204,7 @@ export default {
         text.form.bzToWon = this.form.bzInput * 100;
         text.error = "환전 가능합니다.";
         text.rest_bz =
-          parseInt(this.form.bzAmount) - parseInt(this.form.bzInput);
+          parseInt(this.$store.state.myBz) - parseInt(this.form.bzInput);
       }
       return true;
     },

@@ -9,55 +9,36 @@
 
     <ul class="Store_TotalSales">
       <li>
-        <a>계좌 번호: {{ Store_Withrawal_account }} </a>
+        <a>계좌 번호: {{ account_no }} </a>
         <div>
-          <a>은행: {{ Store_Withrawal_bank }}</a>
-          <a style="float:right">예금주: {{ Store_Withrawal_name }} </a>
+          <a>은행: {{ bank_na }}</a>
+          <a style="float:right">예금주: {{ store_na }} </a>
         </div>
       </li>
     </ul>
 
-    <div class="WithdrawalList_box">
-      <ul>
-        <li>
-          <a
-            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-              Store_Withrawal_day
-            }}
-            {{ Store_Withrawal_time }}</a
-          >
-          <a style="float:right">{{ Withdrawal_amount }}원</a>
-        </li>
-      </ul>
+    <div>
+      <div
+        class="WithdrawalList_box"
+        v-for="withdrawalContent in this.withdrawalContents"
+        :key="withdrawalContent"
+      >
+        <ul>
+          <li>
+            {{ withdrawalContent }}.
+
+            <a
+              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
+                Store_Withrawal_day
+              }}
+              {{ Store_Withrawal_time }}</a
+            >
+            <a style="float:right">{{ Withdrawal_amount }}원</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div class="WithdrawalList_box">
-      <ul>
-        <li>
-          <a
-            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-              Store_Withrawal_day
-            }}
-            {{ Store_Withrawal_time }}</a
-          >
-          <a style="float:right">{{ Withdrawal_amount }}원</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="WithdrawalList_box">
-      <ul>
-        <li>
-          <a
-            >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-              Store_Withrawal_day
-            }}
-            {{ Store_Withrawal_time }}</a
-          >
-          <a style="float:right">{{ Withdrawal_amount }}원</a>
-        </li>
-      </ul>
-    </div>
     <b-button id="StoreWithdrawalList_check" href="/StoreMain">확 인</b-button>
 
     <b-card id="end_StoreWithdrawalList">
@@ -82,6 +63,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default {
   components: {
@@ -95,12 +77,12 @@ export default {
       Store_Withrawal_month: "10",
       Store_Withrawal_time: "09:20:24",
 
-      // 출금가능금액
-      Withdrawal_Money: "1,000,000",
+      withdrawalContents: [],
+
       //고객정보
-      Store_Withrawal_account: "459002-123-12345",
-      Store_Withrawal_bank: "국민",
-      Store_Withrawal_name: "홍길동",
+      bank_na: "",
+      account_no: "",
+      store_na: "",
       // 출금금액
       Withdrawal_amount: "2,000,000",
       //아이콘
@@ -108,10 +90,48 @@ export default {
       faAngleRight,
     };
   },
+  beforeCreate() {
+    var params = {
+      email: localStorage.getItem("email"),
+    };
+    (async () => {
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+      await axios
+        .post("/api/withdrawal/account", params)
+        .then((res) => {
+          this.bank_na = res.data.data.bankName;
+          this.account_no = res.data.data.accountNumber;
+          this.store_na = res.data.data.name;
+        })
+        .catch(() => {});
+    })();
+    this.$store.commit("storeMain");
+  },
   methods: {
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
     },
+
+    //소상공인 출금 리스트
+    // withdrawalList() {
+    //   var params = {
+    //     email: localStorage.getItem("email"),
+    //   };
+    //   (async () => {
+    //     axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+    //       "token"
+    //     );
+
+    //     await axios
+    //       .post("/api/history/account", params)
+    //       .then((withdrawalContents) => {
+    //         console.log(withdrawalContents);
+    //         this.withdrawalContents = withdrawalContents;
+    //       });
+    //   })();
+    // },
   },
 };
 </script>

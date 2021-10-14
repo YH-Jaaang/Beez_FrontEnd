@@ -24,6 +24,11 @@ export default new Vuex.Store({
     incentiveRate: 100,
     //paymentList
     reviewContents: [],
+    //소상공인 Main 화면
+    cashSales: "",
+    myCash: "",
+    tokenSales: "",
+    myBz: "",
   },
   //mutations : 상태값을 변경시키는 로직 state를 수정
   mutations: {
@@ -71,6 +76,23 @@ export default new Vuex.Store({
       await contracts.getReview(visitor, time1, 0).then((reviewContents) => {
         console.log(reviewContents);
         state.reviewContents = reviewContents;
+      });
+    },
+    //소상공인 Main 화면
+    storeMain: async (state) => {
+      const address = localStorage.getItem("address");
+
+      const contracts = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        PAYMENT_ABI,
+        provider
+      );
+      await contracts.recipientMainLoad(address).then((res) => {
+        state.cashSales = res["WonOfMon"]; //현금매출
+        state.myCash = res["wonBalace"]; //출금가능 현금
+        state.tokenSales = res["BzOfMon"]; //비즈매출
+        state.tokenSalesMon = res["BzOfMon"] / state.incentiveRate; //이번달비즈
+        state.myBz = res["BzBalace"] / state.incentiveRate; //환전가능 비즈
       });
     },
   },

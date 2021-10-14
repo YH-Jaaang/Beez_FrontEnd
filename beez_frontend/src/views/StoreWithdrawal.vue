@@ -16,7 +16,9 @@
       <ul class="withdrawal_amount">
         <li>
           <a>출금가능 원화</a>
-          <a style="position:relative; left:20px">{{ my_won }} 원</a>
+          <a style="position:relative; left:20px"
+            >{{ this.$store.state.myCash | comma }} 원</a
+          >
         </li>
 
         <b-form>
@@ -54,15 +56,19 @@
     <b-modal centered id="wi_modal" hide-footer title="출금 정보">
       <div class="d-block">
         <a class="posit_rel margin">출금가능 금액</a>
-        <a class="posit_rel" style="float:right"> {{ my_won }} 원</a>
+        <a class="posit_rel" style="float:right">
+          {{ this.$store.state.myCash | comma }} 원</a
+        >
       </div>
       <div class="d-block">
         <a class="posit_rel margin">출금 금액</a>
-        <a class="posit_rel" style="float:right"> {{ withdrawal_won }} 원</a>
+        <a class="posit_rel" style="float:right">
+          {{ withdrawal_won | comma }} 원</a
+        >
       </div>
       <div class="d-block" id="total_excharge">
         <a class="posit_rel margin2">잔여 금액</a>
-        <a class="posit_rel2" style="float:right">{{ rest_won }} 원</a>
+        <a class="posit_rel2" style="float:right">{{ rest_won | comma }} 원</a>
       </div>
 
       <div class="note">
@@ -102,6 +108,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default {
   components: {
@@ -109,11 +116,10 @@ export default {
   },
   data() {
     return {
-      bank_na: "KB 국민",
-      account_no: "748 ****** 25437",
+      bank_na: "!!",
+      account_no: "!!",
       error: "",
 
-      my_won: "2000000",
       withdrawal_won: "",
       withdrawal_error: "",
       rest_won: "",
@@ -124,12 +130,55 @@ export default {
       faExclamation,
     };
   },
+  beforeCreate() {
+    var params = {
+      email: localStorage.getItem("email"),
+    };
+    (async () => {
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+      await axios
+        .post("/api/withdrawal/account", params)
+        .then((res) => {
+          this.bank_na = res.data.data.bankName;
+          this.account_no = res.data.data.accountNumber;
+        })
+        .catch(() => {});
+    })();
+    this.$store.commit("storeMain");
+  },
   methods: {
     wonValid() {
       this.withdrawal_won = this.withdrawal_won.replace(/[^0-9]/g, "");
     },
     withdrawalPost() {
+      var params = {
+        email: localStorage.getItem("email"),
+        withdrawal: this.withdrawal_won,
+        address: localStorage.getItem("address"),
+      };
+      (async () => {
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "token"
+        );
+        await axios
+          .post("/api/withdrawal/amount", params)
+          .then(() => {
+            //toast로 충전 정보 전달
+            this.$toaster.success("출금이 완료되었습니다.");
+            this.$store.commit("storeMain");
+          })
+          .catch(() => {
+            this.$toaster.error("출금에 실패하였습니다. 다시 시도해 주세요.");
+          });
+      })();
       this.$router.push("/StoreMain");
+    },
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   computed: {
@@ -141,12 +190,15 @@ export default {
         text.error = "10,000원 이상 출금 가능합니다.";
       else if (text.withdrawal_won % 1000 != 0)
         text.error = "1,000원 단위로 출금 가능합니다.";
-      else if (parseInt(text.withdrawal_won) > parseInt(text.my_won))
+      else if (
+        parseInt(text.withdrawal_won) > parseInt(text.$store.state.myCash)
+      )
         text.error = "출금가능 원화가 부족합니다.";
       //(parseInt(text.withdrawal_won) > parseInt(text.my_won))
       else {
         text.error = "출금 가능합니다.";
-        text.rest_won = parseInt(text.my_won) - parseInt(text.withdrawal_won);
+        text.rest_won =
+          parseInt(text.$store.state.myCash) - parseInt(text.withdrawal_won);
       }
       return true;
     },

@@ -2,7 +2,7 @@
   <div>
     <ul id="user_explain2">
       <li>
-        <h1>Sunny</h1>
+        <h1>{{ nickName }}</h1>
         <h5>님,</h5>
         <h5>환영합니다.</h5>
       </li>
@@ -19,7 +19,14 @@
                 {{ month }}월 총 매출
                 <FontAwesomeIcon :icon="faAngleRight" id="ac_icon2" />
               </h3>
-              <h1>{{ totalSales }} 원</h1>
+              <h1>
+                {{
+                  (parseInt(this.$store.state.cashSales) +
+                    parseInt(this.$store.state.tokenSales))
+                    | comma
+                }}
+                원
+              </h1>
             </b-col>
           </b-row>
         </b-container>
@@ -27,11 +34,15 @@
       <ul class="detail_ac_ceo">
         <li>
           <a>현금 매출</a>
-          <a style="float:right">{{ CashSales }} 원</a>
+          <a style="float:right"
+            >{{ this.$store.state.cashSales | comma }} 원</a
+          >
         </li>
         <li>
           <a>토큰 매출</a>
-          <a style="float:right">{{ TokenSales }} 원</a>
+          <a style="float:right"
+            >{{ this.$store.state.tokenSales | comma }} 원</a
+          >
         </li>
         <div class="text-center"></div>
       </ul>
@@ -50,11 +61,13 @@
       <ul class="detail_won">
         <li>
           <a>이번달 매출</a>
-          <a style="float:right">{{ CashSales }} 원</a>
+          <a style="float:right"
+            >{{ this.$store.state.cashSales | comma }} 원</a
+          >
         </li>
         <li>
           <a>출금가능 현금</a>
-          <a style="float:right">{{ CashSales }} 원</a>
+          <a style="float:right">{{ this.$store.state.myCash | comma }} 원</a>
         </li>
         <li class="text-center">
           <b-button id="WithdrawalBtn" href="StoreWithdrawalList">
@@ -81,14 +94,14 @@
           <li>
             <a>이번달 BEEZ</a>
             <a class="bz_amount">
-              {{ myBzExample }}
+              {{ this.$store.state.tokenSalesMon | comma }}
             </a>
             <img src="../assets/main/main03.png" />
           </li>
           <li>
             <a>환전가능 BEEZ</a>
             <a class="bz_amount">
-              {{ myBzExchange }}
+              {{ this.$store.state.myBz | comma }}
             </a>
             <img src="../assets/main/main03.png" />
           </li>
@@ -140,20 +153,18 @@ export default {
   },
   data() {
     return {
+      nickName: localStorage.getItem("nickName"),
       //아이콘
       faQrcode,
       faCaretDown,
       faAngleRight,
       faFileInvoiceDollar,
 
-      //매출값
-      totalSales: "11,530,000",
-      CashSales: "11,000,000",
-      TokenSales: "530,000",
-      myBzExample: "5300",
-      myBzExchange: "5000",
       month: 0,
     };
+  },
+  beforeCreate() {
+    this.$store.commit("storeMain");
   },
   created() {
     this.init();
@@ -167,6 +178,11 @@ export default {
         const date = new Date();
         this.month = date.getMonth() + 1;
       }
+    },
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
 };

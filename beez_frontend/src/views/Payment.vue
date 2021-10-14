@@ -182,13 +182,13 @@
 import VueQrReader from "../components/VueQrReader.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
-import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
 import axios from "axios";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { ethers } from "ethers";
 
 export default {
@@ -205,7 +205,6 @@ export default {
 
       //아이콘
       faQrcode,
-      faBitcoin,
       faAngleRight,
       faExclamation,
       //결제 입력폼
@@ -214,7 +213,7 @@ export default {
         price: "",
         bz: "",
       },
-      myBz: 33,
+
       won: "",
       error: "",
       userpPrivateKey: "",
