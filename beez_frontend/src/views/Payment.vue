@@ -124,7 +124,11 @@
               <a class="posit_rel margin138">현금 결제</a>
               <a class="posit_rel" style="float:right">{{ won }} 원</a>
             </div>
-            <div class="d-block">
+            <div class="d-block" v-if="this.form.bz == ''">
+              <a class="posit_rel margin138">BZ 결제</a>
+              <a class="posit_rel" style="float:right">0 BZ</a>
+            </div>
+            <div class="d-block" v-else>
               <a class="posit_rel margin138">BZ 결제</a>
               <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
             </div>
@@ -150,7 +154,29 @@
               >취소</b-button
             >
           </b-modal>
-
+          <!-- 결제 진행 모달 -->
+          <b-modal
+            centered
+            id="ing_modal"
+            ref="ing_modal"
+            hide-footer
+            hide-header
+            no-close-on-backdrop
+            no-close-on-esc
+          >
+            <div class="loading">
+              <scale-loader
+                loading="loading"
+                color="#ffbd07b3"
+                size="10px"
+              ></scale-loader>
+            </div>
+            <div class="modal_text">
+              <h4>
+                결제가 진행중입니다. 잠시만 기다려 주세요
+              </h4>
+            </div>
+          </b-modal>
           <div class="form_btn text-center">
             <b-button type="submit" :disabled="error.length > 9">결제</b-button>
             <b-button href="/Main">취소</b-button>
@@ -184,18 +210,19 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
-import axios from "axios";
 import { ethers } from "ethers";
+import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
+import axios from "axios";
 
 export default {
   name: "app",
   components: {
     VueQrReader,
     FontAwesomeIcon,
+    ScaleLoader,
   },
   data() {
     return {
@@ -220,8 +247,30 @@ export default {
       userAddress: "",
     };
   },
-  beforeCreate() {
+  async beforeCreate() {
     this.$store.commit("main");
+
+    //솔리디티 이벤트 확인
+    const abi = PAYMENT_ABI;
+    const provider = PROVIDER;
+    const address = localStorage.getItem("address");
+    const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+    //, recipient, wonAmount, bzAmount
+    await contract.on("paymentResult", (to) => {
+      if (to == address) {
+        //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
+        this.$bvModal.hide("ing_modal");
+        //this.$refs["finish_modal"].show();
+        this.$router.push({
+          name: "paymentCompleted",
+          params: {
+            won: this.won,
+            beez: this.form.bz,
+            price: this.form.price,
+          },
+        });
+      }
+    });
   },
   filters: {
     comma(val) {
@@ -294,8 +343,6 @@ export default {
           //여기서 Correct.vue 처리 해주면 됨
           this.userpPrivateKey = "0x" + res.data.data.privateKey;
           this.userAddress = res.data.data.walletAddress;
-          console.log(this.userpPrivateKey);
-          console.log(this.userAddress);
         })
         .catch((err) => {
           alert(err);
@@ -312,7 +359,6 @@ export default {
       const beez_mount = this.form.bz * 100; //입력값
       /***********************************************************************/
       const provider = PROVIDER;
-
       const signer = await new ethers.Wallet(PRIVATE_KEY, provider);
 
       const contract = await new ethers.Contract(
@@ -328,14 +374,9 @@ export default {
         won_mount,
         beez_mount
       );
-      await sendTransaction
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.$router.push("/");
+      this.$bvModal.hide("p_modal");
+      this.$refs["ing_modal"].show();
+      await sendTransaction.then(() => {}).catch(() => {});
       // const Web3 = require("web3");
       // const web3 = new Web3(
       //   new Web3.providers.HttpProvider(
@@ -675,5 +716,27 @@ export default {
 
 .end_Payment h4 {
   padding: 0;
+}
+/* 로딩 */
+#ing_modal {
+  font-family: BCcardB;
+  background-color: #f8b704;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); */
+}
+
+.modal_text h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.modal_text {
+  background-color: #fbcb4721;
+  border-radius: 15px;
+}
+.loading {
+  margin: 5%;
 }
 </style>

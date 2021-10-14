@@ -64,7 +64,7 @@ export default new Vuex.Store({
       //   .catch(() => {});
     },
     //사용자 리뷰 리스트
-    paymentList: async (state, time1) => {
+    paymentList: async (state, payload) => {
       //const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS);
       const visitor = localStorage.getItem("address");
 
@@ -73,10 +73,12 @@ export default new Vuex.Store({
         PAYMENT_ABI,
         provider
       );
-      await contracts.getReview(visitor, time1, 0).then((reviewContents) => {
-        console.log(reviewContents);
-        state.reviewContents = reviewContents;
-      });
+      await contracts
+        .getReview(visitor, payload.start, payload.end)
+        .then((reviewContents) => {
+          console.log(reviewContents);
+          state.reviewContents = reviewContents;
+        });
     },
     //소상공인 Main 화면
     storeMain: async (state) => {

@@ -23,18 +23,7 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
-  //message 컴포넌트
-  // {
-  //   path: "/Correct",
-  //   component: import("@/layout/Footer.vue"),
-  //   name: "correct",
-  // },
-  // {
-  //   path: "/Fail",
-  //   components: {
-  //     default: () => import("@/views/components/Fail.vue"),
-  //   },
-  // },
+  //PasswordChecking
   {
     path: "/PasswordCheck",
     components: {
@@ -48,6 +37,9 @@ const routes = [
       default: () => import("@/views/Main.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+    meta: {
+      requiresAuth: true,
     },
   },
   {
@@ -82,6 +74,16 @@ const routes = [
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },
+  },
+  {
+    path: "/PaymentCompleted",
+    components: {
+      default: () => import("@/views/components/PaymentCompleted.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+    name: "paymentCompleted",
+    props: true,
   },
   // 소상공인 페이지
   {
@@ -140,4 +142,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
 export default router;

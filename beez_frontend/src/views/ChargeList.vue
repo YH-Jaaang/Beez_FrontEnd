@@ -22,38 +22,20 @@
       :refreshing="false"
       :indicator="{ deactivate: 'pull down' }"
     >
-      <div class="ChargeList_box">
+      <div
+        class="ChargeList_box"
+        v-for="(charge, i) in this.chargeList"
+        :key="i"
+      >
         <ul>
           <li>
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
+            <a>{{ charge.chargeDate }}</a>
+            <a style="float:right"
+              >충전금액 : {{ charge.chargeAmount | comma }}원</a
             >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="ChargeList_box">
-        <ul>
-          <li>
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
+            <a style="float:right"
+              >인센티브 : {{ charge.chargeInc | comma }}원</a
             >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="ChargeList_box">
-        <ul>
-          <li>
-            <a
-              >{{ Charge_year }}/{{ Charge_month }}/{{ Charge_day }}
-              {{ Charge_time }}</a
-            >
-            <a style="float:right">{{ ChargeList_amount }}원</a>
           </li>
         </ul>
       </div>
@@ -99,21 +81,16 @@ export default {
       charge_account: "",
       charge_bank: "",
       charge_name: "",
-      //날짜
-      Charge_year: "2021",
-      Charge_day: "1",
-      Charge_days: "금",
-      Charge_month: "10",
-      Charge_time: "17:49:59",
-      //고객 ID
-      Charge_userId: "YongHan123",
-      // 충전금액
-      ChargeList_amount: "200,000",
-
       //아이콘
       faFileInvoiceDollar,
       faAngleRight,
+      chargeList: [],
     };
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
   beforeCreate() {
     var params = {
@@ -129,6 +106,13 @@ export default {
           this.charge_name = res.data.data.name;
           this.charge_bank = res.data.data.bankName;
           this.charge_account = res.data.data.accountNumber;
+        })
+        .catch(() => {});
+      await axios
+        .post("/api//history/list")
+        .then((res) => {
+          console.log(res);
+          this.chargeList = res.data.data;
         })
         .catch(() => {});
     })();

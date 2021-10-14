@@ -1,5 +1,7 @@
 <template>
-  <Datepicker />
+  <div>
+    <Datepicker></Datepicker>
+  </div>
 </template>
 
 <script>

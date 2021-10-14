@@ -11,7 +11,7 @@
     <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
     <div class="li_btn text-center">
-      <span class="span-blank">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span>
+      <span class="span-blank">This is an empty space. </span>
       <b-button @click="reviewList(7, 0)">
         1주일
       </b-button>
@@ -25,7 +25,7 @@
         6개월
       </b-button>
     </div>
-
+    <DatePicker />
     <div>
       <div
         class="Reviewlist_box"
@@ -35,13 +35,11 @@
         <div class="User_history">
           <ul>
             <li>
-              {{ i }}.
-
               <!-- 가게이름 -->
               가게 이름 :
               {{ review.recipient }} <br />
-              방문 시간 :
-              {{ review.visitTime }}
+              방문 일자 :
+              {{ unix_timestamp(review.visitTime) }}
               <!-- 가격,원화,비즈 -->
               <a style="float:right">
                 가격 : {{ review.cost }}원<br />
@@ -77,7 +75,6 @@
           </ul>
         </div>
       </div>
-
       <div class="review_modal">
         <b-modal
           id="Review_mo dal"
@@ -140,6 +137,27 @@
             >
           </div>
         </b-modal>
+        <!-- 결제 진행 모달 -->
+        <b-modal
+          centered
+          id="p_modal"
+          ref="ing_modal"
+          hide-footer
+          hide-header
+          no-close-on-backdrop
+          no-close-on-esc
+        >
+          <scale-loader
+            loading="loading"
+            color="#ffbd07b3"
+            size="10px"
+          ></scale-loader>
+          <div class="modal_text">
+            <h4>
+              리뷰가 작성중 입니다. 잠시만 기다려 주세요
+            </h4>
+          </div>
+        </b-modal>
       </div>
     </div>
   </div>
@@ -151,6 +169,8 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
+import DatePicker from "@/views/components/DatePicker.vue";
+import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
 import { ethers } from "ethers";
 import axios from "axios";
 
@@ -158,6 +178,8 @@ export default {
   name: "paymentList",
   components: {
     FontAwesomeIcon,
+    DatePicker,
+    ScaleLoader,
   },
 
   data() {
@@ -199,8 +221,24 @@ export default {
       checkedValues: [],
     };
   },
-  beforeCreate() {
-    this.$store.commit("paymentList", 7, 0);
+  async beforeCreate() {
+    const payload = await {
+      start: 7,
+      end: 0,
+    };
+    this.$store.commit("paymentList", payload);
+
+    //솔리디티 이벤트 확인
+    const abi = PAYMENT_ABI;
+    const provider = PROVIDER;
+    //const address = localStorage.getItem("address");
+    const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+
+    await contract.on("reviewResult", (to) => {
+      console.log(to);
+      this.$refs["ing_modal"].hide();
+      this.$store.commit("paymentList", payload);
+    });
   },
   props: ["removeValue"],
   methods: {
@@ -226,8 +264,12 @@ export default {
         }
       }
     },
-    reviewList(date) {
-      this.$store.commit("paymentList", date);
+    async reviewList(start, end) {
+      const payload = await {
+        start: start,
+        end: end,
+      };
+      this.$store.commit("paymentList", payload);
     },
     async writeReview() {
       axios.defaults.headers.common["Authorization"] = localStorage.getItem(
@@ -244,15 +286,8 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // const Web3 = require("web3");
-      // const web3 = new Web3(
-      //   new Web3.providers.HttpProvider(
-      //     "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
-      //   )
-      // );
-      //const CONTRACT_ADDRESS = "0x02acbe2E3FB41ABaF3B5A80Fb6275bC5E984EF59"; //DB
+
       const CONTRACT_ABI = PAYMENT_ABI;
-      //const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
       const PRIVATE_KEY = this.userPrivateKey;
 
       /****************************Solidity 매개변수****************************/
@@ -278,16 +313,37 @@ export default {
         value2,
         value3
       );
+      this.$refs["review_modal"].hide();
+      this.$refs["ing_modal"].show();
       await sendTransaction
         .then((res) => {
           console.log(res);
-          this.$store.commit("paymentList", 7, 0);
         })
         .catch((err) => {
           console.log(err);
         });
-
-      this.$refs["review_modal"].hide();
+    },
+    unix_timestamp(t) {
+      var date = new Date(t * 1000);
+      var year = date.getFullYear();
+      var month = "0" + (date.getMonth() + 1);
+      var day = "0" + date.getDate();
+      var hour = "0" + date.getHours();
+      var minute = "0" + date.getMinutes();
+      var second = "0" + date.getSeconds();
+      return (
+        year +
+        "-" +
+        month.substr(-2) +
+        "-" +
+        day.substr(-2) +
+        " " +
+        hour.substr(-2) +
+        ":" +
+        minute.substr(-2) +
+        ":" +
+        second.substr(-2)
+      );
     },
 
     //모달 취소 버튼
@@ -461,5 +517,16 @@ export default {
   font-family: "BCcardB";
   font-weight: 600;
   color: #76512c;
+}
+.modal_text h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 10px;
+  text-align: center;
+}
+.modal_text {
+  background-color: #fbcb4721;
+  border-radius: 15px;
 }
 </style>

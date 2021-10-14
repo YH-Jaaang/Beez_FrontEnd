@@ -188,13 +188,20 @@ export default {
       //   this.show = true;
       // });
     },
+    //충전 버튼 후 모달창
+    showModal() {
+      this.$refs["charge_modal"].show();
+    },
+    hideModal() {
+      this.$refs["charge_modal"].hide();
+    },
 
     //값 전달 axios
-    chargePost() {
+    async chargePost() {
       var params = {
         email: localStorage.getItem("email"),
-        charge: this.form.number,
         address: localStorage.getItem("address"),
+        charge: this.form.number,
       };
       (async () => {
         //이런식으로 header 토큰 삽입 => security 활성화.
@@ -207,7 +214,7 @@ export default {
           .post("/api/charge/amount", params)
           .then(() => {
             //toast로 충전 정보 전달
-            this.$toaster.success("충전이 완료되었습니다.");
+            //this.$toaster.success("충전이 완료되었습니다.");
             this.$store.commit("main");
           })
           .catch(() => {
@@ -217,7 +224,6 @@ export default {
       //페이지 이동
       this.$router.push("/Main");
     },
-
     //----------------입력폼에 숫자만----------------------
     chargeValid() {
       this.form.number = this.form.number.replace(/[^0-9]/g, "");
