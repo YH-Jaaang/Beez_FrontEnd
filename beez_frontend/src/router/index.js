@@ -23,6 +23,16 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+<<<<<<< Updated upstream
+=======
+  //PasswordChecking
+  {
+    path: "/PasswordCheck",
+    components: {
+      default: () => import("@/views/PasswordCheck.vue"),
+    },
+  },
+>>>>>>> Stashed changes
   //사용자 페이지
   {
     path: "/Main",
@@ -67,6 +77,16 @@ const routes = [
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },
+  },
+  {
+    path: "/PaymentCompleted",
+    components: {
+      default: () => import("@/views/components/PaymentCompleted.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+    name: "paymentCompleted",
+    props: true,
   },
   // 소상공인 페이지
   {

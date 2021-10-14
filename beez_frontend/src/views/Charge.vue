@@ -131,9 +131,33 @@ export default {
         email: localStorage.getItem("email"),
         charge: this.form.number,
       };
+<<<<<<< Updated upstream
       //이런식으로 header 토큰 삽입 => security 활성화.
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("token");
+=======
+      (async () => {
+        //이런식으로 header 토큰 삽입 => security 활성화.
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "token"
+        );
+
+        //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+        await axios
+          .post("/api/charge/amount", params)
+          .then(() => {
+            //toast로 충전 정보 전달
+            //this.$toaster.success("충전이 완료되었습니다.");
+            this.$store.commit("main");
+          })
+          .catch(() => {
+            this.$toaster.error("충전에 실패하였습니다. 다시 시도해 주세요.");
+          });
+      })();
+      //페이지 이동
+      this.$router.push("/Main");
+    },
+>>>>>>> Stashed changes
 
       //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
       await axios

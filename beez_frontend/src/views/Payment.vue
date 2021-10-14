@@ -123,6 +123,7 @@
             </b-collapse>
           </div>
 
+<<<<<<< Updated upstream
           <div class="pay_modal">
             <b-modal id="p_modal" ref="pay_modal" hide-footer title="결제 정보">
               <div class="d-block">
@@ -149,6 +150,73 @@
               </div>
             </b-modal>
           </div>
+=======
+          <b-modal
+            centered
+            id="p_modal"
+            ref="pay_modal"
+            hide-footer
+            title="결제 정보"
+          >
+            <div class="d-block">
+              <a class="posit_rel margin138">현금 결제</a>
+              <a class="posit_rel" style="float:right">{{ won }} 원</a>
+            </div>
+            <div class="d-block" v-if="this.form.bz == ''">
+              <a class="posit_rel margin138">BZ 결제</a>
+              <a class="posit_rel" style="float:right">0 BZ</a>
+            </div>
+            <div class="d-block" v-else>
+              <a class="posit_rel margin138">BZ 결제</a>
+              <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
+            </div>
+            <div class="d-block" id="total_pay">
+              <a class="posit_rel margin90">총 결제금액</a>
+              <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
+            </div>
+            <div class="note">
+              <h4>
+                <FontAwesomeIcon :icon="faExclamation" id="btn_color" />
+                결제 유의사항
+              </h4>
+              <h5>
+                - 확인 버튼 클릭 이후 결제한 금액이 바로 적용되지 않습니다.
+              </h5>
+              <h5>- 결제는 결제 완료 알람창이 떠야 최종 결제 완료입니다.</h5>
+              <h5>
+                - 확인 버튼 클릭 이후 결제 알림창까지 약 1분정도 소요됩니다.
+              </h5>
+            </div>
+            <b-button class="mt-3" @click="payPost">확인</b-button>
+            <b-button class="mt-3" @click="$bvModal.hide('p_modal')"
+              >취소</b-button
+            >
+          </b-modal>
+          <!-- 결제 진행 모달 -->
+
+          <b-modal
+            centered
+            id="ing_modal"
+            ref="ing_modal"
+            hide-footer
+            hide-header
+            no-close-on-backdrop
+            no-close-on-esc
+          >
+            <div class="loading">
+              <scale-loader
+                loading="loading"
+                color="#ffbd07b3"
+                size="10px"
+              ></scale-loader>
+            </div>
+            <div class="modal_text">
+              <h4>
+                결제가 진행중입니다. 잠시만 기다려 주세요
+              </h4>
+            </div>
+          </b-modal>
+>>>>>>> Stashed changes
 
           <div class="form_btn text-center">
             <b-button type="reset">취소</b-button>
@@ -167,12 +235,25 @@ import VueQrReader from "../components/VueQrReader.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+<<<<<<< Updated upstream
+=======
+import { PAYMENT_ABI } from "@/contract/ContractABI.js";
+import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import { PROVIDER } from "@/contract/Provider.js";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { ethers } from "ethers";
+import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
+//import Modal from "@/views/components/Modal.vue";
+import axios from "axios";
+>>>>>>> Stashed changes
 
 export default {
   name: "app",
   components: {
     VueQrReader,
     FontAwesomeIcon,
+    ScaleLoader,
   },
   data() {
     return {
@@ -195,6 +276,40 @@ export default {
       error: "",
     };
   },
+<<<<<<< Updated upstream
+=======
+  async beforeCreate() {
+    this.$store.commit("main");
+
+    //솔리디티 이벤트 확인
+    const abi = PAYMENT_ABI;
+    const provider = PROVIDER;
+    const address = localStorage.getItem("address");
+    const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+    //, recipient, wonAmount, bzAmount
+    await contract.on("paymentResult", (to) => {
+      if (to == address) {
+        //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
+        this.$bvModal.hide("ing_modal");
+        //this.$refs["finish_modal"].show();
+        this.$router.push({
+          name: "paymentCompleted",
+          params: {
+            won: this.won,
+            beez: this.form.bz,
+            price: this.form.price,
+          },
+        });
+      }
+    });
+  },
+
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+>>>>>>> Stashed changes
   methods: {
     //QR카메라
     codeScanned(code) {
@@ -244,6 +359,7 @@ export default {
     hideModal() {
       this.$refs["pay_modal"].hide();
     },
+<<<<<<< Updated upstream
     payPost() {
       // ----------------------------------추후 수정-------------------------------
       // axios
@@ -260,6 +376,56 @@ export default {
       //     console.log(err);
       //   });
       this.$router.push("/");
+=======
+    //db에서 address, privateAddress받아오기
+    async payPost() {
+      //이런식으로 header 토큰 삽입 => security 활성화.
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+
+      //axios전달(/api로 시작 => vue.config.js에서 그렇게 설정, 무조건 spring에서 dto를 이용하여 값 전달 받아야함)
+      await axios
+        .post("/api/users/priv")
+        .then((res) => {
+          //여기서 Correct.vue 처리 해주면 됨
+          this.userpPrivateKey = "0x" + res.data.data.privateKey;
+          this.userAddress = res.data.data.walletAddress;
+        })
+        .catch((err) => {
+          alert(err);
+        });
+
+      //msg.sender credentials(자격증명) - PRIVATE_ADDRESS를 활용
+      const PRIVATE_KEY = this.userpPrivateKey;
+
+      /****************************Solidity 매개변수****************************/
+      const to_ADDRESS = this.userAddress; //사용자(db) 원토큰 백만원, 비즈 십만원
+      const recipient_ADDRESS = this.form.scanned; //소상공인(qr)
+      const cost = this.form.price; //입력값
+      const won_mount = this.won; //입력값을 활용해 계산
+      const beez_mount = this.form.bz * 100; //입력값
+      /***********************************************************************/
+      const provider = PROVIDER;
+      const signer = await new ethers.Wallet(PRIVATE_KEY, provider);
+
+      const contract = await new ethers.Contract(
+        CONTRACT_ADDRESS,
+        PAYMENT_ABI,
+        signer
+      );
+
+      const sendTransaction = contract.payment(
+        to_ADDRESS,
+        recipient_ADDRESS,
+        cost,
+        won_mount,
+        beez_mount
+      );
+      this.$bvModal.hide("p_modal");
+      this.$refs["ing_modal"].show();
+      await sendTransaction.then(() => {}).catch(() => {});
+>>>>>>> Stashed changes
     },
   },
   computed: {
@@ -465,5 +631,27 @@ export default {
 #total_pay {
   position: relative;
   right: -5%;
+}
+/* 로딩 */
+#ing_modal {
+  font-family: BCcardB;
+  background-color: #f8b704;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); */
+}
+
+.modal_text h4 {
+  color: red;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.modal_text {
+  background-color: #fbcb4721;
+  border-radius: 15px;
+}
+.loading {
+  margin: 5%;
 }
 </style>
