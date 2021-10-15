@@ -219,6 +219,8 @@ export default {
       userPrivateKey: "",
       userAddress: "",
       checkedValues: [],
+      json: "[",
+      storeList: [],
     };
   },
   async beforeCreate() {
@@ -226,8 +228,28 @@ export default {
       start: 7,
       end: 0,
     };
-    this.$store.commit("paymentList", payload);
+    await this.$store.commit("paymentList", payload);
+    await this.$store.state.reviewContents.forEach((element) => {
+      this.json += `{"address"` + ` : "` + element.recipient + `"},`;
+    });
+    //axios로 값보내기d
+    this.json = this.json.substr(0, this.json.length - 1);
+    this.json += "]";
+    const params2 = { wallet_address: JSON.parse(this.json) };
+    console.log(params2);
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "token"
+    );
 
+    await axios
+      .post("/api/find/address", params2)
+      .then((res) => {
+        this.storeList = res.data.data;
+        console.log(this.storeList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     //솔리디티 이벤트 확인
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
@@ -344,6 +366,9 @@ export default {
         ":" +
         second.substr(-2)
       );
+    },
+    async storeLists() {
+      return this.storeList;
     },
 
     //모달 취소 버튼

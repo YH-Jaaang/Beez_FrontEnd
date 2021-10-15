@@ -36,6 +36,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
+const storage = window.sessionStorage;
 
 export default {
   components: {
@@ -51,6 +52,7 @@ export default {
   methods: {
     reset: () => {
       localStorage.clear();
+      storage.clear();
     },
   },
   beforeCreate() {

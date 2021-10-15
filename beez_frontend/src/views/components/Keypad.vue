@@ -64,6 +64,8 @@ export default {
             "보안 비밀번호 시도 횟수 초과입니다.\n 고객센터 문의 바랍니다."
           );
           this.$router.push("/Main");
+        } else {
+          storage.setItem("complete", "complete");
         }
       })
       .catch(() => {

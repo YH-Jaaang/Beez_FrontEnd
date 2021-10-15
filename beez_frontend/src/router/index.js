@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
+const storage = window.sessionStorage;
 
 const routes = [
   {
@@ -58,13 +59,19 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
-
   {
     path: "/Charge",
     components: {
       default: () => import("@/views/Charge.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (!storage.getItem("complete")) {
+        next("/PasswordCheck");
+      } else {
+        next();
+      }
     },
   },
   {

@@ -167,7 +167,7 @@ export default {
     exchangePost() {
       var params = {
         email: localStorage.getItem("email"),
-        exchange: this.form.bzInput,
+        exchange: this.form.bzInput * 100,
         address: localStorage.getItem("address"),
       };
       (async () => {

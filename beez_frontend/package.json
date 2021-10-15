@@ -21,7 +21,6 @@
     "v-pull-to-refresh": "^1.0.3",
     "v-toaster": "^1.0.3",
     "vue": "^2.6.11",
-    "vue-cookies": "^1.7.4",
     "vue-datepicker-ui": "^2.2.0",
     "vue-numeric-keypad": "^1.1.2",
     "vue-qrcode-reader": "^3.0.3",

@@ -23,11 +23,10 @@ export default {
       abi,
       provider
     );
-    await contract.on("chargeResult", (to, chargeAmount, chargeInc) => {
-      console.log(to, parseInt(chargeAmount), parseInt(chargeInc));
+    await contract.on("chargeResult", (to) => {
+      //console.log(to, parseInt(chargeAmount), parseInt(chargeInc));
       if (to == localStorage.getItem("address")) {
         this.$toaster.success("충전이 완료되었습니다.");
-        this.$store.commit("main");
       }
     });
   },
