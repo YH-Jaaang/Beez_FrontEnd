@@ -19,7 +19,7 @@ export default {
       map: null,
       storeList: [],
       markers: [],
-      infowindow: "",
+      infowindow: null,
     };
   },
   mounted() {
@@ -37,24 +37,20 @@ export default {
   },
   methods: {
     /*맵생성*/
-
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(37.484529, 126.901153),
-        level: 7,
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 5,
       };
       this.map = new kakao.maps.Map(container, options);
-      console.log(options);
     },
-
     changeSize(size) {
       const container = document.getElementById("map");
       container.style.width = `${size}px`;
       container.style.height = `${size}px`;
       this.map.relayout();
     },
-
     /*주변 가게찾기*/
 
     async findStore() {
@@ -67,7 +63,7 @@ export default {
       await axios
         .post("/api/StoreList")
         .then((res) => {
-          res.data.forEach(function (pos) {
+          res.data.forEach(function(pos) {
             var storeName = pos.storeName;
             var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
 
@@ -97,11 +93,11 @@ export default {
 
             buttonContainer.appendChild(closeBtn);
 
-            closeBtn.onclick = function () {
+            closeBtn.onclick = function() {
               customOverlay.setMap(null);
             };
 
-            kakao.maps.event.addListener(marker, "click", function () {
+            kakao.maps.event.addListener(marker, "click", function() {
               customOverlay.setMap(self.map);
             });
             customOverlay.setContent(content);
@@ -142,7 +138,7 @@ export default {
     myLocation() {
       let self = this;
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
           const lat = position.coords.latitude,
             lon = position.coords.longitude;
           const locPosition = new kakao.maps.LatLng(lat, lon),

@@ -126,6 +126,14 @@ const routes = [
     },
   },
   {
+    path: "/StoreList",
+    components: {
+      default: () => import("@/views/StoreList.vue"),
+      header: () => import("@/layout/StoreHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
     path: "/StoreWithdrawal",
     components: {
       default: () => import("@/views/StoreWithdrawal.vue"),
