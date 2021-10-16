@@ -37,7 +37,7 @@
             <li>
               <!-- 가게이름 -->
               가게 이름 :
-              {{ review.recipient }} <br />
+              {{ $store.state.storeList[i] }} <br />
               방문 일자 :
               {{ unix_timestamp(review.visitTime) }}
               <!-- 가격,원화,비즈 -->
@@ -219,8 +219,7 @@ export default {
       userPrivateKey: "",
       userAddress: "",
       checkedValues: [],
-      json: "[",
-      storeList: [],
+      json: "",
     };
   },
   async beforeCreate() {
@@ -228,28 +227,9 @@ export default {
       start: 7,
       end: 0,
     };
-    await this.$store.commit("paymentList", payload);
-    await this.$store.state.reviewContents.forEach((element) => {
-      this.json += `{"address"` + ` : "` + element.recipient + `"},`;
-    });
-    //axios로 값보내기d
-    this.json = this.json.substr(0, this.json.length - 1);
-    this.json += "]";
-    const params2 = { wallet_address: JSON.parse(this.json) };
-    console.log(params2);
-    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-      "token"
-    );
 
-    await axios
-      .post("/api/find/address", params2)
-      .then((res) => {
-        this.storeList = res.data.data;
-        console.log(this.storeList);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await this.$store.commit("paymentList", payload);
+
     //솔리디티 이벤트 확인
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
@@ -367,10 +347,41 @@ export default {
         second.substr(-2)
       );
     },
-    async storeLists() {
-      return this.storeList;
-    },
+    // async test() {
+    //   console.log("before json parsing:", this.$store.state.reviewContents);
 
+    //   const retStr = JSON.stringify(
+    //     this.$store.state.reviewContents.map((element) => {
+    //       address: element.receipt;
+    //     })
+    //   );
+    //   console.log(retStr);
+
+    //   // this.json = "[";
+    //   // await this.$store.state.reviewContents.forEach((element) => {
+    //   //   this.json += `{"address"` + ` : "` + element.recipient + `"},`;
+    //   //   console.log(this.json);
+    //   // });
+    //   // //axios로 값보내기
+    //   // this.json = this.json.substr(0, this.json.length - 1);
+    //   // this.json += "]";
+    //   const params2 = { wallet_address: JSON.parse(retStr) };
+    //   console.log(params2);
+
+    //   axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+    //     "token"
+    //   );
+
+    //   await axios
+    //     .post("/api/find/address", params2)
+    //     .then((res) => {
+    //       this.storeList = res.data.data;
+    //       console.log(this.storeList);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     //모달 취소 버튼
     KeywordModal(time) {
       this.$refs["review_modal"].show();

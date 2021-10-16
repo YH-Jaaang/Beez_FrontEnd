@@ -14,8 +14,6 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "ethers": "^5.4.7",
-    "node-sass": "^4.0.0",
-    "sass-loader": "7.1.0",
     "url-search-params-polyfill": "^8.1.1",
     "v-calendar": "^2.3.4",
     "v-pull-to-refresh": "^1.0.3",
@@ -27,8 +25,7 @@
     "vue-qriously": "^1.1.1",
     "vue-router": "^3.2.0",
     "vue-spinner": "^1.0.4",
-    "vuex": "^3.4.0",
-    "web3": "^1.6.0"
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

@@ -4,6 +4,7 @@ import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
 import { ethers } from "ethers";
+import axios from "axios";
 
 const provider = PROVIDER;
 Vue.use(Vuex);
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     incentiveRate: 100,
     //paymentList
     reviewContents: [],
+    storeList: [],
     //소상공인 Main 화면
     cashSales: "",
     myCash: "",
@@ -76,8 +78,32 @@ export default new Vuex.Store({
       await contracts
         .getReview(visitor, payload.start, payload.end)
         .then((reviewContents) => {
-          console.log(reviewContents);
           state.reviewContents = reviewContents;
+        });
+
+      let arrJson = [];
+
+      await state.reviewContents.map((element) => {
+        arrJson.push({ address: element[2] });
+      });
+      const retAddress = JSON.stringify(arrJson);
+      //console.log("retStr", retStr);
+
+      const params = { wallet_address: JSON.parse(retAddress) };
+      //console.log(params);
+
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+
+      await axios
+        .post("/api/find/address", params)
+        .then((res) => {
+          state.storeList = res.data.data;
+          //console.log(state.storeList);
+        })
+        .catch(() => {
+          //console.log(err);
         });
     },
     //소상공인 Main 화면
