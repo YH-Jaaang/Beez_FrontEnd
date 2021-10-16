@@ -4,22 +4,30 @@
     <div>
       <div class="font-red">{{ errMsg }}</div>
     </div>
-    <span v-if="value.length <= 5">
-      <span v-for="values in value" :key="values">
-        <input class="input_pass" type="password" :value="values" readonly />
+    <form>
+      <span v-if="value.length <= 5">
+        <span v-for="values in value" :key="values">
+          <input
+            class="input_pass"
+            type="password"
+            :value="values"
+            readonly
+            autocomplete="off"
+          />
+        </span>
       </span>
-    </span>
-    <span v-else>
-      <span v-for="i in 6" :key="i">
-        <input
-          class="input_pass"
-          type="password"
-          :value="value[i - 1]"
-          readonly
-        />
-        <span v-if="i == 6" v-on="checkPass()"></span>
+      <span v-else>
+        <span v-for="i in 6" :key="i">
+          <input
+            class="input_pass"
+            type="password"
+            :value="value[i - 1]"
+            readonly
+          />
+          <span v-if="i == 6" v-on="checkPass()"></span>
+        </span>
       </span>
-    </span>
+    </form>
     <VueNumericKeypad
       :value.sync="value"
       :show.sync="this.show"

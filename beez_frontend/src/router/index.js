@@ -30,6 +30,16 @@ const routes = [
     components: {
       default: () => import("@/views/PasswordCheck.vue"),
     },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        next();
+      } else {
+        next("/");
+      }
+    },
   },
   //사용자 페이지
   {
