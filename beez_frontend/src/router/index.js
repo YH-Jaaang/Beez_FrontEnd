@@ -44,6 +44,14 @@ const routes = [
     },
   },
   {
+    path: "/StoreList",
+    components: {
+      default: () => import("@/views/StoreList.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
     path: "/PaymentList",
     components: {
       default: () => import("@/views/PaymentList.vue"),

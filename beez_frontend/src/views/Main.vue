@@ -82,10 +82,34 @@
         <!-- <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" /> -->
         결제/리뷰 내역
       </b-button>
+<<<<<<< Updated upstream
       <!-- <b-button href="/ChargeList">
          <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" /> 
         충전 내역 
       </b-button>-->
+=======
+      <b-button href="/ChargeList">
+        충전 내역
+      </b-button>
+      <b-button href="/StoreList">
+        주변 가게 찾기
+      </b-button>
+    </div>
+
+    <div>
+      <b-card class="end_start">
+        <li>
+          <h4>
+            공지사항<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+>>>>>>> Stashed changes
     </div>
   </div>
 </template>

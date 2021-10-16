@@ -792,6 +792,66 @@ ul.btn li:last-child {
   width: 100%;
 }
 
+.label {
+  margin-bottom: 96px;
+}
+.label * {
+  display: inline-block;
+  vertical-align: top;
+}
+.label .left {
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png")
+    no-repeat;
+  display: inline-block;
+  height: 24px;
+  overflow: hidden;
+  vertical-align: top;
+  width: 7px;
+}
+.label .center {
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png)
+    repeat-x;
+  display: inline-block;
+  height: 24px;
+  font-size: 12px;
+  line-height: 24px;
+}
+.label .right {
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px
+    0 no-repeat;
+  display: inline-block;
+  height: 24px;
+  overflow: hidden;
+  width: 6px;
+}
+.overlaybox {
+  color: sienna;
+  font-weight: bold;
+  font-size: large;
+  background-color: gold;
+  border-radius: 17px;
+  padding: 20px 14px;
+  margin-bottom: 5%;
+  font-family: "BCcardL";
+}
+.overlaybox .overlaycontent button {
+  background-color: #f8d97171;
+  font-size: 15px;
+  font-weight: 900;
+  width: auto;
+  margin: auto;
+  padding: 2;
+  font-family: "BCcardL";
+  border-radius: 10px;
+  display: block;
+}
+.myLocation {
+  text-align: center;
+}
+.button-group button {
+  border-radius: 8px;
+  margin: auto;
+}
 /** end contact  section **/
 
 /** footer **/

@@ -57,6 +57,7 @@
         </div>
         <!-- v-if="인센티브 금액이 5만원 초과하였을 경우 보이지 않게, 현재 4.5만원 인센티브 받았는데 다음 충전시 인센티브를
         5만원 초과 했을시 5천원만 인센티브 더주기" -->
+<<<<<<< Updated upstream
         <div class="d-block">
           <a class="posit_rel margin138">인센티브</a>
           <a class="posit_rel" style="float:right"
@@ -70,6 +71,40 @@
         <b-button class="mt-3" inline-block @click="hideModal">취소</b-button>
         <b-button class="mt-3" inline-block @click="chargePost">확인</b-button>
       </b-modal>
+=======
+      <div class="d-block">
+        <a class="posit_rel margin138">인센티브</a>
+        <a class="posit_rel" style="float:right"
+          >{{ incentive_amount | comma }} 원</a
+        >
+      </div>
+      <div class="d-block" id="total_charge">
+        <a class="posit_rel margin90">총 충전금액</a>
+        <a class="posit_rel2" style="float:right"
+          >{{ charge_amount | comma }} 원</a
+        >
+      </div>
+      <b-button class="mt-3" @click="chargePost">확인</b-button>
+      <b-button class="mt-3" @click="$bvModal.hide('ch_modal')">취소</b-button>
+    </b-modal>
+
+    <div>
+      <b-card class="end_Charge">
+        <li>
+          <h4>
+            충전 안내<FontAwesomeIcon
+              :icon="faAngleRight"
+              style="float:right"
+            />
+          </h4>
+        </li>
+        <li>
+          <h4>
+            Q & A<FontAwesomeIcon :icon="faAngleRight" style="float:right" />
+          </h4>
+        </li>
+      </b-card>
+>>>>>>> Stashed changes
     </div>
   </div>
 </template>
