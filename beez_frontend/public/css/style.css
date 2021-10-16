@@ -792,34 +792,6 @@ ul.btn li:last-child {
   width: 100%;
 }
 
-.overlaybox {
-  color: sienna;
-  font-weight: bold;
-  font-size: large;
-  background-color: gold;
-  border-radius: 17px;
-  padding: 20px 14px;
-  margin-bottom: 5%;
-  font-family: "BCcardL";
-}
-.overlaybox .overlaycontent button {
-  background-color: #f8d97171;
-  font-size: 15px;
-  font-weight: 900;
-  width: auto;
-  margin: auto;
-  padding: 2;
-  font-family: "BCcardL";
-  border-radius: 10px;
-  display: block;
-}
-.myLocation {
-  text-align: center;
-}
-.button-group button {
-  border-radius: 8px;
-  margin: auto;
-}
 /** end contact  section **/
 
 /** footer **/
