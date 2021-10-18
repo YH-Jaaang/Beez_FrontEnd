@@ -25,7 +25,9 @@
         6개월
       </b-button>
     </div>
-    <DatePicker />
+    <div>
+      <span><DatePicker /></span> <DatePicker2 />
+    </div>
     <div>
       <div
         class="Reviewlist_box"
@@ -34,44 +36,77 @@
       >
         <div class="User_history">
           <ul>
-            <li>
-              <!-- 가게이름 -->
-              가게 이름 :
-              {{ $store.state.storeList[i] }} <br />
-              방문 일자 :
-              {{ unix_timestamp(review.visitTime) }}
-              <!-- 가격,원화,비즈 -->
-              <a style="float:right">
-                가격 : {{ review.cost }}원<br />
-                지불 : {{ review.wonTokenCount }}원<br />
-                Beez : {{ review.bzTokenCount / $store.state.incentiveRate }}개
-                <!-- 이런식으로 하면 될듯 -->
-                <!-- {{ keyword1[1].text }} -->
-                <!-- {{ keyword[parseInt[review.value1]].text }} -->
-              </a>
-            </li>
-            <br />
-            <!-- 7일 계산용 {{ timestamp - review.visitTime }}  -->
-            <li v-if="timestamp - review.visitTime >= 604800">
-              <!-- <b-button id="Review_btn3" disabled
+            <table class="pay_table">
+              <tr>
+                <td>{{ unix_timestamp(review.visitTime) }}</td>
+                <td rowspan="2" class="pay_row">
+                  <table>
+                    <tr>
+                      <td class="pay_td">
+                        <FontAwesomeIcon
+                          :icon="faWonSign"
+                          class="faWon_style"
+                        />
+                      </td>
+                      <td>{{ review.wonTokenCount }}원</td>
+                    </tr>
+                    <tr>
+                      <td class="pay_row">
+                        <img src="../assets/main/main03.png" />
+                      </td>
+                      <td>
+                        {{ review.bzTokenCount / $store.state.incentiveRate }}개
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pay_row">
+                        <!-- <FontAwesomeIcon
+                          :icon="faCreditCard"
+                          class="faWon_style"
+                        /> -->
+                        총
+                      </td>
+                      <td>{{ review.cost }}원</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ $store.state.storeList[i] }}</td>
+              </tr>
+            </table>
+
+            <li class="bar"></li>
+
+            <div class="text-center">
+              <!-- 7일 계산 -->
+              <li
+                class="keyword_Review_box"
+                v-if="timestamp - review.visitTime >= 604800"
+              >
+                <!-- <b-button id="Review_btn3" disabled
                 >키워드 리뷰 (BEEZ토큰지급)</b-button
               > -->
-            </li>
-            <!-- 7일체크해야함 -->
-            <li v-else-if="review.value1 == ''">
-              <a class="keyword_Review_box">
-                <b-button
-                  id="Review_btn2"
-                  @click="KeywordModal(review.visitTime)"
-                  >키워드 리뷰 (BEEZ토큰지급)</b-button
-                >
-              </a>
-            </li>
-            <li class="keyword_Review_box" v-else>
-              <a>{{ review.value1 }} </a>
-              <a>{{ review.value2 }}</a>
-              <a>{{ review.value3 }}</a>
-            </li>
+
+                <a>리뷰 작성 기간이 지났습니다. </a>
+              </li>
+              <!-- 7일체크 -->
+              <li v-else-if="review.value1 == ''">
+                <a class="keyword_Review_box">
+                  <b-button
+                    id="Review_btn2"
+                    @click="KeywordModal(review.visitTime)"
+                    >키워드 리뷰 (BEEZ토큰지급)</b-button
+                  >
+                </a>
+              </li>
+
+              <li class="keyword_Review_box" v-else>
+                <a>{{ review.value1 }} </a>
+                <a>{{ review.value2 }}</a>
+                <a>{{ review.value3 }}</a>
+              </li>
+            </div>
           </ul>
         </div>
       </div>
@@ -166,10 +201,13 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
+import { faWonSign } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
 import DatePicker from "@/views/components/DatePicker.vue";
+import DatePicker2 from "@/views/components/DatePicker2.vue";
 import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
 import { ethers } from "ethers";
 import axios from "axios";
@@ -179,6 +217,7 @@ export default {
   components: {
     FontAwesomeIcon,
     DatePicker,
+    DatePicker2,
     ScaleLoader,
   },
 
@@ -187,6 +226,8 @@ export default {
       timestamp: Math.floor(new Date().getTime() / 1000),
       //아이콘
       faList,
+      faWonSign,
+      faCreditCard,
       //모달 체크박스
       checked1: [],
       checked2: [],
@@ -324,6 +365,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      this.checked1.reverse().pop();
+      this.checked2.reverse().pop();
+      this.checked3.reverse().pop();
     },
     unix_timestamp(t) {
       var date = new Date(t * 1000);
@@ -332,56 +376,22 @@ export default {
       var day = "0" + date.getDate();
       var hour = "0" + date.getHours();
       var minute = "0" + date.getMinutes();
-      var second = "0" + date.getSeconds();
+      //var second = "0" + date.getSeconds();
       return (
         year +
-        "-" +
+        "/" +
         month.substr(-2) +
-        "-" +
+        "/" +
         day.substr(-2) +
         " " +
         hour.substr(-2) +
         ":" +
-        minute.substr(-2) +
-        ":" +
-        second.substr(-2)
+        minute.substr(-2)
+        // +
+        // ":" +
+        // second.substr(-2)
       );
     },
-    // async test() {
-    //   console.log("before json parsing:", this.$store.state.reviewContents);
-
-    //   const retStr = JSON.stringify(
-    //     this.$store.state.reviewContents.map((element) => {
-    //       address: element.receipt;
-    //     })
-    //   );
-    //   console.log(retStr);
-
-    //   // this.json = "[";
-    //   // await this.$store.state.reviewContents.forEach((element) => {
-    //   //   this.json += `{"address"` + ` : "` + element.recipient + `"},`;
-    //   //   console.log(this.json);
-    //   // });
-    //   // //axios로 값보내기
-    //   // this.json = this.json.substr(0, this.json.length - 1);
-    //   // this.json += "]";
-    //   const params2 = { wallet_address: JSON.parse(retStr) };
-    //   console.log(params2);
-
-    //   axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-    //     "token"
-    //   );
-
-    //   await axios
-    //     .post("/api/find/address", params2)
-    //     .then((res) => {
-    //       this.storeList = res.data.data;
-    //       console.log(this.storeList);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     //모달 취소 버튼
     KeywordModal(time) {
       this.$refs["review_modal"].show();
@@ -389,6 +399,9 @@ export default {
     },
     hideModal2() {
       this.$refs["review_modal"].hide();
+      this.checked1.reverse().pop();
+      this.checked2.reverse().pop();
+      this.checked3.reverse().pop();
     },
   },
 
@@ -433,6 +446,9 @@ export default {
   font-family: BCcardB;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
+.User_history {
+  font-size: 13px;
+}
 .Reviewlist_box {
   padding: 2% 2%;
   border-radius: 20px;
@@ -477,6 +493,25 @@ export default {
   display: block;
   font-weight: 700;
 }
+.pay_table {
+  width: 100%;
+  padding: 10px;
+}
+.pay_table img {
+  width: 13%;
+}
+.pay_row {
+  width: 50%;
+  text-align: right;
+}
+.pay_td {
+  width: 70%;
+  text-align: right;
+}
+.faWon_style {
+  color: #fbca47;
+}
+
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
 .modal-header {
   margin: 3%;

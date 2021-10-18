@@ -1,5 +1,5 @@
 <template>
-  <Datepicker v-model="selectedDate" lang="ko" style="height:70px" />
+  <Datepicker v-model="selectedDate" lang="ko" />
 </template>
 
 <script>
