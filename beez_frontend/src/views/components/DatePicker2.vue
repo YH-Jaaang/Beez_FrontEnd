@@ -1,5 +1,12 @@
 <template>
-  <Datepicker v-model="selectedDate" lang="ko" />
+  <Datepicker
+    class="date"
+    v-model="selectedDate"
+    lang="ko"
+    v-bind="sendDate(selectedDate)"
+    placeholder="마지막 날짜"
+    position="right"
+  />
 </template>
 
 <script>
@@ -14,13 +21,19 @@ export default {
   },
   data() {
     return {
-      selectedDate: [new Date()],
-      disabledEndDate: {
-        to: new Date(),
-        from: new Date(),
-      },
+      selectedDate: "",
     };
+  },
+  methods: {
+    sendDate(selectedDate) {
+      this.$emit("date2", Math.floor(new Date(selectedDate) / 1000) + 86399);
+    },
   },
 };
 </script>
-<style></style>
+<style>
+.v-calendar .input-field input {
+  padding-left: 40px;
+  padding-right: 0px;
+}
+</style>

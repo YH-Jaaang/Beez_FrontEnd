@@ -11,7 +11,6 @@
     <!-- ------------------------------------------------------ -->
     <!--리뷰 리스트-->
     <div class="li_btn text-center">
-      <span class="span-blank">This is an empty space. </span>
       <b-button @click="reviewList(7, 0)">
         1주일
       </b-button>
@@ -25,91 +24,118 @@
         6개월
       </b-button>
     </div>
-    <div>
-      <span><DatePicker /></span> <DatePicker2 />
+    <div class="li_btn2 text-center">
+      <b-button @click="toggle = !toggle">
+        기간별 검색
+      </b-button>
+    </div>
+    <div v-show="toggle">
+      <table class="tb_center">
+        <tr>
+          <td class="td_width"><DatePicker @date1="printDate1" /></td>
+          <td class="td_width"><DatePicker2 @date2="printDate2" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="li_btn text-center">
+              <b-button @click="searchDate()">
+                검색
+              </b-button>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
     <div>
-      <div
-        class="Reviewlist_box"
-        v-for="(review, i) in this.$store.state.reviewContents"
-        :key="i"
+      <pull-to-refresh
+        className="forTest"
+        :refreshing="false"
+        :indicator="{ deactivate: 'pull down' }"
       >
-        <div class="User_history">
-          <ul>
-            <table class="pay_table">
-              <tr>
-                <td>{{ unix_timestamp(review.visitTime) }}</td>
-                <td rowspan="2" class="pay_row">
-                  <table>
-                    <tr>
-                      <td class="pay_td">
-                        <FontAwesomeIcon
-                          :icon="faWonSign"
-                          class="faWon_style"
-                        />
-                      </td>
-                      <td>{{ review.wonTokenCount }}원</td>
-                    </tr>
-                    <tr>
-                      <td class="pay_row">
-                        <img src="../assets/main/main03.png" />
-                      </td>
-                      <td>
-                        {{ review.bzTokenCount / $store.state.incentiveRate }}개
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="pay_row">
-                        <!-- <FontAwesomeIcon
+        <div
+          class="Reviewlist_box"
+          v-for="(review, i) in this.$store.state.reviewContents"
+          :key="i"
+        >
+          <div class="User_history">
+            <ul>
+              <table class="pay_table">
+                <tr>
+                  <td>{{ unix_timestamp(review.visitTime) }}</td>
+                  <td rowspan="2" class="pay_row">
+                    <table>
+                      <tr>
+                        <td class="pay_td">
+                          <FontAwesomeIcon
+                            :icon="faWonSign"
+                            class="faWon_style"
+                          />
+                        </td>
+                        <td>{{ review.wonTokenCount }}원</td>
+                      </tr>
+                      <tr>
+                        <td class="pay_row">
+                          <img src="../assets/main/main03.png" />
+                        </td>
+                        <td>
+                          {{
+                            review.bzTokenCount / $store.state.incentiveRate
+                          }}개
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="pay_row">
+                          <!-- <FontAwesomeIcon
                           :icon="faCreditCard"
                           class="faWon_style"
                         /> -->
-                        총
-                      </td>
-                      <td>{{ review.cost }}원</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $store.state.storeList[i] }}</td>
-              </tr>
-            </table>
+                          총
+                        </td>
+                        <td>{{ review.cost }}원</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $store.state.storeList[i] }}</td>
+                </tr>
+              </table>
 
-            <li class="bar"></li>
+              <li class="bar"></li>
 
-            <div class="text-center">
-              <!-- 7일 계산 -->
-              <li
-                class="keyword_Review_box"
-                v-if="timestamp - review.visitTime >= 604800"
-              >
-                <!-- <b-button id="Review_btn3" disabled
+              <div class="text-center">
+                <!-- 7일 계산 -->
+                <li
+                  class="keyword_Review_box"
+                  v-if="timestamp - review.visitTime >= 604800"
+                >
+                  <!-- <b-button id="Review_btn3" disabled
                 >키워드 리뷰 (BEEZ토큰지급)</b-button
               > -->
 
-                <a>리뷰 작성 기간이 지났습니다. </a>
-              </li>
-              <!-- 7일체크 -->
-              <li v-else-if="review.value1 == ''">
-                <a class="keyword_Review_box">
-                  <b-button
-                    id="Review_btn2"
-                    @click="KeywordModal(review.visitTime)"
-                    >키워드 리뷰 (BEEZ토큰지급)</b-button
-                  >
-                </a>
-              </li>
+                  <a>리뷰 작성 기간이 지났습니다. </a>
+                </li>
+                <!-- 7일체크 -->
+                <li v-else-if="review.value1 == ''">
+                  <a class="keyword_Review_box">
+                    <b-button
+                      id="Review_btn2"
+                      @click="KeywordModal(review.visitTime)"
+                      >키워드 리뷰 (BEEZ토큰지급)</b-button
+                    >
+                  </a>
+                </li>
 
-              <li class="keyword_Review_box" v-else>
-                <a>{{ review.value1 }} </a>
-                <a>{{ review.value2 }}</a>
-                <a>{{ review.value3 }}</a>
-              </li>
-            </div>
-          </ul>
+                <li class="keyword_Review_box" v-else>
+                  <a>{{ review.value1 }} </a>
+                  <a>{{ review.value2 }}</a>
+                  <a>{{ review.value3 }}</a>
+                </li>
+              </div>
+            </ul>
+          </div>
         </div>
-      </div>
+      </pull-to-refresh>
       <div class="review_modal">
         <b-modal
           id="Review_mo dal"
@@ -209,16 +235,19 @@ import { PROVIDER } from "@/contract/Provider.js";
 import DatePicker from "@/views/components/DatePicker.vue";
 import DatePicker2 from "@/views/components/DatePicker2.vue";
 import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
+import PullToRefresh from "v-pull-to-refresh";
 import { ethers } from "ethers";
 import axios from "axios";
 
 export default {
   name: "paymentList",
+
   components: {
     FontAwesomeIcon,
     DatePicker,
     DatePicker2,
     ScaleLoader,
+    PullToRefresh,
   },
 
   data() {
@@ -232,7 +261,9 @@ export default {
       checked1: [],
       checked2: [],
       checked3: [],
-
+      toggle: false,
+      date1: "",
+      date2: "",
       keyword1: [
         { text: "분위기가 좋아요!", value: "0" },
         { text: "비즈니스에 좋아요!", value: "1" },
@@ -268,7 +299,6 @@ export default {
       start: 7,
       end: 0,
     };
-
     await this.$store.commit("paymentList", payload);
 
     //솔리디티 이벤트 확인
@@ -403,6 +433,30 @@ export default {
       this.checked2.reverse().pop();
       this.checked3.reverse().pop();
     },
+    //datePicker에서 선택한 날짜(Unix시간)
+    printDate1(date) {
+      this.date1 = date;
+    },
+    //datePicker2에서 선택한 날짜(Unix시간)
+    printDate2(date) {
+      this.date2 = date;
+    },
+    //검색결과
+    async searchDate() {
+      console.log(this.date1 + "/" + this.date2);
+      if (!this.date1) alert("시작 날짜를 입력해주세여");
+      else if (!this.date2) alert("마지막 날짜를 입력해주세여");
+      else if (this.date1 > this.date2) alert("다시입력해주세요");
+      else if (this.date2 > Math.floor(new Date() / 1000) + 86400)
+        alert("오늘날짜 이후는 입력이 불가합니다");
+      else {
+        const payload = await {
+          start: this.date1,
+          end: this.date2,
+        };
+        await this.$store.commit("paymentList", payload);
+      }
+    },
   },
 
   computed: {},
@@ -428,7 +482,7 @@ export default {
   text-align: center;
   color: #f8b704;
   font-weight: 900;
-  border-bottom: 3px solid #f8b704;
+  border-bottom: 1.5px solid #f8b704;
   margin: 0 10% 0 10%;
 }
 #User_Review {
@@ -439,9 +493,19 @@ export default {
   background-color: #fdef2e7d;
   color: #000000;
   border-color: #fff;
-  font-size: 5px;
+  font-size: 13px;
   font-weight: 900;
-  width: 12%;
+  width: 20%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+.li_btn2 .btn {
+  background-color: #fdef2e7d;
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  width: 80%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
 }
@@ -501,7 +565,7 @@ export default {
   width: 13%;
 }
 .pay_row {
-  width: 50%;
+  width: 65%;
   text-align: right;
 }
 .pay_td {
@@ -599,5 +663,28 @@ export default {
 .modal_text {
   background-color: #fbcb4721;
   border-radius: 15px;
+}
+/* DatePicker */
+.date {
+  --v-calendar-action-color: #ffde02;
+  --v-calendar-active-bg-color: #ffde02;
+  --v-calendar-border-color: #fff;
+  --v-calendar-input-font-weight: 800;
+  --v-calendar-input-border: none;
+  --v-calendar-input-width: 10px;
+  --v-calendar-view-button-font-weight: 00;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-datepicker-icon-color: #ffde02;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-day-name-font-weight: 1500;
+  --v-calendar-day-font-weight: 500;
+  --v-calendar-day-name-color: #323b43;
+  --v-calendar-range-radius: 100%;
+  --v-calendar-day-width: 80%;
+}
+.tb_center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
 }
 </style>

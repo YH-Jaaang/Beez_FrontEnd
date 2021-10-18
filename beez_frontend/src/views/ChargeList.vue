@@ -184,7 +184,7 @@ export default {
   text-align: center;
   color: #76512cb8;
   font-weight: 900;
-  border-bottom: 1.8px solid #76512cb8;
+  border-bottom: 1.5px solid #76512cb8;
   margin: 0 10% 0 10%;
   font-size: 24px;
 }

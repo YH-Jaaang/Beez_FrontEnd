@@ -1,5 +1,11 @@
 <template>
-  <Datepicker v-model="selectedDate" lang="ko" style="height:70px" />
+  <Datepicker
+    class="date"
+    v-model="selectedDate"
+    lang="ko"
+    v-bind="sendDate(selectedDate)"
+    placeholder="시작날짜"
+  />
 </template>
 
 <script>
@@ -14,13 +20,20 @@ export default {
   },
   data() {
     return {
-      selectedDate: [new Date()],
-      disabledEndDate: {
-        to: new Date(),
-        from: new Date(),
-      },
+      selectedDate: "",
     };
+  },
+  methods: {
+    sendDate(selectedDate) {
+      this.$emit("date1", Math.floor(new Date(selectedDate) / 1000));
+    },
   },
 };
 </script>
-<style></style>
+<style>
+.v-calendar .input-field input {
+  padding-left: 40px;
+  padding-right: 0px;
+  text-align: center;
+}
+</style>

@@ -344,40 +344,6 @@ const PAYMENT_ABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_visitor",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_visitTime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "low",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "high",
-        type: "uint256",
-      },
-    ],
-    name: "reviewSearch",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "uint256",
         name: "_month",
         type: "uint256",
@@ -823,24 +789,6 @@ const WONTOKEN_ABI = [
         type: "address",
       },
       {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "charge",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-      {
         internalType: "uint128",
         name: "_amount",
         type: "uint128",
@@ -901,25 +849,6 @@ const WONTOKEN_ABI = [
         internalType: "bool",
         name: "",
         type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-    ],
-    name: "incentiveCheck",
-    outputs: [
-      {
-        internalType: "uint128",
-        name: "",
-        type: "uint128",
       },
     ],
     stateMutability: "view",
@@ -1018,19 +947,6 @@ const WONTOKEN_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -1042,10 +958,28 @@ const WONTOKEN_ABI = [
         name: "_amount",
         type: "uint128",
       },
+      {
+        internalType: "uint256",
+        name: "_date",
+        type: "uint256",
+      },
     ],
-    name: "withDraw",
+    name: "testChargeCheck",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ];
