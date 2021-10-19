@@ -4,22 +4,30 @@
     <div>
       <div class="font-red">{{ errMsg }}</div>
     </div>
-    <span v-if="value.length <= 5">
-      <span v-for="values in value" :key="values">
-        <input class="input_pass" type="password" :value="values" readonly />
+    <form>
+      <span v-if="value.length <= 5">
+        <span v-for="values in value" :key="values">
+          <input
+            class="input_pass"
+            type="password"
+            :value="values"
+            readonly
+            autocomplete="off"
+          />
+        </span>
       </span>
-    </span>
-    <span v-else>
-      <span v-for="i in 6" :key="i">
-        <input
-          class="input_pass"
-          type="password"
-          :value="value[i - 1]"
-          readonly
-        />
-        <span v-if="i == 6" v-on="checkPass()"></span>
+      <span v-else>
+        <span v-for="i in 6" :key="i">
+          <input
+            class="input_pass"
+            type="password"
+            :value="value[i - 1]"
+            readonly
+          />
+          <span v-if="i == 6" v-on="checkPass()"></span>
+        </span>
       </span>
-    </span>
+    </form>
     <VueNumericKeypad
       :value.sync="value"
       :show.sync="this.show"
@@ -32,7 +40,7 @@
 import VueNumericKeypad from "vue-numeric-keypad";
 import axios from "axios";
 const storage = window.sessionStorage;
-
+const crypto = require("crypto");
 export default {
   name: "keypad",
   components: {
@@ -64,8 +72,6 @@ export default {
             "보안 비밀번호 시도 횟수 초과입니다.\n 고객센터 문의 바랍니다."
           );
           this.$router.push("/Main");
-        } else {
-          storage.setItem("complete", "complete");
         }
       })
       .catch(() => {
@@ -93,7 +99,15 @@ export default {
             .post("/api/pass/check", { password: this.value })
             .then(() => {
               console.warn = console.error = () => {};
-              this.$router.push("/Charge");
+              storage.setItem(
+                "complete",
+                crypto
+                  .createHash("sha256")
+                  .update("complete")
+                  .digest("hex")
+              );
+              this.$router.push(storage.getItem("next"));
+              storage.removeItem("next");
             })
             .catch((err) => {
               this.value = "";

@@ -4,7 +4,8 @@
     v-model="selectedDate"
     lang="ko"
     v-bind="sendDate(selectedDate)"
-    placeholder="시작날짜"
+    placeholder="마지막 날짜"
+    position="right"
   />
 </template>
 
@@ -25,7 +26,7 @@ export default {
   },
   methods: {
     sendDate(selectedDate) {
-      this.$emit("date1", Math.floor(new Date(selectedDate) / 1000));
+      this.$emit("date2", Math.floor(new Date(selectedDate) / 1000) + 86399);
     },
   },
 };
@@ -34,6 +35,5 @@ export default {
 .v-calendar .input-field input {
   padding-left: 40px;
   padding-right: 0px;
-  text-align: center;
 }
 </style>

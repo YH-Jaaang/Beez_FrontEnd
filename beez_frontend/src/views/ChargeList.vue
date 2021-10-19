@@ -29,13 +29,41 @@
       >
         <ul>
           <li>
-            <a>{{ charge.chargeDate }}</a>
-            <a style="float:right"
-              >충전금액 : {{ charge.chargeAmount | comma }}원</a
-            >
-            <a style="float:right"
-              >인센티브 : {{ charge.chargeInc | comma }}원</a
-            >
+            <table style="width:100%">
+              <tr>
+                <th rowspan="3">{{ charge.chargeDate }}</th>
+                <th>
+                  <table style="width:100%">
+                    <tr>
+                      <td class="th_icon">
+                        <!-- <FontAwesomeIcon :icon="faMoneyBillWave" /> -->
+                        충전금액 :
+                      </td>
+                      <td>{{ charge.chargeAmount | comma }}</td>
+                    </tr>
+                    <tr class="th_icon2">
+                      <td>인센티브 :</td>
+                      <td>+ {{ charge.chargeInc | comma }}</td>
+                    </tr>
+                    <tr>
+                      <td class="th_icon">
+                        <!-- <FontAwesomeIcon
+                          :icon="faCreditCard"
+                          class="faWon_style"
+                        /> -->총 금액 :
+                      </td>
+                      <td>
+                        {{
+                          (parseInt(charge.chargeInc) +
+                            parseInt(charge.chargeAmount))
+                            | comma
+                        }}
+                      </td>
+                    </tr>
+                  </table>
+                </th>
+              </tr>
+            </table>
           </li>
         </ul>
       </div>
@@ -66,7 +94,8 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import PullToRefresh from "v-pull-to-refresh";
 import axios from "axios";
 
@@ -84,6 +113,8 @@ export default {
       //아이콘
       faFileInvoiceDollar,
       faAngleRight,
+      faCreditCard,
+      faMoneyBillWave,
       chargeList: [],
     };
   },
@@ -153,7 +184,7 @@ export default {
   text-align: center;
   color: #76512cb8;
   font-weight: 900;
-  border-bottom: 1.8px solid #76512cb8;
+  border-bottom: 1.5px solid #76512cb8;
   margin: 0 10% 0 10%;
   font-size: 24px;
 }
@@ -180,6 +211,15 @@ export default {
   margin: 0 0 15px 9%;
   color: #76512c;
   font-size: 10pt;
+}
+.th_icon {
+  color: #fbca47;
+}
+.th_icon2 {
+  color: #0921f8a1;
+}
+.th_icon3 {
+  color: #fbca47;
 }
 /*---------------------------페이지 넘김------------------------------*/
 

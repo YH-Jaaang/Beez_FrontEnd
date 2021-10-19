@@ -4,6 +4,7 @@ import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
 import { ethers } from "ethers";
+import axios from "axios";
 
 const provider = PROVIDER;
 Vue.use(Vuex);
@@ -13,22 +14,24 @@ export default new Vuex.Store({
   state: {
     nickName: localStorage.getItem("nickName"),
     //사용자 Main 화면
-    wonBalace: "",
-    wonOfMon: "",
-    incOfMon: "",
-    bzOfMon: "",
-    bzBalace: "",
+    wonBalace: 0,
+    wonOfMon: 0,
+    incOfMon: 0,
+    bzOfMon: 0,
+    bzBalace: 0,
     //한달 충전, 혜택 가능 금액(금액 변경 용이하게)
     maxWonCharge: 2000000, //한달 충전가능금액
     maxIncentive: 500000, //한달 혜택가능금액
     incentiveRate: 100,
     //paymentList
     reviewContents: [],
+    storeList: [],
     //소상공인 Main 화면
-    cashSales: "",
-    myCash: "",
-    tokenSales: "",
-    myBz: "",
+    cashSales: 0,
+    myCash: 0,
+    tokenSales: 0,
+    tokenSalesMon: 0,
+    myBz: 0,
   },
   //mutations : 상태값을 변경시키는 로직 state를 수정
   mutations: {
@@ -41,13 +44,18 @@ export default new Vuex.Store({
         PAYMENT_ABI,
         provider
       );
-      await contracts.userMainLoad(address).then((res) => {
-        state.wonBalace = res["wonBalace"];
-        state.wonOfMon = res["WonOfMon"];
-        state.incOfMon = res["IncOfMon"];
-        state.bzOfMon = res["BzOfMon"] / state.incentiveRate;
-        state.bzBalace = res["BzBalace"] / state.incentiveRate;
-      });
+      await contracts
+        .userMainLoad(address)
+        .then((res) => {
+          state.wonBalace = res["wonBalace"];
+          state.wonOfMon = res["WonOfMon"];
+          state.incOfMon = res["IncOfMon"];
+          state.bzOfMon = res["BzOfMon"] / state.incentiveRate;
+          state.bzBalace = res["BzBalace"] / state.incentiveRate;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       // const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS);
 
@@ -76,8 +84,32 @@ export default new Vuex.Store({
       await contracts
         .getReview(visitor, payload.start, payload.end)
         .then((reviewContents) => {
-          console.log(reviewContents);
           state.reviewContents = reviewContents;
+        });
+
+      let arrJson = [];
+
+      await state.reviewContents.map((element) => {
+        arrJson.push({ address: element[2] });
+      });
+      const retAddress = JSON.stringify(arrJson);
+      //console.log("retStr", retStr);
+
+      const params = { wallet_address: JSON.parse(retAddress) };
+      //console.log(params);
+
+      axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+        "token"
+      );
+
+      await axios
+        .post("/api/find/address", params)
+        .then((res) => {
+          state.storeList = res.data.data;
+          //console.log(state.storeList);
+        })
+        .catch(() => {
+          //console.log(err);
         });
     },
     //소상공인 Main 화면

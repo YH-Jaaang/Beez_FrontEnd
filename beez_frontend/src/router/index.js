@@ -30,6 +30,16 @@ const routes = [
     components: {
       default: () => import("@/views/PasswordCheck.vue"),
     },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        next();
+      } else {
+        next("/");
+      }
+    },
   },
   //사용자 페이지
   {
@@ -67,7 +77,11 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
     beforeEnter: function(to, from, next) {
-      if (!storage.getItem("complete")) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        storage.setItem("next", "/Charge");
         next("/PasswordCheck");
       } else {
         next();
@@ -80,6 +94,17 @@ const routes = [
       default: () => import("@/views/Payment.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        storage.setItem("next", "/Payment");
+        next("/PasswordCheck");
+      } else {
+        next();
+      }
     },
   },
   {

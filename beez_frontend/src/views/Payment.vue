@@ -466,7 +466,7 @@ export default {
   text-align: center;
   color: #76512cc1;
   font-weight: 900;
-  border-bottom: 3px solid #76512cc1;
+  border-bottom: 1.5px solid #76512cc1;
   margin: 10%;
 }
 
