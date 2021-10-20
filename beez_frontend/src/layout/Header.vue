@@ -51,8 +51,14 @@ export default {
     //ID가 business일 경우, business페이지로 이동
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
+    const address = localStorage.getItem("address");
 
-    if (token && token.length === 162) {
+    if (
+      token &&
+      token.split(" ")[0] === "Bearer" &&
+      address &&
+      address.length === 42
+    ) {
       if (role == "USER") return true;
       else if (role == "STORE") this.$router.push("/StoreMain");
       else {

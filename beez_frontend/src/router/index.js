@@ -15,6 +15,16 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+  //가입하지 않은 회원도 리뷰 볼 수 있는 페이지 하나 만들기
+  {
+    //리뷰LIST
+    path: "/nonUserReviewList",
+    components: {
+      default: () => import("@/views/ReviewList.vue"),
+      header: () => import("@/layout/StartHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
   //회원가입 페이지
   {
     path: "/SignUp",
@@ -120,6 +130,15 @@ const routes = [
     path: "/StoreList",
     components: {
       default: () => import("@/views/StoreList.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
+    //리뷰LIST
+    path: "/ReviewList",
+    components: {
+      default: () => import("@/views/ReviewList.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },

@@ -74,8 +74,12 @@ export default new Vuex.Store({
     //사용자 리뷰 리스트
     paymentList: async (state, payload) => {
       //const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS);
-      const visitor = localStorage.getItem("address");
-
+      var visitor = "";
+      if (payload.address) {
+        visitor = payload.address;
+      } else {
+        visitor = localStorage.getItem("address");
+      }
       const contracts = new ethers.Contract(
         CONTRACT_ADDRESS,
         PAYMENT_ABI,
