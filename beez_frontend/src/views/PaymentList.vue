@@ -32,8 +32,12 @@
     <div v-show="toggle">
       <table class="tb_center">
         <tr>
-          <td class="td_width"><DatePicker @date1="printDate1" /></td>
-          <td class="td_width"><DatePicker2 @date2="printDate2" /></td>
+          <td class="td_width">
+            <DatePicker @date1="printDate1" />
+          </td>
+          <td class="td_width">
+            <DatePicker2 @date2="printDate2" :propsDate1="propDate1" />
+          </td>
         </tr>
         <tr>
           <td colspan="2">
@@ -292,12 +296,14 @@ export default {
       userAddress: "",
       checkedValues: [],
       json: "",
+      propDate1: "",
     };
   },
   async beforeCreate() {
     const payload = await {
       start: 7,
       end: 0,
+      page: 2,
     };
     await this.$store.commit("paymentList", payload);
 
@@ -337,13 +343,16 @@ export default {
         }
       }
     },
+    //기간별 리뷰 검색 함수
     async reviewList(start, end) {
       const payload = await {
         start: start,
         end: end,
+        page: 2,
       };
       this.$store.commit("paymentList", payload);
     },
+    //리뷰 작성 트랜젝션
     async writeReview() {
       axios.defaults.headers.common["Authorization"] = localStorage.getItem(
         "token"
@@ -399,6 +408,7 @@ export default {
       this.checked2.reverse().pop();
       this.checked3.reverse().pop();
     },
+    //unix -> 현재시간
     unix_timestamp(t) {
       var date = new Date(t * 1000);
       var year = date.getFullYear();
@@ -436,6 +446,11 @@ export default {
     //datePicker에서 선택한 날짜(Unix시간)
     printDate1(date) {
       this.date1 = date;
+      var propDate = new Date(date * 1000);
+      var year = propDate.getFullYear();
+      var month = propDate.getMonth() + 1;
+      var day = propDate.getDate();
+      this.propDate1 = month + "." + day + "." + year;
     },
     //datePicker2에서 선택한 날짜(Unix시간)
     printDate2(date) {
@@ -443,19 +458,19 @@ export default {
     },
     //검색결과
     async searchDate() {
-      console.log(this.date1 + "/" + this.date2);
-      if (!this.date1) alert("시작 날짜를 입력해주세여");
-      else if (!this.date2) alert("마지막 날짜를 입력해주세여");
-      else if (this.date1 > this.date2) alert("다시입력해주세요");
-      else if (this.date2 > Math.floor(new Date() / 1000) + 86400)
-        alert("오늘날짜 이후는 입력이 불가합니다");
-      else {
-        const payload = await {
-          start: this.date1,
-          end: this.date2,
-        };
-        await this.$store.commit("paymentList", payload);
-      }
+      // console.log(this.date1 + "/" + this.date2);
+      // if (!this.date1) alert("시작 날짜를 입력해주세여");
+      // else if (!this.date2) alert("마지막 날짜를 입력해주세여");
+      // else if (this.date1 > this.date2) alert("다시입력해주세요");
+      // else if (this.date2 > Math.floor(new Date() / 1000) + 86400)
+      //   alert("오늘날짜 이후는 입력이 불가합니다");
+      // else {
+      const payload = await {
+        start: this.date1,
+        end: this.date2,
+        page: 2,
+      };
+      await this.$store.commit("paymentList", payload);
     },
   },
 
@@ -467,6 +482,12 @@ export default {
 @font-face {
   font-family: "BCcardB";
   src: url("../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("../fonts/GmarketSansTTFMedium.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -577,6 +598,12 @@ export default {
 }
 
 /*-------------------------- 키워드 리뷰 모달창-------------------------- */
+#p_modal {
+  font-family: "GmarketSansTTFMedium";
+  background-color: #4b4a4846;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); */
+}
+
 .modal-header {
   margin: 3%;
 }

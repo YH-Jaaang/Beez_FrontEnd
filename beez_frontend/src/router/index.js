@@ -24,23 +24,6 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
-  //PasswordChecking
-  {
-    path: "/PasswordCheck",
-    components: {
-      default: () => import("@/views/PasswordCheck.vue"),
-    },
-    beforeEnter: function(to, from, next) {
-      if (
-        storage.getItem("complete") !==
-        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
-      ) {
-        next();
-      } else {
-        next("/");
-      }
-    },
-  },
   //사용자 페이지
   {
     path: "/Main",
@@ -67,6 +50,22 @@ const routes = [
       default: () => import("@/views/PaymentList.vue"),
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+  },
+  {
+    path: "/PasswordCheck",
+    components: {
+      default: () => import("@/views/PasswordCheck.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        next();
+      } else {
+        next("/");
+      }
     },
   },
   {
@@ -143,11 +142,38 @@ const routes = [
     },
   },
   {
+    path: "/StorePasswordCheck",
+    components: {
+      default: () => import("@/views/StorePasswordCheck.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
+  {
     path: "/StoreExchangeToken",
     components: {
       default: () => import("@/views/StoreExchangeToken.vue"),
       header: () => import("@/layout/StoreHeader.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        storage.setItem("next", "/StoreExchangeToken");
+        next("/StorePasswordCheck");
+      } else {
+        next();
+      }
     },
   },
   {
@@ -156,6 +182,17 @@ const routes = [
       default: () => import("@/views/StoreWithdrawal.vue"),
       header: () => import("@/layout/StoreHeader.vue"),
       footer: () => import("@/layout/Footer.vue"),
+    },
+    beforeEnter: function(to, from, next) {
+      if (
+        storage.getItem("complete") !==
+        "eebbf6457e46a7f63acdf9b97390f790ba443d60cfa44b607da7e5c40aa1cc1d"
+      ) {
+        storage.setItem("next", "/StoreWithdrawal");
+        next("/StorePasswordCheck");
+      } else {
+        next();
+      }
     },
   },
   {

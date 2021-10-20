@@ -20,20 +20,14 @@
     <div>
       <div
         class="WithdrawalList_box"
-        v-for="withdrawalContent in this.withdrawalContents"
-        :key="withdrawalContent"
+        v-for="(withdraw, i) in this.withdrawList"
+        :key="i"
       >
         <ul>
+          <!-- <div>{{ withdraw.txHash }}</div> -->
           <li>
-            {{ withdrawalContent }}.
-
-            <a
-              >{{ Store_Withrawal_year }}/{{ Store_Withrawal_month }}/{{
-                Store_Withrawal_day
-              }}
-              {{ Store_Withrawal_time }}</a
-            >
-            <a style="float:right">{{ Withdrawal_amount }}원</a>
+            <a>{{ withdraw.withdrawDate }}</a>
+            <a style="float:right">{{ withdraw.amount | comma }}원</a>
           </li>
         </ul>
       </div>
@@ -69,22 +63,18 @@ export default {
   components: {
     FontAwesomeIcon,
   },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   data() {
     return {
-      //날짜
-      Store_Withrawal_year: "2021",
-      Store_Withrawal_day: "1",
-      Store_Withrawal_month: "10",
-      Store_Withrawal_time: "09:20:24",
-
-      withdrawalContents: [],
-
+      withdrawList: [],
       //고객정보
       bank_na: "",
       account_no: "",
       store_na: "",
-      // 출금금액
-      Withdrawal_amount: "2,000,000",
       //아이콘
       faFileInvoiceDollar,
       faAngleRight,
@@ -106,6 +96,13 @@ export default {
           this.store_na = res.data.data.name;
         })
         .catch(() => {});
+      await axios
+        .post("/api/withdrawal/historylist")
+        .then((res) => {
+          console.log(res);
+          this.withdrawList = res.data.data;
+        })
+        .catch(() => {});
     })();
     this.$store.commit("storeMain");
   },
@@ -113,25 +110,6 @@ export default {
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
     },
-
-    //소상공인 출금 리스트
-    // withdrawalList() {
-    //   var params = {
-    //     email: localStorage.getItem("email"),
-    //   };
-    //   (async () => {
-    //     axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-    //       "token"
-    //     );
-
-    //     await axios
-    //       .post("/api/history/account", params)
-    //       .then((withdrawalContents) => {
-    //         console.log(withdrawalContents);
-    //         this.withdrawalContents = withdrawalContents;
-    //       });
-    //   })();
-    // },
   },
 };
 </script>
@@ -158,7 +136,7 @@ export default {
 .StoreWithdrawalList {
   text-align: center;
   color: #100055;
-  border-bottom: 3px solid #100055;
+  border-bottom: 1.8px solid #100055;
   margin: 0 10% 4% 10%;
   font-size: 24px;
 }

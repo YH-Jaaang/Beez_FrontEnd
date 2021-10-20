@@ -140,7 +140,7 @@ export default {
         })
         .catch(() => {});
       await axios
-        .post("/api//history/list")
+        .post("/api/charge/historylist")
         .then((res) => {
           console.log(res);
           this.chargeList = res.data.data;

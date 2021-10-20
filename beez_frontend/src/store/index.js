@@ -90,7 +90,7 @@ export default new Vuex.Store({
       let arrJson = [];
 
       await state.reviewContents.map((element) => {
-        arrJson.push({ address: element[2] });
+        arrJson.push({ address: element[payload.page] });
       });
       const retAddress = JSON.stringify(arrJson);
       //console.log("retStr", retStr);
