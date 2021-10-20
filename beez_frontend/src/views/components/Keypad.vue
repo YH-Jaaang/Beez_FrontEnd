@@ -136,7 +136,7 @@ export default {
                 this.$toaster.success(
                   "보안 비밀번호가 설정 되었습니다. 다시 입력해주세요."
                 );
-                storage.clear("passCheck");
+                storage.removeItem("passCheck");
                 this.value = "";
                 this.text = "";
                 this.errMsg = "";

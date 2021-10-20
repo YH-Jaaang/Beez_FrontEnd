@@ -94,7 +94,7 @@ export default {
 
 .StoreQR {
   color: #100055;
-  border-bottom: 3px solid #100055;
+  border-bottom: 1.8px solid #100055;
   width: 80%;
   margin: 0 auto;
 }

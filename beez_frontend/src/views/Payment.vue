@@ -201,6 +201,18 @@
         </li>
       </b-card>
     </div>
+    <!-- 여기 수정 -->
+    <div>
+      <b-modal ref="qr-modal" hide-footer title="QR코드">
+        <div class="d-block text-center">
+          <h3>QR코드가 인식되지 않았습니다.</h3>
+          <h3>확인 부탁드립니다.</h3>
+        </div>
+        <b-button class="mt-2" variant="outline-warning" block @click="qrModal"
+          >취소</b-button
+        >
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -240,7 +252,7 @@ export default {
         price: "",
         bz: "",
       },
-
+      tx: "",
       won: "",
       error: "",
       userpPrivateKey: "",
@@ -264,6 +276,7 @@ export default {
         this.$router.push({
           name: "paymentCompleted",
           params: {
+            tx: this.tx,
             won: this.won,
             beez: this.form.bz,
             price: this.form.price,
@@ -282,6 +295,11 @@ export default {
     codeScanned(code) {
       this.form.scanned = code;
       this.qrsuccess = "QR코드 인식 성공";
+    },
+    qrModal() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["qr-modal"].hide();
     },
     errorCaptured(error) {
       switch (error.name) {
@@ -320,7 +338,7 @@ export default {
     onSubmit(event) {
       if (this.form.scanned.length == 0) {
         event.preventDefault();
-        alert("QR코드를 인식해주세요.");
+        this.$refs["qr-modal"].show();
         return;
       } else {
         event.preventDefault();
@@ -376,58 +394,11 @@ export default {
       );
       this.$bvModal.hide("p_modal");
       this.$refs["ing_modal"].show();
-      await sendTransaction.then(() => {}).catch(() => {});
-      // const Web3 = require("web3");
-      // const web3 = new Web3(
-      //   new Web3.providers.HttpProvider(
-      //     "https://ropsten.infura.io/v3/88ce7dc742a14dec85fde399eaf36090"
-      //   )
-      // );
-
-      // const sendRawTx = (rawTx) =>
-      //   new Promise((resolve, reject) =>
-      //     web3.eth
-      //       .sendSignedTransaction(rawTx)
-      //       .on("transactionHash", resolve)
-      //       .on("error", reject)
-      //   );
-
-      // const { address: from } = web3.eth.accounts.privateKeyToAccount(
-      //   PRIVATE_KEY
-      // );
-      // const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS); //import 컨트랙트 - ABI, ADDRESS
-
-      // const query = await contract.methods.payment(
-      //   to_ADDRESS,
-      //   recipient_ADDRESS,
-      //   cost,
-      //   won_mount,
-      //   beez_mount
-      // );
-      // const transaction = {
-      //   to: CONTRACT_ADDRESS,
-      //   from,
-      //   value: "0",
-      //   data: query.encodeABI(),
-      //   gasPrice: web3.utils.toWei("2", "gwei"),
-      //   gas: Math.round((await query.estimateGas({ from })) * 1.5), // 1.5 coefficient, just make sure that gas amount is enough
-      //   nonce: await web3.eth.getTransactionCount(from, "pending"),
-      // };
-      // const signed = await web3.eth.accounts.signTransaction(
-      //   transaction,
-      //   PRIVATE_KEY
-      // );
-      // await sendRawTx(signed.rawTransaction)
-      //   .then((res) => {
-      //     //응답이오면 출력인데 백앤드에서 요청을 보내면 응답이 보통은 옴
-      //     //solidity에서 retruns가 없어서 요청이 안오는 것 같다.
-      //     console.log(res);
-      //     this.$store.commit("main");
-      //   })
-      //   .catch(() => {
-      //     console.log("다시");
-      //   });
-      //console.log(hash);
+      await sendTransaction
+        .then((res) => {
+          this.tx = res.hash;
+        })
+        .catch(() => {});
     },
   },
   computed: {
@@ -719,7 +690,7 @@ export default {
 }
 /* 로딩 */
 #ing_modal {
-  font-family: BCcardB;
+  font-family: "GmarketSansTTFMedium";
   background-color: #f8b704;
   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); */
 }

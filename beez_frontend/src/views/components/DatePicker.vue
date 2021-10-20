@@ -4,6 +4,7 @@
     v-model="selectedDate"
     lang="ko"
     v-bind="sendDate(selectedDate)"
+    :disabled-start-date="disabledStartDate"
     placeholder="시작날짜"
   />
 </template>
@@ -20,7 +21,11 @@ export default {
   },
   data() {
     return {
-      selectedDate: "",
+      selectedDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+      disabledStartDate: {
+        to: new Date("08.01.2021"),
+        from: new Date(),
+      },
     };
   },
   methods: {
