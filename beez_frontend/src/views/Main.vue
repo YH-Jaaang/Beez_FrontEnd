@@ -95,6 +95,9 @@
       <b-button href="/ChargeList">
         충전 내역
       </b-button>
+      <b-button href="/StoreList">
+        주변가게찾기
+      </b-button>
     </div>
 
     <div>
