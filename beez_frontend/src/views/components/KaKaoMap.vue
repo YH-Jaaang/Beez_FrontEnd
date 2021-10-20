@@ -3,7 +3,22 @@
     <div id="map"></div>
     <div class="button-group">
       <button @click="myLocation" style="mapButton">내 현재위치 찾기</button>
-      <button @click="nearStore" style="mapButton">가장가까운 가게 찾기</button>
+    </div>
+
+    <div>
+      <!-- 받아온 loadedStoreList 반복문으로 뿌림 -->
+      <ul
+        id="User_information"
+        v-for="(store, i) in this.loadedStoreList"
+        :key="i"
+      >
+        <li>가게이름: {{ store.nickName }}</li>
+        <!-- 0.1이 100미터 인듯 -->
+        <li v-if="store.distance < 0.1">가게까지의 거리가 100m미만 입니다.</li>
+        <li v-else>
+          가게까지 거리: 약{{ Math.ceil(store.distance * 1000) }}m 입니다.
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -20,6 +35,7 @@ export default {
       storeList: [],
       markers: [],
       infowindow: null,
+      loadedStoreList: [],
     };
   },
   mounted() {
@@ -41,7 +57,8 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5,
+        level: 6,
+        // 500m 기준 6이어야함
       };
       this.map = new kakao.maps.Map(container, options);
     },
@@ -53,69 +70,90 @@ export default {
     },
     /*주변 가게찾기*/
 
-    async findStore() {
+    // mylat은 내위치 mylon은 내경도 백엔드(mapController랑 통신함)
+    async findStore(mylat, mylon) {
+      console.log(mylat, mylon);
+
+      //  카카오에서 제공하는 기본마커 구성
       var imgSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
       var imgSize = new kakao.maps.Size(24, 35);
       var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
+
+      // 이거 지우면 안됌
       let self = this;
 
-      await axios
-        .post("/api/StoreList")
-        .then((res) => {
-          res.data.forEach(function(pos) {
-            var storeName = pos.storeName;
-            var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
+      // 백엔드에 들어갈 파라미터
+      var params = {
+        lat: mylat,
+        lon: mylon,
+      };
 
-            var marker = new kakao.maps.Marker({
-              map: self.map,
-              position: latlng,
-              title: storeName,
-              image: markerImage,
-            });
-            var customOverlay = new kakao.maps.CustomOverlay({
-              position: latlng,
-              xAnchor: 0.5,
-              yAnchor: 1.05,
-            });
+      await axios.post("/api/StoreList", params).then((res) => {
+        //db에서 받아온 store정보 저장하는 부분
+        res.data.forEach(function(pos) {
+          var storeName = pos.nickName;
+          var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
 
-            var content = document.createElement("div");
-            content.className = "overlaybox";
-            content.appendChild(document.createTextNode(storeName));
+          self.loadedStoreList = res.data;
 
-            var buttonContainer = document.createElement("div");
-            buttonContainer.className = "overlaycontent";
-            // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
-            content.appendChild(buttonContainer);
-
-            var closeBtn = document.createElement("button");
-            closeBtn.appendChild(document.createTextNode("닫기"));
-
-            buttonContainer.appendChild(closeBtn);
-
-            closeBtn.onclick = function() {
-              customOverlay.setMap(null);
-            };
-
-            kakao.maps.event.addListener(marker, "click", function() {
-              customOverlay.setMap(self.map);
-            });
-            customOverlay.setContent(content);
+          //카카오에서 제공하는 마커 구성
+          var marker = new kakao.maps.Marker({
+            map: self.map,
+            position: latlng,
+            title: storeName,
+            image: markerImage,
           });
-        })
-        .catch
-        //   (error) => {
-        //   console.error("에러");
-        // }
-        ();
-    },
 
-    nearStore() {
-      console.log("가장가까운가게찾기");
+          //카카오에서 마커 클릭 시 뜨는 오버레이 구성
+          var customOverlay = new kakao.maps.CustomOverlay({
+            position: latlng,
+            xAnchor: 0.5,
+            yAnchor: 1.05,
+          });
+
+          /*마커클릭 시 오버레이 구성 정의*/
+          var content = document.createElement("div");
+          content.className = "overlaybox";
+          content.appendChild(document.createTextNode(storeName));
+
+          var buttonContainer = document.createElement("div");
+          buttonContainer.className = "overlaycontent";
+          // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
+          content.appendChild(buttonContainer);
+
+          var reviewBtn = document.createElement("button");
+          reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
+          var closeBtn = document.createElement("button");
+          closeBtn.appendChild(document.createTextNode("닫기"));
+
+          buttonContainer.appendChild(reviewBtn);
+          buttonContainer.appendChild(closeBtn);
+
+          //닫기버튼 클릭 시 overlay값 null로 설정
+          closeBtn.onclick = function() {
+            customOverlay.setMap(null);
+          };
+
+          //review보러가기 버튼 클릭 시 이동할 페이지 정의
+          //location.href는 추후 수정 할 예정
+          reviewBtn.onclick = function() {
+            location.href = "https://192.168.25.41:8081/PaymentList";
+          };
+
+          //마커클릭했을때 오버레이 띄우는 함수
+          kakao.maps.event.addListener(marker, "click", function() {
+            customOverlay.setMap(self.map);
+          });
+          customOverlay.setContent(content);
+        });
+      }).catch;
+      //   (error) => {
+      //   console.error("에러");
+      // }
     },
 
     /*내위치 찾기 */
-
     displayMarker(locPosition, message) {
       const marker = new kakao.maps.Marker({
         map: this.map,
@@ -132,23 +170,28 @@ export default {
 
       infowindow.open(this.map, marker);
       this.map.setCenter(locPosition);
-      console.log(locPosition);
     },
 
     myLocation() {
+      // this가 안먹어서 이거 지우면 안됌
       let self = this;
+
+      // 내 위도 경도 받아서 kakao에 세팅하는 함수
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           const lat = position.coords.latitude,
             lon = position.coords.longitude;
-          const locPosition = new kakao.maps.LatLng(lat, lon),
+          var mylat = lat;
+          var mylon = lon;
+          const locPosition = new kakao.maps.LatLng(mylat, mylon),
             message =
               '<div class = "location" style = "padding:5px; "> 현재위치 </div>';
 
           self.displayMarker(locPosition, message);
-          self.findStore();
+          self.findStore(mylat, mylon);
         });
       } else {
+        // 내 위도경도 못받아왔을대는 기본으로 세팅된 맵위치로 띄워줌
         const locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
           message = "현재 위치를 찾을 수 없습니다.";
         this.displayMarker(locPosition, message);
@@ -171,5 +214,16 @@ export default {
 
 button {
   margin: 0 3px;
+}
+#User_information {
+  font-size: 14px;
+  font-weight: 900;
+  color: #714d2ad5;
+  padding: 2% 4%;
+  background-color: #f1ebe4;
+  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
+  width: 82%;
+  margin: 2% auto;
+  border-radius: 10px;
 }
 </style>

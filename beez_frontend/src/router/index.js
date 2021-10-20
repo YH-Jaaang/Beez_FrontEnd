@@ -92,6 +92,14 @@ const routes = [
     name: "paymentCompleted",
     props: true,
   },
+  {
+    path: "/StoreList",
+    components: {
+      default: () => import("@/views/StoreList.vue"),
+      header: () => import("@/layout/Header.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
   // 소상공인 페이지
   {
     path: "/StoreMain",
@@ -121,14 +129,6 @@ const routes = [
     path: "/StoreExchangeToken",
     components: {
       default: () => import("@/views/StoreExchangeToken.vue"),
-      header: () => import("@/layout/StoreHeader.vue"),
-      footer: () => import("@/layout/Footer.vue"),
-    },
-  },
-  {
-    path: "/StoreList",
-    components: {
-      default: () => import("@/views/StoreList.vue"),
       header: () => import("@/layout/StoreHeader.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },
