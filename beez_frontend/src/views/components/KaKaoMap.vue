@@ -89,68 +89,72 @@ export default {
         lon: mylon,
       };
 
-      await axios.post("/api/StoreList", params).then((res) => {
-        //db에서 받아온 store정보 저장하는 부분
-        res.data.forEach(function(pos) {
-          var storeName = pos.nickName;
-          var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
+      await axios
+        .post("/api/StoreList", params)
+        .then((res) => {
+          //db에서 받아온 store정보 저장하는 부분
+          res.data.forEach(function(pos) {
+            console.log(pos.walletAddress);
+            var storeName = pos.nickName;
+            var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
+            var storeAddress = pos.walletAddress;
 
-          self.loadedStoreList = res.data;
+            self.loadedStoreList = res.data;
 
-          //카카오에서 제공하는 마커 구성
-          var marker = new kakao.maps.Marker({
-            map: self.map,
-            position: latlng,
-            title: storeName,
-            image: markerImage,
+            //카카오에서 제공하는 마커 구성
+            var marker = new kakao.maps.Marker({
+              map: self.map,
+              position: latlng,
+              title: storeName,
+              image: markerImage,
+            });
+
+            //카카오에서 마커 클릭 시 뜨는 오버레이 구성
+            var customOverlay = new kakao.maps.CustomOverlay({
+              position: latlng,
+              xAnchor: 0.5,
+              yAnchor: 1.05,
+            });
+
+            /*마커클릭 시 오버레이 구성 정의*/
+            var content = document.createElement("div");
+            content.className = "overlaybox";
+            content.appendChild(document.createTextNode(storeName));
+
+            var buttonContainer = document.createElement("div");
+            buttonContainer.className = "overlaycontent";
+            // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
+            content.appendChild(buttonContainer);
+
+            var reviewBtn = document.createElement("button");
+            reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
+            var closeBtn = document.createElement("button");
+            closeBtn.appendChild(document.createTextNode("닫기"));
+
+            buttonContainer.appendChild(reviewBtn);
+            buttonContainer.appendChild(closeBtn);
+
+            //닫기버튼 클릭 시 overlay값 null로 설정
+            closeBtn.onclick = function() {
+              customOverlay.setMap(null);
+            };
+
+            //review보러가기 버튼 클릭 시 이동할 페이지 정의
+
+            reviewBtn.onclick = function() {
+              alert("되는가");
+            };
+
+            //마커클릭했을때 오버레이 띄우는 함수
+            kakao.maps.event.addListener(marker, "click", function() {
+              customOverlay.setMap(self.map);
+            });
+            customOverlay.setContent(content);
           });
-
-          //카카오에서 마커 클릭 시 뜨는 오버레이 구성
-          var customOverlay = new kakao.maps.CustomOverlay({
-            position: latlng,
-            xAnchor: 0.5,
-            yAnchor: 1.05,
-          });
-
-          /*마커클릭 시 오버레이 구성 정의*/
-          var content = document.createElement("div");
-          content.className = "overlaybox";
-          content.appendChild(document.createTextNode(storeName));
-
-          var buttonContainer = document.createElement("div");
-          buttonContainer.className = "overlaycontent";
-          // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
-          content.appendChild(buttonContainer);
-
-          var reviewBtn = document.createElement("button");
-          reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
-          var closeBtn = document.createElement("button");
-          closeBtn.appendChild(document.createTextNode("닫기"));
-
-          buttonContainer.appendChild(reviewBtn);
-          buttonContainer.appendChild(closeBtn);
-
-          //닫기버튼 클릭 시 overlay값 null로 설정
-          closeBtn.onclick = function() {
-            customOverlay.setMap(null);
-          };
-
-          //review보러가기 버튼 클릭 시 이동할 페이지 정의
-          //location.href는 추후 수정 할 예정
-          reviewBtn.onclick = function() {
-            location.href = "https://192.168.25.41:8081/PaymentList";
-          };
-
-          //마커클릭했을때 오버레이 띄우는 함수
-          kakao.maps.event.addListener(marker, "click", function() {
-            customOverlay.setMap(self.map);
-          });
-          customOverlay.setContent(content);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }).catch;
-      //   (error) => {
-      //   console.error("에러");
-      // }
     },
 
     /*내위치 찾기 */
@@ -204,8 +208,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #map {
-  width: 400px;
-  height: 400px;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 56.25%;
 }
 
 .button-group {
@@ -213,7 +219,12 @@ export default {
 }
 
 button {
-  margin: 0 3px;
+  margin: auto;
+  color: #fff;
+  background-color: #755328bf;
+  font-size: 17px;
+  width: 40%;
+  display: block;
 }
 #User_information {
   font-size: 14px;
