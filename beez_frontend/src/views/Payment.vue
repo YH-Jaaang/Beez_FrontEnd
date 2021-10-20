@@ -7,7 +7,7 @@
       </h1>
     </div>
     <b-form @submit="onSubmit">
-      <b-card id="card_qr" title="QR코드 인식">
+      <b-card id="card_qr" title="QR코드 결제">
         <div class="qrbtn">
           <div class="pay_form">
             <b-form-group
@@ -24,7 +24,7 @@
             <!-- </b-form> -->
           </div>
 
-          <b-modal id="pay_modal" hide-header ok-only>
+          <b-modal id="pay_modal" ref="qr-modal" hide-header ok-only>
             <p class="qrheader my-2">가게의 QR코드를 인식해주세요.</p>
             <div class="camera">
               <vue-qr-reader
@@ -42,10 +42,12 @@
             </p>
           </b-modal>
         </div>
-      </b-card>
 
-      <b-card id="card_qr" title="결제금액 입력">
         <div class="pay_amount">
+          <b-form-group>
+            <a>보유금액</a>
+            <a>{{ this.$store.state.wonBalace | comma }}</a>
+          </b-form-group>
           <b-form-group>
             <a>결제금액</a>
             <b-form-input
@@ -200,18 +202,6 @@
           </h4>
         </li>
       </b-card>
-    </div>
-    <!-- 여기 수정 -->
-    <div>
-      <b-modal ref="qr-modal" hide-footer title="QR코드">
-        <div class="d-block text-center">
-          <h3>QR코드가 인식되지 않았습니다.</h3>
-          <h3>확인 부탁드립니다.</h3>
-        </div>
-        <b-button class="mt-2" variant="outline-warning" block @click="qrModal"
-          >취소</b-button
-        >
-      </b-modal>
     </div>
   </div>
 </template>

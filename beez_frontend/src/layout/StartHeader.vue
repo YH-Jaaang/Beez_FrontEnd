@@ -37,7 +37,9 @@ export default {
   beforeCreate() {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
-    if (token) {
+    const address = localStorage.getItem("address");
+
+    if (token && address) {
       if (role == "USER") this.$router.push("/Main");
       else if (role == "STORE") this.$router.push("/StoreMain");
       else {
