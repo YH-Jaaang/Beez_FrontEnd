@@ -41,13 +41,12 @@
           </b-input-group-append>
           <b-form-input
             v-model="email"
-            @blur="emailValid"
-            @keyup="emailValid2"
+            @keyup="emailValid"
             placeholder="EMAIL"
             type="text"
             required
           ></b-form-input>
-          <b-button>
+          <b-button @click="emailCheck">
             중복확인
           </b-button>
           <!-- 중복검사 완료시 체크 표시로 변함 -->
@@ -56,6 +55,27 @@
         <div v-if="!emailValidError" id="error1">
           잘못된 이메일 형식입니다.
         </div>
+        <div v-if="!emailCheckError" id="error1">
+          중복확인을 완료해주세요.
+        </div>
+
+        <!-- 닉네임 -->
+        <b-input-group>
+          <b-input-group-append>
+            <FontAwesomeIcon
+              :icon="faUserTag"
+              size="lg"
+              style="color:#f89604"
+            />
+          </b-input-group-append>
+          <b-form-input
+            v-model="nickName"
+            placeholder="NICKNAME"
+            type="text"
+            maxlength="10"
+            required
+          ></b-form-input>
+        </b-input-group>
 
         <!-- 비밀번호 -->
         <b-input-group>
@@ -172,8 +192,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUserTag } from "@fortawesome/free-solid-svg-icons";
 import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 import { faPiggyBank } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default {
   components: {
@@ -186,15 +208,18 @@ export default {
       faUserCheck,
       faEnvelope,
       faLock,
+      faUserTag,
       faPhoneAlt,
       faPiggyBank,
 
       passwordValidError: true,
       passwordCheckValidError: true,
       emailValidError: true,
+      emailCheckError: true,
 
       user_name: "",
       email: "",
+      nickName: "",
       password: "",
       phone: "",
       password2: "",
@@ -307,19 +332,20 @@ export default {
 
     // -----------------------------이메일 유효성 검사----------------------
     emailValid() {
-      if (
+      if (this.email.length == 0) {
+        this.emailValidError = true;
+        this.emailCheckError = true;
+      } else if (
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
           this.email
         )
       ) {
         this.emailValidError = true;
+        this.emailCheckError = false;
       } else {
         this.emailValidError = false;
+        this.emailCheckError = true;
       }
-    },
-
-    emailValid2() {
-      this.email = this.email.replace(/[^a-zA-Z0-9*@.]/g, "");
     },
 
     // -----------------------------비밀번호 유효성 검사----------------------
@@ -338,12 +364,40 @@ export default {
         this.passwordCheckValidError = false;
       }
     },
+    //-------------------중복확인 버튼--------------------------------------
+    async emailCheck() {
+      var param = {
+        email: this.email,
+      };
+      (async () => {
+        await axios.post("/api/join/check", param).then((res) => {
+          if (res.data == 1) {
+            alert("중복된 아이디가 존재합니다.");
+          } else {
+            alert("사용가능한 아이디입니다.");
+            this.emailCheckError = true;
+          }
+        });
+      })();
+    },
+
     //-------------------회원가입 최종 버튼--------------------------------------
-    submitForm() {
+    async submitForm() {
+      var params = {
+        name: this.user_name,
+        email: this.email,
+        nickName: this.nickName,
+        password: this.password,
+        phone: this.phone,
+        bankName: this.bank_name,
+        accountNumber: this.account_number,
+      };
+
       if (
         !this.passwordValidError ||
         !this.passwordCheckValidError ||
-        !this.emailValidError
+        !this.emailValidError ||
+        !this.emailCheckError
       ) {
         alert("회원가입 입력란을 확인해주세요.");
         return;
@@ -351,12 +405,21 @@ export default {
         alert("회원가입 동의란을 확인해주세요.");
         return;
       } else {
-        this.$router.push("/");
+        (async () => {
+          await axios
+            .post("/api/join", params)
+            .then(() => {
+              this.$toaster.success("회원가입이 완료되었습니다.");
+            })
+            .catch(() => {
+              this.$toaster.error(
+                "회원가입에 실패하였습니다. 다시 시도해 주세요."
+              );
+            });
+        })();
+        //페이지 이동
+        this.$router.push("/Main");
       }
-    },
-    // --------------------------모달 취소 창--------------------------------
-    hideModal() {
-      this.$refs["Agree_Checkbox"].hide();
     },
   },
 };

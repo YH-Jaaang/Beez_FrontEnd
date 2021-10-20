@@ -70,6 +70,12 @@
               <li>
                 <a id="font-red">{{ errMsg }}</a>
               </li>
+
+              <li>
+                <b-button id="login_btn" @click="KakaoLogin()">
+                  카카오 Login
+                </b-button>
+              </li>
             </b-tab>
 
             <!-- 소상공인 로그인 탭 -->
