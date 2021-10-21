@@ -25,6 +25,15 @@ const routes = [
       footer: () => import("@/layout/Footer.vue"),
     },
   },
+  {
+    //맵
+    path: "/nonUserStoreList",
+    components: {
+      default: () => import("@/views/StoreList.vue"),
+      header: () => import("@/layout/StartHeader.vue"),
+      footer: () => import("@/layout/Footer.vue"),
+    },
+  },
   //회원가입 페이지
   {
     path: "/SignUp",
@@ -142,6 +151,8 @@ const routes = [
       header: () => import("@/layout/Header.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },
+    name: "ReviewList",
+    props: true,
   },
   // 소상공인 페이지
   {

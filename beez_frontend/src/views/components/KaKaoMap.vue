@@ -36,6 +36,7 @@ export default {
       markers: [],
       infowindow: null,
       loadedStoreList: [],
+      storeAddress: "",
     };
   },
   mounted() {
@@ -46,7 +47,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=57ecbdb0e485e592d3cb44820f46951c";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=e88cd6b095840bc1ac80ea68b145d702";
       document.head.appendChild(script);
     }
     /*------------------------------------------------------------*/
@@ -142,7 +143,13 @@ export default {
             //review보러가기 버튼 클릭 시 이동할 페이지 정의
 
             reviewBtn.onclick = function() {
-              alert("되는가");
+              self.$router.push({
+                name: "ReviewList",
+                params: {
+                  storeAddress: storeAddress,
+                  storeNickName: storeName,
+                },
+              });
             };
 
             //마커클릭했을때 오버레이 띄우는 함수

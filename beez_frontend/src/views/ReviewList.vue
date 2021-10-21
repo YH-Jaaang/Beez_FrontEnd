@@ -3,7 +3,7 @@
     <div class="UserReview text-center">
       <a id="User_Review">
         <FontAwesomeIcon :icon="faList" style="color:#ffde02s" />
-        해당 가게(이름은 라우터로 받은 값으로 db에서 검색하기) 리뷰
+        {{ this.$route.params.storeNickName }}
       </a>
     </div>
     <span class="span-blank">빈</span>
@@ -130,7 +130,16 @@ export default {
     DatePicker2,
     PullToRefresh,
   },
-
+  props: {
+    storeAddress: {
+      type: String,
+      default: "0",
+    },
+    storeNickName: {
+      type: String,
+      default: "0",
+    },
+  },
   data() {
     return {
       timestamp: Math.floor(new Date().getTime() / 1000),
@@ -151,12 +160,16 @@ export default {
     };
   },
   async beforeCreate() {
+    console.log(this.$route.params.storeNickName);
+    console.log(this.$route.params.storeAddress);
     const payload = await {
       start: 7,
       end: 0,
       page: 1,
-      address: "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26", //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
+      // storeName: this.$route.params.storeNickName,
+      address: this.$route.params.storeAddress, //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
     };
+
     await this.$store.commit("paymentList", payload);
   },
 
@@ -167,7 +180,8 @@ export default {
         start: start,
         end: end,
         page: 1,
-        address: "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26", //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
+        // storeName: this.$route.params.storeNickName,
+        address: this.$route.params.storeAddress, //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
       };
       this.$store.commit("paymentList", payload);
     },
@@ -215,7 +229,8 @@ export default {
         start: this.date1,
         end: this.date2,
         page: 1,
-        address: "0x6368b1714c35a7af7a3f632cb2dc0c47023c2b26", //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
+        // storeName: this.$route.params.storeNickName,
+        address: this.$route.params.storeAddress, //여기에 영하님 어드레스를 주면됨 라우터로 넘긴값. 소상공인 address
       };
       await this.$store.commit("paymentList", payload);
     },

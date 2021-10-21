@@ -153,7 +153,7 @@
     </div>
 
     <div id="explain_btn">
-      <b-card class="ex_01">
+      <b-card class="ex_01" @click="loadNonUserStore">
         <li>
           <a>
             BEEZ 지역화폐
@@ -358,6 +358,9 @@ export default {
     },
     onSlideEnd() {
       this.sliding = false;
+    },
+    loadNonUserStore() {
+      this.$router.push("/nonUserStoreList");
     },
   },
 };
@@ -610,6 +613,11 @@ export default {
   margin-bottom: 3%;
 }
 
+.card-body:hover,
+.card-body:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
 .ex_01 .card-body {
   padding: 0%;
   padding-top: 2%;

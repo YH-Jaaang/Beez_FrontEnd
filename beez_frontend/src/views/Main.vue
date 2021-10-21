@@ -347,7 +347,7 @@ export default {
   margin: 14px 14px;
   padding: 2%;
   font-family: BCcardB;
-  margin-bottom: 20%;
+  margin-bottom: 2px;
 }
 
 /*--------------------------공지사항/q&a-------------------------- */
