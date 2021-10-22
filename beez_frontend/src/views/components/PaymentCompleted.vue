@@ -73,20 +73,14 @@
             <tr>
               <td class="text">현금</td>
               <td class="amount">
-                <a>
-                  {{ $route.params.won | comma }}
-                </a>
+                <a> {{ $route.params.won | comma }} 원 </a>
               </td>
             </tr>
             <tr>
               <td class="text">BEEZ</td>
               <td class="amount">
-                <a v-if="$route.params.beez == 0">
-                  0
-                </a>
-                <a v-else>
-                  {{ $route.params.beez | comma }}
-                </a>
+                <a v-if="$route.params.beez == 0"> </a>
+                <a v-else> {{ $route.params.beez | comma }} BZ </a>
               </td>
             </tr>
             <tr>
@@ -96,7 +90,10 @@
               <td class="text">총 결제금액</td>
               <td class="amount">
                 <a>
-                  {{ $route.params.won | comma }}
+                  {{
+                    ($route.params.won + $route.params.beez * 100) | comma
+                  }}
+                  원
                 </a>
               </td>
             </tr>

@@ -6,42 +6,104 @@
         우리가게 리뷰
       </a>
     </div>
-
-    <div class="Reviewlist_box">
-      <ul>
-        <li>
-          <a>{{ Store_month }}/{{ Store_day }}/{{ Store_time }}</a>
-        </li>
-        <li class="bar">
-          <a> ID:{{ Store_userId }}님</a>
-          <a style="float:right">{{ storeSales }}원</a>
-        </li>
-
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요! </a>
-          <a>반찬종류가 많아요! </a>
-          <a>주차하기 편해요! </a>
-        </li>
-      </ul>
+    <!--리뷰 리스트-->
+    <div class="li_btn text-center">
+      <b-button @click="reviewList(7, 0)">
+        1주일
+      </b-button>
+      <b-button @click="reviewList(30, 0)">
+        1개월
+      </b-button>
+      <b-button @click="reviewList(90, 0)">
+        3개월
+      </b-button>
+      <b-button @click="reviewList(180, 0)">
+        6개월
+      </b-button>
     </div>
-
-    <div class="Reviewlist_box">
-      <ul>
-        <li>
-          <a>{{ Store_month }}/{{ Store_day }}/{{ Store_time }}</a>
-        </li>
-        <li class="bar">
-          <a> ID:{{ Store_userId }}님</a>
-          <a style="float:right">{{ storeSales }}원</a>
-        </li>
-
-        <li class="keyword_Review_box">
-          <a>분위기가 좋아요! </a>
-          <a>반찬종류가 많아요! </a>
-          <a>주차하기 편해요! </a>
-        </li>
-      </ul>
+    <div class="li_btn2 text-center">
+      <b-button @click="toggle = !toggle">
+        기간별 검색
+      </b-button>
     </div>
+    <div v-show="toggle">
+      <table class="tb_center">
+        <tr>
+          <td class="td_width">
+            <DatePicker @date1="printDate1" />
+          </td>
+          <td class="td_width">
+            <DatePicker2 @date2="printDate2" :propsDate1="propDate1" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="li_btn text-center">
+              <b-button @click="searchDate()">
+                검색
+              </b-button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <pull-to-refresh
+      className="forTest"
+      :refreshing="false"
+      :indicator="{ deactivate: 'pull down' }"
+    >
+      <div
+        class="Reviewlist_box"
+        v-for="(review, i) in this.$store.state.reviewContents"
+        :key="i"
+      >
+        <ul>
+          <!-- 여기부터임 -->
+          <table class="pay_table">
+            <tr>
+              <td>{{ unix_timestamp(review.visitTime) }}</td>
+              <td rowspan="2" class="pay_row">
+                <table>
+                  <tr>
+                    <td class="pay_td">
+                      <FontAwesomeIcon :icon="faWonSign" class="faWon_style" />
+                    </td>
+                    <td>{{ review.wonTokenCount }}원</td>
+                  </tr>
+                  <tr>
+                    <td class="pay_row">
+                      <img src="../assets/main/main03.png" />
+                    </td>
+                    <td>
+                      {{ review.bzTokenCount / $store.state.incentiveRate }}개
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="pay_row">
+                      총
+                    </td>
+                    <td>{{ review.cost }}원</td>
+                  </tr> -->
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>ID : {{ $store.state.storeList[i] }}</td>
+            </tr>
+          </table>
+
+          <div v-if="review.value1 !== ''">
+            <li class="bar"></li>
+            <li class="keyword_Review_box">
+              <a>{{ review.value1 }} </a>
+              <a>{{ review.value2 }}</a>
+              <a>{{ review.value3 }}</a>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </pull-to-refresh>
+
     <b-button id="StoreReviewList_check" href="/StoreMain">확 인</b-button>
 
     <b-card class="end_StoreReviewLsit">
@@ -66,30 +128,98 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-
+import { faWonSign } from "@fortawesome/free-solid-svg-icons";
+import DatePicker from "@/views/components/DatePicker.vue";
+import DatePicker2 from "@/views/components/DatePicker2.vue";
+import PullToRefresh from "v-pull-to-refresh";
 export default {
   components: {
     FontAwesomeIcon,
+    DatePicker,
+    DatePicker2,
+    PullToRefresh,
   },
   data() {
     return {
-      //날짜
-      Store_day: "1",
-      Store_time: "10:10:10",
-      Store_month: "10",
-      //고객 ID
-      Store_userId: "YongHan123",
-      //매출
-      storeSales: "30,000",
-
       //아이콘
       faThumbsUp,
       faAngleRight,
+      faWonSign,
+
+      toggle: false,
+      date1: "",
+      date2: "",
+      propDate1: "",
     };
+  },
+  async beforeCreate() {
+    const payload = await {
+      start: 7,
+      end: 0,
+      page: 1,
+    };
+    await this.$store.commit("paymentList", payload);
   },
   methods: {
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
+    },
+    async reviewList(start, end) {
+      const payload = await {
+        start: start,
+        end: end,
+        page: 1,
+      };
+      this.$store.commit("paymentList", payload);
+    },
+    unix_timestamp(t) {
+      var date = new Date(t * 1000);
+      var year = date.getFullYear();
+      var month = "0" + (date.getMonth() + 1);
+      var day = "0" + date.getDate();
+      // var hour = "0" + date.getHours();
+      // var minute = "0" + date.getMinutes();
+      //var second = "0" + date.getSeconds();
+      return (
+        year + "/" + month.substr(-2) + "/" + day.substr(-2)
+        //  +
+        // " " +
+        // hour.substr(-2) +
+        // ":" +
+        // minute.substr(-2)
+        // +
+        // ":" +
+        // second.substr(-2)
+      );
+    },
+    //datePicker에서 선택한 날짜(Unix시간)
+    printDate1(date) {
+      this.date1 = date;
+      var propDate = new Date(date * 1000);
+      var year = propDate.getFullYear();
+      var month = propDate.getMonth() + 1;
+      var day = propDate.getDate();
+      this.propDate1 = month + "." + day + "." + year;
+    },
+    //datePicker2에서 선택한 날짜(Unix시간)
+    printDate2(date) {
+      this.date2 = date;
+    },
+    //검색결과
+    async searchDate() {
+      // console.log(this.date1 + "/" + this.date2);
+      // if (!this.date1) alert("시작 날짜를 입력해주세여");
+      // else if (!this.date2) alert("마지막 날짜를 입력해주세여");
+      // else if (this.date1 > this.date2) alert("다시입력해주세요");
+      // else if (this.date2 > Math.floor(new Date() / 1000) + 86400)
+      //   alert("오늘날짜 이후는 입력이 불가합니다");
+      // else {
+      const payload = await {
+        start: this.date1,
+        end: this.date2,
+        page: 1,
+      };
+      await this.$store.commit("paymentList", payload);
     },
   },
 };
@@ -118,11 +248,69 @@ export default {
 .StoreReview {
   text-align: center;
   color: #100055;
-  border-bottom: 3px solid #100055;
+  border-bottom: 1.8px solid #100055;
   margin: 0 10% 4% 10%;
   font-size: 24px;
 }
-
+/*----------------------------기간별 버튼-------------------------------*/
+.li_btn .btn {
+  background-color: #0069fd44;
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  width: 20%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+.li_btn2 .btn {
+  background-color: #0069fd44;
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  width: 80%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+.tb_center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+.pay_table {
+  width: 100%;
+  padding: 10px;
+}
+.pay_table img {
+  width: 13%;
+}
+.pay_row {
+  width: 65%;
+  text-align: right;
+}
+.pay_td {
+  width: 70%;
+  text-align: right;
+}
+/* DatePicker */
+.date {
+  --v-calendar-action-color: #0069fd44;
+  --v-calendar-active-bg-color: #0069fd44;
+  --v-calendar-border-color: #fff;
+  --v-calendar-input-font-weight: 800;
+  --v-calendar-input-border: none;
+  --v-calendar-input-width: 10px;
+  --v-calendar-view-button-font-weight: 00;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-datepicker-icon-color: #0069fd44;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-day-name-font-weight: 1500;
+  --v-calendar-day-font-weight: 500;
+  --v-calendar-day-name-color: #323b43;
+  --v-calendar-range-radius: 100%;
+  --v-calendar-day-width: 80%;
+}
 /*----------------------------Reviewlsit box-------------------------------*/
 .Reviewlist_box {
   padding: 2% 2%;
@@ -132,6 +320,7 @@ export default {
   width: 85%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 7.5%;
+  font-size: 13px;
 }
 
 .keyword_Review_box a {
@@ -143,7 +332,7 @@ export default {
 }
 
 .bar {
-  border-bottom: 2px solid #100055;
+  border-bottom: 1.5px solid #100055;
   margin-bottom: 2%;
 }
 

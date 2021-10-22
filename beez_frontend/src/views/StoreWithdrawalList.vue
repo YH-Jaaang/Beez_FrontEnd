@@ -6,7 +6,32 @@
         출금 내역
       </a>
     </div>
-
+    <div class="li_btn2 text-center">
+      <b-button @click="toggle = !toggle">
+        기간별 검색
+      </b-button>
+    </div>
+    <div v-show="toggle">
+      <table class="tb_center">
+        <tr>
+          <td class="td_width">
+            <DatePicker @date1="printDate1" />
+          </td>
+          <td class="td_width">
+            <DatePicker2 @date2="printDate2" :propsDate1="propDate1" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="li_btn text-center">
+              <b-button @click="withdrawLists(date1, date2)">
+                검색
+              </b-button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
     <ul class="Store_TotalSales">
       <li>
         <a>계좌 번호: {{ account_no }} </a>
@@ -57,11 +82,15 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import DatePicker from "@/views/components/DatePicker.vue";
+import DatePicker2 from "@/views/components/DatePicker2.vue";
 import axios from "axios";
 
 export default {
   components: {
     FontAwesomeIcon,
+    DatePicker,
+    DatePicker2,
   },
   filters: {
     comma(val) {
@@ -78,6 +107,11 @@ export default {
       //아이콘
       faFileInvoiceDollar,
       faAngleRight,
+      // datePicker
+      toggle: false,
+      date1: "",
+      date2: "",
+      propDate1: "",
     };
   },
   beforeCreate() {
@@ -96,19 +130,70 @@ export default {
           this.store_na = res.data.data.name;
         })
         .catch(() => {});
-      await axios
-        .post("/api/withdrawal/historylist")
-        .then((res) => {
-          console.log(res);
-          this.withdrawList = res.data.data;
-        })
-        .catch(() => {});
+      this.withdrawLists();
     })();
-    this.$store.commit("storeMain");
   },
   methods: {
     linkGen(pageNum) {
       return pageNum === 1 ? "?" : `?page=${pageNum}`;
+    },
+    timestamp(t) {
+      var date = new Date(t);
+      var year = date.getFullYear();
+      var month = "0" + (date.getMonth() + 1);
+      var day = "0" + date.getDate();
+      var hour = "0" + date.getHours();
+      var minute = "0" + date.getMinutes();
+      return (
+        year +
+        "/" +
+        month.substr(-2) +
+        "/" +
+        day.substr(-2) +
+        " " +
+        hour.substr(-2) +
+        ":" +
+        minute.substr(-2)
+      );
+    },
+    printDate1(date) {
+      this.date1 = date;
+      var propDate = new Date(date * 1000);
+      var year = propDate.getFullYear();
+      var month = propDate.getMonth() + 1;
+      var day = propDate.getDate();
+      this.propDate1 = month + "." + day + "." + year;
+    },
+    //datePicker2에서 선택한 날짜(Unix시간)
+    printDate2(date) {
+      this.date2 = date;
+    },
+    withdrawLists(start, end) {
+      var params;
+
+      if (start && end) {
+        params = {
+          startDate: start,
+          endDate: end,
+        };
+      } else {
+        params = {
+          startDate: Math.floor(new Date(new Date()) / 1000) - 31536000,
+          endDate: Math.floor(new Date(new Date()) / 1000),
+        };
+      }
+
+      (async () => {
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "token"
+        );
+        await axios
+          .post("/api/withdrawal/historylist", params)
+          .then((res) => {
+            this.withdrawList = res.data.data;
+          })
+          .catch(() => {});
+      })();
     },
   },
 };
@@ -150,6 +235,45 @@ export default {
   width: 83%;
   margin: 3% auto 5% 8%;
   border-radius: 10px;
+}
+/*----------------------------기간별 버튼-------------------------------*/
+.li_btn .btn {
+  background-color: #0069fd44;
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  width: 20%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+.li_btn2 .btn {
+  background-color: #0069fd44;
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  width: 80%;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+/* DatePicker */
+.date {
+  --v-calendar-action-color: #0069fd44;
+  --v-calendar-active-bg-color: #0069fd44;
+  --v-calendar-border-color: #fff;
+  --v-calendar-input-font-weight: 800;
+  --v-calendar-input-border: none;
+  --v-calendar-input-width: 10px;
+  --v-calendar-view-button-font-weight: 00;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-datepicker-icon-color: #0069fd44;
+  --v-calendar-view-button-font-size: 1.1rem;
+  --v-calendar-day-name-font-weight: 1500;
+  --v-calendar-day-font-weight: 500;
+  --v-calendar-day-name-color: #323b43;
+  --v-calendar-range-radius: 100%;
+  --v-calendar-day-width: 80%;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .WithdrawalList_box {
