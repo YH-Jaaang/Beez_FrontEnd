@@ -58,6 +58,23 @@
         <div v-if="!emailCheckError" id="error1">
           중복확인을 완료해주세요.
         </div>
+        <div v-if="!emailCheckError2" id="error1">
+          이메일을 입력해주세요.
+        </div>
+
+        <b-modal centered id="emailModalOk" size="sm" hide-header hide-footer>
+          <h5>사용가능한 이메일 입니다.</h5>
+          <b-card>
+            <b-button @click="$bvModal.hide('emailModalOk')">확인</b-button>
+          </b-card>
+        </b-modal>
+
+        <b-modal centered id="emailModalFail" size="sm" hide-header hide-footer>
+          <h6>이미 등록된 이메일입니다.</h6>
+          <b-card>
+            <b-button @click="$bvModal.hide('emailModalFail')">확인</b-button>
+          </b-card>
+        </b-modal>
 
         <!-- 닉네임 -->
         <b-input-group>
@@ -128,7 +145,52 @@
             @keyup="getPhoneMask(phone)"
             required
           ></b-form-input>
+          <b-button @click="phoneCheck">
+            번호인증
+          </b-button>
         </b-input-group>
+        <div v-if="!phoneCheckError" id="error1">
+          번호인증이 완료되었습니다.
+        </div>
+        <div v-if="!phoneCheckError2" id="error1">
+          번호인증을 완료해주세요.
+        </div>
+        <div v-if="!phoneCheckError3" id="error1">
+          휴대폰 번호를 입력해주세요.
+        </div>
+
+        <b-modal
+          centered
+          id="phoneModal"
+          hide-footer
+          hide-header
+          @show="resetModal"
+          @hidden="resetModal"
+        >
+          <h6>인증번호가 발송되었습니다.</h6>
+          <h6>제한시간 내에 인증번호를 입력해주세요.</h6>
+          <b-form-input v-model="phone2"></b-form-input>
+          <h6>{{ displayTime }}</h6>
+
+          <b-card>
+            <b-button @click="phoneCheck2">확인</b-button>
+          </b-card>
+        </b-modal>
+
+        <b-modal centered id="phoneModalOk" size="sm" hide-header hide-footer>
+          <h6>번호인증 성공!</h6>
+          <b-card>
+            <b-button @click="phoneModalOk">확인</b-button>
+          </b-card>
+        </b-modal>
+
+        <b-modal centered id="phoneModalFail" size="sm" hide-header hide-footer>
+          <h6>번호인증 실패!</h6>
+          <h6>번호인증을 다시 시도해주세요.</h6>
+          <b-card>
+            <b-button @click="phoneModalFail">확인</b-button>
+          </b-card>
+        </b-modal>
 
         <!-- 은행 -->
         <b-input-group>
@@ -216,19 +278,25 @@ export default {
       passwordCheckValidError: true,
       emailValidError: true,
       emailCheckError: true,
+      emailCheckError2: true,
+      phoneCheckError: true,
+      phoneCheckError2: true,
+      phoneCheckError3: true,
 
       user_name: "",
       email: "",
       nickName: "",
       password: "",
       phone: "",
+      phone2: "",
       password2: "",
       bank_name: null,
       account_number: "",
+      displayTime: "",
 
       checkbox1: "",
       checkbox2: "",
-
+      phoneNumber: "",
       banks: [
         { text: "은행선택", value: null },
         "국민",
@@ -257,8 +325,6 @@ export default {
     getPhoneMask(val) {
       let res = this.getMask(val);
       this.phone = res;
-      //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
-      // this.model.phone = this.phone.replace(/[^0-9]/g, "");
     },
     getMask(phoneNumber) {
       if (!phoneNumber) return phoneNumber;
@@ -267,10 +333,16 @@ export default {
       let res = "";
       if (phoneNumber.length < 3) {
         res = phoneNumber;
+        this.phoneCheckError3 = true;
+        this.phoneCheckError2 = false;
+        this.phoneCheckError = true;
       } else {
         if (phoneNumber.substr(0, 2) == "02") {
           if (phoneNumber.length <= 5) {
             res = phoneNumber.substr(0, 2) + "-" + phoneNumber.substr(2, 3);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length > 5 && phoneNumber.length <= 9) {
             res =
               phoneNumber.substr(0, 2) +
@@ -278,6 +350,9 @@ export default {
               phoneNumber.substr(2, 3) +
               "-" +
               phoneNumber.substr(5);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length > 9) {
             res =
               phoneNumber.substr(0, 2) +
@@ -285,12 +360,21 @@ export default {
               phoneNumber.substr(2, 4) +
               "-" +
               phoneNumber.substr(6);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           }
         } else {
           if (phoneNumber.length < 8) {
             res = phoneNumber;
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length == 8) {
             res = phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length == 9) {
             res =
               phoneNumber.substr(0, 3) +
@@ -298,6 +382,9 @@ export default {
               phoneNumber.substr(3, 3) +
               "-" +
               phoneNumber.substr(6);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length == 10) {
             res =
               phoneNumber.substr(0, 3) +
@@ -305,6 +392,9 @@ export default {
               phoneNumber.substr(3, 3) +
               "-" +
               phoneNumber.substr(6);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           } else if (phoneNumber.length > 10) {
             res =
               phoneNumber.substr(0, 3) +
@@ -312,6 +402,9 @@ export default {
               phoneNumber.substr(3, 4) +
               "-" +
               phoneNumber.substr(7);
+            this.phoneCheckError3 = true;
+            this.phoneCheckError2 = false;
+            this.phoneCheckError = true;
           }
         }
       }
@@ -335,6 +428,7 @@ export default {
       if (this.email.length == 0) {
         this.emailValidError = true;
         this.emailCheckError = true;
+        this.emailCheckError2 = false;
       } else if (
         /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
           this.email
@@ -342,9 +436,11 @@ export default {
       ) {
         this.emailValidError = true;
         this.emailCheckError = false;
+        this.emailCheckError2 = true;
       } else {
         this.emailValidError = false;
         this.emailCheckError = true;
+        this.emailCheckError2 = true;
       }
     },
 
@@ -364,31 +460,130 @@ export default {
         this.passwordCheckValidError = false;
       }
     },
-    //-------------------중복확인 버튼--------------------------------------
+    //-------------------이메일 중복확인 버튼--------------------------------------
     async emailCheck() {
-      var param = {
-        email: this.email,
-      };
-      (async () => {
-        await axios.post("/api/join/check", param).then((res) => {
-          if (res.data == 1) {
-            alert("중복된 아이디가 존재합니다.");
-          } else {
-            alert("사용가능한 아이디입니다.");
-            this.emailCheckError = true;
-          }
-        });
-      })();
+      if (this.email.length == 0) {
+        this.emailCheckError2 = false;
+      } else {
+        this.emailCheckError2 = true;
+        var param = {
+          email: this.email,
+        };
+        (async () => {
+          await axios.post("/api/join/check", param).then((res) => {
+            if (res.data == 1) {
+              this.$bvModal.show("emailModalFail");
+            } else {
+              this.$bvModal.show("emailModalOk");
+              this.emailCheckError = true;
+            }
+          });
+        })();
+      }
+    },
+    //-------------------번호 인증번호 보내기--------------------------------------
+    async phoneCheck() {
+      var onlyPhone = this.phone.replace(/[^0-9]/g, "");
+
+      if (this.phone.length == 0) {
+        this.phoneCheckError3 = false;
+        this.phoneCheckError2 = true;
+      } else {
+        this.phoneCheckError3 = true;
+        this.phoneCheckError2 = false;
+        this.$bvModal.show("phoneModal");
+        var param = {
+          phone: onlyPhone,
+        };
+        (async () => {
+          await axios.post("/api/join/phoneCheck", param).then((res) => {
+            console.log(res.data);
+            this.phoneNumber = res.data;
+          });
+        })();
+      }
+
+      // var timer = null;
+      // var isRunning = false;
+
+      // timer = setInterval(() => {
+      //   var minutes;
+      //   var seconds;
+
+      //   // console.log(count);
+      //   minutes = parseInt(count / 60, 10);
+      //   seconds = parseInt(count % 60, 10);
+      //   console.log(minutes);
+      //   console.log(seconds);
+
+      //   minutes = minutes < 10 ? "0" + minutes : minutes;
+      //   seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      //   this.displayTime = minutes + ":" + seconds;
+
+      //   //타이머 끝
+      //   if (--count < 0) {
+      //     clearInterval(timer);
+      //     alert("인증번호 유호 시간이 초과되었습니다.");
+      //     isRunning = false;
+      //   }
+      // }, 1000);
+      // isRunning = true;
+    },
+    //-------------------번호 인증번호 확인--------------------------------------
+    phoneCheck2() {
+      // var param = {
+      //   phone: this.phone2,
+      // };
+
+      // (async () => {
+      //   await axios.post("/api/join/phoneCheck2", param).then((res) => {
+      //     console.log(res.data);
+      //     if (res.data == 1) {
+      //       this.$bvModal.show("phoneModalOk");
+      //       this.phoneCheckError = false;
+      //       this.phoneCheckError2 = true;
+      //     } else {
+      //       this.$bvModal.show("phoneModalFail");
+      //       this.phoneCheckError = true;
+      //       this.phoneCheckError2 = false;
+      //     }
+      //   });
+      // })();
+      if (this.phoneNumber == this.phone2) {
+        this.$bvModal.show("phoneModalOk");
+        this.$bvModal.hide("phoneModal");
+        this.phoneCheckError = false;
+        this.phoneCheckError2 = true;
+      } else {
+        this.$bvModal.show("phoneModalFail");
+        this.$bvModal.hide("phoneModal");
+        this.phoneCheckError = true;
+        this.phoneCheckError2 = false;
+      }
+    },
+    phoneModalOk() {
+      this.$bvModal.hide("phoneModal");
+      this.$bvModal.hide("phoneModalOk");
+    },
+    phoneModalFail() {
+      this.$bvModal.hide("phoneModal");
+      this.$bvModal.hide("phoneModalFail");
+    },
+    resetModal() {
+      this.phone2 = "";
     },
 
     //-------------------회원가입 최종 버튼--------------------------------------
     async submitForm() {
+      var onlyPhone = this.phone.replace(/[^0-9]/g, "");
+
       var params = {
         name: this.user_name,
         email: this.email,
         nickName: this.nickName,
         password: this.password,
-        phone: this.phone,
+        phone: onlyPhone,
         bankName: this.bank_name,
         accountNumber: this.account_number,
       };
@@ -404,6 +599,8 @@ export default {
       } else if (!this.checkbox1 || !this.checkbox2) {
         alert("회원가입 동의란을 확인해주세요.");
         return;
+      } else if (!this.phoneCheckError) {
+        alert("번호인증을 완료해주세요.");
       } else {
         (async () => {
           await axios
@@ -418,7 +615,7 @@ export default {
             });
         })();
         //페이지 이동
-        this.$router.push("/Main");
+        this.$router.push("/");
       }
     },
   },
@@ -554,6 +751,75 @@ export default {
   font-family: "KoPubWorldDotumLight";
   color: #f00000;
   font-size: 13px;
+}
+
+#emailModalOk,
+#emailModalFail,
+#phoneModal,
+#phoneModalOk,
+#phoneModalFail {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "KoPubWorldDotumLight";
+}
+
+#emailModalOk .modal-content,
+#emailModalFail .modal-content,
+#phoneModal .modal-content,
+#phoneModalOk .modal-content,
+#phoneModalFail .modal-content {
+  border-radius: 1.3rem;
+  border: 0;
+  background-color: #f4fdee;
+}
+
+#emailModalOk .modal-body,
+#emailModalFail .modal-body,
+#phoneModal .modal-body,
+#phoneModalOk .modal-body,
+#phoneModalFail .modal-body {
+  padding: 0;
+  margin-top: 15px;
+}
+
+#emailModalOk .card-body,
+#emailModalFail .card-body,
+#phoneModal .card-body,
+#phoneModalOk .card-body,
+#phoneModalFail .card-body {
+  padding: 0;
+}
+
+#emailModalOk .card,
+#emailModalFail .card,
+#phoneModal .card,
+#phoneModalOk .card,
+#phoneModalFail .card {
+  background-color: #d3f8a8fb;
+  border-end-end-radius: 15px;
+  border-end-start-radius: 15px;
+  font-size: 13px;
+}
+
+#emailModalOk .btn,
+#emailModalFail .btn,
+#phoneModal .btn,
+#phoneModalOk .btn,
+#phoneModalFail .btn {
+  background: 0;
+  width: 100%;
+}
+
+#phoneModal {
+  width: 80%;
+}
+
+#phoneModal .form-control {
+  background-color: #def3c6fb;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
 /*-----------------버튼 ---------------------------- */

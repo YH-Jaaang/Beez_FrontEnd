@@ -165,7 +165,7 @@
             <!--두 번째 -->
             <div class="keybox">
               <div class="keybox_title">
-                편의시설
+                음식
               </div>
               <b-form-checkbox-group
                 v-model="checked2"
@@ -179,7 +179,7 @@
             <!--세 번째 -->
             <div class="keybox">
               <div class="keybox_title">
-                교통
+                교통/편의시설
               </div>
 
               <b-form-checkbox-group
@@ -269,28 +269,28 @@ export default {
       date1: "",
       date2: "",
       keyword1: [
-        { text: "분위기가 좋아요!", value: "0" },
-        { text: "비즈니스에 좋아요!", value: "1" },
-        { text: "친구랑 가기 좋아요!", value: "2" },
-        { text: "데이트하기 좋아요!", value: "3" },
-        { text: "데이트하기 좋아요!", value: "4" },
-        { text: "사장님이 친절해요!", value: "5" },
+        { text: "분위기가 좋아요.", value: "0" },
+        { text: "대화하기 좋아요.", value: "1" },
+        { text: "뷰가 좋아요.", value: "2" },
+        { text: "가족이랑 가기 좋아요.", value: "3" },
+        { text: "데이트하기 좋아요.", value: "4" },
+        { text: "혼밥하기 좋아요.", value: "5" },
       ],
       keyword2: [
-        { text: "서비스가 좋아요!", value: "0" },
-        { text: "상품종류가 다양해요!", value: "1" },
-        { text: "주차하기 편해요!", value: "2" },
-        { text: "데이트하기 좋아요!", value: "3" },
-        { text: "데이트하기 좋아요!", value: "4" },
-        { text: "사장님이 친절해요!", value: "5" },
+        { text: "특별한 메뉴가 있어요.", value: "0" },
+        { text: "가성비가 좋아요.", value: "1" },
+        { text: "함께 먹기 좋아요.", value: "2" },
+        { text: "맛이 기깔나요!", value: "3" },
+        { text: "재방문 의사가 있어요.", value: "4" },
+        { text: "포장하기 좋아요.", value: "5" },
       ],
       keyword3: [
-        { text: "대중교통이 편해요!", value: "0" },
-        { text: "주차하기 힘들어요!", value: "1" },
-        { text: "주차하기 편해요!", value: "2" },
-        { text: "가게위치가 좋아요!", value: "3" },
-        { text: "데이트하기 좋아요!", value: "4" },
-        { text: "대중교통을 추천해요!", value: "5" },
+        { text: "대중교통이 편해요.", value: "0" },
+        { text: "차가 없으면 힘들어요.", value: "1" },
+        { text: "주차하기 편해요.", value: "2" },
+        { text: "주차 공간이 협소해요.", value: "3" },
+        { text: "매장이 깨끗해요.", value: "4" },
+        { text: "화장실이 깨끗해요.", value: "5" },
       ],
       userPrivateKey: "",
       userAddress: "",

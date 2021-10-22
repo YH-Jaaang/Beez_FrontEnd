@@ -60,8 +60,9 @@ export default {
     //ID가 STORE일 경우, STORE페이지로 이동
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
+    const address = localStorage.getItem("address");
 
-    if (token && token.length === 163) {
+    if (token.split(" ")[0] === "Bearer" && address.length === 42) {
       if (role == "STORE") return true;
       else if (role == "USER") this.$router.push("/Main");
       else {
