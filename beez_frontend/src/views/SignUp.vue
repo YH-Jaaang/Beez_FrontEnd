@@ -244,6 +244,19 @@
           <b-button type="submit">가입하기</b-button>
           <b-button href="/" id="signUp_btn2">취소</b-button>
         </div>
+
+        <b-modal centered id="joinModalOk" hide-header hide-footer>
+          <h5>회원가입이 완료되었습니다.</h5>
+          <b-card>
+            <b-button @click="gotoMain">확인</b-button>
+          </b-card>
+        </b-modal>
+        <b-modal centered id="joinModalFail" hide-header hide-footer>
+          <h5>회원가입이 실패되었습니다.</h5>
+          <b-card>
+            <b-button @click="gotoMain">확인</b-button>
+          </b-card>
+        </b-modal>
       </b-form>
     </b-card>
   </div>
@@ -592,31 +605,29 @@ export default {
         !this.passwordValidError ||
         !this.passwordCheckValidError ||
         !this.emailValidError ||
-        !this.emailCheckError
+        !this.emailCheckError ||
+        this.phoneCheckError
       ) {
         alert("회원가입 입력란을 확인해주세요.");
         return;
       } else if (!this.checkbox1 || !this.checkbox2) {
         alert("회원가입 동의란을 확인해주세요.");
         return;
-      } else if (!this.phoneCheckError) {
-        alert("번호인증을 완료해주세요.");
       } else {
         (async () => {
           await axios
             .post("/api/join", params)
             .then(() => {
-              this.$toaster.success("회원가입이 완료되었습니다.");
+              this.$bvModal.show("joinModalOk");
             })
             .catch(() => {
-              this.$toaster.error(
-                "회원가입에 실패하였습니다. 다시 시도해 주세요."
-              );
+              this.$bvModal.show("joinModalFail");
             });
         })();
-        //페이지 이동
-        this.$router.push("/");
       }
+    },
+    gotoMain() {
+      this.$router.push("/");
     },
   },
 };
@@ -757,7 +768,9 @@ export default {
 #emailModalFail,
 #phoneModal,
 #phoneModalOk,
-#phoneModalFail {
+#phoneModalFail,
+#joinModalOk,
+#joinModalFail {
   width: 70%;
   margin: 0 auto;
   text-align: center;
@@ -768,7 +781,9 @@ export default {
 #emailModalFail .modal-content,
 #phoneModal .modal-content,
 #phoneModalOk .modal-content,
-#phoneModalFail .modal-content {
+#phoneModalFail .modal-content,
+#joinModalOk .modal-content,
+#joinModalFail .modal-content {
   border-radius: 1.3rem;
   border: 0;
   background-color: #f4fdee;
@@ -778,16 +793,31 @@ export default {
 #emailModalFail .modal-body,
 #phoneModal .modal-body,
 #phoneModalOk .modal-body,
-#phoneModalFail .modal-body {
+#phoneModalFail .modal-body,
+#joinModalOk .modal-body,
+#joinModalFail .modal-body {
   padding: 0;
-  margin-top: 15px;
+  margin-top: 12px;
+}
+
+#emailModalOk .modal-body h5,
+#emailModalFail .modal-body h5,
+#phoneModal .modal-body h5,
+#phoneModalOk .modal-body h5,
+#phoneModalFail .modal-body h5,
+#joinModalOk .modal-body h5,
+#joinModalFail .modal-body h5 {
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 #emailModalOk .card-body,
 #emailModalFail .card-body,
 #phoneModal .card-body,
 #phoneModalOk .card-body,
-#phoneModalFail .card-body {
+#phoneModalFail .card-body,
+#joinModalOk .card-body,
+#joinModalFail .card-body {
   padding: 0;
 }
 
@@ -795,7 +825,9 @@ export default {
 #emailModalFail .card,
 #phoneModal .card,
 #phoneModalOk .card,
-#phoneModalFail .card {
+#phoneModalFail .card,
+#joinModalOk .card,
+#joinModalFail .card {
   background-color: #d3f8a8fb;
   border-end-end-radius: 15px;
   border-end-start-radius: 15px;
@@ -806,12 +838,17 @@ export default {
 #emailModalFail .btn,
 #phoneModal .btn,
 #phoneModalOk .btn,
-#phoneModalFail .btn {
+#phoneModalFail .btn,
+#joinModalOk .btn,
+#joinModalFail .btn {
   background: 0;
   width: 100%;
+  border: 0;
 }
 
-#phoneModal {
+#phoneModal,
+#joinModalOk,
+#joinModalFail {
   width: 80%;
 }
 
