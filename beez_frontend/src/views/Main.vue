@@ -95,7 +95,7 @@
       <b-button href="/ChargeList">
         충전 내역
       </b-button>
-      <b-button href="/StoreList">
+      <b-button id="map_btn" href="/StoreList">
         주변가게찾기
       </b-button>
     </div>
@@ -349,7 +349,9 @@ export default {
   font-family: BCcardB;
   margin-bottom: 2px;
 }
-
+#map_btn {
+  margin-bottom: 10%;
+}
 /*--------------------------공지사항/q&a-------------------------- */
 .end_start {
   font-family: "GmarketSansTTFMedium";

@@ -2,17 +2,17 @@
   <div class="ChargeList_section">
     <div class="ChargeList">
       <a>
-        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#76512cb8" />
+        <FontAwesomeIcon :icon="faFileInvoiceDollar" style="color:#ffc045" />
         충전 내역
       </a>
     </div>
 
     <ul>
       <li id="User_information">
-        <a> 연결된 계좌: {{ charge_account }}</a>
+        <a>{{ charge_bank }}은행</a>
+        <a style="float:right">예금주: {{ charge_name }} </a>
         <div>
-          <a>은행: {{ charge_bank }}</a>
-          <a style="float:right">예금주: {{ charge_name }} </a>
+          <a>계좌: {{ charge_account }}</a>
         </div>
       </li>
     </ul>
@@ -258,26 +258,27 @@ export default {
 
 .ChargeList {
   text-align: center;
-  color: #76512cb8;
+  color: #ffc045;
   font-weight: 900;
-  border-bottom: 1.5px solid #76512cb8;
+  /* border-bottom: 1.5px solid #ffc045; */
   margin: 0 10% 0 10%;
-  font-size: 24px;
+  font-size: 25px;
 }
 /*---------------------------출금가능한 금액-------------------------------*/
 #User_information {
   font-size: 14px;
   font-weight: 900;
-  color: #714d2ad5;
+  color: #0e3c44;
   padding: 2% 4%;
-  background-color: #f1ebe4;
-  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
+  /* box-shadow: 1px 1px 2px 2px rgb(235, 231, 231); */
   width: 82%;
-  margin: 3% auto 3% auto;
+  margin: 1% auto 3% auto;
   border-radius: 10px;
+  border: 2px solid #ffc045;
 }
 .tx_btn {
-  background-color: #ffc045;
+  background-color: #fff;
+  border: 3px solid #fcc964;
   color: #000000;
   font-size: 13px;
   font-weight: 900;
@@ -290,26 +291,26 @@ export default {
 /*----------------------------Reviewlsit box-------------------------------*/
 .ChargeList_box {
   padding: 1% 2%;
-  border-radius: 20px;
+  border-radius: 10px;
   border: #6e6b79;
-  background-color: #faf3cc;
   width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 9%;
-  color: #76512c;
+  color: #724c25;
   font-size: 10pt;
+  background-color: #fcf5e7;
 }
 .th_icon {
   color: #fbca47;
 }
 .th_icon2 {
-  color: #19258fe1;
+  color: rgb(1, 65, 160);
 }
 
 /*---------------------------페이지 넘김------------------------------*/
 
 #ChargeList_btn2 {
-  background-color: #94785ba1;
+  background-color: #b0aeb8;
   color: white;
   display: block;
   padding: 1.5%;
@@ -340,7 +341,6 @@ export default {
 }
 /*----------------------------기간별 버튼-------------------------------*/
 .li_btn .btn {
-  background-color: #fdef2e7d;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -350,14 +350,15 @@ export default {
   font-family: BCcardB;
 }
 .li_btn2 .btn {
-  background-color: #fdef2e7d;
   color: #000000;
+  background-color: #e0dfdf7d;
   border-color: #fff;
   font-size: 13px;
   font-weight: 900;
-  width: 80%;
+  width: 82%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
+  margin-bottom: 5%;
 }
 /* DatePicker */
 .date {

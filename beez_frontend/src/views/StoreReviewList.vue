@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <div class="li_btn text-center">
+            <div class="li_btn3 text-center">
               <b-button @click="searchDate()">
                 검색
               </b-button>
@@ -250,11 +250,10 @@ export default {
   color: #100055;
   border-bottom: 1.8px solid #100055;
   margin: 0 10% 4% 10%;
-  font-size: 24px;
+  font-size: 25px;
 }
 /*----------------------------기간별 버튼-------------------------------*/
 .li_btn .btn {
-  background-color: #0069fd44;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -262,16 +261,29 @@ export default {
   width: 20%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
+  background-color: #99c1f860;
 }
+
 .li_btn2 .btn {
-  background-color: #0069fd44;
+  background-color: #e0dfdf7d;
+
+  color: #000000;
+  border-color: #fff;
+  font-size: 13px;
+  width: 82%;
+  font-weight: 900;
+  margin: 0px 2px 10px 0px;
+  font-family: BCcardB;
+}
+.li_btn3 .btn {
   color: #000000;
   border-color: #fff;
   font-size: 13px;
   font-weight: 900;
-  width: 80%;
+  width: 20%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
+  background-color: #e0dfdf7d;
 }
 .tb_center {
   margin-left: auto;
@@ -316,8 +328,8 @@ export default {
   padding: 2% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #e0f5f7;
-  width: 85%;
+  background-color: #99c1f818;
+  width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 7.5%;
   font-size: 13px;
@@ -329,6 +341,7 @@ export default {
   border-radius: 5px;
   background-color: #fff;
   margin: 0 3px 0 3px;
+  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
 }
 
 .bar {
