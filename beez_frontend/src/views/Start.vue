@@ -658,8 +658,8 @@ export default {
   margin-bottom: 3%;
 }
 
-.card-body:hover,
-.card-body:focus {
+.ex_01 .card-body:hover,
+.ex_01 .card-body:focus {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
 }
@@ -672,6 +672,11 @@ export default {
   border-radius: 8px;
 }
 
+.ex_02 .card-body:hover,
+.ex_02 .card-body:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
 .ex_02 .card-body {
   padding: 0%;
   padding-top: 2%;

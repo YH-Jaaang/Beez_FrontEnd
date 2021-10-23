@@ -58,7 +58,7 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 6,
+        level: 7,
         // 500m 기준 6이어야함
       };
       this.map = new kakao.maps.Map(container, options);
@@ -165,21 +165,22 @@ export default {
     },
 
     /*내위치 찾기 */
-    displayMarker(locPosition, message) {
+    // displayMarker(locPosition, message)
+    displayMarker(locPosition) {
       const marker = new kakao.maps.Marker({
         map: this.map,
         position: locPosition,
       });
 
-      const iwContent = message,
-        iwRemoveable = true;
+      // const iwContent = message,
+      const iwRemoveable = true;
 
-      const infowindow = new kakao.maps.InfoWindow({
-        content: iwContent,
-        removeable: iwRemoveable,
-      });
+      // const infowindow = new kakao.maps.InfoWindow({
+      // content: iwContent,
+      // removeable: iwRemoveable,
+      // });
 
-      infowindow.open(this.map, marker);
+      // infowindow.open(this.map, marker);
       this.map.setCenter(locPosition);
     },
 
@@ -194,18 +195,20 @@ export default {
             lon = position.coords.longitude;
           var mylat = lat;
           var mylon = lon;
-          const locPosition = new kakao.maps.LatLng(mylat, mylon),
-            message =
-              '<div class = "location" style = "padding:5px; "> 현재위치 </div>';
+          const locPosition = new kakao.maps.LatLng(mylat, mylon);
+          // message =
+          //   '<div class = "location" style = "padding:5px; "> 현재위치 </div>';
 
-          self.displayMarker(locPosition, message);
+          // self.displayMarker(locPosition, message);
+          self.displayMarker(locPosition);
           self.findStore(mylat, mylon);
         });
       } else {
         // 내 위도경도 못받아왔을대는 기본으로 세팅된 맵위치로 띄워줌
-        const locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-          message = "현재 위치를 찾을 수 없습니다.";
+        const locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+        // message = "현재 위치를 찾을 수 없습니다.";
         this.displayMarker(locPosition, message);
+        this.displayMArker(locPostion);
       }
     },
   },
