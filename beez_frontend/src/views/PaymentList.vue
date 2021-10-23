@@ -139,6 +139,7 @@
             </ul>
           </div>
         </div>
+        <b-button id="ChargeList_btn2" href="/Main">확 인</b-button>
       </pull-to-refresh>
       <div class="review_modal">
         <b-modal
@@ -507,11 +508,11 @@ export default {
   margin: 0 10% 0 10%;
 }
 #User_Review {
-  font-size: 24px;
+  font-size: 25px;
 }
 /*----------------------------기간별 버튼-------------------------------*/
 .li_btn .btn {
-  background-color: #fdef2e7d;
+  background-color: #e0dfc57d;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -521,12 +522,12 @@ export default {
   font-family: BCcardB;
 }
 .li_btn2 .btn {
-  background-color: #fdef2e7d;
+  background-color: #e0dfdf7d;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
   font-weight: 900;
-  width: 80%;
+  width: 82%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
 }
@@ -538,7 +539,7 @@ export default {
   padding: 2% 2%;
   border-radius: 20px;
   background-color: #fdfded;
-  width: 86%;
+  width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 auto;
   margin-bottom: 15px;
@@ -662,9 +663,9 @@ export default {
 .Keyword_column .btn {
   margin-bottom: 3%;
   font-weight: 600;
-  color: #696663;
+  color: #5e5c4a;
   background-color: white;
-  border: 1px solid #76512c;
+  border: 1px solid #ffc107;
 }
 
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
@@ -689,6 +690,19 @@ export default {
 }
 .modal_text {
   background-color: #fbcb4721;
+  border-radius: 15px;
+}
+/*---------------------------페이지 넘김------------------------------*/
+
+#ChargeList_btn2 {
+  background-color: #e0dfdf7d;
+  /* color: rgb(90, 88, 88); */
+  display: block;
+  padding: 1.5%;
+  width: 25%;
+  font-size: 16px;
+  font-weight: 900;
+  margin: 8% auto 20% auto;
   border-radius: 15px;
 }
 /* DatePicker */

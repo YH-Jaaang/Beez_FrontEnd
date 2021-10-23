@@ -368,7 +368,9 @@ export default {
   font-family: BCcardB;
   margin-bottom: 2px;
 }
-
+#map_btn {
+  margin-bottom: 10%;
+}
 /*--------------------------공지사항/q&a-------------------------- */
 .end_start {
   font-family: "GmarketSansTTFMedium";

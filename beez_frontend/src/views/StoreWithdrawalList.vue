@@ -34,10 +34,10 @@
     </div>
     <ul class="Store_TotalSales">
       <li>
-        <a>계좌 번호: {{ account_no }} </a>
+        <a>{{ bank_na }}은행</a>
+        <a style="float:right">예금주: {{ store_na }} </a>
         <div>
-          <a>은행: {{ bank_na }}</a>
-          <a style="float:right">예금주: {{ store_na }} </a>
+          <a>계좌 번호: {{ account_no }} </a>
         </div>
       </li>
     </ul>
@@ -223,7 +223,7 @@ export default {
   color: #100055;
   border-bottom: 1.8px solid #100055;
   margin: 0 10% 4% 10%;
-  font-size: 24px;
+  font-size: 25px;
 }
 
 /*---------------------------계좌 정보-------------------------------*/
@@ -232,13 +232,13 @@ export default {
   color: #100055;
   padding: 2% 3%;
   background-color: #e0f5f7;
-  width: 83%;
+  width: 82%;
   margin: 3% auto 5% 8%;
   border-radius: 10px;
 }
 /*----------------------------기간별 버튼-------------------------------*/
 .li_btn .btn {
-  background-color: #0069fd44;
+  background-color: #b9d3f844;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -248,7 +248,7 @@ export default {
   font-family: BCcardB;
 }
 .li_btn2 .btn {
-  background-color: #0069fd44;
+  background-color: #b9d3f844;
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -281,7 +281,7 @@ export default {
   border-radius: 20px;
   border: #6e6b79;
   background-color: #dbf3e8;
-  width: 83%;
+  width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 7.5%;
   font-size: 10pt;
