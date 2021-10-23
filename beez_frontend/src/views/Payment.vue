@@ -230,7 +230,7 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
 import axios from "axios";
 
@@ -269,26 +269,45 @@ export default {
     this.$store.commit("main");
 
     //솔리디티 이벤트 확인
+    // const abi = PAYMENT_ABI;
+    // const provider = PROVIDER;
+    // const address = localStorage.getItem("address");
+    // const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+    // //, recipient, wonAmount, bzAmount
+    // await contract.on("paymentResult", (to) => {
+    //   if (to == address) {
+    //     //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
+    //     this.$bvModal.hide("ing_modal");
+    //     //this.$refs["finish_modal"].show();
+    //     this.$router.push({
+    //       name: "paymentCompleted",
+    //       params: {
+    //         tx: this.tx,
+    //         won: this.won,
+    //         beez: this.form.bz,
+    //         price: this.form.price,
+    //       },
+    //     });
+    //   }
+    // });
+    const address = localStorage.getItem("address");
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
-    const address = localStorage.getItem("address");
-    const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
-    //, recipient, wonAmount, bzAmount
-    await contract.on("paymentResult", (to) => {
-      if (to == address) {
-        //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
-        this.$bvModal.hide("ing_modal");
-        //this.$refs["finish_modal"].show();
-        this.$router.push({
-          name: "paymentCompleted",
-          params: {
-            tx: this.tx,
-            won: this.won,
-            beez: this.form.bz,
-            price: this.form.price,
-          },
-        });
-      }
+    const contract = new Contract(CONTRACT_ADDRESS, abi, provider);
+    let filter = contract.filters.paymentResult(address);
+    contract.on(filter, () => {
+      //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
+      this.$bvModal.hide("ing_modal");
+      //this.$refs["finish_modal"].show();
+      this.$router.push({
+        name: "paymentCompleted",
+        params: {
+          tx: this.tx,
+          won: this.won,
+          beez: this.form.bz,
+          price: this.form.price,
+        },
+      });
     });
   },
   filters: {

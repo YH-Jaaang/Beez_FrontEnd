@@ -37,7 +37,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 const storage = window.sessionStorage;
-
+import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import { PROVIDER } from "@/contract/Provider.js";
+import { Contract } from "ethers";
+import { PAYMENT_ABI } from "@/contract/ContractABI.js";
 export default {
   components: {
     FontAwesomeIcon,
@@ -48,12 +51,6 @@ export default {
       faBars,
       faQrcode,
     };
-  },
-  methods: {
-    reset: () => {
-      localStorage.clear();
-      storage.clear();
-    },
   },
   beforeCreate() {
     //아이디가 user가 아닐경우, address가 없을 경우, address가 20바이트가 아닐 경우
@@ -73,6 +70,31 @@ export default {
       localStorage.clear();
       this.$router.push("/");
     }
+  },
+  mounted() {
+    const payload = {
+      start: 7,
+      end: 0,
+      page: 2,
+    };
+    const abi = PAYMENT_ABI;
+    const provider = PROVIDER;
+    const contract = new Contract(CONTRACT_ADDRESS, abi, provider);
+    let filter = contract.filters.paymentResult(
+      null,
+      localStorage.getItem("address")
+    );
+    contract.on(filter, (to, recipient, wonAmount, bzAmount) => {
+      console.log(to + "" + recipient + "" + wonAmount + "" + bzAmount);
+      this.$toaster.success("결제가 완료되었습니다.");
+      this.$store.commit("paymentList", payload);
+    });
+  },
+  methods: {
+    reset: () => {
+      localStorage.clear();
+      storage.clear();
+    },
   },
 };
 </script>
