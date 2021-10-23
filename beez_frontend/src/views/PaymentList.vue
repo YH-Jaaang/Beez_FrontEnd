@@ -240,7 +240,7 @@ import DatePicker from "@/views/components/DatePicker.vue";
 import DatePicker2 from "@/views/components/DatePicker2.vue";
 import ScaleLoader from "vue-spinner/src/ScaleLoader.vue";
 import PullToRefresh from "v-pull-to-refresh";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 import axios from "axios";
 
 export default {
@@ -299,7 +299,7 @@ export default {
       propDate1: "",
     };
   },
-  async beforeCreate() {
+  async mounted() {
     const payload = await {
       start: 7,
       end: 0,
@@ -308,12 +308,12 @@ export default {
     await this.$store.commit("paymentList", payload);
 
     //솔리디티 이벤트 확인
+    const address = localStorage.getItem("address");
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
-    //const address = localStorage.getItem("address");
-    const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
-
-    await contract.on("reviewResult", (to) => {
+    const contract = new Contract(CONTRACT_ADDRESS, abi, provider);
+    let filter = contract.filters.reviewResult(address);
+    contract.on(filter, (to) => {
       console.log(to);
       this.$refs["ing_modal"].hide();
       this.$store.commit("paymentList", payload);

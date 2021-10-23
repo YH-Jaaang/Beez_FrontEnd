@@ -6,6 +6,15 @@
         출금 내역
       </a>
     </div>
+    <ul class="Store_TotalSales">
+      <li>
+        <a>계좌 번호: {{ account_no }} </a>
+        <div>
+          <a>은행: {{ bank_na }}</a>
+          <a style="float:right">예금주: {{ store_na }} </a>
+        </div>
+      </li>
+    </ul>
     <div class="li_btn2 text-center">
       <b-button @click="toggle = !toggle">
         기간별 검색
@@ -32,16 +41,6 @@
         </tr>
       </table>
     </div>
-    <ul class="Store_TotalSales">
-      <li>
-        <a>계좌 번호: {{ account_no }} </a>
-        <div>
-          <a>은행: {{ bank_na }}</a>
-          <a style="float:right">예금주: {{ store_na }} </a>
-        </div>
-      </li>
-    </ul>
-
     <div>
       <div
         class="WithdrawalList_box"
@@ -51,8 +50,17 @@
         <ul>
           <!-- <div>{{ withdraw.txHash }}</div> -->
           <li>
-            <a>{{ withdraw.withdrawDate }}</a>
-            <a style="float:right">{{ withdraw.amount | comma }}원</a>
+            <table style="width:100%">
+              <tr>
+                <td>{{ timestamp(withdraw.withdrawDate) }}</td>
+                <td>{{ withdraw.amount | comma }}원</td>
+                <td>
+                  <b-button class="tx_btn" @click="ropsten(withdraw.txHash)">
+                    TX
+                  </b-button>
+                </td>
+              </tr>
+            </table>
           </li>
         </ul>
       </div>
@@ -182,7 +190,7 @@ export default {
           endDate: Math.floor(new Date(new Date()) / 1000),
         };
       }
-
+      console.log(params.endDate);
       (async () => {
         axios.defaults.headers.common["Authorization"] = localStorage.getItem(
           "token"
@@ -194,6 +202,10 @@ export default {
           })
           .catch(() => {});
       })();
+    },
+    //페이지 이동
+    ropsten(tx) {
+      window.open("https://ropsten.etherscan.io/tx/" + tx);
     },
   },
 };
@@ -320,5 +332,17 @@ export default {
 
 #end_StoreWithdrawalList h4 {
   padding: 0;
+}
+/* tx버튼 */
+.tx_btn {
+  background-color: #0069fd44;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 900;
+  font-family: BCcardB;
+}
+.tx_btn:hover {
+  background-color: rgba(0, 0, 0, 0.125);
+  border-color: #fff;
 }
 </style>

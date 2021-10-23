@@ -8,7 +8,7 @@ const PAYMENT_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "to",
         type: "address",
@@ -27,13 +27,13 @@ const PAYMENT_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "to",
         type: "address",
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "recipient",
         type: "address",
@@ -58,7 +58,7 @@ const PAYMENT_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "to",
         type: "address",
@@ -626,7 +626,7 @@ const WONTOKEN_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "to",
         type: "address",
@@ -651,7 +651,7 @@ const WONTOKEN_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: "address",
         name: "to",
         type: "address",
@@ -703,6 +703,19 @@ const WONTOKEN_ABI = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+    ],
+    name: "addMinter",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -982,6 +995,24 @@ const WONTOKEN_ABI = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_to",
+        type: "address",
+      },
+      {
+        internalType: "uint128",
+        name: "_amount",
+        type: "uint128",
+      },
+    ],
+    name: "withDraw",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
 ];
 ///////////////////////////////////////////////////////////////////////////////////////////
 const BZTOKEN_ABI = [
@@ -1173,6 +1204,19 @@ const BZTOKEN_ABI = [
       },
     ],
     name: "Payback",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+    ],
+    name: "addMinter",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

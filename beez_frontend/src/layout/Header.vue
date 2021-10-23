@@ -27,6 +27,10 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { WON_CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import { PROVIDER } from "@/contract/Provider.js";
+import { Contract } from "ethers";
+import { WONTOKEN_ABI } from "@/contract/ContractABI.js";
 const storage = window.sessionStorage;
 
 export default {
@@ -45,7 +49,6 @@ export default {
       storage.clear();
     },
   },
-
   beforeCreate() {
     //아이디가 user가 아닐경우, address가 없을 경우, address가 20바이트가 아닐 경우
     //ID가 business일 경우, business페이지로 이동
@@ -69,6 +72,19 @@ export default {
       localStorage.clear();
       this.$router.push("/");
     }
+  },
+  mounted() {
+    //유저 충전 toast 모든페이지에서 확인 가능
+    const address = localStorage.getItem("address");
+    const abi = WONTOKEN_ABI;
+    const provider = PROVIDER;
+    const contract = new Contract(WON_CONTRACT_ADDRESS, abi, provider);
+    let filter = contract.filters.chargeResult(address);
+    contract.on(filter, (to) => {
+      alert(to);
+      this.$toaster.success("충전이 완료되었습니다.");
+      this.$store.commit("main");
+    });
   },
 };
 </script>
