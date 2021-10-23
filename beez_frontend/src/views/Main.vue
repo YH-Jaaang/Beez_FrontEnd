@@ -95,9 +95,19 @@
       <b-button href="/ChargeList">
         충전 내역
       </b-button>
-      <b-button href="/StoreList">
-        주변가게찾기
-      </b-button>
+    </div>
+    <div id="explain_btn">
+      <b-card class="storeList" @click="StoreList">
+        <li>
+          <a>
+            BEEZ 지역화폐
+          </a>
+          <a id="highlight">
+            가맹점 찾기
+          </a>
+        </li>
+        <img src="../assets/start_main/icon01.png" />
+      </b-card>
     </div>
 
     <div>
@@ -143,6 +153,9 @@ export default {
     onComplete(data) {
       console.log("data:", data);
     },
+    StoreList() {
+      this.$router.push("/StoreList");
+    },
   },
   beforeCreate() {
     this.$store.commit("main");
@@ -166,6 +179,12 @@ export default {
 @font-face {
   font-family: "Cafe24Ssurround";
   src: url("../fonts/Cafe24Ssurround.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cafe24SsurroundAir";
+  src: url("../fonts/Cafe24SsurroundAir.ttf") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -367,5 +386,39 @@ export default {
 
 .end_start h4 {
   padding: 0;
+}
+
+#explain_btn {
+  padding-left: 6.5%;
+  padding-right: 6.5%;
+  color: #fff;
+  font-family: "Cafe24SsurroundAir";
+  font-size: 17px;
+  margin-top: 4%;
+  margin-bottom: 20%;
+}
+
+#explain_btn img {
+  width: 12%;
+  float: right;
+}
+
+#explain_btn li {
+  display: inline-block;
+}
+
+.storeList .card-body {
+  padding: 0%;
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #6d36f8;
+  border-radius: 8px;
+}
+
+#highlight {
+  font-family: "Cafe24Ssurround";
+  margin-left: 6px;
+  font-size: 19px;
 }
 </style>
