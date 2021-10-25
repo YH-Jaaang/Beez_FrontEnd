@@ -793,17 +793,7 @@ ul.btn li:last-child {
 }
 
 /* 카카오 MAP */
-.overlaybox {
-  color: sienna;
-  font-weight: bold;
-  font-size: large;
-  background-color: gold;
-  border-radius: 17px;
-  padding: 20px 14px;
-  margin-bottom: 5%;
-  font-family: "BCcardL";
-}
-.overlaybox .overlaycontent button {
+/* .overlaybox .overlaycontent button {
   background-color: #f8d97171;
   font-size: 15px;
   font-weight: 900;
@@ -813,7 +803,8 @@ ul.btn li:last-child {
   font-family: "BCcardL";
   border-radius: 10px;
   display: block;
-}
+} */
+
 .myLocation {
   text-align: center;
 }
@@ -821,27 +812,62 @@ ul.btn li:last-child {
   border-radius: 8px;
   margin: auto;
 }
+
 .overlaybox {
-  color: sienna;
+  color: inherit;
   font-weight: bold;
   font-size: large;
-  background-color: gold;
-  border-radius: 17px;
-  padding: 20px 14px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  padding: unset;
   margin-bottom: 5%;
   font-family: "BCcardL";
+  border: 2px solid;
+}
+
+.overlaybox #storesName {
+  color: rgb(160, 94, 47);
+  font-size: large;
+  text-align: center;
+  background-color: beige;
+  margin-bottom: auto;
+  font-family: "BCcardL";
+  border-bottom: 2px solid;
+}
+
+.overlaybox .overlaycontent {
+  font-size: 15px;
+  font-weight: 900;
+  flex: 1;
+  width: auto;
+  padding-top: 0px;
+  font-family: "BCcardL";
+  border-radius: 5px;
+  display: flex;
+  box-sizing: border-box;
 }
 .overlaybox .overlaycontent button {
-  background-color: #f8d97171;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  background-color: cornsilk;
+  color: rgba(156, 123, 60, 0.719);
   font-size: 15px;
   font-weight: 900;
   width: auto;
   margin: auto;
   padding: 2;
   font-family: "BCcardL";
-  border-radius: 10px;
   display: block;
 }
+.overlaybox .overlaycontent #reviewBtn {
+  flex: 1;
+  width: auto;
+  box-sizing: border-box;
+  border-right: 2px solid;
+}
+
 .myLocation {
   text-align: center;
 }
