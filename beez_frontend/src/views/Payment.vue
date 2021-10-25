@@ -40,10 +40,10 @@
         <div class="pay_amount">
           <b-form-group>
             <a>보유금액</a>
-            <a id="char_amount"
-              ><FontAwesomeIcon :icon="faWonSign" />
-              {{ this.$store.state.wonBalace | comma }}</a
-            >
+            <a id="char_amount">
+              <!-- <FontAwesomeIcon :icon="faWonSign" /> -->
+              {{ this.$store.state.wonBalace | comma }} 원
+            </a>
           </b-form-group>
           <b-form-group>
             <a>결제금액</a>
@@ -187,7 +187,7 @@
           </b-modal>
           <div id="payErr">
             <div>
-              잔액이 부족합니다.
+              보유금액이 부족합니다.
             </div>
             <div>
               다시 한번 확인 해주세요.
@@ -461,18 +461,9 @@ export default {
   font-style: normal;
 }
 
-#page_title {
-  font-family: GmarketSansTTFMedium;
-  text-align: center;
-  color: #76512cc1;
-  font-weight: 900;
-  border-bottom: 1.5px solid #76512cc1;
-  margin: 10%;
-}
-
 #card_qr {
   font-family: BCcardB;
-  border: 12px solid #76512c78;
+  border: 10px solid #76512cb1;
   border-radius: 30px;
   margin: 4% 6%;
 }
@@ -483,7 +474,7 @@ export default {
 
 #card_qr .card-title {
   color: #76512cb8;
-  border-bottom: 12px solid #76512c78;
+  border-bottom: 7px solid #76512c78;
   font-weight: 900;
   margin-bottom: 20px;
 }
@@ -521,7 +512,7 @@ export default {
 #card_qr .btn {
   color: #fff;
   background-color: #76512cb8;
-  border-color: #76512cb8;
+  border-color: 0;
   display: inline-block;
   font-weight: 900;
   font-size: 17px;
@@ -542,11 +533,13 @@ export default {
 
 .qrsuccess {
   color: #108a2c;
+  font-size: 14px;
 }
 
 .qrheader {
   margin: 5%;
-  border-bottom: 3px solid #76512c;
+  font-size: 14px;
+  border-bottom: 2.5px solid #76512c;
 }
 
 /*---------------------------결제 폼------------------------------ */
@@ -582,7 +575,7 @@ export default {
 /*---------------------------BZ 폼------------------------------ */
 #card_qr .btn.bz_btn {
   background-color: #f8b704;
-  border-color: #f8b704;
+  border-color: 0;
   margin-top: 10px;
   width: 100%;
   font-size: 15px;
@@ -750,7 +743,7 @@ export default {
 }
 /* 결제 정보 */
 #payErr {
-  font-family: "GmarketSansTTFMedium";
+  /* font-family: "GmarketSansTTFMedium"; */
   display: none;
   margin: 10% 5% 0 5%;
   background-color: #fbcb4721;
