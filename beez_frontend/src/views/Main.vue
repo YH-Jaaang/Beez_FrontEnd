@@ -40,13 +40,13 @@
             >
           </li>
           <div class="text-center">
-            <b-button href="Payment">
-              <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" />
-              결제
-            </b-button>
             <b-button href="Charge">
               <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" />
               충전
+            </b-button>
+            <b-button href="Payment">
+              <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" />
+              결제
             </b-button>
           </div>
         </ul>
@@ -89,11 +89,11 @@
       />
     </div>
     <div class="li_btn text-center">
-      <b-button href="PaymentList">
-        결제/리뷰 내역
-      </b-button>
       <b-button href="/ChargeList">
         충전 내역
+      </b-button>
+      <b-button href="PaymentList">
+        결제/리뷰 내역
       </b-button>
     </div>
     <div id="explain_btn">
@@ -162,9 +162,6 @@ export default {
     };
   },
   methods: {
-    onComplete(data) {
-      console.log("data:", data);
-    },
     StoreList() {
       this.$router.push("/StoreList");
     },

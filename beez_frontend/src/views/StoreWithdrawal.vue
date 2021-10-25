@@ -166,11 +166,11 @@ export default {
           .post("/api/withdrawal/amount", params)
           .then(() => {
             //toast로 충전 정보 전달
-            this.$toaster.success("출금이 완료되었습니다.");
-            this.$store.commit("storeMain");
+            // this.$toaster.success("출금이 완료되었습니다.");
+            // this.$store.commit("storeMain");
           })
           .catch(() => {
-            this.$toaster.error("출금에 실패하였습니다. 다시 시도해 주세요.");
+            // this.$toaster.error("출금에 실패하였습니다. 다시 시도해 주세요.");
           });
       })();
       this.$router.push("/StoreMain");

@@ -510,7 +510,7 @@ export default {
         };
         (async () => {
           await axios.post("/api/join/phoneCheck", param).then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             this.phoneNumber = res.data;
           });
         })();

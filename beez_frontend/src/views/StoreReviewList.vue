@@ -177,20 +177,7 @@ export default {
       var year = date.getFullYear();
       var month = "0" + (date.getMonth() + 1);
       var day = "0" + date.getDate();
-      // var hour = "0" + date.getHours();
-      // var minute = "0" + date.getMinutes();
-      //var second = "0" + date.getSeconds();
-      return (
-        year + "/" + month.substr(-2) + "/" + day.substr(-2)
-        //  +
-        // " " +
-        // hour.substr(-2) +
-        // ":" +
-        // minute.substr(-2)
-        // +
-        // ":" +
-        // second.substr(-2)
-      );
+      return year + "/" + month.substr(-2) + "/" + day.substr(-2);
     },
     //datePicker에서 선택한 날짜(Unix시간)
     printDate1(date) {
@@ -207,13 +194,6 @@ export default {
     },
     //검색결과
     async searchDate() {
-      // console.log(this.date1 + "/" + this.date2);
-      // if (!this.date1) alert("시작 날짜를 입력해주세여");
-      // else if (!this.date2) alert("마지막 날짜를 입력해주세여");
-      // else if (this.date1 > this.date2) alert("다시입력해주세요");
-      // else if (this.date2 > Math.floor(new Date() / 1000) + 86400)
-      //   alert("오늘날짜 이후는 입력이 불가합니다");
-      // else {
       const payload = await {
         start: this.date1,
         end: this.date2,

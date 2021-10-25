@@ -41,16 +41,6 @@
         </tr>
       </table>
     </div>
-    <ul class="Store_TotalSales">
-      <li>
-        <a>{{ bank_na }}은행</a>
-        <a style="float:right">예금주: {{ store_na }} </a>
-        <div>
-          <a>계좌 번호: {{ account_no }} </a>
-        </div>
-      </li>
-    </ul>
-
     <div>
       <div
         class="WithdrawalList_box"
@@ -216,6 +206,10 @@ export default {
           })
           .catch(() => {});
       })();
+    },
+    //페이지 이동
+    ropsten(tx) {
+      window.open("https://ropsten.etherscan.io/tx/" + tx);
     },
   },
 };

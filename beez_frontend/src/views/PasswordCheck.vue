@@ -13,11 +13,7 @@ export default {
     return {};
   },
   components: { keypad },
-  methods: {
-    onComplete(data) {
-      console.log("data:", data);
-    },
-  },
+  methods: {},
 };
 </script>
 <style>

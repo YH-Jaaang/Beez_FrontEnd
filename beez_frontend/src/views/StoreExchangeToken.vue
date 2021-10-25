@@ -178,11 +178,11 @@ export default {
           .post("/api/exchange/amount", params)
           .then(() => {
             //toast로 충전 정보 전달
-            this.$toaster.success("환전이 완료되었습니다.");
-            this.$store.commit("storeMain");
+            // this.$toaster.success("환전이 완료되었습니다.");
+            // this.$store.commit("storeMain");
           })
           .catch(() => {
-            this.$toaster.error("환전에 실패하였습니다. 다시 시도해 주세요.");
+            // this.$toaster.error("환전에 실패하였습니다. 다시 시도해 주세요.");
           });
       })();
       this.$router.push("/StoreMain");

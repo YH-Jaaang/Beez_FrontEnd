@@ -314,8 +314,7 @@ export default {
     const provider = PROVIDER;
     const contract = new Contract(CONTRACT_ADDRESS, abi, provider);
     let filter = contract.filters.reviewResult(address);
-    contract.on(filter, (to) => {
-      console.log(to);
+    contract.on(filter, () => {
       this.$refs["ing_modal"].hide();
       this.$store.commit("paymentList", payload);
     });
@@ -339,7 +338,7 @@ export default {
 
       for (let i = 0; i < this.checkedValues.length; i++) {
         if (this.checkedValues[i] !== event.target.value) {
-          console.log(this.checkedValues[i]);
+          // console.log(this.checkedValues[i]);
           this.checkedValues.splice(i, 1);
         }
       }
@@ -362,12 +361,12 @@ export default {
       await axios
         .post("/api/users/priv")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.userPrivateKey = "0x" + res.data.data.privateKey;
           this.userAddress = res.data.data.walletAddress;
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          // console.log(err);
         });
 
       const CONTRACT_ABI = PAYMENT_ABI;
@@ -399,11 +398,11 @@ export default {
       this.$refs["review_modal"].hide();
       this.$refs["ing_modal"].show();
       await sendTransaction
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          // console.log(res);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          // console.log(err);
         });
       this.checked1.reverse().pop();
       this.checked2.reverse().pop();

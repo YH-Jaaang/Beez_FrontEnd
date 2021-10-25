@@ -269,27 +269,6 @@ export default {
     this.$store.commit("main");
 
     //솔리디티 이벤트 확인
-    // const abi = PAYMENT_ABI;
-    // const provider = PROVIDER;
-    // const address = localStorage.getItem("address");
-    // const contract = await new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
-    // //, recipient, wonAmount, bzAmount
-    // await contract.on("paymentResult", (to) => {
-    //   if (to == address) {
-    //     //console.log(to, recipient, parseInt(wonAmount), parseInt(bzAmount));
-    //     this.$bvModal.hide("ing_modal");
-    //     //this.$refs["finish_modal"].show();
-    //     this.$router.push({
-    //       name: "paymentCompleted",
-    //       params: {
-    //         tx: this.tx,
-    //         won: this.won,
-    //         beez: this.form.bz,
-    //         price: this.form.price,
-    //       },
-    //     });
-    //   }
-    // });
     const address = localStorage.getItem("address");
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
@@ -348,7 +327,7 @@ export default {
         default:
           this.errorMessage = "UNKNOWN ERROR: " + error.message;
       }
-      console.error(this.errorMessage);
+      // console.error(this.errorMessage);
     },
 
     // -----------------------------결제금액폼 유효성 검사----------------------

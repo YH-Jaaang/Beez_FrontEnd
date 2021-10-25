@@ -56,20 +56,6 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err);
         });
-
-      // const contract = new web3.eth.Contract(PAYMENT_ABI, CONTRACT_ADDRESS);
-
-      // await contract.methods
-      //   .userMainLoad(address) //계정 대입
-      //   .call()
-      //   .then((res) => {
-      //     state.wonBalace = res["wonBalace"];
-      //     state.wonOfMon = res["WonOfMon"];
-      //     state.incOfMon = res["IncOfMon"];
-      //     state.bzOfMon = res["BzOfMon"] / state.incentiveRate;
-      //     state.bzBalace = res["BzBalace"] / state.incentiveRate;
-      //   })
-      //   .catch(() => {});
     },
     //사용자 리뷰 리스트
     paymentList: async (state, payload) => {

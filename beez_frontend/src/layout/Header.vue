@@ -80,8 +80,7 @@ export default {
     const provider = PROVIDER;
     const contract = new Contract(WON_CONTRACT_ADDRESS, abi, provider);
     let filter = contract.filters.chargeResult(address);
-    contract.on(filter, (to) => {
-      alert(to);
+    contract.on(filter, () => {
       this.$toaster.success("충전이 완료되었습니다.");
       this.$store.commit("main");
     });

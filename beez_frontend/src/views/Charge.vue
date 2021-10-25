@@ -218,7 +218,7 @@ export default {
             // this.$store.commit("main");
           })
           .catch(() => {
-            this.$toaster.error("충전에 실패하였습니다. 다시 시도해 주세요.");
+            // this.$toaster.error("충전에 실패하였습니다. 다시 시도해 주세요.");
           });
       })();
       //페이지 이동

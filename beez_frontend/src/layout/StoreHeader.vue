@@ -37,10 +37,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 const storage = window.sessionStorage;
-import { CONTRACT_ADDRESS } from "@/contract/ContractAddress.js";
+import {
+  CONTRACT_ADDRESS,
+  WON_CONTRACT_ADDRESS,
+} from "@/contract/ContractAddress.js";
 import { PROVIDER } from "@/contract/Provider.js";
 import { Contract } from "ethers";
-import { PAYMENT_ABI } from "@/contract/ContractABI.js";
+import { PAYMENT_ABI, WONTOKEN_ABI } from "@/contract/ContractABI.js";
 export default {
   components: {
     FontAwesomeIcon,
@@ -77,17 +80,30 @@ export default {
       end: 0,
       page: 2,
     };
+    const address = localStorage.getItem("address");
     const abi = PAYMENT_ABI;
     const provider = PROVIDER;
     const contract = new Contract(CONTRACT_ADDRESS, abi, provider);
-    let filter = contract.filters.paymentResult(
-      null,
-      localStorage.getItem("address")
-    );
-    contract.on(filter, (to, recipient, wonAmount, bzAmount) => {
-      console.log(to + "" + recipient + "" + wonAmount + "" + bzAmount);
+    let filter = contract.filters.paymentResult(null, address);
+    contract.on(filter, () => {
+      // console.log(to + "" + recipient + "" + wonAmount + "" + bzAmount);
       this.$toaster.success("결제가 완료되었습니다.");
       this.$store.commit("paymentList", payload);
+    });
+    //환전
+    const contract2 = new Contract(CONTRACT_ADDRESS, abi, provider);
+    let filter2 = contract2.filters.exchangeResult(address);
+    contract2.on(filter2, () => {
+      this.$toaster.success("환전이 완료되었습니다.");
+      this.$store.commit("storeMain");
+    });
+    //출금
+    const won_abi = WONTOKEN_ABI;
+    const contract3 = new Contract(WON_CONTRACT_ADDRESS, won_abi, provider);
+    let filter3 = contract3.filters.withDrawResult(address);
+    contract3.on(filter3, () => {
+      this.$toaster.success("출금이 완료되었습니다.");
+      this.$store.commit("storeMain");
     });
   },
   methods: {

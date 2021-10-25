@@ -160,8 +160,8 @@ export default {
     };
   },
   async beforeCreate() {
-    console.log(this.$route.params.storeNickName);
-    console.log(this.$route.params.storeAddress);
+    // console.log(this.$route.params.storeNickName);
+    // console.log(this.$route.params.storeAddress);
     const payload = await {
       start: 7,
       end: 0,
