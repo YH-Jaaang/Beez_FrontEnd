@@ -40,13 +40,13 @@
             >
           </li>
           <div class="text-center">
-            <b-button href="Charge">
-              <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" />
-              충전
-            </b-button>
             <b-button href="Payment">
               <FontAwesomeIcon :icon="faQrcode" style="color:#fbca47" />
               결제
+            </b-button>
+            <b-button href="Charge">
+              <FontAwesomeIcon :icon="faWonSign" style="color:#fbca47" />
+              충전
             </b-button>
           </div>
         </ul>
@@ -97,7 +97,7 @@
       </b-button>
     </div>
     <div id="explain_btn">
-      <b-card class="storeList" @click="StoreList">
+      <b-card class="storeList1" @click="StoreList">
         <li>
           <a>
             BEEZ 지역화폐
@@ -107,6 +107,18 @@
           </a>
         </li>
         <img src="../assets/start_main/icon01.png" />
+      </b-card>
+
+      <b-card class="storeList2" @click="StoreList">
+        <li>
+          <a>
+            국민지원금
+          </a>
+          <a id="highlight">
+            온라인신청하기
+          </a>
+        </li>
+        <img src="../assets/start_main/icon02.png" />
       </b-card>
     </div>
 
@@ -396,8 +408,8 @@ export default {
   color: #fff;
   font-family: "Cafe24SsurroundAir";
   font-size: 17px;
-  margin-top: 4%;
-  margin-bottom: 20%;
+  margin-top: 10%;
+  margin-bottom: 6%;
 }
 
 #explain_btn img {
@@ -409,12 +421,32 @@ export default {
   display: inline-block;
 }
 
-.storeList .card-body {
+.storeList1 .card-body:hover,
+.storeList1 .card-body:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+.storeList1 .card-body {
+  margin-bottom: 3%;
   padding: 0%;
   padding-top: 2%;
   padding-left: 5%;
   padding-right: 5%;
   background-color: #6d36f8;
+  border-radius: 8px;
+}
+
+.storeList2 .card-body:hover,
+.storeList2 .card-body:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+.storeList2 .card-body {
+  padding: 0%;
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #f3a600;
   border-radius: 8px;
 }
 

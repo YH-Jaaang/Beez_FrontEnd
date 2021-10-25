@@ -120,7 +120,11 @@ export default {
             /*마커클릭 시 오버레이 구성 정의*/
             var content = document.createElement("div");
             content.className = "overlaybox";
-            content.appendChild(document.createTextNode(storeName));
+
+            var contentName = document.createElement("div");
+            contentName.id = "storesName";
+            contentName.appendChild(document.createTextNode(storeName));
+            content.appendChild(contentName);
 
             var buttonContainer = document.createElement("div");
             buttonContainer.className = "overlaycontent";
@@ -128,12 +132,31 @@ export default {
             content.appendChild(buttonContainer);
 
             var reviewBtn = document.createElement("button");
+            reviewBtn.id = "reviewBtn";
             reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
             var closeBtn = document.createElement("button");
+            closeBtn.id = "closeBtn";
             closeBtn.appendChild(document.createTextNode("닫기"));
 
             buttonContainer.appendChild(reviewBtn);
             buttonContainer.appendChild(closeBtn);
+
+            // var content = document.createElement("div");
+            // content.className = "overlaybox";
+            // content.appendChild(document.createTextNode(storeName));
+
+            // var buttonContainer = document.createElement("div");
+            // buttonContainer.className = "overlaycontent";
+            // // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
+            // content.appendChild(buttonContainer);
+
+            // var reviewBtn = document.createElement("button");
+            // reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
+            // var closeBtn = document.createElement("button");
+            // closeBtn.appendChild(document.createTextNode("닫기"));
+
+            // buttonContainer.appendChild(reviewBtn);
+            // buttonContainer.appendChild(closeBtn);
 
             //닫기버튼 클릭 시 overlay값 null로 설정
             closeBtn.onclick = function() {
@@ -151,8 +174,15 @@ export default {
                 },
               });
             };
+            //맵 클릭 시 오버레이 지우는 함수
 
-            //마커클릭했을때 오버레이 띄우는 함수
+            if (!customOverlay.setMap(null)) {
+              kakao.maps.event.addListener(self.map, "click", function() {
+                closeBtn.onclick();
+              });
+            }
+
+            //마커클릭 시 오버레이 띄우는 함수
             kakao.maps.event.addListener(marker, "click", function() {
               customOverlay.setMap(self.map);
             });
@@ -247,4 +277,7 @@ button {
   margin: 2% auto;
   border-radius: 10px;
 }
+/* .overlaycontent {
+
+} */
 </style>
