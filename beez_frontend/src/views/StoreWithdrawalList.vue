@@ -6,6 +6,18 @@
         출금 내역
       </a>
     </div>
+<<<<<<< Updated upstream
+=======
+    <ul class="Store_TotalSales">
+      <li>
+        <a>{{ bank_na }}은행</a>
+        <a style="float:right">예금주: {{ store_na }} </a>
+        <div>
+          <a>계좌 번호: {{ account_no }} </a>
+        </div>
+      </li>
+    </ul>
+>>>>>>> Stashed changes
     <div class="li_btn2 text-center">
       <b-button @click="toggle = !toggle">
         기간별 검색
@@ -51,8 +63,26 @@
         <ul>
           <!-- <div>{{ withdraw.txHash }}</div> -->
           <li>
+<<<<<<< Updated upstream
             <a>{{ withdraw.withdrawDate }}</a>
             <a style="float:right">{{ withdraw.amount | comma }}원</a>
+=======
+            <table style="width:100%">
+              <tr>
+                <td>{{ timestamp(withdraw.withdrawDate) }}</td>
+                <td>{{ withdraw.amount | comma }}원</td>
+                <td>
+                  <b-button
+                    class="tx_btn"
+                    style="float:right"
+                    @click="ropsten(withdraw.txHash)"
+                  >
+                    TX
+                  </b-button>
+                </td>
+              </tr>
+            </table>
+>>>>>>> Stashed changes
           </li>
         </ul>
       </div>
@@ -221,8 +251,8 @@ export default {
 .StoreWithdrawalList {
   text-align: center;
   color: #100055;
-  border-bottom: 1.8px solid #100055;
-  margin: 0 10% 4% 10%;
+  /* border-bottom: 1.8px solid #100055; */
+  margin: 0 10% 0% 10%;
   font-size: 25px;
 }
 
@@ -230,15 +260,16 @@ export default {
 .Store_TotalSales {
   font-size: 14px;
   color: #100055;
+  border: 3px solid #a198c9;
   padding: 2% 3%;
-  background-color: #e0f5f7;
+  /* background-color: #e0f1f7b2; */
   width: 82%;
   margin: 3% auto 5% 8%;
   border-radius: 10px;
 }
 /*----------------------------기간별 버튼-------------------------------*/
 .li_btn .btn {
-  background-color: #b9d3f844;
+  /* background-color: #b9d3f844; */
   color: #000000;
   border-color: #fff;
   font-size: 13px;
@@ -248,14 +279,15 @@ export default {
   font-family: BCcardB;
 }
 .li_btn2 .btn {
-  background-color: #b9d3f844;
+  /* background-color: #b9d3f844; */
   color: #000000;
   border-color: #fff;
   font-size: 13px;
   font-weight: 900;
-  width: 80%;
+  width: 82%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
+  margin-bottom: 4%;
 }
 /* DatePicker */
 .date {
@@ -280,7 +312,7 @@ export default {
   padding: 0% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #dbf3e8;
+  background-color: #99c1f818;
   width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 7.5%;
@@ -294,13 +326,13 @@ export default {
 
 /*---------------------------페이지 넘김------------------------------*/
 #StoreWithdrawalList_check {
-  background-color: #e0f5f7;
+  background-color: #efefef;
   display: block;
   width: 25%;
   font-size: 17px;
   font-weight: 900;
   margin: 8% auto 20% auto;
-  color: #100055;
+  color: rgb(88, 86, 86);
   border-radius: 15px;
 }
 /*--------------------------공지사항/q&a-------------------------- */
@@ -321,4 +353,20 @@ export default {
 #end_StoreWithdrawalList h4 {
   padding: 0;
 }
+<<<<<<< Updated upstream
+=======
+/* tx버튼 */
+.tx_btn {
+  background-color: white;
+  border: 3px solid #6e78a575;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 900;
+  font-family: BCcardB;
+}
+.tx_btn:hover {
+  background-color: rgba(0, 0, 0, 0.125);
+  border-color: #fff;
+}
+>>>>>>> Stashed changes
 </style>
