@@ -109,7 +109,7 @@
         <img src="../assets/start_main/icon01.png" />
       </b-card>
 
-      <b-card class="storeList2" @click="StoreList">
+      <b-card class="storeList2" @click="apply">
         <li>
           <a>
             국민지원금
@@ -164,6 +164,9 @@ export default {
   methods: {
     StoreList() {
       this.$router.push("/StoreList");
+    },
+    apply() {
+      window.open("https://www.mois.go.kr/2021emgnc/main.html");
     },
   },
   beforeCreate() {

@@ -266,9 +266,13 @@ export default {
   background-color: #e0dfdf7d;
 }
 .tb_center {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 60%;
+}
+.v-calendar .input-field input {
+  padding-left: 30px;
+  padding-right: 0px;
+  margin-bottom: 5%;
 }
 .pay_table {
   width: 100%;

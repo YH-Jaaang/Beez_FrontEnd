@@ -275,6 +275,9 @@ export default {
   font-family: BCcardB;
   margin-bottom: 4%;
 }
+.tb_center {
+  margin: 0 auto;
+}
 /* DatePicker */
 .date {
   --v-calendar-action-color: #0069fd44;
@@ -293,12 +296,17 @@ export default {
   --v-calendar-range-radius: 100%;
   --v-calendar-day-width: 80%;
 }
+.v-calendar .input-field input {
+  padding-left: 30px;
+  padding-right: 0px;
+  margin-bottom: 5%;
+}
 /*----------------------------Reviewlsit box-------------------------------*/
 .WithdrawalList_box {
   padding: 0% 2%;
   border-radius: 20px;
   border: #6e6b79;
-  background-color: #99c1f818;
+  background-color: #99c1f849;
   width: 82%;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
   margin: 0 0 15px 7.5%;

@@ -703,6 +703,7 @@ export default {
   font-weight: 900;
   margin: 8% auto 20% auto;
   border-radius: 15px;
+  color: #636c74;
 }
 /* DatePicker */
 .date {
@@ -720,11 +721,15 @@ export default {
   --v-calendar-day-font-weight: 500;
   --v-calendar-day-name-color: #323b43;
   --v-calendar-range-radius: 100%;
-  --v-calendar-day-width: 80%;
+  --v-calendar-day-width: 60%;
 }
 .tb_center {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 60%;
+}
+.v-calendar .input-field input {
+  padding-left: 30px;
+  padding-right: 0px;
+  margin-bottom: 5%;
 }
 </style>

@@ -383,4 +383,9 @@ export default {
   margin-right: auto;
   width: 60%;
 }
+.v-calendar .input-field input {
+  padding-left: 30px;
+  padding-right: 0px;
+  margin-bottom: 5%;
+}
 </style>

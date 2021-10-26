@@ -170,7 +170,6 @@
           <h6>인증번호가 발송되었습니다.</h6>
           <h6>제한시간 내에 인증번호를 입력해주세요.</h6>
           <b-form-input v-model="phone2"></b-form-input>
-          <h6>{{ displayTime }}</h6>
 
           <b-card>
             <b-button @click="phoneCheck2">확인</b-button>
@@ -459,7 +458,11 @@ export default {
 
     // -----------------------------비밀번호 유효성 검사----------------------
     passwordValid() {
-      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.password)) {
+      if (
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()_+|<>?:{}]).{8,16}$/.test(
+          this.password
+        )
+      ) {
         this.passwordValidError = true;
       } else {
         this.passwordValidError = false;
