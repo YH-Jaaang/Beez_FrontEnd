@@ -70,10 +70,9 @@
               <li>
                 <a id="font-red">{{ errMsg }}</a>
               </li>
-
-              <a @click="kakaoLogin">
+              <!-- <a @click="kakaoLogin">
                 <img src="../assets/start_main/kakao_login.png" />
-              </a>
+              </a> -->
             </b-tab>
 
             <!-- 소상공인 로그인 탭 -->
@@ -351,51 +350,51 @@ export default {
     },
 
     // 카카오 로그인
-    async kakaoLogin() {
-      Kakao.init("e88cd6b095840bc1ac80ea68b145d702");
-      Kakao.isInitialized();
+    // async kakaoLogin() {
+    //   Kakao.init("e88cd6b095840bc1ac80ea68b145d702");
+    //   Kakao.isInitialized();
 
-      console.log("Kakao.isInitialized()", Kakao.isInitialized());
+    //   console.log("Kakao.isInitialized()", Kakao.isInitialized());
 
-      await Kakao.Auth.login({
-        scope: "profile_nickname, account_email",
-        success: function(authObj) {
-          // const kakao_token = authObj.access_token;
-          // console.log(kakao_token);
-          Kakao.API.request({
-            url: "/v2/user/me",
-            success: (res) => {
-              const kakao_account = res.kakao_account;
-              const kakao_email = kakao_account.email;
-              // console.log(kakao_account);
-              // console.log(kakao_token);
+    //   await Kakao.Auth.login({
+    //     scope: "profile_nickname, account_email",
+    //     success: function(authObj) {
+    //       // const kakao_token = authObj.access_token;
+    //       // console.log(kakao_token);
+    //       Kakao.API.request({
+    //         url: "/v2/user/me",
+    //         success: (res) => {
+    //           const kakao_account = res.kakao_account;
+    //           const kakao_email = kakao_account.email;
+    //           // console.log(kakao_account);
+    //           // console.log(kakao_token);
 
-              var params = {
-                email: kakao_email,
-                role: "USER",
-                // token: kakao_token,
-              };
-              axios
-                .post("/api/login/kakao", params)
-                .then((res) => {
-                  // console.log(res);
-                  localStorage.clear();
-                  localStorage.setItem("token", res.headers.authorization);
-                  localStorage.setItem("email", params.email);
-                  localStorage.setItem("nickName", res.data.data[1]);
-                  localStorage.setItem("address", res.data.data[2]);
-                  localStorage.setItem("role", params.role);
-                  if (this.$router.path !== "/Main") this.$router.push("/Main");
-                })
-                .catch(() => {
-                  this.showAlert = true;
-                  this.errMsg = "EMAIL 또는 PASSWORD를 다시 확인해주세요";
-                });
-            },
-          });
-        },
-      });
-    },
+    //           var params = {
+    //             email: kakao_email,
+    //             role: "USER",
+    //             // token: kakao_token,
+    //           };
+    //           axios
+    //             .post("/api/login/kakao", params)
+    //             .then((res) => {
+    //               // console.log(res);
+    //               localStorage.clear();
+    //               localStorage.setItem("token", res.headers.authorization);
+    //               localStorage.setItem("email", params.email);
+    //               localStorage.setItem("nickName", res.data.data[1]);
+    //               localStorage.setItem("address", res.data.data[2]);
+    //               localStorage.setItem("role", params.role);
+    //               if (this.$router.path !== "/Main") this.$router.push("/Main");
+    //             })
+    //             .catch(() => {
+    //               this.showAlert = true;
+    //               this.errMsg = "EMAIL 또는 PASSWORD를 다시 확인해주세요";
+    //             });
+    //         },
+    //       });
+    //     },
+    //   });
+    // },
 
     //슬라이드
     onSlideStart() {
