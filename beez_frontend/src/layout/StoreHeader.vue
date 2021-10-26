@@ -2,7 +2,6 @@
   <header>
     <div class="header">
       <b-navbar toggleable="lg" type="light">
-        <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
         <b-navbar-brand href="/StoreMain">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
@@ -113,12 +112,6 @@ export default {
   }
 }
 
-@media (min-width: 370) {
-  /* header {
-    padding-bottom: 50px;
-  } */
-}
-
 @media (max-width: 840px) {
   .nav-link {
     font-size: 17px;
@@ -135,17 +128,20 @@ export default {
 
 #fabars {
   color: #1158aece;
-  margin-left: 25px;
-  /* 7fb6bb */
+  margin-left: 30px;
 }
 
 .navbar {
   background-color: #ffffff;
 }
 
-/* .navbar-brand img {
-  margin-left: 14px;
-} */
+.navbar-brand {
+  display: contents;
+}
+
+.navbar-toggler {
+  font-size: 1.7rem;
+}
 
 .navbar-brand img {
   max-width: 33%;
@@ -154,25 +150,12 @@ export default {
 
 .header {
   font-family: BCcardL;
-  /* margin-bottom: 5.5rem; */
-  /* padding-bottom: 50px; */
 }
-/* 화면 조정 필요(full화면과 핸드폰 화면 차이 있음.)*/
-
-/* .navbar-brand {
-  padding-left: 20px;
-} */
 
 .nav-link {
   border-bottom: #1158aece solid 3px;
   color: #1158aece;
 }
-
-/* .navbar-collapse {
-  padding-left: 9px;
-  padding-bottom: 0.5rem;
-  padding-right: 13px;
-} */
 
 .navbar-nav {
   margin: 0 25px;
