@@ -2,7 +2,6 @@
   <header>
     <div class="header">
       <b-navbar toggleable="lg" type="light">
-        <!-- <b-navbar toggleable="lg" type="light" class="fixed-top"> -->
         <b-navbar-brand href="/Main">
           <img src="../assets/header/logo.png" alt="logo" />
         </b-navbar-brand>
@@ -102,12 +101,6 @@ export default {
   }
 }
 
-@media (min-width: 370) {
-  /* header {
-    padding-bottom: 50px;
-  } */
-}
-
 @media (max-width: 840px) {
   .nav-link {
     font-size: 17px;
@@ -123,36 +116,23 @@ export default {
   background-color: #ffffff;
 }
 
-/* .navbar-brand img {
-  margin-left: 14px;
-} */
-
 .navbar-brand img {
   max-width: 33%;
   height: auto;
 }
 
+.navbar-toggler {
+  font-size: 1.7rem;
+}
+
 .header {
   font-family: BCcardL;
-  /* margin-bottom: 5.5rem; */
-  /* padding-bottom: 50px; */
 }
-/* 화면 조정 필요(full화면과 핸드폰 화면 차이 있음.)*/
-
-/* .navbar-brand {
-  padding-left: 20px;
-} */
 
 .nav-link {
   border-bottom: #fbca47 solid 3px;
   color: #fbca47;
 }
-
-/* .navbar-collapse {
-  padding-left: 9px;
-  padding-bottom: 0.5rem;
-  padding-right: 13px;
-} */
 
 .navbar-nav {
   margin: 0 25px;
@@ -160,13 +140,12 @@ export default {
   line-height: 20px;
   font-weight: 600;
   text-transform: uppercase;
-  /* padding: 0 0 3px 0; */
   position: relative;
 }
 
 li {
-  /* margin: 1px; */
-  /* padding: 4px; */
+  margin: 1px;
+  padding: 4px;
   list-style: none;
 }
 /*---------------------------------------nav 끝--------------------------------------- */
