@@ -30,6 +30,7 @@ export default new Vuex.Store({
     cashSales: 0,
     myCash: 0,
     tokenSales: 0,
+    exchangeOfMon: 0,
     tokenSalesMon: 0,
     myBz: 0,
   },
@@ -114,6 +115,7 @@ export default new Vuex.Store({
       await contracts.recipientMainLoad(address).then((res) => {
         state.cashSales = res["WonOfMon"]; //현금매출
         state.myCash = res["wonBalace"]; //출금가능 현금
+        state.exchangeOfMon = res["IncOfMon"]; //이달의 출금금액
         state.tokenSales = res["BzOfMon"]; //비즈매출
         state.tokenSalesMon = res["BzOfMon"] / state.incentiveRate; //이번달비즈
         state.myBz = res["BzBalace"] / state.incentiveRate; //환전가능 비즈

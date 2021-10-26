@@ -60,9 +60,9 @@
       </b-card>
       <ul class="detail_won">
         <li>
-          <a>이번달 매출</a>
+          <a>이달의 출금 매출</a>
           <a style="float:right"
-            >{{ this.$store.state.cashSales | comma }} 원</a
+            >{{ this.$store.state.exchangeOfMon | comma }} 원</a
           >
         </li>
         <li>
@@ -92,7 +92,7 @@
       <div>
         <ul class="detail_bz_ceo">
           <li>
-            <a>이번달 BEEZ</a>
+            <a>이달의 BEEZ</a>
             <a class="bz_amount">
               {{ this.$store.state.tokenSalesMon | comma }}
             </a>
