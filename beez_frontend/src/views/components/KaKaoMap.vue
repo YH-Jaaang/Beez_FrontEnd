@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Map_font">
     <div id="map"></div>
     <div class="button-group">
       <button @click="myLocation" style="mapButton">내 현재위치 찾기</button>
@@ -12,23 +12,42 @@
         v-for="(store, i) in this.loadedStoreList"
         :key="i"
       >
-        <li>가게이름: {{ store.nickName }}</li>
-        <!-- 0.1이 100미터 인듯 -->
-        <li v-if="store.distance < 0.1">가게까지의 거리가 100m미만 입니다.</li>
-        <li v-else>
-          가게까지 거리: 약{{ Math.ceil(store.distance * 1000) }}m 입니다.
-        </li>
+        <table class="reviewTable">
+          <tr>
+            <td class="td_box">
+              <li>가게이름: {{ store.nickName }}</li>
+
+              <!-- 0.1이 100미터 인듯 -->
+              <li v-if="store.distance < 0.1">
+                거리가 100m미만 입니다.
+              </li>
+              <li v-else>거리: 약 {{ Math.ceil(store.distance * 1000) }}m</li>
+            </td>
+
+            <td>
+              <tr rowspan="2" class="ReviewGoBtn">
+                <button class="reviewLoadBtn" @click="reviewLoad(i)">
+                  리뷰보기
+                </button>
+              </tr>
+            </td>
+          </tr>
+        </table>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 import axios from "axios";
 
 export default {
   name: "KakaoMap",
-
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       map: null,
@@ -37,6 +56,7 @@ export default {
       infowindow: null,
       loadedStoreList: [],
       storeAddress: "",
+      storeNickName: "",
     };
   },
   mounted() {
@@ -73,8 +93,6 @@ export default {
 
     // mylat은 내위치 mylon은 내경도 백엔드(mapController랑 통신함)
     async findStore(mylat, mylon) {
-      console.log(mylat, mylon);
-
       //  카카오에서 제공하는 기본마커 구성
       var imgSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -95,11 +113,10 @@ export default {
         .then((res) => {
           //db에서 받아온 store정보 저장하는 부분
           res.data.forEach(function(pos) {
-            console.log(pos.walletAddress);
             var storeName = pos.nickName;
             var latlng = new kakao.maps.LatLng(pos.lat, pos.lon);
             var storeAddress = pos.walletAddress;
-
+            var storeNickName = pos.nickName;
             self.loadedStoreList = res.data;
 
             //카카오에서 제공하는 마커 구성
@@ -121,25 +138,30 @@ export default {
             var content = document.createElement("div");
             content.className = "overlaybox";
 
+            /* <div class="overlaybox"> 
+    <div id = "storesName">
+
+    </div>  
+
+    <div class = "overlaycontent"> 
+
+    </div>
+</div> */
             var contentName = document.createElement("div");
             contentName.id = "storesName";
             contentName.appendChild(document.createTextNode(storeName));
             content.appendChild(contentName);
 
-            var buttonContainer = document.createElement("div");
-            buttonContainer.className = "overlaycontent";
-            // buttonContainer.appendChild(document.createTextNode(storeReview)))db에 저장한 리뷰변수로 이름만 바꾸면됨
-            content.appendChild(buttonContainer);
+            // var buttonContainer = document.createElement("div");
+            // buttonContainer.className = "overlaycontent";
+            // content.appendChild(buttonContainer);
 
-            var reviewBtn = document.createElement("button");
-            reviewBtn.id = "reviewBtn";
-            reviewBtn.appendChild(document.createTextNode("리뷰보러가기"));
             var closeBtn = document.createElement("button");
             closeBtn.id = "closeBtn";
             closeBtn.appendChild(document.createTextNode("닫기"));
 
-            buttonContainer.appendChild(reviewBtn);
-            buttonContainer.appendChild(closeBtn);
+            // buttonContainer.appendChild(reviewBtn);
+            content.appendChild(closeBtn);
 
             // var content = document.createElement("div");
             // content.className = "overlaybox";
@@ -164,23 +186,23 @@ export default {
             };
 
             //review보러가기 버튼 클릭 시 이동할 페이지 정의
+            // reviewBtn.onclick = function() {
+            //   self.$router.push({
+            //     name: "ReviewList",
+            //     params: {
+            //       storeAddress: storeAddress,
+            //       storeNickName: storeName,
+            //     },
+            //   });
+            // };
 
-            reviewBtn.onclick = function() {
-              self.$router.push({
-                name: "ReviewList",
-                params: {
-                  storeAddress: storeAddress,
-                  storeNickName: storeName,
-                },
-              });
-            };
             //맵 클릭 시 오버레이 지우는 함수
 
-            if (!customOverlay.setMap(null)) {
-              kakao.maps.event.addListener(self.map, "click", function() {
-                closeBtn.onclick();
-              });
-            }
+            // if (!customOverlay.setMap(null)) {
+            //   kakao.maps.event.addListener(self.map, "click", function() {
+            //     closeBtn.onclick();
+            //   });
+            // }
 
             //마커클릭 시 오버레이 띄우는 함수
             kakao.maps.event.addListener(marker, "click", function() {
@@ -213,7 +235,15 @@ export default {
       // infowindow.open(this.map, marker);
       this.map.setCenter(locPosition);
     },
-
+    reviewLoad(key) {
+      this.$router.push({
+        name: "ReviewList",
+        params: {
+          storeNickName: this.loadedStoreList[key].nickName,
+          storeAddress: this.loadedStoreList[key].walletAddress,
+        },
+      });
+    },
     myLocation() {
       // this가 안먹어서 이거 지우면 안됌
       let self = this;
@@ -247,6 +277,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/*-----------------폰트, @media---------------------------- */
+@font-face {
+  font-family: "BCcardB";
+  src: url("../../fonts/BCcardL.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.Map_font {
+  font-family: BCcardB;
+}
+/*----------------지도 css---------------------------- */
+
 #map {
   position: relative;
   margin: 0 auto;
@@ -261,21 +303,99 @@ export default {
 button {
   margin: auto;
   color: #fff;
-  background-color: #755328bf;
+  background-color: #ffbd07d8;
   font-size: 17px;
   width: 40%;
   display: block;
+  border: #fff solid;
+  font-weight: 900;
+  margin-bottom: 8%;
+  margin-top: 8%;
 }
 #User_information {
   font-size: 14px;
   font-weight: 900;
-  color: #714d2ad5;
-  padding: 2% 4%;
-  background-color: #f1ebe4;
+  color: #76512c;
+  padding: 1.5% 4%;
+  background-color: #fdfded;
   box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
-  width: 82%;
+  width: 70%;
   margin: 2% auto;
   border-radius: 10px;
+}
+
+#User_information .reviewTable {
+  width: 100%;
+}
+.ReviewGoBtn {
+  margin-left: 50px;
+}
+.reviewLoadBtn {
+  font-size: 14px;
+  font-weight: 900;
+  color: #76512c;
+  background-color: #ffde02;
+  box-shadow: 1px 1px 2px 2px rgb(235, 231, 231);
+  border-radius: 15px;
+  width: 108%;
+  margin-left: 5%;
+  border: 3px solid #ffde02;
+  margin-top: 15%;
+  float: right;
+}
+.td_box {
+  width: 80%;
+}
+
+/* -------------카카오 맵-------------------- */
+
+.myLocation {
+  text-align: center;
+}
+.button-group button {
+  border-radius: 8px;
+  margin: auto;
+}
+
+.overlaybox {
+  color: inherit;
+  font-weight: bold;
+  font-size: large;
+  background-color: aliceblue;
+  border-radius: 5px;
+  padding: unset;
+  margin-bottom: 5%;
+  font-family: "BCcardL";
+  border: 2px solid;
+  text-align: center;
+}
+
+.overlaybox #storesName {
+  color: rgb(160, 94, 47);
+  font-size: large;
+  text-align: center;
+  background-color: beige;
+  margin-bottom: auto;
+  font-family: "BCcardL";
+  border-bottom: 2px solid;
+}
+
+.overlaybox #closeBtn {
+  background-color: cornsilk;
+  border-bottom: none;
+  border-top: none;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  width: 100%;
+  font-size: medium;
+}
+.myLocation {
+  text-align: center;
+}
+.button-group button {
+  border-radius: 8px;
+  margin: auto;
 }
 /* .overlaycontent {
 
