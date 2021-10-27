@@ -24,6 +24,8 @@ const routes = [
       header: () => import("@/layout/StartHeader.vue"),
       footer: () => import("@/layout/Footer.vue"),
     },
+    name: "nonUserReviewList",
+    props: true,
   },
   {
     //맵

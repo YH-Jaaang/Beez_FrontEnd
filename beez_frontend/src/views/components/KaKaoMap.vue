@@ -235,13 +235,24 @@ export default {
       this.map.setCenter(locPosition);
     },
     reviewLoad(key) {
-      this.$router.push({
-        name: "ReviewList",
-        params: {
-          storeNickName: this.loadedStoreList[key].nickName,
-          storeAddress: this.loadedStoreList[key].walletAddress,
-        },
-      });
+      if(window.location.pathname === "/StoreList"){
+        this.$router.push({
+          name: "ReviewList",
+          params: {
+            storeNickName: this.loadedStoreList[key].nickName,
+            storeAddress: this.loadedStoreList[key].walletAddress,
+          },
+        });
+      }
+      else if(window.location.pathname === "/nonUserStoreList"){
+        this.$router.push({
+          name: "nonUserReviewList",
+          params: {
+            storeNickName: this.loadedStoreList[key].nickName,
+            storeAddress: this.loadedStoreList[key].walletAddress,
+          },
+        });
+      }
     },
     myLocation() {
       // this가 안먹어서 이거 지우면 안됨

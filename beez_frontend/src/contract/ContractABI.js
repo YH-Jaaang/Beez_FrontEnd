@@ -1,5 +1,10 @@
 const PAYMENT_ABI = [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -79,108 +84,6 @@ const PAYMENT_ABI = [
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_visitor",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_recipient",
-				"type": "address"
-			},
-			{
-				"internalType": "uint128",
-				"name": "_cost",
-				"type": "uint128"
-			},
-			{
-				"internalType": "uint128",
-				"name": "_wonAmount",
-				"type": "uint128"
-			},
-			{
-				"internalType": "uint128",
-				"name": "_bzAmount",
-				"type": "uint128"
-			}
-		],
-		"name": "payment",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_month",
-				"type": "uint256"
-			}
-		],
-		"name": "setMonth",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract WonToken",
-				"name": "_wonTokenAddr",
-				"type": "address"
-			},
-			{
-				"internalType": "contract BeezToken",
-				"name": "_bzTokenAddr",
-				"type": "address"
-			}
-		],
-		"name": "setTokenCA",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_visitor",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_visitTime",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "value1",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "value2",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "value3",
-				"type": "string"
-			}
-		],
-		"name": "writeReview",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"inputs": [],
@@ -274,6 +177,39 @@ const PAYMENT_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_visitor",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint128",
+				"name": "_cost",
+				"type": "uint128"
+			},
+			{
+				"internalType": "uint128",
+				"name": "_wonAmount",
+				"type": "uint128"
+			},
+			{
+				"internalType": "uint128",
+				"name": "_bzAmount",
+				"type": "uint128"
+			}
+		],
+		"name": "payment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -408,6 +344,37 @@ const PAYMENT_ABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_month",
+				"type": "uint256"
+			}
+		],
+		"name": "setMonth",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract WonToken",
+				"name": "_wonTokenAddr",
+				"type": "address"
+			},
+			{
+				"internalType": "contract BeezToken",
+				"name": "_bzTokenAddr",
+				"type": "address"
+			}
+		],
+		"name": "setTokenCA",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "_to",
 				"type": "address"
@@ -449,6 +416,39 @@ const PAYMENT_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_visitor",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_visitTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "value1",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "value2",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "value3",
+				"type": "string"
+			}
+		],
+		"name": "writeReview",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ];
