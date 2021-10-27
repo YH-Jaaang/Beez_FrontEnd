@@ -19,7 +19,7 @@
                 사용 가능금액
                 <FontAwesomeIcon :icon="faAngleRight" id="ac_icon" />
               </h3>
-              <h1>{{ this.$store.state.wonBalace | comma }}원</h1>
+              <h1>{{ this.$store.state.wonBalace | comma }} 원</h1>
             </b-col>
           </b-row>
         </b-container>
@@ -30,13 +30,13 @@
           <li>
             <a>이달의 충전금액</a>
             <a style="float:right"
-              >{{ this.$store.state.wonOfMon | comma }}원</a
+              >{{ this.$store.state.wonOfMon | comma }} 원</a
             >
           </li>
           <li>
             <a>이달의 인센티브</a>
             <a style="float:right"
-              >{{ this.$store.state.incOfMon | comma }}원</a
+              >{{ this.$store.state.incOfMon | comma }} 원</a
             >
           </li>
           <div class="text-center">

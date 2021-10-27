@@ -130,7 +130,7 @@
           >
             <div class="d-block">
               <a class="posit_rel margin138">현금 결제</a>
-              <a class="posit_rel" style="float:right">{{ won }} 원</a>
+              <a class="posit_rel" style="float:right">{{ won | comma }} 원</a>
             </div>
             <div class="d-block" v-if="this.form.bz == ''">
               <a class="posit_rel margin138">BZ 결제</a>
@@ -138,11 +138,11 @@
             </div>
             <div class="d-block" v-else>
               <a class="posit_rel margin138">BZ 결제</a>
-              <a class="posit_rel" style="float:right">{{ form.bz }} BZ</a>
+              <a class="posit_rel" style="float:right">{{ form.bz | comma }} BZ</a>
             </div>
             <div class="d-block" id="total_pay">
               <a class="posit_rel margin90">총 결제금액</a>
-              <a class="posit_rel2" style="float:right">{{ form.price }} 원</a>
+              <a class="posit_rel2" style="float:right">{{ form.price | comma }} 원</a>
             </div>
             <div class="note">
               <h4>

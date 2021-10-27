@@ -24,8 +24,7 @@
                   (parseInt(this.$store.state.cashSales) +
                     parseInt(this.$store.state.tokenSales))
                     | comma
-                }}
-                원
+                }} 원
               </h1>
             </b-col>
           </b-row>

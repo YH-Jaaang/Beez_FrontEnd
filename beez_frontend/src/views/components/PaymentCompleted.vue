@@ -42,16 +42,16 @@
       </b-card>
       <div class="detail_bz">
         <table class="table_align">
-          <tbody class="table_tbody">
+          <!-- <tbody class="table_tbody">
             <tr>
               <td class="text">주문번호</td>
               <td class="amount">
                 <a>
-                  <!-- {{ $route.params.tx }} -->
+                   {{ $route.params.tx }} 
                 </a>
               </td>
             </tr>
-          </tbody>
+          </tbody> -->
 
           <tbody class="table_tbody">
             <tr>
@@ -79,7 +79,7 @@
             <tr>
               <td class="text">BEEZ</td>
               <td class="amount">
-                <a v-if="$route.params.beez == 0"> </a>
+                <a v-if="$route.params.beez == 0"> 0 BZ</a>
                 <a v-else> {{ $route.params.beez | comma }} BZ </a>
               </td>
             </tr>

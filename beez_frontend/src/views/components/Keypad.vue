@@ -75,7 +75,7 @@ export default {
         }
       })
       .catch(() => {
-        this.text = "설정";
+        this.text = " 설정";
         console.warn = console.error = () => {};
       });
   },

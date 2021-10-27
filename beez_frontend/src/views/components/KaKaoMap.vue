@@ -39,14 +39,13 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import axios from "axios";
 
 export default {
   name: "KakaoMap",
   components: {
-    FontAwesomeIcon,
+
   },
   data() {
     return {
@@ -198,11 +197,11 @@ export default {
 
             //맵 클릭 시 오버레이 지우는 함수
 
-            // if (!customOverlay.setMap(null)) {
-            //   kakao.maps.event.addListener(self.map, "click", function() {
-            //     closeBtn.onclick();
-            //   });
-            // }
+            if (!customOverlay.setMap(null)) {
+               kakao.maps.event.addListener(self.map, "click", function() {
+                 closeBtn.onclick();
+               });
+            }
 
             //마커클릭 시 오버레이 띄우는 함수
             kakao.maps.event.addListener(marker, "click", function() {
@@ -245,7 +244,7 @@ export default {
       });
     },
     myLocation() {
-      // this가 안먹어서 이거 지우면 안됌
+      // this가 안먹어서 이거 지우면 안됨
       let self = this;
 
       // 내 위도 경도 받아서 kakao에 세팅하는 함수
@@ -347,56 +346,6 @@ button {
   width: 80%;
 }
 
-/* -------------카카오 맵-------------------- */
-
-.myLocation {
-  text-align: center;
-}
-.button-group button {
-  border-radius: 8px;
-  margin: auto;
-}
-
-.overlaybox {
-  color: inherit;
-  font-weight: bold;
-  font-size: large;
-  background-color: aliceblue;
-  border-radius: 5px;
-  padding: unset;
-  margin-bottom: 5%;
-  font-family: "BCcardL";
-  border: 2px solid;
-  text-align: center;
-}
-
-.overlaybox #storesName {
-  color: rgb(160, 94, 47);
-  font-size: large;
-  text-align: center;
-  background-color: beige;
-  margin-bottom: auto;
-  font-family: "BCcardL";
-  border-bottom: 2px solid;
-}
-
-.overlaybox #closeBtn {
-  background-color: cornsilk;
-  border-bottom: none;
-  border-top: none;
-  border-right: none;
-  border-top: none;
-  border-left: none;
-  width: 100%;
-  font-size: medium;
-}
-.myLocation {
-  text-align: center;
-}
-.button-group button {
-  border-radius: 8px;
-  margin: auto;
-}
 /* .overlaycontent {
 
 } */

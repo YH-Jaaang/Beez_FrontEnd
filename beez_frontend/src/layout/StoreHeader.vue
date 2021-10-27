@@ -88,6 +88,7 @@ export default {
       // console.log(to + "" + recipient + "" + wonAmount + "" + bzAmount);
       this.$toaster.success("결제가 완료되었습니다.");
       this.$store.commit("paymentList", payload);
+      this.$store.commit("storeMain");
     });
     //환전
     const contract2 = new Contract(CONTRACT_ADDRESS, abi, provider);
