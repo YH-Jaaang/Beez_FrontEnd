@@ -151,7 +151,7 @@ export default {
       } else {
         //else if(세션값이 존재하지 않으면 세션으로 저장 후 재입력)
         storage.setItem("passCheck", this.value);
-        this.text = "재 입력";
+        this.text = " 재입력";
         this.value = "";
         this.errMsg = "";
       }

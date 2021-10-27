@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <div class="li_btn text-center">
+            <div class="li_btn3 text-center">
               <b-button @click="searchDate()">
                 검색
               </b-button>
@@ -529,6 +529,9 @@ export default {
   width: 82%;
   margin: 0px 2px 10px 0px;
   font-family: BCcardB;
+}
+.li_btn3 .btn {
+  background-color: #e0dfdf7d;
 }
 /*----------------------------Reviewlsit box-------------------------------*/
 .User_history {
