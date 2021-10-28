@@ -251,9 +251,9 @@
           </b-card>
         </b-modal>
         <b-modal centered id="joinModalFail" hide-header hide-footer>
-          <h5>회원가입이 실패되었습니다.</h5>
+          <h5>{{ this.failText }}</h5>
           <b-card>
-            <b-button @click="gotoMain">확인</b-button>
+            <b-button @click="modalFail">확인</b-button>
           </b-card>
         </b-modal>
       </b-form>
@@ -305,6 +305,7 @@ export default {
       bank_name: null,
       account_number: "",
       displayTime: "",
+      failText: "",
 
       checkbox1: "",
       checkbox2: "",
@@ -586,6 +587,9 @@ export default {
       this.$bvModal.hide("phoneModal");
       this.$bvModal.hide("phoneModalFail");
     },
+    modalFail() {
+      this.$bvModal.hide("joinModalFail");
+    },
     resetModal() {
       this.phone2 = "";
     },
@@ -611,22 +615,16 @@ export default {
         !this.emailCheckError ||
         this.phoneCheckError
       ) {
-        alert("회원가입 입력란을 확인해주세요.");
+        this.failText = "회원가입 입력란을 확인해주세요.";
+        this.$bvModal.show("joinModalFail");
         return;
       } else if (!this.checkbox1 || !this.checkbox2) {
-        alert("회원가입 동의란을 확인해주세요.");
+        this.failText = "회원가입 동의란을 확인해주세요.";
+        this.$bvModal.show("joinModalFail");
         return;
       } else {
-        (async () => {
-          await axios
-            .post("/api/join", params)
-            .then(() => {
-              this.$bvModal.show("joinModalOk");
-            })
-            .catch(() => {
-              this.$bvModal.show("joinModalFail");
-            });
-        })();
+        axios.post("/api/join", params);
+        this.$bvModal.show("joinModalOk");
       }
     },
     gotoMain() {
