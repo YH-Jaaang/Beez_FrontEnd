@@ -77,7 +77,7 @@ export default {
     const payload = {
       start: 7,
       end: 0,
-      page: 2,
+      page: 1,
     };
     const address = localStorage.getItem("address");
     const abi = PAYMENT_ABI;

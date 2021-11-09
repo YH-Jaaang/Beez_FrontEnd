@@ -59,7 +59,7 @@
       </b-card>
       <ul class="detail_won">
         <li>
-          <a>이달의 출금 매출</a>
+          <a>이달의 출금 내역</a>
           <a style="float:right"
             >{{ this.$store.state.exchangeOfMon | comma }} 원</a
           >
