@@ -134,7 +134,7 @@
 ```
 
 # 프로젝트 주요 기능
-![프로젝트 주요 기능](https://drive.google.com/file/d/1A6erwNHxqRvL-8zcjVixeJDAmbAwoFwu/view?usp=sharing)
+![프로젝트 주요 기능](https://github.com/YH-Jaaang/Beez_FrontEnd/blob/main/functions_of_the_project.png)
 
 # 프로그램 실행방법
 ```bash
