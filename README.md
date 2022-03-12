@@ -15,7 +15,7 @@
 
 # 프로젝트 관련 PPT/영상
 ```bash
- * https://drive.google.com/drive/folders/19GeGUIG9Dh2e3YhCmFr3-qRD9bDX8jzZ?usp=sharing
+ * <https://drive.google.com/drive/folders/19GeGUIG9Dh2e3YhCmFr3-qRD9bDX8jzZ?usp=sharing>
 ```
 
 # 프로젝트 구조
